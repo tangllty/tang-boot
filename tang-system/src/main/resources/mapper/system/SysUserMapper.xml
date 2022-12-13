@@ -47,7 +47,7 @@
             <if test="createBy != null and createBy != ''">create_by,</if>
             <if test="remark != null and remark != ''">remark,</if>
             create_time
-        )values(
+        ) values (
             <if test="userId != null and userId != ''">#{userId},</if>
             <if test="deptId != null and deptId != ''">#{deptId},</if>
             <if test="username != null and username != ''">#{username},</if>
