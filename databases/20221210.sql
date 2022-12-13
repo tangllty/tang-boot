@@ -62,7 +62,7 @@ create table sys_role (
     role_name    varchar(32)   not null                 comment '角色名称',
     role_key     varchar(64)   not null                 comment '角色权限字符串',
     role_sort    int(4)        default 0                comment '显示顺序',
-    data_scope   char(1)       default '0'              comment '数据范围{0=全部}（1：全部数据权限 2：自定数据权限 3：本部门数据权限 4：本部门及以下数据权限）',
+    data_scope   char(1)       default '0'              comment '数据范围{0=全部}',
     status       char(1)       default '0'              comment '角色状态{0=正常, 1=停用}',
     del_flag     char(1)       default '0'              comment '删除标志{0=正常, 2=删除}',
     create_by    varchar(64)   default ''               comment '创建者',
