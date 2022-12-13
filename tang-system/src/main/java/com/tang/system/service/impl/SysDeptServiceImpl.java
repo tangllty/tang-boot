@@ -74,4 +74,5 @@ public class SysDeptServiceImpl implements SysDeptService {
     public int deleteDeptByDeptId(Long deptId) {
         return deptMapper.deleteDeptByDeptId(deptId);
     }
+
 }

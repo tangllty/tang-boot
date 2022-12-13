@@ -11,7 +11,7 @@ import com.tang.system.entity.SysDept;
  */
 public interface SysDeptService {
 
-  /**
+    /**
      * 获取部门列表
      *
      * @param dept 部门对象
@@ -46,9 +46,9 @@ public interface SysDeptService {
     /**
      * 通过主键删除数据
      *
-     * @param userId 主键
+     * @param deptId 主键
      * @return 影响行数
      */
-    int deleteDeptByDeptId(Long userId);
+    int deleteDeptByDeptId(Long deptId);
 
 }
