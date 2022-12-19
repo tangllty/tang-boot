@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -58,7 +59,7 @@ public class SysUserController {
      * @return 影响行数
      */
     @PostMapping
-    public AjaxResult add(SysUser user) {
+    public AjaxResult add(@RequestBody SysUser user) {
         return AjaxResult.success(userService.insertUser(user));
     }
 
