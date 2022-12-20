@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tang.commons.utils.AjaxResult;
+import com.tang.commons.utils.page.PageUtils;
+import com.tang.commons.utils.page.TableDataResult;
 import com.tang.system.entity.SysUser;
 import com.tang.system.service.SysUserService;
 
@@ -36,9 +38,10 @@ public class SysUserController {
      * @return 用户列表
      */
     @GetMapping("/list")
-    public AjaxResult list(SysUser user){
+    public TableDataResult list(SysUser user){
+        PageUtils.startPage();
         var list = userService.selectUserList(user);
-        return AjaxResult.success(list);
+        return PageUtils.getDataTable(list);
     }
 
     /**
@@ -70,7 +73,7 @@ public class SysUserController {
      * @return 影响行数
      */
     @PutMapping
-    public AjaxResult edit(SysUser user) {
+    public AjaxResult edit(@RequestBody SysUser user) {
         return AjaxResult.success(this.userService.updateUserByUserId(user));
     }
 
