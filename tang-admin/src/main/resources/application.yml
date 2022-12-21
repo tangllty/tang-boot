@@ -46,3 +46,11 @@ springdoc:
     enabled: true
     # 访问路径
     path: /api-docs
+
+# 日志配置
+logging:
+  level:
+    org:
+      springframework: warn
+    com:
+      tang: debug
