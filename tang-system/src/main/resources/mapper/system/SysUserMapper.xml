@@ -25,6 +25,20 @@
     <select id="selectUserList" resultMap="SysUserMap">
         select user_id, dept_id, username, nickname, email, phone, gender, avatar, password, status, login_ip, login_date, create_by, create_time, update_by, update_time, remark
         from sys_user
+        <where>
+            <if test="username != null and username != ''">
+                AND username = #{username}
+            </if>
+            <if test="nickname != null and nickname != ''">
+                AND nickname like concat('%', #{nickname}, '%')
+            </if>
+            <if test="gender != null and gender != ''">
+                AND gender = #{gender}
+            </if>
+            <if test="status != null and status != ''">
+                AND status = #{status}
+            </if>
+        </where>
     </select>
 
     <select id="selectUserByUserId" resultMap="SysUserMap">
