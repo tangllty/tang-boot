@@ -3,6 +3,7 @@ package com.tang.system.entity;
 import java.io.Serial;
 import java.util.Date;
 import java.io.Serializable;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 /**
  * 用户表 sys_user 实体类
@@ -82,6 +83,7 @@ public class SysUser implements Serializable {
     /**
      * 创建时间
      */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date createTime;
 
     /**
@@ -92,6 +94,7 @@ public class SysUser implements Serializable {
     /**
      * 更新时间
      */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date updateTime;
 
     /**
