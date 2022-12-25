@@ -1,4 +1,4 @@
-package com.tang.commons.core.pojo;
+package com.tang.commons.utils.tree;
 
 import java.io.Serializable;
 import java.util.List;

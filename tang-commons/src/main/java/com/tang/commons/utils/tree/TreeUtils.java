@@ -1,9 +1,7 @@
-package com.tang.commons.utils;
+package com.tang.commons.utils.tree;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import com.tang.commons.core.pojo.TreeSelect;
 
 /**
  * 树结构工具类
@@ -35,6 +33,9 @@ public class TreeUtils {
      * @return 树结构数据
      */
     public static List<TreeSelect> buildTree(List<TreeSelect> treeSelectList, Long parentId) {
+        if (treeSelectList == null) {
+            return new ArrayList<>();
+        }
         if (treeSelectList.isEmpty()) {
             return treeSelectList;
         }
