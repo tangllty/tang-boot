@@ -7,18 +7,21 @@ package com.tang.commons.exception;
  */
 public class UtilsException extends RuntimeException {
 
-    private static final long serialVersionUID = 8247610319171014183L;
+    private static final long serialVersionUID = 5639542226042752126L;
 
-    public UtilsException(Throwable e) {
-        super(e.getMessage(), e);
+    public UtilsException() {
     }
 
     public UtilsException(String message) {
         super(message);
     }
 
-    public UtilsException(String message, Throwable throwable) {
-        super(message, throwable);
+    public UtilsException(Throwable cause) {
+        super(cause);
+    }
+
+    public UtilsException(String message, Throwable cause) {
+        super(message, cause);
     }
 
 }
