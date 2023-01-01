@@ -50,6 +50,9 @@ public class SysDeptServiceImpl implements SysDeptService {
                 o.setChildren(getChildrenList(deptList, o));
                 return o;
             }).collect(Collectors.toList());
+        if (list.isEmpty() && !deptList.isEmpty()) {
+            return deptList;
+        }
         return list;
     }
 
