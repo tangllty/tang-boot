@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.tang.system.mapper.SysDeptMapper">
 
-    <resultMap type="com.tang.system.entity.SysDept" id="SysDeptMap">
+    <resultMap id="SysDeptMap" type="com.tang.system.entity.SysDept">
         <result property="deptId" column="dept_id" />
         <result property="parentId" column="parent_id" />
         <result property="ancestors" column="ancestors" />
@@ -16,15 +16,26 @@
         <result property="remark" column="remark" />
     </resultMap>
 
+    <sql id="SysDeptVo">
+        select d.dept_id, d.parent_id, d.ancestors, d.dept_name, d.order_num, d.status, d.create_by, d.create_time, d.update_by, d.update_time, d.remark
+        from sys_dept d
+    </sql>
+
     <select id="selectDeptList" resultMap="SysDeptMap">
-        select dept_id, parent_id, ancestors, dept_name, order_num, status, create_by, create_time, update_by, update_time, remark
-        from sys_dept
+        <include refid="SysDeptVo" />
+        <where>
+            <if test="deptName != null and deptName != ''">
+                and d.dept_name like concat('%', #{deptName}, '%')
+            </if>
+            <if test="status != null and status != ''">
+                and d.status = #{status}
+            </if>
+        </where>
     </select>
 
     <select id="selectDeptByDeptId" resultMap="SysDeptMap">
-        select dept_id, parent_id, ancestors, dept_name, order_num, status, create_by, create_time, update_by, update_time, remark
-        from sys_dept
-        where dept_id = #{deptId}
+        <include refid="SysDeptVo" />
+        where d.dept_id = #{deptId}
     </select>
 
     <insert id="insertDept" useGeneratedKeys="true" keyProperty="deptId">
@@ -55,11 +66,9 @@
             <if test="deptName != null and deptName != ''">dept_name = #{deptName},</if>
             <if test="orderNum != null">order_num = #{orderNum},</if>
             <if test="status != null and status != ''">status = #{status},</if>
-            <if test="createBy != null and createBy != ''">create_by = #{createBy},</if>
-            <if test="createTime != null">create_time = #{createTime},</if>
             <if test="updateBy != null and updateBy != ''">update_by = #{updateBy},</if>
-            <if test="updateTime != null">update_time = #{updateTime},</if>
             <if test="remark != null and remark != ''">remark = #{remark},</if>
+            update_time = sysdate()
         </set>
         where dept_id = #{deptId}
     </update>
