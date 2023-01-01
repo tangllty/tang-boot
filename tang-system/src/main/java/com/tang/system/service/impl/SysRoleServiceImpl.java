@@ -1,13 +1,13 @@
 package com.tang.system.service.impl;
 
-import com.tang.system.entity.SysDept;
-import com.tang.system.entity.SysRole;
-import com.tang.system.mapper.SysRoleMapper;
-import com.tang.system.service.SysRoleService;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import com.tang.system.entity.SysRole;
+import com.tang.system.mapper.SysRoleMapper;
+import com.tang.system.service.SysRoleService;
 
 /**
  * 角色表 SysRole 表服务实现类

@@ -7,6 +7,7 @@ package com.tang.commons.exception;
  */
 public class UtilsException extends RuntimeException {
 
+    @java.io.Serial
     private static final long serialVersionUID = 5639542226042752126L;
 
     public UtilsException() {

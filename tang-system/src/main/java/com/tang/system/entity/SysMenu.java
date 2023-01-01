@@ -1,7 +1,7 @@
 package com.tang.system.entity;
 
-import java.util.Date;
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * 菜单权限表 sys_menu 实体类
@@ -11,6 +11,7 @@ import java.io.Serializable;
  */
 public class SysMenu implements Serializable {
 
+    @java.io.Serial
     private static final long serialVersionUID = 307090675149949831L;
 
     /**

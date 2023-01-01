@@ -2,6 +2,7 @@ package com.tang.commons.utils.tree;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * 树结构工具类
@@ -41,7 +42,7 @@ public class TreeUtils {
         }
         var list = new ArrayList<TreeSelect>();
         treeSelectList.forEach(treeSelect -> {
-            if (treeSelect.getParentId() == parentId) {
+            if (Objects.equals(treeSelect.getParentId(), parentId)) {
                 list.add(treeSelect);
                 recursionTree(treeSelectList, treeSelect);
             }
@@ -57,7 +58,7 @@ public class TreeUtils {
      */
     private static void recursionTree(List<TreeSelect> treeSelectList, TreeSelect parentTreeSelect) {
         treeSelectList.forEach(treeSelect -> {
-            if (treeSelect.getParentId() == parentTreeSelect.getValue()) {
+            if (Objects.equals(treeSelect.getParentId(), parentTreeSelect.getValue())) {
                 List<TreeSelect> children = parentTreeSelect.getChildren();
                 if (children == null) {
                     children = new ArrayList<>();

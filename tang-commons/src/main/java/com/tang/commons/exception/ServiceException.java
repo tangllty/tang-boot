@@ -7,6 +7,7 @@ package com.tang.commons.exception;
  */
 public class ServiceException extends RuntimeException {
 
+    @java.io.Serial
     private static final long serialVersionUID = 4087812489526530941L;
 
     public ServiceException() {

@@ -1,11 +1,10 @@
 package com.tang.system.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-
-import java.io.Serializable;
 
 /**
  * 部门表 sys_dept 实体类
@@ -14,6 +13,7 @@ import java.io.Serializable;
  */
 public class SysDept implements Serializable {
 
+    @java.io.Serial
     private static final long serialVersionUID = -44359894506457244L;
 
     /**

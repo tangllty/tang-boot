@@ -11,6 +11,9 @@ import com.tang.commons.constants.HttpStatus;
  */
 public class AjaxResult extends HashMap<String, Object> {
 
+    @java.io.Serial
+    private static final long serialVersionUID = 9041781511255940851L;
+
     /**
      * 操作码
      */

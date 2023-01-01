@@ -10,7 +10,8 @@ import java.util.List;
  */
 public class TableDataResult implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+    @java.io.Serial
+    private static final long serialVersionUID = -3574841096909987024L;
 
     /**
      * 总记录数

@@ -1,8 +1,8 @@
 package com.tang.system.mapper;
 
-import com.tang.system.entity.SysRole;
-
 import java.util.List;
+
+import com.tang.system.entity.SysRole;
 
 /**
  * 角色表 sys_role 表数据库访问层

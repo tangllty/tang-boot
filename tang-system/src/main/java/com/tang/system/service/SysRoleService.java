@@ -1,8 +1,8 @@
 package com.tang.system.service;
 
-import com.tang.system.entity.SysRole;
-
 import java.util.List;
+
+import com.tang.system.entity.SysRole;
 
 /**
  * 角色表 SysRole 表服务接口

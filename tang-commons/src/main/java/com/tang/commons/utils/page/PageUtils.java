@@ -36,14 +36,13 @@ public class PageUtils extends PageHelper {
     /**
      * 响应请求分页数据
      */
-    @SuppressWarnings({"rawtypes", "unchecked"})
     public static TableDataResult getDataTable(List<?> list) {
-        return new TableDataResult() {{
-            setCode(HttpStatus.SUCCESS);
-            setMsg("查询成功");
-            setRows(list);
-            setTotal(new PageInfo(list).getTotal());
-        }};
+        var tableDataResult = new TableDataResult();
+        tableDataResult.setCode(HttpStatus.SUCCESS);
+        tableDataResult.setMsg("查询成功");
+        tableDataResult.setRows(list);
+        tableDataResult.setTotal(new PageInfo<>(list).getTotal());
+        return tableDataResult;
     }
 
 }

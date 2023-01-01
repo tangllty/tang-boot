@@ -2,6 +2,7 @@ package com.tang.system.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,7 +66,7 @@ public class SysDeptServiceImpl implements SysDeptService {
      */
     private List<SysDept> getChildrenList(List<SysDept> deptList, SysDept parentDept) {
         var childrenList = deptList.stream()
-            .filter(dept -> dept.getParentId() == parentDept.getDeptId())
+            .filter(dept -> Objects.equals(dept.getParentId(), parentDept.getDeptId()))
             .map(dept -> {
                 dept.setChildren(getChildrenList(deptList, dept));
                 return dept;

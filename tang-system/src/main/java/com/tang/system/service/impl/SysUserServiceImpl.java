@@ -1,13 +1,13 @@
 package com.tang.system.service.impl;
 
-import com.tang.system.entity.SysUser;
-import com.tang.system.mapper.SysUserMapper;
-import com.tang.system.service.SysUserService;
-
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.tang.system.entity.SysUser;
+import com.tang.system.mapper.SysUserMapper;
+import com.tang.system.service.SysUserService;
 
 /**
  * 用户表 SysUser 表服务实现类

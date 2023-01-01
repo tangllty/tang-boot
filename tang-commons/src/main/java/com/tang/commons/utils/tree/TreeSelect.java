@@ -13,7 +13,8 @@ import com.fasterxml.jackson.annotation.JsonInclude;
  */
 public class TreeSelect implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+    @java.io.Serial
+    private static final long serialVersionUID = -5072364851437166728L;
 
     /**
      * 父节点ID

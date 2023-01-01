@@ -1,7 +1,7 @@
 package com.tang.system.entity;
 
-import java.util.Date;
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * 角色表 sys_role 实体类
@@ -10,6 +10,7 @@ import java.io.Serializable;
  */
 public class SysRole implements Serializable {
 
+    @java.io.Serial
     private static final long serialVersionUID = -56728311606119809L;
 
     /**

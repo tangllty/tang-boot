@@ -1,8 +1,8 @@
 package com.tang.system.entity;
 
-import java.io.Serial;
-import java.util.Date;
 import java.io.Serializable;
+import java.util.Date;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 /**
@@ -12,7 +12,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
  */
 public class SysUser implements Serializable {
 
-    @Serial
+    @java.io.Serial
     private static final long serialVersionUID = -72885491150477022L;
 
     /**
