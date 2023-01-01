@@ -2,6 +2,7 @@ package com.tang.system.service;
 
 import java.util.List;
 
+import com.tang.commons.utils.tree.TreeSelect;
 import com.tang.system.entity.SysDept;
 
 /**
@@ -18,6 +19,22 @@ public interface SysDeptService {
      * @return 部门列表
      */
     List<SysDept> selectDeptList(SysDept dept);
+
+    /**
+     * 获取部门树
+     *
+     * @param dept 部门对象
+     * @return 部门树
+     */
+    List<SysDept> selectDeptListTree(SysDept dept);
+
+    /**
+     * 获取部门树下拉选项
+     *
+     * @param dept 部门对象
+     * @return 部门树下拉选项
+     */
+    List<TreeSelect> selectDeptTree(SysDept dept);
 
     /**
      * 通过主键查询单条数据

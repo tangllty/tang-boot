@@ -1,6 +1,10 @@
 package com.tang.system.entity;
 
 import java.util.Date;
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.io.Serializable;
 
 /**
@@ -50,6 +54,7 @@ public class SysDept implements Serializable {
     /**
      * 创建时间
      */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date createTime;
 
     /**
@@ -60,12 +65,18 @@ public class SysDept implements Serializable {
     /**
      * 更新时间
      */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date updateTime;
 
     /**
      * 备注
      */
     private String remark;
+
+    /**
+     * 子部门
+     */
+    private List<SysDept> children;
 
 
     public Long getDeptId() {
@@ -154,6 +165,14 @@ public class SysDept implements Serializable {
 
     public void setRemark(String remark) {
         this.remark = remark;
+    }
+
+    public List<SysDept> getChildren() {
+        return children;
+    }
+
+    public void setChildren(List<SysDept> children) {
+        this.children = children;
     }
 
 }

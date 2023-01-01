@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -36,7 +37,19 @@ public class SysDeptController {
      */
     @GetMapping("/list")
     public AjaxResult list(SysDept dept){
-        var list = deptService.selectDeptList(dept);
+        var list = deptService.selectDeptListTree(dept);
+        return AjaxResult.success(list);
+    }
+
+    /**
+     * 获取部门树下拉选项
+     *
+     * @param dept 部门对象
+     * @return 部门树下拉选项
+     */
+    @GetMapping("/deptTree")
+    public AjaxResult deptTree(SysDept dept){
+        var list = deptService.selectDeptTree(dept);
         return AjaxResult.success(list);
     }
 
@@ -58,7 +71,7 @@ public class SysDeptController {
      * @return 影响行数
      */
     @PostMapping
-    public AjaxResult add(SysDept dept) {
+    public AjaxResult add(@RequestBody SysDept dept) {
         return AjaxResult.success(deptService.insertDept(dept));
     }
 
@@ -69,7 +82,7 @@ public class SysDeptController {
      * @return 影响行数
      */
     @PutMapping
-    public AjaxResult edit(SysDept dept) {
+    public AjaxResult edit(@RequestBody SysDept dept) {
         return AjaxResult.success(deptService.updateDeptByDeptId(dept));
     }
 
