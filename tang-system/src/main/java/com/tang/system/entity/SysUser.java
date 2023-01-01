@@ -102,6 +102,11 @@ public class SysUser implements Serializable {
      */
     private String remark;
 
+    /**
+     * 部门对象
+     */
+    private SysDept dept;
+
 
     public Long getUserId() {
         return userId;
@@ -237,6 +242,14 @@ public class SysUser implements Serializable {
 
     public void setRemark(String remark) {
         this.remark = remark;
+    }
+
+    public SysDept getDept() {
+        return dept;
+    }
+
+    public void setDept(SysDept dept) {
+        this.dept = dept;
     }
 
 }
