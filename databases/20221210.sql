@@ -13,8 +13,8 @@ drop table if exists sys_dept;
 create table sys_dept (
     dept_id      bigint(20)    not null auto_increment  comment '部门id',
     parent_id    bigint(20)    default 0                comment '父部门id',
-    ancestors    varchar(50)   default ''               comment '祖级列表',
-    dept_name    varchar(30)   default ''               comment '部门名称',
+    ancestors    varchar(128)  default ''               comment '祖级列表',
+    dept_name    varchar(32)   default ''               comment '部门名称',
     order_num    int(4)        default 0                comment '显示顺序',
     status       char(1)       default '0'              comment '部门状态{0=正常, 1=停用}',
     del_flag     char(1)       default '0'              comment '删除标志{0=正常, 1=删除}',
