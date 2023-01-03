@@ -68,4 +68,12 @@ public interface SysDeptService {
      */
     int deleteDeptByDeptId(Long deptId);
 
+    /**
+     * 是否含有子部门
+     *
+     * @param deptId 部门ID
+     * @return 结果
+     */
+    boolean checkHasChildren(Long deptId);
+
 }

@@ -89,12 +89,16 @@ public class SysDeptController {
     /**
      * 通过主键删除数据
      *
-     * @param userId 主键
+     * @param deptId 主键
      * @return 影响行数
      */
-    @DeleteMapping("/{userId}")
-    public AjaxResult deleteById(@PathVariable Long userId) {
-        return AjaxResult.success(deptService.deleteDeptByDeptId(userId));
+    @DeleteMapping("/{deptId}")
+    public AjaxResult delete(@PathVariable Long deptId) {
+        if (deptService.checkHasChildren(deptId)) {
+            return AjaxResult.error("删除失败，存在下级部门");
+        }
+        return AjaxResult.success(deptService.deleteDeptByDeptId(deptId));
     }
+
 }
 

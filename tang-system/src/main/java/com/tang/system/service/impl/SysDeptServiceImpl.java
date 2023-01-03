@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.tang.commons.utils.tree.TreeSelect;
 import com.tang.commons.utils.tree.TreeUtils;
@@ -107,6 +108,9 @@ public class SysDeptServiceImpl implements SysDeptService {
      */
     @Override
     public int insertDept(SysDept dept) {
+        var parentId = dept.getParentId();
+        var parentDept = selectDeptByDeptId(parentId);
+        dept.setAncestors(parentDept.getAncestors() + "," + parentId);
         return deptMapper.insertDept(dept);
     }
 
@@ -117,7 +121,23 @@ public class SysDeptServiceImpl implements SysDeptService {
      * @return 影响行数
      */
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public int updateDeptByDeptId(SysDept dept) {
+        var newDept = deptMapper.selectDeptByDeptId(dept.getParentId());
+        var oldDept = deptMapper.selectDeptByDeptId(dept.getDeptId());
+        if (newDept != null && oldDept != null) {
+            var newAncestors = newDept.getAncestors() + "," + newDept.getDeptId();
+            var oldAncestors = oldDept.getAncestors();
+            dept.setAncestors(newAncestors);
+            var deptId = dept.getDeptId();
+            var childrenList = deptMapper.selectDeptChildrenByDeptId(deptId);
+            if (!childrenList.isEmpty()) {
+                childrenList.forEach(children -> {
+                    children.setAncestors(children.getAncestors().replaceFirst(oldAncestors, newAncestors));
+                    deptMapper.updateDeptChildren(children);
+                });
+            }
+        }
         return deptMapper.updateDeptByDeptId(dept);
     }
 
@@ -130,6 +150,18 @@ public class SysDeptServiceImpl implements SysDeptService {
     @Override
     public int deleteDeptByDeptId(Long deptId) {
         return deptMapper.deleteDeptByDeptId(deptId);
+    }
+
+    /**
+     * 是否含有子部门
+     *
+     * @param deptId 部门ID
+     * @return 结果
+     */
+    @Override
+    public boolean checkHasChildren(Long deptId) {
+        var childrenList = deptMapper.selectDeptChildrenByDeptId(deptId);
+        return !childrenList.isEmpty();
     }
 
 }

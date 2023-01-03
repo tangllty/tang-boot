@@ -33,6 +33,11 @@
         </where>
     </select>
 
+    <select id="selectDeptChildrenByDeptId" resultMap="SysDeptMap">
+        <include refid="SysDeptVo" />
+        where find_in_set(#{deptId}, ancestors)
+    </select>
+
     <select id="selectDeptByDeptId" resultMap="SysDeptMap">
         <include refid="SysDeptVo" />
         where d.dept_id = #{deptId}
@@ -71,6 +76,10 @@
             update_time = sysdate()
         </set>
         where dept_id = #{deptId}
+    </update>
+
+    <update id="updateDeptChildren">
+        update sys_dept set ancestors = #{ancestors} where dept_id = #{deptId}
     </update>
 
     <delete id="deleteDeptByDeptId">

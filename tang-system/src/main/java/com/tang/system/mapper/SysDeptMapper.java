@@ -20,6 +20,14 @@ public interface SysDeptMapper {
     List<SysDept> selectDeptList(SysDept dept);
 
     /**
+     * 查询子部门
+     *
+     * @param deptId 部门ID
+     * @return 子部门集合
+     */
+    List<SysDept> selectDeptChildrenByDeptId(Long deptId);
+
+    /**
      * 通过主键查询单条数据
      *
      * @param deptId 主键
@@ -42,6 +50,14 @@ public interface SysDeptMapper {
      * @return 影响行数
      */
     int updateDeptByDeptId(SysDept dept);
+
+    /**
+     * 修改子部门信息
+     *
+     * @param children 子部门对象
+     * @return 影响行数
+     */
+    int updateDeptChildren(SysDept children);
 
     /**
      * 通过主键删除数据
