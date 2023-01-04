@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -58,7 +59,7 @@ public class SysMenuController {
      * @return 影响行数
      */
     @PostMapping
-    public AjaxResult add(SysMenu menu) {
+    public AjaxResult add(@RequestBody SysMenu menu) {
         return AjaxResult.success(menuService.insertMenu(menu));
     }
 
@@ -69,7 +70,7 @@ public class SysMenuController {
      * @return 影响行数
      */
     @PutMapping
-    public AjaxResult edit(SysMenu menu) {
+    public AjaxResult edit(@RequestBody SysMenu menu) {
         return AjaxResult.success(menuService.updateMenuByMenuId(menu));
     }
 
@@ -80,7 +81,7 @@ public class SysMenuController {
      * @return 影响行数
      */
     @DeleteMapping("/{menuId}")
-    public AjaxResult deleteById(@PathVariable Long menuId) {
+    public AjaxResult delete(@PathVariable Long menuId) {
         return AjaxResult.success(menuService.deleteMenuByMenuId(menuId));
     }
 

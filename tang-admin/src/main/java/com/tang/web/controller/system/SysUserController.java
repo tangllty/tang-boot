@@ -84,7 +84,7 @@ public class SysUserController {
      * @return 影响行数
      */
     @DeleteMapping("/{userId}")
-    public AjaxResult deleteById(@PathVariable Long userId) {
+    public AjaxResult delete(@PathVariable Long userId) {
         return AjaxResult.success(userService.deleteUserByUserId(userId));
     }
 

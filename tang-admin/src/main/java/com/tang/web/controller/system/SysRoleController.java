@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -58,7 +59,7 @@ public class SysRoleController {
      * @return 影响行数
      */
     @PostMapping
-    public AjaxResult add(SysRole role) {
+    public AjaxResult add(@RequestBody SysRole role) {
         return AjaxResult.success(roleService.insertRole(role));
     }
 
@@ -69,7 +70,7 @@ public class SysRoleController {
      * @return 影响行数
      */
     @PutMapping
-    public AjaxResult edit(SysRole role) {
+    public AjaxResult edit(@RequestBody SysRole role) {
         return AjaxResult.success(roleService.updateRoleByRoleId(role));
     }
 
@@ -80,7 +81,7 @@ public class SysRoleController {
      * @return 影响行数
      */
     @DeleteMapping("/{roleId}")
-    public AjaxResult deleteById(@PathVariable Long roleId) {
+    public AjaxResult delete(@PathVariable Long roleId) {
         return AjaxResult.success(roleService.deleteRoleByRoleId(roleId));
     }
 
