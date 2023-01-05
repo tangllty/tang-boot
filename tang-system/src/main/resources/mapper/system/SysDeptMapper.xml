@@ -47,16 +47,16 @@
         insert into sys_dept (
             <if test="deptId != null and deptId != 0">dept_id,</if>
             <if test="parentId != null and parentId != 0">parent_id,</if>
-            <if test="deptName != null and deptName != ''">dept_name,</if>
             <if test="ancestors != null and ancestors != ''">ancestors,</if>
+            <if test="deptName != null and deptName != ''">dept_name,</if>
             <if test="orderNum != null">order_num,</if>
             <if test="createBy != null and createBy != ''">create_by,</if>
             create_time
         ) values (
             <if test="deptId != null and deptId != 0">#{deptId},</if>
             <if test="parentId != null and parentId != 0">#{parentId},</if>
-            <if test="deptName != null and deptName != ''">#{deptName},</if>
             <if test="ancestors != null and ancestors != ''">#{ancestors},</if>
+            <if test="deptName != null and deptName != ''">#{deptName},</if>
             <if test="orderNum != null">#{orderNum},</if>
             <if test="createBy != null and createBy != ''">#{createBy},</if>
             sysdate()
