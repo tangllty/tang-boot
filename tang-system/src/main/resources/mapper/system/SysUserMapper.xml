@@ -125,7 +125,7 @@
     </update>
 
     <delete id="deleteUserByUserId">
-        delete from sys_user where user_id = #{userId}
+        update sys_dept set del_flag = '1' where user_id = #{userId}
     </delete>
 
 </mapper>

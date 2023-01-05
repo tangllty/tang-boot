@@ -77,7 +77,7 @@
     </update>
 
     <delete id="deleteRoleByRoleId">
-        delete from sys_role where role_id = #{roleId}
+        update sys_dept set del_flag = '1' where role_id = #{roleId}
     </delete>
 
 </mapper>

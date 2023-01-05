@@ -124,7 +124,7 @@
     </update>
 
     <delete id="deleteMenuByMenuId">
-        delete from sys_menu where menu_id = #{menuId}
+        update sys_dept set del_flag = '1' where menu_id = #{menuId}
     </delete>
 
 </mapper>
