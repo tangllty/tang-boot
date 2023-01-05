@@ -39,12 +39,17 @@ public class SysDept implements Serializable {
     /**
      * 显示顺序
      */
-    private Integer orderNum;
+    private Integer sort;
 
     /**
-     * 部门状态{0=正常, 1=停用}
+     * 部门状态
      */
     private String status;
+
+    /**
+     * 删除标志
+     */
+    private String delFlag;
 
     /**
      * 创建者
@@ -111,12 +116,12 @@ public class SysDept implements Serializable {
         this.deptName = deptName;
     }
 
-    public Integer getOrderNum() {
-        return orderNum;
+    public Integer getSort() {
+        return sort;
     }
 
-    public void setOrderNum(Integer orderNum) {
-        this.orderNum = orderNum;
+    public void setSort(Integer sort) {
+        this.sort = sort;
     }
 
     public String getStatus() {
@@ -125,6 +130,14 @@ public class SysDept implements Serializable {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getDelFlag() {
+        return delFlag;
+    }
+
+    public void setDelFlag(String delFlag) {
+        this.delFlag = delFlag;
     }
 
     public String getCreateBy() {

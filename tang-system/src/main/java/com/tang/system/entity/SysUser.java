@@ -46,7 +46,7 @@ public class SysUser implements Serializable {
     private String phone;
 
     /**
-     * 性别{0=保密, 1=男, 2=女}
+     * 性别
      */
     private String gender;
 
@@ -61,9 +61,14 @@ public class SysUser implements Serializable {
     private String password;
 
     /**
-     * 帐号状态{0=正常, 1=停用}
+     * 帐号状态
      */
     private String status;
+
+    /**
+     * 删除标志
+     */
+    private String delFlag;
 
     /**
      * 最后登录IP
@@ -186,6 +191,14 @@ public class SysUser implements Serializable {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getDelFlag() {
+        return delFlag;
+    }
+
+    public void setDelFlag(String delFlag) {
+        this.delFlag = delFlag;
     }
 
     public String getLoginIp() {

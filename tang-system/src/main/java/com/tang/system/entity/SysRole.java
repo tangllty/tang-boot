@@ -31,22 +31,22 @@ public class SysRole implements Serializable {
     private String roleKey;
 
     /**
-     * 显示顺序
-     */
-    private Integer roleSort;
-
-    /**
-     * 数据范围{0=全部}
+     * 数据范围
      */
     private String dataScope;
 
     /**
-     * 角色状态{0=正常, 1=停用}
+     * 显示顺序
+     */
+    private Integer sort;
+
+    /**
+     * 角色状态
      */
     private String status;
 
     /**
-     * 删除标志{0=正常, 2=删除}
+     * 删除标志
      */
     private String delFlag;
 
@@ -102,20 +102,20 @@ public class SysRole implements Serializable {
         this.roleKey = roleKey;
     }
 
-    public Integer getRoleSort() {
-        return roleSort;
-    }
-
-    public void setRoleSort(Integer roleSort) {
-        this.roleSort = roleSort;
-    }
-
     public String getDataScope() {
         return dataScope;
     }
 
     public void setDataScope(String dataScope) {
         this.dataScope = dataScope;
+    }
+
+    public Integer getSort() {
+        return sort;
+    }
+
+    public void setSort(Integer sort) {
+        this.sort = sort;
     }
 
     public String getStatus() {

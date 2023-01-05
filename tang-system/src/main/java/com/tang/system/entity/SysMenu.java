@@ -38,11 +38,6 @@ public class SysMenu implements Serializable {
     private String menuName;
 
     /**
-     * 显示顺序
-     */
-    private Integer orderNum;
-
-    /**
      * 路由地址
      */
     private String path;
@@ -88,9 +83,19 @@ public class SysMenu implements Serializable {
     private String visible;
 
     /**
+     * 显示顺序
+     */
+    private Integer sort;
+
+    /**
      * 菜单状态（0正常 1停用）
      */
     private String status;
+
+    /**
+     * 删除标志
+     */
+    private String delFlag;
 
     /**
      * 创建者
@@ -155,14 +160,6 @@ public class SysMenu implements Serializable {
 
     public void setMenuName(String menuName) {
         this.menuName = menuName;
-    }
-
-    public Integer getOrderNum() {
-        return orderNum;
-    }
-
-    public void setOrderNum(Integer orderNum) {
-        this.orderNum = orderNum;
     }
 
     public String getPath() {
@@ -237,12 +234,28 @@ public class SysMenu implements Serializable {
         this.visible = visible;
     }
 
+    public Integer getSort() {
+        return sort;
+    }
+
+    public void setSort(Integer sort) {
+        this.sort = sort;
+    }
+
     public String getStatus() {
         return status;
     }
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getDelFlag() {
+        return delFlag;
+    }
+
+    public void setDelFlag(String delFlag) {
+        this.delFlag = delFlag;
     }
 
     public String getCreateBy() {
