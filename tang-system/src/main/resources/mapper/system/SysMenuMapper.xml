@@ -2,9 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.tang.system.mapper.SysMenuMapper">
 
-    <resultMap type="com.tang.system.entity.SysMenu" id="SysMenuMap">
+    <resultMap id="SysMenuMap" type="com.tang.system.entity.SysMenu">
         <result property="menuId" column="menu_id" />
         <result property="parentId" column="parent_id" />
+        <result property="ancestors" column="ancestors" />
         <result property="menuName" column="menu_name" />
         <result property="orderNum" column="order_num" />
         <result property="path" column="path" />
@@ -24,14 +25,30 @@
         <result property="remark" column="remark" />
     </resultMap>
 
+    <sql id="SysMenuVo">
+        select m.menu_id, m.parent_id, m.ancestors, m.menu_name, m.order_num, m.path, m.component, m.query, m.perms, m.icon, m.menu_type, m.is_frame, m.is_cache, m.visible, m.status, m.create_by, m.create_time, m.update_by, m.update_time, m.remark
+        from sys_menu m
+    </sql>
+
     <select id="selectMenuList" resultMap="SysMenuMap">
-        select menu_id, parent_id, menu_name, order_num, path, component, query, perms, icon, menu_type, is_frame, is_cache, visible, status, create_by, create_time, update_by, update_time, remark
-        from sys_menu
+        <include refid="SysMenuVo" />
+        <where>
+            <if test="menuName != null and menuName != ''">
+                and m.menu_name like concat('%', #{menuName}, '%')
+            </if>
+            <if test="status != null and status != ''">
+                and m.status = #{status}
+            </if>
+        </where>
+    </select>
+
+    <select id="selectMenuChildrenByMenuId" resultMap="SysMenuMap">
+        <include refid="SysMenuVo" />
+        where find_in_set(#{menuId}, ancestors)
     </select>
 
     <select id="selectMenuByMenuId" resultMap="SysMenuMap">
-        select menu_id, parent_id, menu_name, order_num, path, component, query, perms, icon, menu_type, is_frame, is_cache, visible, status, create_by, create_time, update_by, update_time, remark
-        from sys_menu
+        <include refid="SysMenuVo" />
         where menu_id = #{menuId}
     </select>
 
@@ -39,6 +56,7 @@
         insert into sys_menu (
             <if test="menuId != null and menuId != 0">menu_id,</if>
             <if test="parentId != null and parentId != 0">parent_id,</if>
+            <if test="ancestors != null and ancestors != ''">ancestors,</if>
             <if test="menuName != null and menuName != ''">menu_name,</if>
             <if test="orderNum != null">order_num,</if>
             <if test="path != null and path != ''">path,</if>
@@ -57,6 +75,7 @@
         ) values (
             <if test="menuId != null and menuId != 0">#{menuId},</if>
             <if test="parentId != null and parentId != 0">#{parentId},</if>
+            <if test="ancestors != null and ancestors != ''">#{ancestors},</if>
             <if test="menuName != null and menuName != ''">#{menuName},</if>
             <if test="orderNum != null">#{orderNum},</if>
             <if test="path != null and path != ''">#{path},</if>
@@ -78,8 +97,9 @@
     <update id="updateMenuByMenuId">
         update sys_menu
         <set>
-            <if test="menuName != null and menuName != ''">menu_name = #{menuName},</if>
             <if test="parentId != null">parent_id = #{parentId},</if>
+            <if test="ancestors != null and ancestors != ''">ancestors = #{ancestors},</if>
+            <if test="menuName != null and menuName != ''">menu_name = #{menuName},</if>
             <if test="orderNum != null">order_num = #{orderNum},</if>
             <if test="path != null and path != ''">path = #{path},</if>
             <if test="component != null">component = #{component},</if>
@@ -98,9 +118,12 @@
         where menu_id = #{menuId}
     </update>
 
+    <update id="updateDeptChildren">
+        update sys_dept set ancestors = #{ancestors} where dept_id = #{deptId}
+    </update>
+
     <delete id="deleteMenuByMenuId">
         delete from sys_menu where menu_id = #{menuId}
     </delete>
 
 </mapper>
-

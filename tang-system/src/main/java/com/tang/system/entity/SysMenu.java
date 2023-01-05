@@ -2,6 +2,9 @@ package com.tang.system.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 /**
  * 菜单权限表 sys_menu 实体类
@@ -23,6 +26,11 @@ public class SysMenu implements Serializable {
      * 父菜单ID
      */
     private Long parentId;
+
+    /**
+     * 祖级列表
+     */
+    private String ancestors;
 
     /**
      * 菜单名称
@@ -92,6 +100,7 @@ public class SysMenu implements Serializable {
     /**
      * 创建时间
      */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date createTime;
 
     /**
@@ -102,12 +111,18 @@ public class SysMenu implements Serializable {
     /**
      * 更新时间
      */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date updateTime;
 
     /**
      * 备注
      */
     private String remark;
+
+    /**
+     * 子菜单
+     */
+    private List<SysMenu> children;
 
 
     public Long getMenuId() {
@@ -124,6 +139,14 @@ public class SysMenu implements Serializable {
 
     public void setParentId(Long parentId) {
         this.parentId = parentId;
+    }
+
+    public String getAncestors() {
+        return ancestors;
+    }
+
+    public void setAncestors(String ancestors) {
+        this.ancestors = ancestors;
     }
 
     public String getMenuName() {
@@ -260,6 +283,14 @@ public class SysMenu implements Serializable {
 
     public void setRemark(String remark) {
         this.remark = remark;
+    }
+
+    public List<SysMenu> getChildren() {
+        return children;
+    }
+
+    public void setChildren(List<SysMenu> children) {
+        this.children = children;
     }
 
 }

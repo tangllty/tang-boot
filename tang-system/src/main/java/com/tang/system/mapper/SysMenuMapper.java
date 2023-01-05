@@ -20,6 +20,14 @@ public interface SysMenuMapper {
     List<SysMenu> selectMenuList(SysMenu menu);
 
     /**
+     * 查询子菜单
+     *
+     * @param menuId 菜单ID
+     * @return 子菜单集合
+     */
+    List<SysMenu> selectMenuChildrenByMenuId(Long menuId);
+
+    /**
      * 通过主键查询单条数据
      *
      * @param menuId 主键
@@ -42,6 +50,14 @@ public interface SysMenuMapper {
      * @return 影响行数
      */
     int updateMenuByMenuId(SysMenu menu);
+
+    /**
+     * 修改子菜单信息
+     *
+     * @param children 子菜单对象
+     * @return 影响行数
+     */
+    int updateMenuChildren(SysMenu children);
 
     /**
      * 通过主键删除数据

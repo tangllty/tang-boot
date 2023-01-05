@@ -37,7 +37,19 @@ public class SysMenuController {
      */
     @GetMapping("/list")
     public AjaxResult list(SysMenu menu){
-        var list = menuService.selectMenuList(menu);
+        var list = menuService.selectMenuListTree(menu);
+        return AjaxResult.success(list);
+    }
+
+    /**
+     * 获取菜单树下拉选项
+     *
+     * @param dept 菜单对象
+     * @return 菜单树下拉选项
+     */
+    @GetMapping("/menuTree")
+    public AjaxResult menuTree(SysMenu menu){
+        var list = menuService.selectMenuTree(menu);
         return AjaxResult.success(list);
     }
 
@@ -82,6 +94,9 @@ public class SysMenuController {
      */
     @DeleteMapping("/{menuId}")
     public AjaxResult delete(@PathVariable Long menuId) {
+        if (menuService.checkHasChildren(menuId)) {
+            return AjaxResult.error("删除失败，存在下级部门");
+        }
         return AjaxResult.success(menuService.deleteMenuByMenuId(menuId));
     }
 

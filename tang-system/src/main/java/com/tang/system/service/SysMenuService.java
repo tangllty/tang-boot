@@ -2,6 +2,7 @@ package com.tang.system.service;
 
 import java.util.List;
 
+import com.tang.commons.utils.tree.TreeSelect;
 import com.tang.system.entity.SysMenu;
 
 /**
@@ -18,6 +19,22 @@ public interface SysMenuService {
      * @return 菜单列表
      */
     List<SysMenu> selectMenuList(SysMenu menu);
+
+    /**
+     * 获取菜单树
+     *
+     * @param menu 菜单对象
+     * @return 菜单树
+     */
+    List<SysMenu> selectMenuListTree(SysMenu menu);
+
+    /**
+     * 获取菜单树下拉选项
+     *
+     * @param menu 菜单对象
+     * @return 菜单树下拉选项
+     */
+    List<TreeSelect> selectMenuTree(SysMenu menu);
 
     /**
      * 通过主键查询单条数据
@@ -50,5 +67,13 @@ public interface SysMenuService {
      * @return 影响行数
      */
     int deleteMenuByMenuId(Long menuId);
+
+    /**
+     * 是否含有子菜单
+     *
+     * @param menuId 菜单ID
+     * @return 结果
+     */
+    boolean checkHasChildren(Long menuId);
 
 }
