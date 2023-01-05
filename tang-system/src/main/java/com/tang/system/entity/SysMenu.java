@@ -1,10 +1,8 @@
 package com.tang.system.entity;
 
-import java.io.Serializable;
-import java.util.Date;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+import com.tang.commons.core.base.entity.BaseEntity;
 
 /**
  * 菜单权限表 sys_menu 实体类
@@ -12,10 +10,10 @@ import com.fasterxml.jackson.annotation.JsonFormat;
  * @author Tang
  * @since 2022-12-14 07:22:39
  */
-public class SysMenu implements Serializable {
+public class SysMenu extends BaseEntity {
 
     @java.io.Serial
-    private static final long serialVersionUID = 307090675149949831L;
+    private static final long serialVersionUID = -7745068562296429188L;
 
     /**
      * 菜单ID
@@ -96,33 +94,6 @@ public class SysMenu implements Serializable {
      * 删除标志
      */
     private String delFlag;
-
-    /**
-     * 创建者
-     */
-    private String createBy;
-
-    /**
-     * 创建时间
-     */
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private Date createTime;
-
-    /**
-     * 更新者
-     */
-    private String updateBy;
-
-    /**
-     * 更新时间
-     */
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private Date updateTime;
-
-    /**
-     * 备注
-     */
-    private String remark;
 
     /**
      * 子菜单
@@ -256,46 +227,6 @@ public class SysMenu implements Serializable {
 
     public void setDelFlag(String delFlag) {
         this.delFlag = delFlag;
-    }
-
-    public String getCreateBy() {
-        return createBy;
-    }
-
-    public void setCreateBy(String createBy) {
-        this.createBy = createBy;
-    }
-
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public String getUpdateBy() {
-        return updateBy;
-    }
-
-    public void setUpdateBy(String updateBy) {
-        this.updateBy = updateBy;
-    }
-
-    public Date getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
-    }
-
-    public String getRemark() {
-        return remark;
-    }
-
-    public void setRemark(String remark) {
-        this.remark = remark;
     }
 
     public List<SysMenu> getChildren() {

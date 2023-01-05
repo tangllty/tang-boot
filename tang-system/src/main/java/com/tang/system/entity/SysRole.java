@@ -1,19 +1,16 @@
 package com.tang.system.entity;
 
-import java.io.Serializable;
-import java.util.Date;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
+import com.tang.commons.core.base.entity.BaseEntity;
 
 /**
  * 角色表 sys_role 实体类
  *
  * @author Tang
  */
-public class SysRole implements Serializable {
+public class SysRole extends BaseEntity {
 
     @java.io.Serial
-    private static final long serialVersionUID = -56728311606119809L;
+    private static final long serialVersionUID = 4086438174869133011L;
 
     /**
      * 角色ID
@@ -49,33 +46,6 @@ public class SysRole implements Serializable {
      * 删除标志
      */
     private String delFlag;
-
-    /**
-     * 创建者
-     */
-    private String createBy;
-
-    /**
-     * 创建时间
-     */
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private Date createTime;
-
-    /**
-     * 更新者
-     */
-    private String updateBy;
-
-    /**
-     * 更新时间
-     */
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private Date updateTime;
-
-    /**
-     * 备注
-     */
-    private String remark;
 
 
     public Long getRoleId() {
@@ -132,46 +102,6 @@ public class SysRole implements Serializable {
 
     public void setDelFlag(String delFlag) {
         this.delFlag = delFlag;
-    }
-
-    public String getCreateBy() {
-        return createBy;
-    }
-
-    public void setCreateBy(String createBy) {
-        this.createBy = createBy;
-    }
-
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public String getUpdateBy() {
-        return updateBy;
-    }
-
-    public void setUpdateBy(String updateBy) {
-        this.updateBy = updateBy;
-    }
-
-    public Date getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
-    }
-
-    public String getRemark() {
-        return remark;
-    }
-
-    public void setRemark(String remark) {
-        this.remark = remark;
     }
 
 }
