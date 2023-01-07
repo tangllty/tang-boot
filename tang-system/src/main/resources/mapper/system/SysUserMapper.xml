@@ -29,7 +29,7 @@
         <result property="parentId" column="parent_id" />
         <result property="ancestors" column="ancestors" />
         <result property="deptName" column="dept_name" />
-        <result property="orderNum" column="order_num" />
+        <result property="sort" column="sort" />
         <result property="status" column="d_status" />
         <result property="createBy" column="d_create_by" />
         <result property="createTime" column="d_create_time" />
@@ -41,7 +41,7 @@
     <sql id="SysUserVo">
         select u.user_id, u.dept_id, u.username, u.nickname, u.email, u.phone, u.gender, u.avatar, u.password, u.status, u.del_flag, u.login_ip, u.login_date,
             u.create_by, u.create_time, u.update_by, u.update_time, u.remark,
-            d.dept_id as d_dept_id, d.parent_id, d.ancestors, d.dept_name, d.order_num, d.status as d_status,
+            d.dept_id as d_dept_id, d.parent_id, d.ancestors, d.dept_name, d.sort, d.status as d_status,
             d.create_by as d_create_by, d.create_time as d_create_time, d.update_by as d_update_by, d.update_time as d_update_time, d.remark as d_remark
         from sys_user u
             left join sys_dept d on d.dept_id = u.dept_id
