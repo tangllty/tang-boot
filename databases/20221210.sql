@@ -26,6 +26,12 @@ create table sys_dept (
     primary key (dept_id)
 ) engine=InnoDB auto_increment=100 comment = '部门表';
 
+insert into sys_dept values (1, 0, '0',     '猫猫科技', '1', '0', '0', 'admin', sysdate(), '', null, '猫猫科技');
+insert into sys_dept values (2, 1, '0,1',   '研发部门', '1', '0', '0', 'admin', sysdate(), '', null, '研发部门');
+insert into sys_dept values (3, 1, '0,1',   '财务部门', '2', '0', '0', 'admin', sysdate(), '', null, '财务部门');
+insert into sys_dept values (4, 2, '0,1,2', '研发一组', '1', '0', '0', 'admin', sysdate(), '', null, '研发一组');
+insert into sys_dept values (5, 2, '0,1,2', '研发二组', '2', '0', '0', 'admin', sysdate(), '', null, '研发二组');
+
 
 -- -----------------------------
 -- 用户表
@@ -53,6 +59,8 @@ create table sys_user (
     primary key (user_id)
 ) engine=InnoDB auto_increment=100 comment = '用户表';
 
+insert into sys_user values (1, 4, 'admin', '糖猫猫', 'tangllty@163.com', '', '0', '', '', '0', '0', '127.0.0.1', null, 'admin', sysdate(), '', null, '超级管理员')
+
 
 -- -----------------------------
 -- 角色表
@@ -73,6 +81,8 @@ create table sys_role (
     remark       varchar(500)  default ''               comment '备注',
     primary key (role_id)
 ) engine=InnoDB auto_increment=100 comment = '角色表';
+
+insert into sys_role values (1, '超级管理员', 'admin', '0', '1', '0', '0', 'admin', sysdate(), '', null, '超级管理员');
 
 
 -- -----------------------------
@@ -103,6 +113,15 @@ create table sys_menu (
     remark       varchar(500)  default ''               comment '备注',
     primary key (menu_id)
 ) engine=InnoDB auto_increment=100 comment = '菜单权限表';
+
+-- 目录
+insert into sys_menu values (1, 0, '0', '系统管理', '', '', '', '', '#', 'D', '0', '0', '0', 0, '0', '0', 'admin', sysdate(), '', null, '系统管理目录');
+
+-- 菜单
+insert into sys_menu values (11, 1, '0,1', '用户管理', '', '', '', '', '#', 'M', '0', '0', '0', 0, '0', '0', 'admin', sysdate(), '', null, '用户管理菜单');
+insert into sys_menu values (12, 1, '0,1', '部门管理', '', '', '', '', '#', 'M', '0', '0', '0', 0, '0', '0', 'admin', sysdate(), '', null, '部门管理菜单');
+insert into sys_menu values (13, 1, '0,1', '角色管理', '', '', '', '', '#', 'M', '0', '0', '0', 0, '0', '0', 'admin', sysdate(), '', null, '角色管理菜单');
+insert into sys_menu values (14, 1, '0,1', '菜单管理', '', '', '', '', '#', 'M', '0', '0', '0', 0, '0', '0', 'admin', sysdate(), '', null, '菜单管理菜单');
 
 
 -- -----------------------------
