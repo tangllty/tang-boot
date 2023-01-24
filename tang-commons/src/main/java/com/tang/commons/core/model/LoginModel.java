@@ -12,10 +12,19 @@ public class LoginModel implements Serializable {
     @java.io.Serial
     private static final long serialVersionUID = -1126768973671963020L;
 
+    /**
+     * 用户名
+     */
     private String username;
 
+    /**
+     * 密码
+     */
     private String password;
 
+    /**
+     * 登陆方式
+     */
     private String loginType;
 
 
