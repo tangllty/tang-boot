@@ -10,11 +10,13 @@ import java.io.Serializable;
 public class LoginModel implements Serializable {
 
     @java.io.Serial
-    private static final long serialVersionUID = -6970037015048370182L;
+    private static final long serialVersionUID = -1126768973671963020L;
 
     private String username;
 
     private String password;
+
+    private String loginType;
 
 
     public String getUsername() {
@@ -31,6 +33,14 @@ public class LoginModel implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getLoginType() {
+        return loginType;
+    }
+
+    public void setLoginType(String loginType) {
+        this.loginType = loginType;
     }
 
 }
