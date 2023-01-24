@@ -22,7 +22,7 @@ public class LoginController {
 
     @PostMapping("/login")
     public AjaxResult login(@RequestBody LoginModel loginModel) {
-        String token = loginService.login(loginModel.getUsername(), loginModel.getPassword());
+        String token = loginService.login(loginModel);
         AjaxResult ajaxResult = AjaxResult.success();
         ajaxResult.put("token", token);
         return ajaxResult;
