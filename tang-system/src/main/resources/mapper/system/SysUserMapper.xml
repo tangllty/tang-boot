@@ -73,6 +73,11 @@
         where u.user_id = #{userId}
     </select>
 
+    <select id="selectUserByUsername" resultMap="SysUserMap">
+        <include refid="SysUserVo" />
+        where u.username = #{username}
+    </select>
+
     <insert id="insertUser" useGeneratedKeys="true" keyProperty="userId">
         insert into sys_user (
             <if test="userId != null and userId != 0">user_id,</if>

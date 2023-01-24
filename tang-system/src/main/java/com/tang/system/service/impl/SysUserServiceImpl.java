@@ -44,6 +44,17 @@ public class SysUserServiceImpl implements SysUserService {
     }
 
     /**
+     * 根据用户名查询单条数据
+     *
+     * @param username 用户名
+     * @return 用户对象
+     */
+    @Override
+    public SysUser selectUserByUsername(String username) {
+        return userMapper.selectUserByUsername(username);
+    }
+
+    /**
      * 新增用户
      *
      * @param user 用户对象
