@@ -35,7 +35,7 @@ mybatis:
     # 搜索指定包别名
     # typeAliasesPackage: com.tang.**.entity
     # 配置mapper的扫描，找到所有的mapper.xml映射文件
-    mapperLocations: classpath*:mapper/**/*Mapper.xml
+    mapper-locations: classpath*:mapper/**/*Mapper.xml
     # 加载全局的配置文件
     # configLocation: classpath:mybatis/mybatis-config.xml
 
@@ -54,3 +54,14 @@ logging:
       springframework: warn
     com:
       tang: debug
+
+# token 配置
+token:
+  # 令牌自定义标识
+  header: Authorization
+  # 令牌密钥 Create by https://www.allkeysgenerator.com/Random/Security-Encryption-Key-Generator.aspx 256-bit with Hex
+  secret: 556A586E3272357538782F413F4428472D4B6150645367566B59703373367639
+  # 时间颗粒度
+  time-unit: minutes
+  # 令牌有效期
+  expire-time: 30
