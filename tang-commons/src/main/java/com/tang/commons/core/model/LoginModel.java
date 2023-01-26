@@ -10,12 +10,17 @@ import java.io.Serializable;
 public class LoginModel implements Serializable {
 
     @java.io.Serial
-    private static final long serialVersionUID = -1126768973671963020L;
+    private static final long serialVersionUID = -5428882047565357006L;
 
     /**
      * 用户名
      */
     private String username;
+
+    /**
+     * 邮箱
+     */
+    private String email;
 
     /**
      * 密码
@@ -34,6 +39,14 @@ public class LoginModel implements Serializable {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPassword() {

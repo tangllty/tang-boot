@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 import com.tang.commons.constants.LoginType;
 import com.tang.commons.core.model.LoginModel;
 import com.tang.commons.core.model.UserModel;
+import com.tang.framework.security.authentication.email.EmailAuthenticationToken;
 import com.tang.framework.security.authentication.username.UsernameAuthenticationToken;
 
 /**
@@ -44,6 +45,7 @@ public class LoginService {
 
         switch (loginModel.getLoginType()) {
             case LoginType.USERNAME -> authenticationToken = new UsernameAuthenticationToken(loginModel.getUsername(), loginModel.getPassword());
+            case LoginType.EMAIL -> authenticationToken = new EmailAuthenticationToken(loginModel.getEmail(), loginModel.getPassword());
         }
 
         SecurityContextHolder.getContext().setAuthentication(authenticationToken);

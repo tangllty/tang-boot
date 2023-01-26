@@ -55,6 +55,17 @@ public class SysUserServiceImpl implements SysUserService {
     }
 
     /**
+     * 根据邮箱查询单条数据
+     *
+     * @param email 邮箱
+     * @return 用户对象
+     */
+    @Override
+    public SysUser selectUserByEmail(String email) {
+        return userMapper.selectUserByEmail(email);
+    }
+
+    /**
      * 新增用户
      *
      * @param user 用户对象

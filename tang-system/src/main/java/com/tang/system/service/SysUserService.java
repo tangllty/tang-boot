@@ -36,6 +36,14 @@ public interface SysUserService {
     SysUser selectUserByUsername(String username);
 
     /**
+     * 根据邮箱查询单条数据
+     *
+     * @param email 邮箱
+     * @return 用户对象
+     */
+    SysUser selectUserByEmail(String email);
+
+    /**
      * 新增用户
      *
      * @param user 用户对象

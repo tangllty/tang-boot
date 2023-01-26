@@ -57,10 +57,14 @@ public class SecurityConfig {
     @Autowired
     private AuthenticationProvider usernameAuthenticationProvider;
 
+    @Autowired
+    private AuthenticationProvider emailAuthenticationProvider;
+
     @Bean
     public AuthenticationManager authenticationManager() {
         var providers = new ArrayList<AuthenticationProvider>();
         providers.add(usernameAuthenticationProvider);
+        providers.add(emailAuthenticationProvider);
         return new ProviderManager(providers);
     }
 

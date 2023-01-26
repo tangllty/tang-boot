@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import com.tang.commons.constants.LoginType;
+import com.tang.framework.security.authentication.email.EmailAuthenticationToken;
 import com.tang.framework.security.authentication.username.UsernameAuthenticationToken;
 import com.tang.framework.web.service.TokenService;
 
@@ -41,6 +42,7 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
             AbstractAuthenticationToken authenticationToken = null;
             switch (userModel.getLoginType()) {
                 case LoginType.USERNAME -> authenticationToken = new UsernameAuthenticationToken(userModel, Collections.emptyList());
+                case LoginType.EMAIL -> authenticationToken = new EmailAuthenticationToken(userModel, Collections.emptyList());
             }
             if (authenticationToken != null) {
                 authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));

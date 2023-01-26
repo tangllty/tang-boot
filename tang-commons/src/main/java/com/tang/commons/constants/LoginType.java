@@ -12,4 +12,9 @@ public class LoginType {
      */
     public static final String USERNAME = "username";
 
+    /**
+     * 邮箱密码
+     */
+    public static final String EMAIL = "email";
+
 }
