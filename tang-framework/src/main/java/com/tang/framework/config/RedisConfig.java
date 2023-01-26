@@ -4,6 +4,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 /**
@@ -19,15 +20,17 @@ public class RedisConfig {
         var redisTemplate = new RedisTemplate<String, Object>();
         redisTemplate.setConnectionFactory(redisConnectionFactory);
 
-        var fastJson2JsonRedisSerializer = new FastJson2JsonRedisSerializer<>(Object.class);
+        var stringRedisSerializer = new StringRedisSerializer();
+
+        var genericJackson2JsonRedisSerializer = new GenericJackson2JsonRedisSerializer();
 
         // 设置 key 和 value 的序列化规则
-        redisTemplate.setKeySerializer(new StringRedisSerializer());
-        redisTemplate.setValueSerializer(fastJson2JsonRedisSerializer);
+        redisTemplate.setKeySerializer(stringRedisSerializer);
+        redisTemplate.setValueSerializer(genericJackson2JsonRedisSerializer);
 
         // 设置 hashKey 和 hashValue 的序列化规则
-        redisTemplate.setHashKeySerializer(new StringRedisSerializer());
-        redisTemplate.setHashValueSerializer(fastJson2JsonRedisSerializer);
+        redisTemplate.setHashKeySerializer(stringRedisSerializer);
+        redisTemplate.setHashValueSerializer(genericJackson2JsonRedisSerializer);
 
         // 设置支持事物
         redisTemplate.setEnableTransactionSupport(true);
