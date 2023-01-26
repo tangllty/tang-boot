@@ -12,6 +12,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
+import com.tang.commons.constants.LoginType;
 import com.tang.commons.core.model.SysDeptModel;
 import com.tang.commons.core.model.SysUserModel;
 import com.tang.commons.utils.SecurityUtils;
@@ -52,6 +53,7 @@ public class UsernameAuthenticationProvider implements AuthenticationProvider {
         BeanUtils.copyProperties(user.getDept(), sysDeptModel);
         sysUserModel.setDept(sysDeptModel);
         var userModel = SecurityUtils.createUserModel(sysUserModel);
+        userModel.setLoginType(LoginType.USERNAME);
 
         LOGGER.info("token details -> {}", authenticationToken.getDetails());
 

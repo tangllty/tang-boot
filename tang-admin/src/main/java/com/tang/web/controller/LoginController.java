@@ -1,5 +1,7 @@
 package com.tang.web.controller;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,9 +25,7 @@ public class LoginController {
     @PostMapping("/login")
     public AjaxResult login(@RequestBody LoginModel loginModel) {
         String token = loginService.login(loginModel);
-        AjaxResult ajaxResult = AjaxResult.success();
-        ajaxResult.put("token", token);
-        return ajaxResult;
+        return AjaxResult.success(Map.of("token", token));
     }
 
 }
