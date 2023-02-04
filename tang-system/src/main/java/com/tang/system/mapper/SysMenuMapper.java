@@ -36,6 +36,14 @@ public interface SysMenuMapper {
     SysMenu selectMenuByMenuId(Long menuId);
 
     /**
+     * 通过用户主键获取菜单列表
+     *
+     * @param userId 用户主键
+     * @return 菜单列表
+     */
+    List<SysMenu> selectMenuListByUserId(Long userId);
+
+    /**
      * 新增菜单
      *
      * @param menu 菜单对象

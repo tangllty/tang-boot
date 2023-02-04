@@ -2,6 +2,7 @@ package com.tang.system.service;
 
 import java.util.List;
 
+import com.tang.commons.core.vo.RouteVo;
 import com.tang.commons.utils.tree.TreeSelect;
 import com.tang.system.entity.SysMenu;
 
@@ -43,6 +44,22 @@ public interface SysMenuService {
      * @return 菜单对象
      */
     SysMenu selectMenuByMenuId(Long menuId);
+
+    /**
+     * 根据用户主键获取菜单树
+     *
+     * @param userId 用户主键
+     * @return 菜单树
+     */
+    List<RouteVo> selectMenuListTreeByUserId(Long userId);
+
+    /**
+     * 构建路由菜单
+     *
+     * @param menuList 菜单列表
+     * @return 路由列表
+     */
+    List<RouteVo> buildRoutes(List<SysMenu> menuList);
 
     /**
      * 新增菜单

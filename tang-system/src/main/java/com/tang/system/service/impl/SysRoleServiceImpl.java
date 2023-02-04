@@ -1,6 +1,8 @@
 package com.tang.system.service.impl;
 
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -40,6 +42,17 @@ public class SysRoleServiceImpl implements SysRoleService {
     @Override
     public SysRole selectRoleByRoleId(Long roleId) {
         return roleMapper.selectRoleByRoleId(roleId);
+    }
+
+    /**
+     * 根据用户主键获取角色集合
+     *
+     * @param role 用户主键
+     * @return 角色集合
+     */
+    public Set<String> getRolesByUserId(Long userId) {
+        var roleList = roleMapper.selectRoleListByUserId(userId);
+        return roleList.stream().map(SysRole::getRoleKey).collect(Collectors.toSet());
     }
 
     /**

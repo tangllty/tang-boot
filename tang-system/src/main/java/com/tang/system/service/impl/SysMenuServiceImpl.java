@@ -1,13 +1,17 @@
 package com.tang.system.service.impl;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.tang.commons.core.vo.MetaVo;
+import com.tang.commons.core.vo.RouteVo;
 import com.tang.commons.utils.tree.TreeSelect;
 import com.tang.commons.utils.tree.TreeUtils;
 import com.tang.system.entity.SysMenu;
@@ -52,7 +56,7 @@ public class SysMenuServiceImpl implements SysMenuService {
                 return o;
             }).collect(Collectors.toList());
         if (list.isEmpty() && !menuList.isEmpty()) {
-            return menuList;
+            return Collections.emptyList();
         }
         return list;
     }
@@ -97,6 +101,60 @@ public class SysMenuServiceImpl implements SysMenuService {
     @Override
     public SysMenu selectMenuByMenuId(Long menuId) {
         return menuMapper.selectMenuByMenuId(menuId);
+    }
+
+    /**
+     * 根据用户主键获取菜单树
+     *
+     * @param userId 用户主键
+     * @return 菜单树
+     */
+    public List<RouteVo> selectMenuListTreeByUserId(Long userId) {
+        var menuList = menuMapper.selectMenuListByUserId(userId);
+        var list = menuList.stream()
+            .filter(o -> o.getParentId() == 0)
+            .map(o -> {
+                o.setChildren(getChildrenList(menuList, o));
+                return o;
+            }).collect(Collectors.toList());
+        if (list.isEmpty() && !menuList.isEmpty()) {
+            return Collections.emptyList();
+        }
+        return buildRoutes(list);
+    }
+
+    /**
+     * 构建路由菜单
+     *
+     * @param menuList 菜单列表
+     * @return 路由列表
+     */
+    public List<RouteVo> buildRoutes(List<SysMenu> menuList) {
+        return menuList.stream().map(menu -> {
+            var children = menu.getChildren();
+            var route = new RouteVo();
+            var meta = new MetaVo();
+            var menuType = menu.getMenuType();
+            if ("D".equals(menuType)) {
+                route.setName(menu.getPath());
+                route.setPath("/" + menu.getPath());
+                route.setComponent("Layout");
+                if (StringUtils.isEmpty(route.getRedirect()) && children != null && !children.isEmpty()) {
+                    route.setRedirect(route.getPath() + "/" + menu.getChildren().get(0).getPath());
+                }
+            }
+            if ("M".equals(menuType)) {
+                route.setPath(menu.getPath());
+                route.setComponent(menu.getComponent());
+            }
+            meta.setTitle(menu.getMenuName());
+            meta.setIcon(menu.getIcon());
+            route.setMeta(meta);
+            if (children != null && !children.isEmpty()) {
+                route.setChildren(buildRoutes(children));
+            }
+            return route;
+        }).collect(Collectors.toList());
     }
 
     /**

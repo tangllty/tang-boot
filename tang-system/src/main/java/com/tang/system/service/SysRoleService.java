@@ -1,6 +1,7 @@
 package com.tang.system.service;
 
 import java.util.List;
+import java.util.Set;
 
 import com.tang.system.entity.SysRole;
 
@@ -26,6 +27,14 @@ public interface SysRoleService {
      * @return 角色对象
      */
     SysRole selectRoleByRoleId(Long roleId);
+
+    /**
+     * 根据用户主键获取角色集合
+     *
+     * @param userId 用户主键
+     * @return 角色集合
+     */
+    Set<String> getRolesByUserId(Long userId);
 
     /**
      * 新增角色

@@ -20,7 +20,7 @@ public interface SysUserMapper {
     List<SysUser> selectUserList(SysUser user);
 
     /**
-     * 通过主键查询单条数据
+     * 根据主键查询单条数据
      *
      * @param userId 主键
      * @return 用户对象

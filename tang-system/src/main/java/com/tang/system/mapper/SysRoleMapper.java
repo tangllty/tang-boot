@@ -20,12 +20,20 @@ public interface SysRoleMapper {
     List<SysRole> selectRoleList(SysRole role);
 
     /**
-     * 通过主键查询单条数据
+     * 根据主键查询单条数据
      *
      * @param roleId 主键
      * @return 角色对象
      */
     SysRole selectRoleByRoleId(Long roleId);
+
+    /**
+     * 根据用户主键获取角色列表
+     *
+     * @param userId 用户主键
+     * @return 角色列表
+     */
+    List<SysRole> selectRoleListByUserId(Long userId);
 
     /**
      * 新增角色

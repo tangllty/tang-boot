@@ -20,6 +20,7 @@
     <sql id="SysRoleVo">
         select r.role_id, r.role_name, r.role_key, r.data_scope, r.sort, r.status, r.del_flag, r.create_by, r.create_time, r.update_by, r.update_time, r.remark
         from sys_role r
+            left join sys_user_role ur on r.role_id = ur.role_id
     </sql>
 
     <select id="selectRoleList" resultMap="SysRoleMap">
@@ -37,6 +38,11 @@
     <select id="selectRoleByRoleId" resultMap="SysRoleMap">
         <include refid="SysRoleVo" />
         where role_id = #{roleId}
+    </select>
+
+    <select id="selectRoleListByUserId" resultMap="SysRoleMap">
+        <include refid="SysRoleVo" />
+        where ur.user_id = #{userId}
     </select>
 
     <insert id="insertRole" useGeneratedKeys="true" keyProperty="roleId">

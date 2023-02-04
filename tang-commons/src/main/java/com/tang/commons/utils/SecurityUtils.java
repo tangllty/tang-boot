@@ -1,5 +1,7 @@
 package com.tang.commons.utils;
 
+import org.springframework.security.core.context.SecurityContextHolder;
+
 import com.tang.commons.core.model.SysUserModel;
 import com.tang.commons.core.model.UserModel;
 
@@ -18,6 +20,24 @@ public class SecurityUtils {
      */
     public static UserModel createUserModel(SysUserModel userModel) {
         return new UserModel(userModel);
+    }
+
+    /**
+     * 获取登陆用户信息
+     *
+     * @return 登陆用户信息
+     */
+    public static UserModel getUserModel() {
+        return (UserModel) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    }
+
+    /**
+     * 获取用户信息
+     *
+     * @return 用户信息
+     */
+    public static SysUserModel getUser() {
+        return getUserModel().getUser();
     }
 
 }

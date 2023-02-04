@@ -29,6 +29,7 @@
     <sql id="SysMenuVo">
         select m.menu_id, m.parent_id, m.ancestors, m.menu_name, m.path, m.component, m.query, m.perms, m.icon, m.menu_type, m.is_frame, m.is_cache, m.visible, m.sort, m.status, m.del_flag, m.create_by, m.create_time, m.update_by, m.update_time, m.remark
         from sys_menu m
+            left join sys_role_menu rm on m.menu_id = rm.menu_id
     </sql>
 
     <select id="selectMenuList" resultMap="SysMenuMap">
@@ -51,6 +52,12 @@
     <select id="selectMenuByMenuId" resultMap="SysMenuMap">
         <include refid="SysMenuVo" />
         where menu_id = #{menuId}
+    </select>
+
+    <select id="selectMenuListByUserId" resultMap="SysMenuMap">
+        <include refid="SysMenuVo" />
+            left join sys_user_role ur on rm.role_id = ur.role_id
+        where ur.user_id = #{userId}
     </select>
 
     <insert id="insertMenu" keyProperty="menuId" useGeneratedKeys="true">
