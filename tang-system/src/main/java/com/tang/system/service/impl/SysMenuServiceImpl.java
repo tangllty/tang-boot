@@ -51,10 +51,8 @@ public class SysMenuServiceImpl implements SysMenuService {
         var menuList = menuMapper.selectMenuList(menu);
         var list = menuList.stream()
             .filter(o -> o.getParentId() == 0)
-            .map(o -> {
-                o.setChildren(getChildrenList(menuList, o));
-                return o;
-            }).collect(Collectors.toList());
+            .peek(o -> o.setChildren(getChildrenList(menuList, o)))
+            .toList();
         if (list.isEmpty() && !menuList.isEmpty()) {
             return Collections.emptyList();
         }
@@ -71,10 +69,8 @@ public class SysMenuServiceImpl implements SysMenuService {
     private List<SysMenu> getChildrenList(List<SysMenu> menuList, SysMenu parentMenu) {
         var childrenList = menuList.stream()
             .filter(menu -> Objects.equals(menu.getParentId(), parentMenu.getMenuId()))
-            .map(menu -> {
-                menu.setChildren(getChildrenList(menuList, menu));
-                return menu;
-            }).collect(Collectors.toList());
+            .peek(menu -> menu.setChildren(getChildrenList(menuList, menu)))
+            .toList();
         return childrenList;
     }
 
@@ -113,10 +109,8 @@ public class SysMenuServiceImpl implements SysMenuService {
         var menuList = menuMapper.selectMenuListByUserId(userId);
         var list = menuList.stream()
             .filter(o -> o.getParentId() == 0)
-            .map(o -> {
-                o.setChildren(getChildrenList(menuList, o));
-                return o;
-            }).collect(Collectors.toList());
+            .peek(o -> o.setChildren(getChildrenList(menuList, o)))
+            .toList();
         if (list.isEmpty() && !menuList.isEmpty()) {
             return Collections.emptyList();
         }
