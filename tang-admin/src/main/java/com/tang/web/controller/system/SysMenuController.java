@@ -1,6 +1,7 @@
 package com.tang.web.controller.system;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -35,6 +36,7 @@ public class SysMenuController {
      * @param menu 菜单对象
      * @return 菜单列表
      */
+    @PreAuthorize("@auth.hasAnyPermission('system:menu:list')")
     @GetMapping("/list")
     public AjaxResult list(SysMenu menu){
         var list = menuService.selectMenuListTree(menu);
@@ -47,6 +49,7 @@ public class SysMenuController {
      * @param dept 菜单对象
      * @return 菜单树下拉选项
      */
+    @PreAuthorize("@auth.hasAnyPermission('system:menu:list')")
     @GetMapping("/menuTree")
     public AjaxResult menuTree(SysMenu menu){
         var list = menuService.selectMenuTree(menu);
@@ -59,6 +62,7 @@ public class SysMenuController {
      * @param menuId 主键
      * @return 菜单对象
      */
+    @PreAuthorize("@auth.hasAnyPermission('system:menu:list')")
     @GetMapping("/{menuId}")
     public AjaxResult selectMenuByMenuId(@PathVariable("menuId") Long menuId) {
         return AjaxResult.success(menuService.selectMenuByMenuId(menuId));
@@ -70,6 +74,7 @@ public class SysMenuController {
      * @param menu 菜单对象
      * @return 影响行数
      */
+    @PreAuthorize("@auth.hasAnyPermission('system:menu:add')")
     @PostMapping
     public AjaxResult add(@RequestBody SysMenu menu) {
         return AjaxResult.success(menuService.insertMenu(menu));
@@ -81,6 +86,7 @@ public class SysMenuController {
      * @param menu 菜单对象
      * @return 影响行数
      */
+    @PreAuthorize("@auth.hasAnyPermission('system:menu:edit')")
     @PutMapping
     public AjaxResult edit(@RequestBody SysMenu menu) {
         return AjaxResult.success(menuService.updateMenuByMenuId(menu));
@@ -92,6 +98,7 @@ public class SysMenuController {
      * @param menuId 主键
      * @return 影响行数
      */
+    @PreAuthorize("@auth.hasAnyPermission('system:menu:delete')")
     @DeleteMapping("/{menuId}")
     public AjaxResult delete(@PathVariable Long menuId) {
         if (menuService.checkHasChildren(menuId)) {

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.StringUtils;
@@ -12,6 +13,8 @@ import org.springframework.stereotype.Service;
 
 import com.tang.commons.core.vo.MetaVo;
 import com.tang.commons.core.vo.RouteVo;
+import com.tang.commons.enumeration.MenuType;
+import com.tang.commons.utils.SecurityUtils;
 import com.tang.commons.utils.tree.TreeSelect;
 import com.tang.commons.utils.tree.TreeUtils;
 import com.tang.system.entity.SysMenu;
@@ -100,13 +103,32 @@ public class SysMenuServiceImpl implements SysMenuService {
     }
 
     /**
+     * 根据用户主键获取权限集合
+     *
+     * @param userId 用户主键
+     * @return 权限集合
+     */
+    public Set<String> getPermissionsByUserId(Long userId) {
+        var menuList = menuMapper.selectMenuListByUserId(userId);
+        var permissions = menuList.stream().map(SysMenu::getPermission).collect(Collectors.toSet());
+        permissions.removeIf(StringUtils::isEmpty);
+        return permissions;
+    }
+
+    /**
      * 根据用户主键获取菜单树
      *
      * @param userId 用户主键
      * @return 菜单树
      */
     public List<RouteVo> selectMenuListTreeByUserId(Long userId) {
-        var menuList = menuMapper.selectMenuListByUserId(userId);
+        List<SysMenu> menuList;
+        if (SecurityUtils.isAdmin()) {
+            menuList = menuMapper.selectMenuList(null);
+        } else {
+            menuList = menuMapper.selectMenuListByUserId(userId);
+        }
+        menuList.removeIf(menu -> MenuType.BUTTON.getMenuType().equals(menu.getMenuType()));
         var list = menuList.stream()
             .filter(o -> o.getParentId() == 0)
             .peek(o -> o.setChildren(getChildrenList(menuList, o)))
@@ -129,7 +151,7 @@ public class SysMenuServiceImpl implements SysMenuService {
             var route = new RouteVo();
             var meta = new MetaVo();
             var menuType = menu.getMenuType();
-            if ("D".equals(menuType)) {
+            if (menuType.equals(MenuType.DIRECTORY.getMenuType())) {
                 route.setName(menu.getPath());
                 route.setPath("/" + menu.getPath());
                 route.setComponent("Layout");
@@ -137,7 +159,7 @@ public class SysMenuServiceImpl implements SysMenuService {
                     route.setRedirect(route.getPath() + "/" + menu.getChildren().get(0).getPath());
                 }
             }
-            if ("M".equals(menuType)) {
+            if (menuType.equals(MenuType.MENU.getMenuType())) {
                 route.setPath(menu.getPath());
                 route.setComponent(menu.getComponent());
             }

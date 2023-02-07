@@ -6,6 +6,8 @@ import org.springframework.security.core.GrantedAuthority;
 import java.util.Collection;
 
 /**
+ * 用户名密码身份令牌
+ *
  * @author Tang
  */
 public class UsernameAuthenticationToken extends AbstractAuthenticationToken {

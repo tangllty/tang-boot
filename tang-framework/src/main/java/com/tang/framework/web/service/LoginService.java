@@ -1,7 +1,5 @@
 package com.tang.framework.web.service;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -23,9 +21,7 @@ import com.tang.framework.security.authentication.username.UsernameAuthenticatio
 @Component
 public class LoginService {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(LoginService.class);
-
-     @Autowired
+    @Autowired
      private AuthenticationManager authenticationManager;
 
      @Autowired
@@ -38,9 +34,10 @@ public class LoginService {
      * @return token
      *
      * @see com.tang.framework.security.authentication.username.UsernameAuthenticationProvider#authenticate(Authentication)
+     * @see com.tang.framework.security.authentication.email.EmailAuthenticationProvider#authenticate(Authentication)
      */
     public String login(LoginModel loginModel) {
-        Authentication authentication = null;
+        Authentication authentication;
         AbstractAuthenticationToken authenticationToken = null;
 
         switch (loginModel.getLoginType()) {

@@ -47,7 +47,7 @@ public class SysRoleServiceImpl implements SysRoleService {
     /**
      * 根据用户主键获取角色集合
      *
-     * @param role 用户主键
+     * @param userId 用户主键
      * @return 角色集合
      */
     public Set<String> getRolesByUserId(Long userId) {

@@ -2,6 +2,7 @@ package com.tang.commons.core.model;
 
 import java.util.Collection;
 import java.util.Date;
+import java.util.Set;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,7 +18,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class UserModel implements UserDetails {
 
     @java.io.Serial
-    private static final long serialVersionUID = 718812918653236488L;
+    private static final long serialVersionUID = -3458669023009166129L;
 
     /**
      * ip
@@ -69,11 +70,20 @@ public class UserModel implements UserDetails {
      */
     private String engineVersion;
 
+    /**
+     * 登陆方式
+     */
     private String loginType;
 
+    /**
+     * 登陆时间
+     */
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date loginTime;
 
+    /**
+     * 过期时间
+     */
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date expireTime;
 
@@ -83,11 +93,25 @@ public class UserModel implements UserDetails {
     private String token;
 
     /**
+     * 角色集合
+     */
+    private Set<String> roles;
+
+    /**
+     * 权限集合
+     */
+    private Set<String> permissions;
+
+    /**
      * 用户信息
      */
     private SysUserModel user;
 
     public UserModel() {
+    }
+
+    public UserModel(SysUserModel user) {
+      this.user = user;
     }
 
     public String getIp() {
@@ -202,8 +226,20 @@ public class UserModel implements UserDetails {
         this.token = token;
     }
 
-    public UserModel(SysUserModel user) {
-        this.user = user;
+    public Set<String> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<String> roles) {
+        this.roles = roles;
+    }
+
+    public Set<String> getPermissions() {
+        return permissions;
+    }
+
+    public void setPermissions(Set<String> permissions) {
+        this.permissions = permissions;
     }
 
     public SysUserModel getUser() {

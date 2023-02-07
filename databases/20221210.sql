@@ -59,8 +59,8 @@ create table sys_user (
     primary key (user_id)
 ) engine=InnoDB auto_increment=100 comment = '用户表';
 
-insert into sys_user values (1, 4, 'admin', '糖猫猫', 'tangllty@163.com', '', '0', '', '', '0', '0', '127.0.0.1', null, 'admin', sysdate(), '', null, '超级管理员');
-insert into sys_user values (2, 4, 'user',  '糖糖',   'tang@163.com',     '', '0', '', '', '0', '0', '127.0.0.1', null, 'admin', sysdate(), '', null, '普通用户');
+insert into sys_user values (1, 4, 'admin', '糖猫猫', 'tangllty@163.com', '', '0', '', '$2a$10$QclgMfXBXPoXX6BEJxNyz.aARYqwyOwCnikxWiRK0v4c8zR9/kuQu', '0', '0', '127.0.0.1', null, 'admin', sysdate(), '', null, '超级管理员');
+insert into sys_user values (2, 4, 'user',  '糖糖',   'tang@163.com',     '', '0', '', '$2a$10$QclgMfXBXPoXX6BEJxNyz.aARYqwyOwCnikxWiRK0v4c8zR9/kuQu', '0', '0', '127.0.0.1', null, 'admin', sysdate(), '', null, '普通用户');
 
 
 -- -----------------------------
@@ -99,7 +99,7 @@ create table sys_menu (
     path         varchar(255)  default ''               comment '路由地址',
     component    varchar(255)  default ''               comment '组件路径',
     query        varchar(255)  default ''               comment '路由参数',
-    perms        varchar(128)  default ''               comment '权限标识',
+    permission   varchar(128)  default ''               comment '权限标识',
     icon         varchar(128)  default ''               comment '菜单图标',
     menu_type    char(1)       default ''               comment '菜单类型{D=目录, M=菜单, B=按钮}',
     is_frame     char(1)       default '0'              comment '是否为外链{0=否, 1=是}',
@@ -120,10 +120,34 @@ create table sys_menu (
 insert into sys_menu values (1, 0, '0', '系统管理', 'system', '', '', '', 'Setting', 'D', '0', '0', '0', 0, '0', '0', 'admin', sysdate(), '', null, '系统管理目录');
 
 -- 菜单
-insert into sys_menu values (11, 1, '0,1', '用户管理', 'user', 'system/user/index', '', '', 'User', 'M', '0', '0', '0', 0, '0', '0', 'admin', sysdate(), '', null, '用户管理菜单');
-insert into sys_menu values (12, 1, '0,1', '部门管理', 'dept', 'system/dept/index', '', '', 'More', 'M', '0', '0', '0', 0, '0', '0', 'admin', sysdate(), '', null, '部门管理菜单');
-insert into sys_menu values (13, 1, '0,1', '角色管理', 'role', 'system/role/index', '', '', 'More', 'M', '0', '0', '0', 0, '0', '0', 'admin', sysdate(), '', null, '角色管理菜单');
-insert into sys_menu values (14, 1, '0,1', '菜单管理', 'menu', 'system/menu/index', '', '', 'Menu', 'M', '0', '0', '0', 0, '0', '0', 'admin', sysdate(), '', null, '菜单管理菜单');
+insert into sys_menu values (11, 1, '0,1', '用户管理', 'user', 'system/user/index', '', 'system:user:menu', 'User', 'M', '0', '0', '0', 0, '0', '0', 'admin', sysdate(), '', null, '用户管理菜单');
+insert into sys_menu values (12, 1, '0,1', '部门管理', 'dept', 'system/dept/index', '', 'system:dept:menu', 'More', 'M', '0', '0', '0', 0, '0', '0', 'admin', sysdate(), '', null, '部门管理菜单');
+insert into sys_menu values (13, 1, '0,1', '角色管理', 'role', 'system/role/index', '', 'system:role:menu', 'More', 'M', '0', '0', '0', 0, '0', '0', 'admin', sysdate(), '', null, '角色管理菜单');
+insert into sys_menu values (14, 1, '0,1', '菜单管理', 'menu', 'system/menu/index', '', 'system:menu:menu', 'Menu', 'M', '0', '0', '0', 0, '0', '0', 'admin', sysdate(), '', null, '菜单管理菜单');
+
+-- 用户管理按钮
+insert into sys_menu values (101, 11, '0,1,11', '用户查询', '', '', '', 'system:user:list',   '', 'B', '0', '0', '0', 0, '0', '0', 'admin', sysdate(), '', null, '用户查询按钮');
+insert into sys_menu values (102, 11, '0,1,11', '用户新增', '', '', '', 'system:user:add',    '', 'B', '0', '0', '0', 0, '0', '0', 'admin', sysdate(), '', null, '用户新增按钮');
+insert into sys_menu values (103, 11, '0,1,11', '用户修改', '', '', '', 'system:user:edit',   '', 'B', '0', '0', '0', 0, '0', '0', 'admin', sysdate(), '', null, '用户修改按钮');
+insert into sys_menu values (104, 11, '0,1,11', '用户删除', '', '', '', 'system:user:delete', '', 'B', '0', '0', '0', 0, '0', '0', 'admin', sysdate(), '', null, '用户删除按钮');
+
+-- 部门管理按钮
+insert into sys_menu values (105, 12, '0,1,12', '部门查询', '', '', '', 'system:dept:list',   '', 'B', '0', '0', '0', 0, '0', '0', 'admin', sysdate(), '', null, '部门查询按钮');
+insert into sys_menu values (106, 12, '0,1,12', '部门添加', '', '', '', 'system:dept:add',    '', 'B', '0', '0', '0', 0, '0', '0', 'admin', sysdate(), '', null, '部门添加按钮');
+insert into sys_menu values (107, 12, '0,1,12', '部门修改', '', '', '', 'system:dept:edit',   '', 'B', '0', '0', '0', 0, '0', '0', 'admin', sysdate(), '', null, '部门修改按钮');
+insert into sys_menu values (108, 12, '0,1,12', '部门删除', '', '', '', 'system:dept:edlete', '', 'B', '0', '0', '0', 0, '0', '0', 'admin', sysdate(), '', null, '部门删除按钮');
+
+-- 角色管理按钮
+insert into sys_menu values (109, 13, '0,1,13', '角色查询', '', '', '', 'system:role:list',   '', 'B', '0', '0', '0', 0, '0', '0', 'admin', sysdate(), '', null, '角色查询按钮');
+insert into sys_menu values (110, 13, '0,1,13', '角色添加', '', '', '', 'system:role:add',    '', 'B', '0', '0', '0', 0, '0', '0', 'admin', sysdate(), '', null, '角色添加按钮');
+insert into sys_menu values (111, 13, '0,1,13', '角色修改', '', '', '', 'system:role:edit',   '', 'B', '0', '0', '0', 0, '0', '0', 'admin', sysdate(), '', null, '角色修改按钮');
+insert into sys_menu values (112, 13, '0,1,13', '角色删除', '', '', '', 'system:role:delete', '', 'B', '0', '0', '0', 0, '0', '0', 'admin', sysdate(), '', null, '角色删除按钮');
+
+-- 菜单管理按钮
+insert into sys_menu values (113, 14, '0,1,14', '菜单查询', '', '', '', 'system:menu:list',   '', 'B', '0', '0', '0', 0, '0', '0', 'admin', sysdate(), '', null, '菜单查询按钮');
+insert into sys_menu values (114, 14, '0,1,14', '菜单添加', '', '', '', 'system:menu:add',    '', 'B', '0', '0', '0', 0, '0', '0', 'admin', sysdate(), '', null, '菜单添加按钮');
+insert into sys_menu values (115, 14, '0,1,14', '菜单修改', '', '', '', 'system:menu:edit',   '', 'B', '0', '0', '0', 0, '0', '0', 'admin', sysdate(), '', null, '菜单修改按钮');
+insert into sys_menu values (116, 14, '0,1,14', '菜单删除', '', '', '', 'system:menu:delete', '', 'B', '0', '0', '0', 0, '0', '0', 'admin', sysdate(), '', null, '菜单删除按钮');
 
 
 -- -----------------------------
@@ -150,14 +174,17 @@ create table sys_role_menu (
     primary key(role_id, menu_id)
 ) engine=InnoDB comment = '角色与菜单关联表';
 
-insert into sys_role_menu values (1, 1);
-insert into sys_role_menu values (1, 11);
-insert into sys_role_menu values (1, 12);
-insert into sys_role_menu values (1, 13);
-insert into sys_role_menu values (1, 14);
-
 insert into sys_role_menu values (2, 1);
 insert into sys_role_menu values (2, 11);
+insert into sys_role_menu values (2, 12);
+insert into sys_role_menu values (2, 101);
+insert into sys_role_menu values (2, 102);
+insert into sys_role_menu values (2, 103);
+insert into sys_role_menu values (2, 104);
+insert into sys_role_menu values (2, 105);
+insert into sys_role_menu values (2, 106);
+insert into sys_role_menu values (2, 107);
+insert into sys_role_menu values (2, 108);
 
 
 -- -----------------------------

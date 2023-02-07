@@ -1,6 +1,7 @@
 package com.tang.web.controller.system;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -35,6 +36,7 @@ public class SysRoleController {
      * @param role 角色对象
      * @return 角色列表
      */
+    @PreAuthorize("@auth.hasAnyPermission('system:role:list')")
     @GetMapping("/list")
     public AjaxResult list(SysRole role){
         var list = roleService.selectRoleList(role);
@@ -47,6 +49,7 @@ public class SysRoleController {
      * @param roleId 主键
      * @return 角色对象
      */
+    @PreAuthorize("@auth.hasAnyPermission('system:role:list')")
     @GetMapping("/{roleId}")
     public AjaxResult selectRoleByRoleId(@PathVariable("roleId") Long roleId) {
         return AjaxResult.success(roleService.selectRoleByRoleId(roleId));
@@ -58,6 +61,7 @@ public class SysRoleController {
      * @param role 角色对象
      * @return 影响行数
      */
+    @PreAuthorize("@auth.hasAnyPermission('system:role:add')")
     @PostMapping
     public AjaxResult add(@RequestBody SysRole role) {
         return AjaxResult.success(roleService.insertRole(role));
@@ -69,6 +73,7 @@ public class SysRoleController {
      * @param role 角色对象
      * @return 影响行数
      */
+    @PreAuthorize("@auth.hasAnyPermission('system:role:edit')")
     @PutMapping
     public AjaxResult edit(@RequestBody SysRole role) {
         return AjaxResult.success(roleService.updateRoleByRoleId(role));
@@ -80,6 +85,7 @@ public class SysRoleController {
      * @param roleId 主键
      * @return 影响行数
      */
+    @PreAuthorize("@auth.hasAnyPermission('system:role:delete')")
     @DeleteMapping("/{roleId}")
     public AjaxResult delete(@PathVariable Long roleId) {
         return AjaxResult.success(roleService.deleteRoleByRoleId(roleId));

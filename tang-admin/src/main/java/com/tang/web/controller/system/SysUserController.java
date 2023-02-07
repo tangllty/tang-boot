@@ -1,6 +1,7 @@
 package com.tang.web.controller.system;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -37,6 +38,7 @@ public class SysUserController {
      * @param user 用户对象
      * @return 用户列表
      */
+    @PreAuthorize("@auth.hasAnyPermission('system:user:list')")
     @GetMapping("/list")
     public TableDataResult list(SysUser user){
         PageUtils.startPage();
@@ -50,6 +52,7 @@ public class SysUserController {
      * @param userId 主键
      * @return 用户对象
      */
+    @PreAuthorize("@auth.hasAnyPermission('system:user:list')")
     @GetMapping("/{userId}")
     public AjaxResult selectUserByUserId(@PathVariable("userId") Long userId) {
         return AjaxResult.success(this.userService.selectUserByUserId(userId));
@@ -61,6 +64,7 @@ public class SysUserController {
      * @param user 用户对象
      * @return 影响行数
      */
+    @PreAuthorize("@auth.hasAnyPermission('system:user:add')")
     @PostMapping
     public AjaxResult add(@RequestBody SysUser user) {
         return AjaxResult.success(userService.insertUser(user));
@@ -72,6 +76,7 @@ public class SysUserController {
      * @param user 用户对象
      * @return 影响行数
      */
+    @PreAuthorize("hasAuthority('system:user:edit')")
     @PutMapping
     public AjaxResult edit(@RequestBody SysUser user) {
         return AjaxResult.success(this.userService.updateUserByUserId(user));
@@ -83,6 +88,7 @@ public class SysUserController {
      * @param userId 主键
      * @return 影响行数
      */
+    @PreAuthorize("@auth.hasAnyPermission('system:user:delete')")
     @DeleteMapping("/{userId}")
     public AjaxResult delete(@PathVariable Long userId) {
         return AjaxResult.success(userService.deleteUserByUserId(userId));

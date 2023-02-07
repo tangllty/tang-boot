@@ -6,6 +6,8 @@ import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 
 /**
+ * 邮箱密码身份令牌
+ *
  * @author Tang
  */
 public class EmailAuthenticationToken extends AbstractAuthenticationToken {

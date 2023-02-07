@@ -1,6 +1,7 @@
 package com.tang.system.service;
 
 import java.util.List;
+import java.util.Set;
 
 import com.tang.commons.core.vo.RouteVo;
 import com.tang.commons.utils.tree.TreeSelect;
@@ -44,6 +45,14 @@ public interface SysMenuService {
      * @return 菜单对象
      */
     SysMenu selectMenuByMenuId(Long menuId);
+
+    /**
+     * 根据用户主键获取权限集合
+     *
+     * @param userId 用户主键
+     * @return 权限集合
+     */
+    Set<String> getPermissionsByUserId(Long userId);
 
     /**
      * 根据用户主键获取菜单树

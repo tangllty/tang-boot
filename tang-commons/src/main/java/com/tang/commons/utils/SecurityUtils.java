@@ -1,6 +1,9 @@
 package com.tang.commons.utils;
 
+import java.util.Set;
+
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.tang.commons.core.model.SysUserModel;
 import com.tang.commons.core.model.UserModel;
@@ -11,6 +14,16 @@ import com.tang.commons.core.model.UserModel;
  * @author Tang
  */
 public class SecurityUtils {
+
+    /**
+     * 管理员标识
+     */
+    public static final String ADMIN_ROLE_KEY = "admin";
+
+    /**
+     * 所有权限
+     */
+    public static final String ALL_PERMISSIONS = "*:*:*";
 
     /**
      * 创建登陆用户模型
@@ -38,6 +51,56 @@ public class SecurityUtils {
      */
     public static SysUserModel getUser() {
         return getUserModel().getUser();
+    }
+
+    /**
+     * 获取角色信息
+     *
+     * @return 角色信息
+     */
+    public static Set<String> getRoles() {
+        return getUserModel().getRoles();
+    }
+
+    /**
+     * 获取权限信息
+     *
+     * @return 权限信息
+     */
+    public static Set<String> getPermissions() {
+        return getUserModel().getPermissions();
+    }
+
+    /**
+     * 判断是否为管理员
+     *
+     * @return 结果
+     */
+    public static boolean isAdmin() {
+        return getRoles().contains(ADMIN_ROLE_KEY) && getPermissions().contains(ALL_PERMISSIONS);
+    }
+
+    /**
+     * BCryptPasswordEncoder 生成密文密码
+     *
+     * @param password 明文密码
+     * @return 密文密码
+     */
+    public static String encryptPassword(String rawPassword) {
+        var passwordEncoder = new BCryptPasswordEncoder();
+        return passwordEncoder.encode(rawPassword);
+    }
+
+    /**
+     * 验证明文密码是否与密文密码匹配
+     *
+     * @param rawPassword     明文密码
+     * @param encodedPassword 密文密码
+     * @return 结果
+     */
+    public static boolean matchesPassword(String rawPassword, String encodedPassword) {
+        var passwordEncoder = new BCryptPasswordEncoder();
+        return passwordEncoder.matches(rawPassword, encodedPassword);
     }
 
 }

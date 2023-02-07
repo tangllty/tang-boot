@@ -13,7 +13,7 @@ import com.tang.commons.core.base.entity.BaseEntity;
 public class SysMenu extends BaseEntity {
 
     @java.io.Serial
-    private static final long serialVersionUID = -7745068562296429188L;
+    private static final long serialVersionUID = -6266663005629554448L;
 
     /**
      * 菜单ID
@@ -53,7 +53,7 @@ public class SysMenu extends BaseEntity {
     /**
      * 权限标识
      */
-    private String perms;
+    private String permission;
 
     /**
      * 菜单图标
@@ -157,12 +157,12 @@ public class SysMenu extends BaseEntity {
         this.query = query;
     }
 
-    public String getPerms() {
-        return perms;
+    public String getPermission() {
+        return permission;
     }
 
-    public void setPerms(String perms) {
-        this.perms = perms;
+    public void setPermission(String permission) {
+        this.permission = permission;
     }
 
     public String getIcon() {
