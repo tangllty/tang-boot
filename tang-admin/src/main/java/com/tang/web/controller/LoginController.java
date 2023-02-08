@@ -13,7 +13,6 @@ import com.tang.commons.utils.AjaxResult;
 import com.tang.commons.utils.SecurityUtils;
 import com.tang.framework.web.service.LoginService;
 import com.tang.system.service.SysMenuService;
-import com.tang.system.service.SysRoleService;
 
 /**
  * 登陆验证
@@ -25,9 +24,6 @@ public class LoginController {
 
     @Autowired
     private LoginService loginService;
-
-    @Autowired
-    private SysRoleService roleService;
 
     @Autowired
     private SysMenuService menuService;
@@ -52,8 +48,9 @@ public class LoginController {
     @GetMapping("/getInfo")
     public AjaxResult getInfo() {
         var user = SecurityUtils.getUser();
-        var roles = roleService.getRolesByUserId(user.getUserId());
-        return AjaxResult.success(Map.of("user", user, "roles", roles));
+        var roles = SecurityUtils.getRoles();
+        var permissions = SecurityUtils.getPermissions();
+        return AjaxResult.success(Map.of("user", user, "roles", roles, "permissions", permissions));
     }
 
     /**

@@ -26,16 +26,6 @@ public class SecurityUtils {
     public static final String ALL_PERMISSIONS = "*:*:*";
 
     /**
-     * 创建登陆用户模型
-     *
-     * @param userModel 用户模型
-     * @return 登陆用户模型
-     */
-    public static UserModel createUserModel(SysUserModel userModel) {
-        return new UserModel(userModel);
-    }
-
-    /**
      * 获取登陆用户信息
      *
      * @return 登陆用户信息
