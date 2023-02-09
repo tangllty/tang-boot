@@ -134,6 +134,10 @@
         where user_id = #{userId}
     </update>
 
+    <update id="updateUserStatusByUserId">
+        update sys_user set status = #{status} where user_id = #{userId}
+    </update>
+
     <delete id="deleteUserByUserId">
         update sys_dept set del_flag = '1' where user_id = #{userId}
     </delete>

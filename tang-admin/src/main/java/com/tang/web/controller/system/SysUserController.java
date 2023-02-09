@@ -76,10 +76,22 @@ public class SysUserController {
      * @param user 用户对象
      * @return 影响行数
      */
-    @PreAuthorize("hasAuthority('system:user:edit')")
+    @PreAuthorize("@auth.hasAnyPermission('system:user:edit')")
     @PutMapping
     public AjaxResult edit(@RequestBody SysUser user) {
-        return AjaxResult.success(this.userService.updateUserByUserId(user));
+        return AjaxResult.success(userService.updateUserByUserId(user));
+    }
+
+    /**
+     * 修改用户状态
+     *
+     * @param user 用户对象
+     * @return 影响行数
+     */
+    @PreAuthorize("@auth.hasAnyPermission('system:user:edit')")
+    @PutMapping("/changeStatus")
+    public AjaxResult changeStatus(@RequestBody SysUser user) {
+        return AjaxResult.success(userService.updateUserStatusByUserId(user));
     }
 
     /**
