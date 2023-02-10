@@ -1,6 +1,7 @@
 package com.tang.system.entity;
 
 import java.util.Date;
+import java.util.List;
 
 import com.tang.commons.core.base.entity.BaseEntity;
 
@@ -78,6 +79,8 @@ public class SysUser extends BaseEntity {
      * 最后登录时间
      */
     private Date loginDate;
+
+    private List<Long> roleIds;
 
     /**
      * 部门对象
@@ -187,6 +190,14 @@ public class SysUser extends BaseEntity {
 
     public void setLoginDate(Date loginDate) {
         this.loginDate = loginDate;
+    }
+
+    public List<Long> getRoleIds() {
+        return roleIds;
+    }
+
+    public void setRoleIds(List<Long> roleIds) {
+        this.roleIds = roleIds;
     }
 
     public SysDept getDept() {

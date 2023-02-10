@@ -3,6 +3,7 @@ package com.tang.system.service;
 import java.util.List;
 import java.util.Set;
 
+import com.tang.commons.utils.tree.TreeSelect;
 import com.tang.system.entity.SysRole;
 
 /**
@@ -35,6 +36,13 @@ public interface SysRoleService {
      * @return 角色集合
      */
     Set<String> getRolesByUserId(Long userId);
+
+    /**
+     * 获取角色下拉框数据
+     *
+     * @return 角色下拉框数据
+     */
+    List<TreeSelect> selectRolesSelect();
 
     /**
      * 新增角色

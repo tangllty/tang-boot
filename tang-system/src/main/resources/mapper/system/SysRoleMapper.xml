@@ -67,6 +67,13 @@
         )
     </insert>
 
+    <insert id="insertUserRole">
+        insert into sys_user_role (user_id, role_id) values
+        <foreach item="roleId" index="index" collection="roleIds" separator=",">
+            (#{userId},#{roleId})
+        </foreach>
+    </insert>
+
     <update id="updateRoleByRoleId">
         update sys_role
         <set>

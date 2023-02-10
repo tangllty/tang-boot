@@ -3,10 +3,13 @@ package com.tang.system.service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
 
+import com.tang.commons.utils.SecurityUtils;
 import com.tang.system.entity.SysUser;
 import com.tang.system.mapper.SysUserMapper;
+import com.tang.system.mapper.SysRoleMapper;
 import com.tang.system.service.SysUserService;
 
 /**
@@ -20,6 +23,8 @@ public class SysUserServiceImpl implements SysUserService {
     @Autowired
     private SysUserMapper userMapper;
 
+    @Autowired
+    private SysRoleMapper roleMapper;
 
     /**
      * 获取用户列表
@@ -72,8 +77,13 @@ public class SysUserServiceImpl implements SysUserService {
      * @return 影响行数
      */
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public int insertUser(SysUser user) {
-        return userMapper.insertUser(user);
+        user.setPassword(SecurityUtils.encryptPassword(user.getPassword()));
+        var rows = userMapper.insertUser(user);
+        var roleIds = user.getRoleIds();
+        roleMapper.insertUserRole(user.getUserId(), roleIds);
+        return rows;
     }
 
     /**

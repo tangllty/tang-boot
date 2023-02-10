@@ -15,6 +15,7 @@ import com.tang.commons.utils.AjaxResult;
 import com.tang.commons.utils.page.PageUtils;
 import com.tang.commons.utils.page.TableDataResult;
 import com.tang.system.entity.SysUser;
+import com.tang.system.service.SysRoleService;
 import com.tang.system.service.SysUserService;
 
 /**
@@ -31,6 +32,9 @@ public class SysUserController {
      */
     @Autowired
     private SysUserService userService;
+
+    @Autowired
+    private SysRoleService roleService;
 
     /**
      * 获取用户列表
@@ -55,7 +59,18 @@ public class SysUserController {
     @PreAuthorize("@auth.hasAnyPermission('system:user:list')")
     @GetMapping("/{userId}")
     public AjaxResult selectUserByUserId(@PathVariable("userId") Long userId) {
-        return AjaxResult.success(this.userService.selectUserByUserId(userId));
+        return AjaxResult.success(userService.selectUserByUserId(userId));
+    }
+
+    /**
+     * 获取角色下拉框数据
+     *
+     * @return 用户对象
+     */
+    @PreAuthorize("@auth.hasAnyPermission('system:user:add')")
+    @GetMapping("/getRoleSelect")
+    public AjaxResult getRoleSelect() {
+        return AjaxResult.success(roleService.selectRolesSelect());
     }
 
     /**

@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.tang.commons.utils.tree.TreeSelect;
 import com.tang.system.entity.SysRole;
 import com.tang.system.mapper.SysRoleMapper;
 import com.tang.system.service.SysRoleService;
@@ -53,6 +54,16 @@ public class SysRoleServiceImpl implements SysRoleService {
     public Set<String> getRolesByUserId(Long userId) {
         var roleList = roleMapper.selectRoleListByUserId(userId);
         return roleList.stream().map(SysRole::getRoleKey).collect(Collectors.toSet());
+    }
+
+    /**
+     * 获取角色下拉框数据
+     *
+     * @return 角色下拉框数据
+     */
+    public List<TreeSelect> selectRolesSelect() {
+        var roleList = roleMapper.selectRoleList(null);
+        return roleList.stream().map(role -> new TreeSelect(role.getRoleId(), role.getRoleName())).collect(Collectors.toList());
     }
 
     /**

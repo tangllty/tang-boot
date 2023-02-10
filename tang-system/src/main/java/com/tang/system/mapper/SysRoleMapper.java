@@ -2,6 +2,8 @@ package com.tang.system.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.tang.system.entity.SysRole;
 
 /**
@@ -42,6 +44,15 @@ public interface SysRoleMapper {
      * @return 影响行数
      */
     int insertRole(SysRole role);
+
+    /**
+     * 新增用户角色关联信息
+     *
+     * @param userId 用户主键
+     * @param roleIds 角色主键集合
+     * @return 影响行数
+     */
+    int insertUserRole(@Param("userId") Long userId, @Param("roleIds") List<Long> roleIds);
 
     /**
      * 修改角色信息

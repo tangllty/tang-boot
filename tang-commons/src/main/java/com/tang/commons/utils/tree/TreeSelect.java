@@ -41,6 +41,11 @@ public class TreeSelect implements Serializable {
     public TreeSelect() {
     }
 
+    public TreeSelect(Long value, String label) {
+        this.value = value;
+        this.label = label;
+    }
+
     public TreeSelect(Long parentId, Long value, String label) {
         this.parentId = parentId;
         this.value = value;
