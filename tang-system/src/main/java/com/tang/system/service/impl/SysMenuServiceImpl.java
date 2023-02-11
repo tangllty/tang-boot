@@ -87,7 +87,7 @@ public class SysMenuServiceImpl implements SysMenuService {
     public List<TreeSelect> selectMenuTree(SysMenu menu) {
         var menuList = menuMapper.selectMenuList(menu);
         var treeSelectList = new ArrayList<TreeSelect>();
-        menuList.forEach(o -> treeSelectList.add(new TreeSelect(o.getParentId(), o.getMenuId(), o.getMenuName())));
+        menuList.forEach(m -> treeSelectList.add(new TreeSelect(m.getParentId(), m.getMenuId(), m.getMenuName())));
         return TreeUtils.buildTree(treeSelectList);
     }
 
@@ -130,8 +130,8 @@ public class SysMenuServiceImpl implements SysMenuService {
         }
         menuList.removeIf(menu -> MenuType.BUTTON.getMenuType().equals(menu.getMenuType()));
         var list = menuList.stream()
-            .filter(o -> o.getParentId() == 0)
-            .peek(o -> o.setChildren(getChildrenList(menuList, o)))
+            .filter(m -> m.getParentId() == 0)
+            .peek(m -> m.setChildren(getChildrenList(menuList, m)))
             .toList();
         if (list.isEmpty() && !menuList.isEmpty()) {
             return Collections.emptyList();
