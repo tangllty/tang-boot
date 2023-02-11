@@ -24,7 +24,7 @@ create table sys_dept (
     update_time  datetime                               comment '更新时间',
     remark       varchar(500)  default ''               comment '备注',
     primary key (dept_id)
-) engine=InnoDB auto_increment=100 comment = '部门表';
+) engine = InnoDB auto_increment = 100 comment = '部门表';
 
 insert into sys_dept values (1, 0, '0',     '猫猫科技', '1', '0', '0', 'admin', sysdate(), '', null, '猫猫科技');
 insert into sys_dept values (2, 1, '0,1',   '研发部门', '1', '0', '0', 'admin', sysdate(), '', null, '研发部门');
@@ -57,7 +57,7 @@ create table sys_user (
     update_time  datetime                               comment '更新时间',
     remark       varchar(500)  default ''               comment '备注',
     primary key (user_id)
-) engine=InnoDB auto_increment=100 comment = '用户表';
+) engine = InnoDB auto_increment = 100 comment = '用户表';
 
 insert into sys_user values (1, 4, 'admin', '糖猫猫', 'tangllty@163.com', '', '0', '', '$2a$10$QclgMfXBXPoXX6BEJxNyz.aARYqwyOwCnikxWiRK0v4c8zR9/kuQu', '0', '0', '127.0.0.1', null, 'admin', sysdate(), '', null, '超级管理员');
 insert into sys_user values (2, 4, 'user',  '糖糖',   'tang@163.com',     '', '0', '', '$2a$10$QclgMfXBXPoXX6BEJxNyz.aARYqwyOwCnikxWiRK0v4c8zR9/kuQu', '0', '0', '127.0.0.1', null, 'admin', sysdate(), '', null, '普通用户');
@@ -81,7 +81,7 @@ create table sys_role (
     update_time  datetime                               comment '更新时间',
     remark       varchar(500)  default ''               comment '备注',
     primary key (role_id)
-) engine=InnoDB auto_increment=100 comment = '角色表';
+) engine = InnoDB auto_increment = 100 comment = '角色表';
 
 insert into sys_role values (1, '超级管理员', 'admin', '0', '1', '0', '0', 'admin', sysdate(), '', null, '超级管理员');
 insert into sys_role values (2, '普通用户',   'user',  '0', '2', '0', '0', 'admin', sysdate(), '', null, '普通用户');
@@ -114,7 +114,7 @@ create table sys_menu (
     update_time  datetime                               comment '更新时间',
     remark       varchar(500)  default ''               comment '备注',
     primary key (menu_id)
-) engine=InnoDB auto_increment=100 comment = '菜单权限表';
+) engine = InnoDB auto_increment = 100 comment = '菜单权限表';
 
 -- 目录
 insert into sys_menu values (1, 0, '0', '系统管理', 'system', '', '', '', 'Setting', 'D', '0', '0', '0', 0, '0', '0', 'admin', sysdate(), '', null, '系统管理目录');
@@ -158,7 +158,7 @@ create table sys_user_role (
     user_id  bigint(20) not null  comment '用户ID',
     role_id  bigint(20) not null  comment '角色ID',
     primary key(user_id, role_id)
-) engine=InnoDB comment = '用户与角色关联表';
+) engine = InnoDB comment = '用户与角色关联表';
 
 insert into sys_user_role values (1, 1);
 insert into sys_user_role values (2, 2);
@@ -185,16 +185,5 @@ insert into sys_role_menu values (2, 105);
 insert into sys_role_menu values (2, 106);
 insert into sys_role_menu values (2, 107);
 insert into sys_role_menu values (2, 108);
-
-
--- -----------------------------
--- 角色与部门关联表
--- -----------------------------
-drop table if exists sys_role_dept;
-create table sys_role_dept (
-    role_id  bigint(20) not null  comment '角色ID',
-    dept_id  bigint(20) not null  comment '部门ID',
-    primary key(role_id, dept_id)
-) engine=InnoDB comment = '角色与部门关联表';
 
 commit;
