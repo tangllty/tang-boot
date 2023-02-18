@@ -13,11 +13,11 @@ import org.springframework.security.core.GrantedAuthority;
 public class EmailAuthenticationToken extends AbstractAuthenticationToken {
 
     @java.io.Serial
-    private static final long serialVersionUID = 575758598622913474L;
+    private static final long serialVersionUID = -5268051187371586993L;
 
-    private final Object principal;
+    private final transient Object principal;
 
-    private final Object credentials;
+    private final transient Object credentials;
 
     public EmailAuthenticationToken(Object principal, Object credentials) {
         super(null);

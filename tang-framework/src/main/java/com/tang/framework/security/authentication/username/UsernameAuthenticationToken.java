@@ -13,11 +13,11 @@ import java.util.Collection;
 public class UsernameAuthenticationToken extends AbstractAuthenticationToken {
 
     @java.io.Serial
-    private static final long serialVersionUID = 8686292182059799874L;
+    private static final long serialVersionUID = 5746900743403374870L;
 
-    private final Object principal;
+    private final transient Object principal;
 
-    private final Object credentials;
+    private final transient Object credentials;
 
     public UsernameAuthenticationToken(Object principal, Object credentials) {
         super(null);
