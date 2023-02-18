@@ -1,6 +1,7 @@
 package com.tang.commons.core.model;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 import java.util.Set;
 
@@ -253,7 +254,7 @@ public class UserModel implements UserDetails {
     @JsonIgnore
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return Collections.emptyList();
     }
 
     @JsonIgnore
