@@ -22,14 +22,14 @@ public enum MenuType {
      */
     BUTTON("B");
 
-    private String menuType;
+    private String name;
 
-    private MenuType(String menuType) {
-        this.menuType = menuType;
+    private MenuType(String name) {
+        this.name = name;
     }
 
-    public String getMenuType() {
-        return menuType;
+    public String getName() {
+        return name;
     }
 
 }

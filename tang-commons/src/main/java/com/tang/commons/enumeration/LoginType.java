@@ -17,14 +17,14 @@ public enum LoginType {
      */
     EMAIL("email");
 
-    private String loginType;
+    private String name;
 
-    private LoginType(String loginType) {
-        this.loginType = loginType;
+    private LoginType(String name) {
+        this.name = name;
     }
 
-    public String getLoginType() {
-        return loginType;
+    public String getName() {
+        return name;
     }
 
 }
