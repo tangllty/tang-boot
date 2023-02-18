@@ -9,12 +9,9 @@
         <result property="menuName" column="menu_name" />
         <result property="path" column="path" />
         <result property="component" column="component" />
-        <result property="query" column="query" />
         <result property="permission" column="permission" />
         <result property="icon" column="icon" />
         <result property="menuType" column="menu_type" />
-        <result property="isFrame" column="is_frame" />
-        <result property="isCache" column="is_cache" />
         <result property="visible" column="visible" />
         <result property="sort" column="sort" />
         <result property="status" column="status" />
@@ -27,7 +24,7 @@
     </resultMap>
 
     <sql id="SysMenuVo">
-        select m.menu_id, m.parent_id, m.ancestors, m.menu_name, m.path, m.component, m.query, m.permission, m.icon, m.menu_type, m.is_frame, m.is_cache, m.visible, m.sort, m.status, m.del_flag, m.create_by, m.create_time, m.update_by, m.update_time, m.remark
+        select distinct m.menu_id, m.parent_id, m.ancestors, m.menu_name, m.path, m.component, m.permission, m.icon, m.menu_type, m.visible, m.sort, m.status, m.del_flag, m.create_by, m.create_time, m.update_by, m.update_time, m.remark
         from sys_menu m
             left join sys_role_menu rm on m.menu_id = rm.menu_id
     </sql>
@@ -51,7 +48,7 @@
 
     <select id="selectMenuByMenuId" resultMap="SysMenuMap">
         <include refid="SysMenuVo" />
-        where menu_id = #{menuId}
+        where m.menu_id = #{menuId}
     </select>
 
     <select id="selectMenuListByUserId" resultMap="SysMenuMap">
@@ -60,20 +57,22 @@
         where ur.user_id = #{userId}
     </select>
 
+    <select id="selectMenuListByRoleId" resultMap="SysMenuMap">
+        <include refid="SysMenuVo" />
+        where rm.role_id = #{roleId}
+    </select>
+
     <insert id="insertMenu" keyProperty="menuId" useGeneratedKeys="true">
         insert into sys_menu (
             <if test="menuId != null and menuId != 0">menu_id,</if>
-            <if test="parentId != null and parentId != 0">parent_id,</if>
+            <if test="parentId != null">parent_id,</if>
             <if test="ancestors != null and ancestors != ''">ancestors,</if>
             <if test="menuName != null and menuName != ''">menu_name,</if>
             <if test="path != null and path != ''">path,</if>
             <if test="component != null and component != ''">component,</if>
-            <if test="query != null and query != ''">`query`,</if>
             <if test="permission !=null and permission != ''">permission,</if>
             <if test="icon != null and icon != ''">icon,</if>
             <if test="menuType != null and menuType != ''">menu_type,</if>
-            <if test="isFrame != null and isFrame != ''">is_frame,</if>
-            <if test="isCache != null and isCache != ''">is_cache,</if>
             <if test="visible != null and visible != ''">visible,</if>
             <if test="sort != null">sort,</if>
             <if test="status != null and status != ''">status,</if>
@@ -82,17 +81,14 @@
             create_time
         ) values (
             <if test="menuId != null and menuId != 0">#{menuId},</if>
-            <if test="parentId != null and parentId != 0">#{parentId},</if>
+            <if test="parentId != null">#{parentId},</if>
             <if test="ancestors != null and ancestors != ''">#{ancestors},</if>
             <if test="menuName != null and menuName != ''">#{menuName},</if>
             <if test="path != null and path != ''">#{path},</if>
             <if test="component != null and component != ''">#{component},</if>
-            <if test="query != null and query != ''">#{query},</if>
             <if test="permission !=null and permission != ''">#{permission},</if>
             <if test="icon != null and icon != ''">#{icon},</if>
             <if test="menuType != null and menuType != ''">#{menuType},</if>
-            <if test="isFrame != null and isFrame != ''">#{isFrame},</if>
-            <if test="isCache != null and isCache != ''">#{isCache},</if>
             <if test="visible != null and visible != ''">#{visible},</if>
             <if test="sort != null">#{sort},</if>
             <if test="status != null and status != ''">#{status},</if>
@@ -100,6 +96,13 @@
             <if test="remark != null and remark != ''">#{remark},</if>
             sysdate()
         )
+    </insert>
+
+    <insert id="insertRoleMenu">
+        insert into sys_role_menu (role_id, menu_id) values
+        <foreach item="menuId" index="index" collection="menuIds" separator=",">
+            (#{roleId},#{menuId})
+        </foreach>
     </insert>
 
     <update id="updateMenuByMenuId">
@@ -110,12 +113,9 @@
             <if test="menuName != null and menuName != ''">menu_name = #{menuName},</if>
             <if test="path != null and path != ''">path = #{path},</if>
             <if test="component != null">component = #{component},</if>
-            <if test="query != null">`query` = #{query},</if>
             <if test="permission !=null">permission = #{permission},</if>
             <if test="icon !=null and icon != ''">icon = #{icon},</if>
             <if test="menuType != null and menuType != ''">menu_type = #{menuType},</if>
-            <if test="isFrame != null and isFrame != ''">is_frame = #{isFrame},</if>
-            <if test="isCache != null and isCache != ''">is_cache = #{isCache},</if>
             <if test="visible != null and visible != ''">visible = #{visible},</if>
             <if test="sort != null">sort = #{sort},</if>
             <if test="status != null and status != ''">status = #{status},</if>
@@ -130,8 +130,16 @@
         update sys_dept set ancestors = #{ancestors} where dept_id = #{deptId}
     </update>
 
+    <update id="updateMenuStatusByMenuId">
+        update sys_menu set status = #{status} where menu_id = #{menuId}
+    </update>
+
     <delete id="deleteMenuByMenuId">
-        update sys_dept set del_flag = '1' where menu_id = #{menuId}
+        update sys_menu set del_flag = '1' where menu_id = #{menuId}
+    </delete>
+
+    <delete id="deleteRoleMenuByRoleId">
+        delete from sys_role_menu where role_id = #{roleId}
     </delete>
 
 </mapper>

@@ -1,12 +1,14 @@
 package com.tang.system.service.impl;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
 
 import com.tang.commons.utils.SecurityUtils;
+import com.tang.system.entity.SysRole;
 import com.tang.system.entity.SysUser;
 import com.tang.system.mapper.SysUserMapper;
 import com.tang.system.mapper.SysRoleMapper;
@@ -45,7 +47,11 @@ public class SysUserServiceImpl implements SysUserService {
      */
     @Override
     public SysUser selectUserByUserId(Long userId) {
-        return userMapper.selectUserByUserId(userId);
+        var user = userMapper.selectUserByUserId(userId);
+        var roleList = roleMapper.selectRoleListByUserId(userId);
+        var roleIds = roleList.stream().map(SysRole::getRoleId).collect(Collectors.toList());
+        user.setRoleIds(roleIds);
+        return user;
     }
 
     /**
@@ -93,7 +99,11 @@ public class SysUserServiceImpl implements SysUserService {
      * @return 影响行数
      */
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public int updateUserByUserId(SysUser user) {
+        roleMapper.deleteUserRoleByUserId(user.getUserId());
+        var roleIds = user.getRoleIds();
+        roleMapper.insertUserRole(user.getUserId(), roleIds);
         return userMapper.updateUserByUserId(user);
     }
 
@@ -103,6 +113,7 @@ public class SysUserServiceImpl implements SysUserService {
      * @param user 用户对象
      * @return 影响行数
      */
+    @Override
     public int updateUserStatusByUserId(SysUser user) {
         return userMapper.updateUserStatusByUserId(user);
     }
@@ -114,7 +125,9 @@ public class SysUserServiceImpl implements SysUserService {
      * @return 影响行数
      */
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public int deleteUserByUserId(Long userId) {
+        roleMapper.deleteUserRoleByUserId(userId);
         return userMapper.deleteUserByUserId(userId);
     }
 

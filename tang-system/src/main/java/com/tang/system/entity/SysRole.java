@@ -1,5 +1,7 @@
 package com.tang.system.entity;
 
+import java.util.List;
+
 import com.tang.commons.core.base.entity.BaseEntity;
 
 /**
@@ -10,7 +12,7 @@ import com.tang.commons.core.base.entity.BaseEntity;
 public class SysRole extends BaseEntity {
 
     @java.io.Serial
-    private static final long serialVersionUID = 4086438174869133011L;
+    private static final long serialVersionUID = -1878026743787136232L;
 
     /**
      * 角色ID
@@ -46,6 +48,11 @@ public class SysRole extends BaseEntity {
      * 删除标志
      */
     private String delFlag;
+
+    /**
+     * 菜单权限
+     */
+    private List<Long> menuIds;
 
 
     public Long getRoleId() {
@@ -102,6 +109,14 @@ public class SysRole extends BaseEntity {
 
     public void setDelFlag(String delFlag) {
         this.delFlag = delFlag;
+    }
+
+    public List<Long> getMenuIds() {
+        return menuIds;
+    }
+
+    public void setMenuIds(List<Long> menuIds) {
+        this.menuIds = menuIds;
     }
 
 }

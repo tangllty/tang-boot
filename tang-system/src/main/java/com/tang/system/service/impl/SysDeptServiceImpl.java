@@ -66,13 +66,12 @@ public class SysDeptServiceImpl implements SysDeptService {
      * @return 子部门列表
      */
     private List<SysDept> getChildrenList(List<SysDept> deptList, SysDept parentDept) {
-        var childrenList = deptList.stream()
+        return deptList.stream()
             .filter(dept -> Objects.equals(dept.getParentId(), parentDept.getDeptId()))
             .map(dept -> {
                 dept.setChildren(getChildrenList(deptList, dept));
                 return dept;
             }).collect(Collectors.toList());
-        return childrenList;
     }
 
     /**
@@ -139,6 +138,17 @@ public class SysDeptServiceImpl implements SysDeptService {
             }
         }
         return deptMapper.updateDeptByDeptId(dept);
+    }
+
+    /**
+     * 修改部门状态
+     *
+     * @param dept 部门对象
+     * @return 影响行数
+     */
+    @Override
+    public int updateDeptStatusByDeptId(SysDept dept) {
+        return deptMapper.updateDeptStatusByDeptId(dept);
     }
 
     /**

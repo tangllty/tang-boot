@@ -87,6 +87,14 @@ public interface SysMenuService {
     int updateMenuByMenuId(SysMenu menu);
 
     /**
+     * 修改菜单状态
+     *
+     * @param menu 菜单对象
+     * @return 影响行数
+     */
+    int updateMenuStatusByMenuId(SysMenu menu);
+
+    /**
      * 通过主键删除数据
      *
      * @param menuId 主键

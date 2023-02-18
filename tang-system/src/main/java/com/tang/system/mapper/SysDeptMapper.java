@@ -60,6 +60,14 @@ public interface SysDeptMapper {
     int updateDeptChildren(SysDept children);
 
     /**
+     * 修改部门状态
+     *
+     * @param dept 部门对象
+     * @return 影响行数
+     */
+    int updateDeptStatusByDeptId(SysDept dept);
+
+    /**
      * 通过主键删除数据
      *
      * @param deptId 主键

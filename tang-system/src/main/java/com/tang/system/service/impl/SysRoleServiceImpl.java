@@ -6,9 +6,12 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.tang.commons.utils.tree.TreeSelect;
+import com.tang.system.entity.SysMenu;
 import com.tang.system.entity.SysRole;
+import com.tang.system.mapper.SysMenuMapper;
 import com.tang.system.mapper.SysRoleMapper;
 import com.tang.system.service.SysRoleService;
 
@@ -22,6 +25,9 @@ public class SysRoleServiceImpl implements SysRoleService {
 
     @Autowired
     private SysRoleMapper roleMapper;
+
+    @Autowired
+    private SysMenuMapper menuMapper;
 
     /**
      * 获取角色列表
@@ -42,7 +48,11 @@ public class SysRoleServiceImpl implements SysRoleService {
      */
     @Override
     public SysRole selectRoleByRoleId(Long roleId) {
-        return roleMapper.selectRoleByRoleId(roleId);
+        var role = roleMapper.selectRoleByRoleId(roleId);
+        var menuList = menuMapper.selectMenuListByRoleId(roleId);
+        var menuIds = menuList.stream().map(SysMenu::getMenuId).collect(Collectors.toList());
+        role.setMenuIds(menuIds);
+        return role;
     }
 
     /**
@@ -73,8 +83,14 @@ public class SysRoleServiceImpl implements SysRoleService {
      * @return 影响行数
      */
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public int insertRole(SysRole role) {
-        return roleMapper.insertRole(role);
+        int rows = roleMapper.insertRole(role);
+        var menuIds = role.getMenuIds();
+        if (!menuIds.isEmpty()) {
+            menuMapper.insertRoleMenu(role.getRoleId(), menuIds);
+        }
+        return rows;
     }
 
     /**
@@ -84,8 +100,26 @@ public class SysRoleServiceImpl implements SysRoleService {
      * @return 影响行数
      */
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public int updateRoleByRoleId(SysRole role) {
+        var roleId = role.getRoleId();
+        var menuIds = role.getMenuIds();
+        menuMapper.deleteRoleMenuByRoleId(roleId);
+        if (!menuIds.isEmpty()) {
+            menuMapper.insertRoleMenu(roleId, menuIds);
+        }
         return roleMapper.updateRoleByRoleId(role);
+    }
+
+    /**
+     * 修改角色状态
+     *
+     * @param role 角色对象
+     * @return 影响行数
+     */
+    @Override
+    public int updateRoleStatusByRoleId(SysRole role) {
+        return roleMapper.updateRoleStatusByRoleId(role);
     }
 
     /**
@@ -95,7 +129,9 @@ public class SysRoleServiceImpl implements SysRoleService {
      * @return 影响行数
      */
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public int deleteRoleByRoleId(Long roleId) {
+        menuMapper.deleteRoleMenuByRoleId(roleId);
         return roleMapper.deleteRoleByRoleId(roleId);
     }
 

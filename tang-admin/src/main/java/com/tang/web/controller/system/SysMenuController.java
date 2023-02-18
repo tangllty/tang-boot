@@ -93,6 +93,18 @@ public class SysMenuController {
     }
 
     /**
+     * 修改菜单状态
+     *
+     * @param menu 菜单对象
+     * @return 影响行数
+     */
+    @PreAuthorize("@auth.hasAnyPermission('system:menu:edit')")
+    @PutMapping("/changeStatus")
+    public AjaxResult changeStatus(@RequestBody SysMenu menu) {
+        return AjaxResult.success(menuService.updateMenuStatusByMenuId(menu));
+    }
+
+    /**
      * 通过主键删除数据
      *
      * @param menuId 主键

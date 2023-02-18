@@ -80,6 +80,18 @@ public class SysRoleController {
     }
 
     /**
+     * 修改角色状态
+     *
+     * @param role 角色对象
+     * @return 影响行数
+     */
+    @PreAuthorize("@auth.hasAnyPermission('system:role:edit')")
+    @PutMapping("/changeStatus")
+    public AjaxResult changeStatus(@RequestBody SysRole role) {
+        return AjaxResult.success(roleService.updateRoleStatusByRoleId(role));
+    }
+
+    /**
      * 通过主键删除数据
      *
      * @param roleId 主键

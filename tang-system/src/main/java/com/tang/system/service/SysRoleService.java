@@ -61,6 +61,14 @@ public interface SysRoleService {
     int updateRoleByRoleId(SysRole role);
 
     /**
+     * 修改角色状态
+     *
+     * @param role 角色对象
+     * @return 影响行数
+     */
+    int updateRoleStatusByRoleId(SysRole role);
+
+    /**
      * 通过主键删除数据
      *
      * @param roleId 主键

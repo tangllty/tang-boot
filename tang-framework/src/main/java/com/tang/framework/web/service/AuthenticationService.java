@@ -1,20 +1,23 @@
 package com.tang.framework.web.service;
 
+import java.util.Set;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
+import com.tang.commons.constants.Status;
 import com.tang.commons.core.model.SysDeptModel;
 import com.tang.commons.core.model.SysUserModel;
 import com.tang.commons.core.model.UserModel;
+import com.tang.commons.exception.status.DeletedException;
+import com.tang.commons.exception.status.DisabledException;
 import com.tang.commons.exception.user.PasswordMismatchException;
 import com.tang.commons.utils.SecurityUtils;
 import com.tang.system.entity.SysUser;
 import com.tang.system.service.SysMenuService;
 import com.tang.system.service.SysRoleService;
-
-import java.util.Set;
 
 /**
  * 用户权限
@@ -43,6 +46,14 @@ public class AuthenticationService {
 
         if (!SecurityUtils.matchesPassword(password, user.getPassword())) {
             throw new PasswordMismatchException("密码错误");
+        }
+
+        if (user.getStatus().equals(Status.DISABLED)) {
+            throw new DisabledException("账号已停用");
+        }
+
+        if (user.getDelFlag().equals(Status.DELETED)) {
+            throw new DeletedException("账号已删除");
         }
 
         var userModel = new UserModel();

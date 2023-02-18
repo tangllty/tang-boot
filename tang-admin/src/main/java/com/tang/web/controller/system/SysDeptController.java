@@ -93,6 +93,18 @@ public class SysDeptController {
     }
 
     /**
+     * 修改部门状态
+     *
+     * @param dept 部门对象
+     * @return 影响行数
+     */
+    @PreAuthorize("@auth.hasAnyPermission('system:dept:edit')")
+    @PutMapping("/changeStatus")
+    public AjaxResult changeStatus(@RequestBody SysDept dept) {
+        return AjaxResult.success(deptService.updateDeptStatusByDeptId(dept));
+    }
+
+    /**
      * 通过主键删除数据
      *
      * @param deptId 主键

@@ -13,7 +13,7 @@ import com.tang.commons.core.base.entity.BaseEntity;
 public class SysMenu extends BaseEntity {
 
     @java.io.Serial
-    private static final long serialVersionUID = -6266663005629554448L;
+    private static final long serialVersionUID = -3559258252404112781L;
 
     /**
      * 菜单ID
@@ -46,11 +46,6 @@ public class SysMenu extends BaseEntity {
     private String component;
 
     /**
-     * 路由参数
-     */
-    private String query;
-
-    /**
      * 权限标识
      */
     private String permission;
@@ -64,16 +59,6 @@ public class SysMenu extends BaseEntity {
      * 菜单类型（M目录 C菜单 F按钮）
      */
     private String menuType;
-
-    /**
-     * 是否为外链{0=否 1=是}
-     */
-    private String isFrame;
-
-    /**
-     * 是否缓存（0缓存 1不缓存）
-     */
-    private String isCache;
 
     /**
      * 菜单状态（0显示 1隐藏）
@@ -149,14 +134,6 @@ public class SysMenu extends BaseEntity {
         this.component = component;
     }
 
-    public String getQuery() {
-        return query;
-    }
-
-    public void setQuery(String query) {
-        this.query = query;
-    }
-
     public String getPermission() {
         return permission;
     }
@@ -179,22 +156,6 @@ public class SysMenu extends BaseEntity {
 
     public void setMenuType(String menuType) {
         this.menuType = menuType;
-    }
-
-    public String getIsFrame() {
-        return isFrame;
-    }
-
-    public void setIsFrame(String isFrame) {
-        this.isFrame = isFrame;
-    }
-
-    public String getIsCache() {
-        return isCache;
-    }
-
-    public void setIsCache(String isCache) {
-        this.isCache = isCache;
     }
 
     public String getVisible() {

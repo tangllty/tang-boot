@@ -63,12 +63,28 @@ public interface SysRoleMapper {
     int updateRoleByRoleId(SysRole role);
 
     /**
+     * 修改角色状态
+     *
+     * @param role 角色对象
+     * @return 影响行数
+     */
+    int updateRoleStatusByRoleId(SysRole role);
+
+    /**
      * 通过主键删除数据
      *
      * @param roleId 主键
      * @return 影响行数
      */
     int deleteRoleByRoleId(Long roleId);
+
+    /**
+     * 通过用户主键删除角色关联数据
+     *
+     * @param userId 用户主键
+     * @return 影响行数
+     */
+    int deleteUserRoleByUserId(Long userId);
 
 }
 

@@ -54,8 +54,11 @@ public class SysMenuServiceImpl implements SysMenuService {
         var menuList = menuMapper.selectMenuList(menu);
         var list = menuList.stream()
             .filter(o -> o.getParentId() == 0)
-            .peek(o -> o.setChildren(getChildrenList(menuList, o)))
-            .toList();
+            .map(o -> {
+                o.setChildren(getChildrenList(menuList, o));
+                return o;
+            })
+            .collect(Collectors.toList());
         if (list.isEmpty() && !menuList.isEmpty()) {
             return Collections.emptyList();
         }
@@ -70,11 +73,13 @@ public class SysMenuServiceImpl implements SysMenuService {
      * @return 子菜单列表
      */
     private List<SysMenu> getChildrenList(List<SysMenu> menuList, SysMenu parentMenu) {
-        var childrenList = menuList.stream()
+        return menuList.stream()
             .filter(menu -> Objects.equals(menu.getParentId(), parentMenu.getMenuId()))
-            .peek(menu -> menu.setChildren(getChildrenList(menuList, menu)))
-            .toList();
-        return childrenList;
+            .map(menu -> {
+                menu.setChildren(getChildrenList(menuList, menu));
+                return menu;
+            })
+            .collect(Collectors.toList());
     }
 
     /**
@@ -128,11 +133,14 @@ public class SysMenuServiceImpl implements SysMenuService {
         } else {
             menuList = menuMapper.selectMenuListByUserId(userId);
         }
-        menuList.removeIf(menu -> MenuType.BUTTON.getMenuType().equals(menu.getMenuType()));
+        menuList.removeIf(menu -> MenuType.BUTTON.getName().equals(menu.getMenuType()));
         var list = menuList.stream()
             .filter(m -> m.getParentId() == 0)
-            .peek(m -> m.setChildren(getChildrenList(menuList, m)))
-            .toList();
+            .map(m -> {
+                m.setChildren(getChildrenList(menuList, m));
+                return m;
+            })
+            .collect(Collectors.toList());
         if (list.isEmpty() && !menuList.isEmpty()) {
             return Collections.emptyList();
         }
@@ -151,7 +159,7 @@ public class SysMenuServiceImpl implements SysMenuService {
             var route = new RouteVo();
             var meta = new MetaVo();
             var menuType = menu.getMenuType();
-            if (menuType.equals(MenuType.DIRECTORY.getMenuType())) {
+            if (menuType.equals(MenuType.DIRECTORY.getName())) {
                 route.setName(menu.getPath());
                 route.setPath("/" + menu.getPath());
                 route.setComponent("Layout");
@@ -159,7 +167,7 @@ public class SysMenuServiceImpl implements SysMenuService {
                     route.setRedirect(route.getPath() + "/" + menu.getChildren().get(0).getPath());
                 }
             }
-            if (menuType.equals(MenuType.MENU.getMenuType())) {
+            if (menuType.equals(MenuType.MENU.getName())) {
                 route.setPath(menu.getPath());
                 route.setComponent(menu.getComponent());
             }
@@ -181,9 +189,13 @@ public class SysMenuServiceImpl implements SysMenuService {
      */
     @Override
     public int insertMenu(SysMenu menu) {
-        var parentId = menu.getParentId();
-        var parentMenu = selectMenuByMenuId(parentId);
-        menu.setAncestors(parentMenu.getAncestors() + "," + parentId);
+        var ancestors = "0";
+        if (menu.getParentId() != 0) {
+            var parentId = menu.getParentId();
+            var parentMenu = selectMenuByMenuId(parentId);
+            ancestors = parentMenu.getAncestors() + "," + parentId;
+        }
+        menu.setAncestors(ancestors);
         return menuMapper.insertMenu(menu);
     }
 
@@ -211,6 +223,16 @@ public class SysMenuServiceImpl implements SysMenuService {
             }
         }
         return menuMapper.updateMenuByMenuId(menu);
+    }
+
+    /**
+     * 修改菜单状态
+     *
+     * @param menu 菜单对象
+     * @return 影响行数
+     */
+    public int updateMenuStatusByMenuId(SysMenu menu) {
+        return menuMapper.updateMenuStatusByMenuId(menu);
     }
 
     /**
