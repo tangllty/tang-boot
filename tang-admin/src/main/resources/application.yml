@@ -1,3 +1,10 @@
+# 项目配置
+tang:
+  # 名称
+  name: Tang
+  # 版本
+  version: 0.0.1
+
 # 环境配置
 server:
   # 服务器的HTTP端口，默认为8080

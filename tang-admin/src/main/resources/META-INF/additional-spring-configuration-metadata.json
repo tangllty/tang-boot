@@ -1,0 +1,12 @@
+{"properties": [
+  {
+    "name": "tang.name",
+    "type": "java.lang.String",
+    "description": "A description for 'tang.name'"
+  },
+  {
+    "name": "tang.version",
+    "type": "java.lang.String",
+    "description": "A description for 'tang.version'"
+  }
+]}
