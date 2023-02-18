@@ -1,37 +1,30 @@
 # tang-vue
 
-#### 介绍
-tang-vue
+#### 项目简介
 
-#### 软件架构
-软件架构说明
+tang-vue 是基于 Spring Boot3 的权限管理系统
 
+* 采用 Spring Boot3 + Spring Security + MyBatis + Redis + Jwt
 
-#### 安装教程
+#### 环境要求
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+* OpenJDK 17.0.6
+* Apache Maven 3.8.7
+* Mysql 8.0.29
+* Redis 7.0.2
 
-#### 使用说明
+#### 项目启动
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+1. 执行 databases/20221210.sql 文件 ( **包含 drop database 语句, 请仔细查看后执行 sql 文件** )
+2. 修改 tang-admin/src/main/resources/application.yml password 等信息
+3. 修改 tang-admin/src/main/resources/logback.xml 日志存放路径
+4. ```
+   $ mvn package && cd tang-admin/target && java -jar tang-admin.jar
+   ```
 
-#### 参与贡献
+#### 项目地址
 
-1.  Fork 本仓库
-2.  新建 Feat_xxx 分支
-3.  提交代码
-4.  新建 Pull Request
-
-
-#### 特技
-
-1.  使用 Readme\_XXX.md 来支持不同的语言，例如 Readme\_en.md, Readme\_zh.md
-2.  Gitee 官方博客 [blog.gitee.com](https://blog.gitee.com)
-3.  你可以 [https://gitee.com/explore](https://gitee.com/explore) 这个地址来了解 Gitee 上的优秀开源项目
-4.  [GVP](https://gitee.com/gvp) 全称是 Gitee 最有价值开源项目，是综合评定出的优秀开源项目
-5.  Gitee 官方提供的使用手册 [https://gitee.com/help](https://gitee.com/help)
-6.  Gitee 封面人物是一档用来展示 Gitee 会员风采的栏目 [https://gitee.com/gitee-stars/](https://gitee.com/gitee-stars/)
+| 项目 | Gitee                                        | GitHub                                         |
+| ---- | -------------------------------------------- | ---------------------------------------------- |
+| 后端 | [tang-vue](https://gitee.com/tangllty/tang-vue) | [tang-vue](https://github.com/tangllty/tang-vue)  |
+| 前端 | [tang-ui](https://gitee.com/tangllty/tang-ui)   | [tang-ui](https://github.com/tangllty/tang-ui)    |
