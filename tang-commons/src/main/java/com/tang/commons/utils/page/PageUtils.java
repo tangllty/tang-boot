@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.github.pagehelper.page.PageMethod;
 import com.tang.commons.constants.HttpStatus;
 import com.tang.commons.utils.SqlUtils;
 
@@ -23,14 +24,14 @@ public class PageUtils extends PageHelper {
         Integer pageSize = pageDomain.getPageSize();
         String orderBy = SqlUtils.escapeOrderBySql(pageDomain.getOrderBy());
         Boolean reasonable = pageDomain.getReasonable();
-        PageHelper.startPage(pageNum, pageSize, orderBy).setReasonable(reasonable);
+        PageMethod.startPage(pageNum, pageSize, orderBy).setReasonable(reasonable);
     }
 
     /**
      * 清理分页的线程变量
      */
     public static void clearPage() {
-        PageHelper.clearPage();
+        PageMethod.clearPage();
     }
 
     /**
