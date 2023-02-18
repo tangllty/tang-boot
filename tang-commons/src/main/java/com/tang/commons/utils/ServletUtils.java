@@ -20,6 +20,9 @@ import jakarta.servlet.http.HttpSession;
  */
 public class ServletUtils {
 
+    private ServletUtils() {
+    }
+
     public static ServletRequestAttributes getRequestAttributes() {
         return (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
     }

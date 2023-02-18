@@ -9,6 +9,9 @@ import java.util.UUID;
  */
 public class IdUtils {
 
+    private IdUtils() {
+    }
+
     /**
      * 获取 uuid
      * @return uuid

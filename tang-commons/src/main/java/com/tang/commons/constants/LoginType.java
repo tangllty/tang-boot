@@ -7,6 +7,9 @@ package com.tang.commons.constants;
  */
 public class LoginType {
 
+    private LoginType() {
+    }
+
     /**
      * 用户名密码
      */

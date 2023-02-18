@@ -15,6 +15,9 @@ import com.tang.commons.core.model.UserModel;
  */
 public class SecurityUtils {
 
+    private SecurityUtils() {
+    }
+
     /**
      * 管理员标识
      */

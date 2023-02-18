@@ -7,6 +7,9 @@ package com.tang.commons.constants;
  */
 public class ContentType {
 
+    private ContentType() {
+    }
+
     /**
      * JSON字符串
      */

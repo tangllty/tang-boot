@@ -7,6 +7,9 @@ package com.tang.commons.constants;
  */
 public class HttpStatus {
 
+    private HttpStatus() {
+    }
+
     /**
      * 操作成功
      */

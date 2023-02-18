@@ -16,6 +16,9 @@ import jakarta.servlet.http.HttpServletRequest;
  */
 public class IpUtils {
 
+    private IpUtils() {
+    }
+
     /**
      * 获取客户端IP
      *
@@ -98,7 +101,7 @@ public class IpUtils {
             }
 
         }
-        return region;
+        return region != null ? region : "";
     }
 
 }

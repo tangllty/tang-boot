@@ -9,6 +9,9 @@ import com.tang.commons.utils.ServletUtils;
  */
 public class TableSupport {
 
+    private TableSupport() {
+    }
+
     /**
      * 当前记录起始索引
      */

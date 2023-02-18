@@ -11,6 +11,9 @@ import java.util.Objects;
  */
 public class TreeUtils {
 
+    private TreeUtils() {
+    }
+
     /**
      * 默认父ID
      */
