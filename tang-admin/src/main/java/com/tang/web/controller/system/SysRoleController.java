@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tang.commons.utils.AjaxResult;
+import com.tang.commons.utils.page.PageUtils;
+import com.tang.commons.utils.page.TableDataResult;
 import com.tang.system.entity.SysRole;
 import com.tang.system.service.SysRoleService;
 
@@ -38,9 +40,10 @@ public class SysRoleController {
      */
     @PreAuthorize("@auth.hasAnyPermission('system:role:list')")
     @GetMapping("/list")
-    public AjaxResult list(SysRole role){
+    public TableDataResult list(SysRole role){
+        PageUtils.startPage();
         var list = roleService.selectRoleList(role);
-        return AjaxResult.success(list);
+        return PageUtils.getDataTable(list);
     }
 
     /**
