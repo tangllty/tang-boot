@@ -3,7 +3,6 @@ package com.tang.system.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -46,16 +45,10 @@ public class SysDeptServiceImpl implements SysDeptService {
     @Override
     public List<SysDept> selectDeptListTree(SysDept dept) {
         var deptList = deptMapper.selectDeptList(dept);
-        var list = deptList.stream()
+        deptList.stream()
             .filter(o -> o.getParentId() == 0)
-            .map(o -> {
-                o.setChildren(getChildrenList(deptList, o));
-                return o;
-            }).collect(Collectors.toList());
-        if (list.isEmpty() && !deptList.isEmpty()) {
-            return deptList;
-        }
-        return list;
+            .forEach(o -> o.setChildren(getChildrenList(deptList, o)));
+        return deptList;
     }
 
     /**
@@ -66,12 +59,10 @@ public class SysDeptServiceImpl implements SysDeptService {
      * @return 子部门列表
      */
     private List<SysDept> getChildrenList(List<SysDept> deptList, SysDept parentDept) {
-        return deptList.stream()
+        deptList.stream()
             .filter(dept -> Objects.equals(dept.getParentId(), parentDept.getDeptId()))
-            .map(dept -> {
-                dept.setChildren(getChildrenList(deptList, dept));
-                return dept;
-            }).collect(Collectors.toList());
+            .forEach(dept -> dept.setChildren(getChildrenList(deptList, dept)));
+        return deptList;
     }
 
     /**

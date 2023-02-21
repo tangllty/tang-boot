@@ -1,7 +1,6 @@
 package com.tang.system.service.impl;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
@@ -52,17 +51,10 @@ public class SysMenuServiceImpl implements SysMenuService {
     @Override
     public List<SysMenu> selectMenuListTree(SysMenu menu) {
         var menuList = menuMapper.selectMenuList(menu);
-        var list = menuList.stream()
+        menuList.stream()
             .filter(o -> o.getParentId() == 0)
-            .map(o -> {
-                o.setChildren(getChildrenList(menuList, o));
-                return o;
-            })
-            .collect(Collectors.toList());
-        if (list.isEmpty() && !menuList.isEmpty()) {
-            return Collections.emptyList();
-        }
-        return list;
+            .forEach(o -> o.setChildren(getChildrenList(menuList, o)));
+        return menuList;
     }
 
     /**
@@ -73,13 +65,10 @@ public class SysMenuServiceImpl implements SysMenuService {
      * @return 子菜单列表
      */
     private List<SysMenu> getChildrenList(List<SysMenu> menuList, SysMenu parentMenu) {
-        return menuList.stream()
+        menuList.stream()
             .filter(menu -> Objects.equals(menu.getParentId(), parentMenu.getMenuId()))
-            .map(menu -> {
-                menu.setChildren(getChildrenList(menuList, menu));
-                return menu;
-            })
-            .collect(Collectors.toList());
+            .forEach(menu -> menu.setChildren(getChildrenList(menuList, menu)));
+        return menuList;
     }
 
     /**
@@ -134,17 +123,10 @@ public class SysMenuServiceImpl implements SysMenuService {
             menuList = menuMapper.selectMenuListByUserId(userId);
         }
         menuList.removeIf(menu -> MenuType.BUTTON.getName().equals(menu.getMenuType()));
-        var list = menuList.stream()
+        menuList.stream()
             .filter(m -> m.getParentId() == 0)
-            .map(m -> {
-                m.setChildren(getChildrenList(menuList, m));
-                return m;
-            })
-            .collect(Collectors.toList());
-        if (list.isEmpty() && !menuList.isEmpty()) {
-            return Collections.emptyList();
-        }
-        return buildRoutes(list);
+            .forEach(m -> m.setChildren(getChildrenList(menuList, m)));
+        return buildRoutes(menuList);
     }
 
     /**
@@ -178,7 +160,7 @@ public class SysMenuServiceImpl implements SysMenuService {
                 route.setChildren(buildRoutes(children));
             }
             return route;
-        }).collect(Collectors.toList());
+        }).toList();
     }
 
     /**
