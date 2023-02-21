@@ -49,7 +49,7 @@ public class SysUserServiceImpl implements SysUserService {
     public SysUser selectUserByUserId(Long userId) {
         var user = userMapper.selectUserByUserId(userId);
         var roleList = roleMapper.selectRoleListByUserId(userId);
-        var roleIds = roleList.stream().map(SysRole::getRoleId).collect(Collectors.toList());
+        var roleIds = roleList.stream().map(SysRole::getRoleId).toList();
         user.setRoleIds(roleIds);
         return user;
     }

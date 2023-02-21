@@ -50,7 +50,7 @@ public class SysRoleServiceImpl implements SysRoleService {
     public SysRole selectRoleByRoleId(Long roleId) {
         var role = roleMapper.selectRoleByRoleId(roleId);
         var menuList = menuMapper.selectMenuListByRoleId(roleId);
-        var menuIds = menuList.stream().map(SysMenu::getMenuId).collect(Collectors.toList());
+        var menuIds = menuList.stream().map(SysMenu::getMenuId).toList();
         role.setMenuIds(menuIds);
         return role;
     }
@@ -73,7 +73,7 @@ public class SysRoleServiceImpl implements SysRoleService {
      */
     public List<TreeSelect> selectRolesSelect() {
         var roleList = roleMapper.selectRoleList(null);
-        return roleList.stream().map(role -> new TreeSelect(role.getRoleId(), role.getRoleName())).collect(Collectors.toList());
+        return roleList.stream().map(role -> new TreeSelect(role.getRoleId(), role.getRoleName())).toList();
     }
 
     /**

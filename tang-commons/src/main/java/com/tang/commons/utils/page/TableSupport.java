@@ -42,11 +42,11 @@ public class TableSupport {
      */
     public static PageDomain getPageDomain() {
         PageDomain pageDomain = new PageDomain();
-        pageDomain.setPageNum(toInt(ServletUtils.getParameter(PAGE_NUM), 1));
-        pageDomain.setPageSize(toInt(ServletUtils.getParameter(PAGE_SIZE), 10));
+        pageDomain.setPageNum(toInteger(ServletUtils.getParameter(PAGE_NUM), 1));
+        pageDomain.setPageSize(toInteger(ServletUtils.getParameter(PAGE_SIZE), 10));
         pageDomain.setOrderByColumn(ServletUtils.getParameter(ORDER_BY_COLUMN));
         pageDomain.setIsAsc(ServletUtils.getParameter(IS_ASC));
-        pageDomain.setReasonable(toBool(ServletUtils.getParameter(REASONABLE)));
+        pageDomain.setReasonable(toBoolean(ServletUtils.getParameter(REASONABLE)));
         return pageDomain;
     }
 
@@ -55,23 +55,23 @@ public class TableSupport {
     }
 
     /**
-     * 转换为int
+     * 转换为 Integer
      *
      * @param value        被转换的值
      * @param defaultValue 转换错误时的默认值
      * @return 结果
      */
-    private static Integer toInt(Object value, Integer defaultValue) {
+    private static Integer toInteger(Object value, Integer defaultValue) {
         if (value == null) {
             return defaultValue;
         }
-        if (value instanceof Integer) {
-            return (Integer) value;
+        if (value instanceof Integer integer) {
+            return integer;
         }
-        if (value instanceof Number) {
-            return ((Number) value).intValue();
+        if (value instanceof Number number) {
+            return number.intValue();
         }
-        final String valueStr = toStr(value, null);
+        final String valueStr = String.valueOf(value);
         if (valueStr == null || "".equals(valueStr.trim())) {
             return defaultValue;
         }
@@ -88,8 +88,8 @@ public class TableSupport {
      * @param value 被转换的值
      * @return 结果
      */
-    private static Boolean toBool(Object value) {
-        return toBool(value, null);
+    private static Boolean toBoolean(Object value) {
+        return toBoolean(value, null);
     }
 
     /**
@@ -99,14 +99,14 @@ public class TableSupport {
      * @param defaultValue 转换错误时的默认值
      * @return 结果
      */
-    private static Boolean toBool(Object value, Boolean defaultValue) {
+    private static Boolean toBoolean(Object value, Boolean defaultValue) {
         if (value == null) {
             return defaultValue;
         }
-        if (value instanceof Boolean) {
-            return (Boolean) value;
+        if (value instanceof Boolean booleanValue) {
+            return booleanValue;
         }
-        String valueStr = toStr(value, null);
+        String valueStr = String.valueOf(value);
         if (valueStr == null || "".equals(valueStr.trim())) {
             return defaultValue;
         }
@@ -116,23 +116,6 @@ public class TableSupport {
             case "false", "0" -> false;
             default -> defaultValue;
         };
-    }
-
-    /**
-     * 转换为字符串
-     *
-     * @param value        被转换的值
-     * @param defaultValue 转换错误时的默认值
-     * @return 结果
-     */
-    private static String toStr(Object value, String defaultValue) {
-        if (null == value) {
-            return defaultValue;
-        }
-        if (value instanceof String) {
-            return (String) value;
-        }
-        return value.toString();
     }
 
 }

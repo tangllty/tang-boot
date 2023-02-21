@@ -40,10 +40,11 @@ public class LoginService {
         Authentication authentication;
         AbstractAuthenticationToken authenticationToken = null;
 
-        switch (loginModel.getLoginType()) {
-            case LoginType.USERNAME -> authenticationToken = new UsernameAuthenticationToken(loginModel.getUsername(), loginModel.getPassword());
-            case LoginType.EMAIL -> authenticationToken = new EmailAuthenticationToken(loginModel.getEmail(), loginModel.getPassword());
-        }
+        authenticationToken = switch (loginModel.getLoginType()) {
+            case LoginType.USERNAME -> new UsernameAuthenticationToken(loginModel.getUsername(), loginModel.getPassword());
+            case LoginType.EMAIL -> new EmailAuthenticationToken(loginModel.getEmail(), loginModel.getPassword());
+            default -> throw new IllegalStateException("Unexpected value: " + loginModel.getLoginType());
+        };
 
         SecurityContextHolder.getContext().setAuthentication(authenticationToken);
         authentication = authenticationManager.authenticate(authenticationToken);

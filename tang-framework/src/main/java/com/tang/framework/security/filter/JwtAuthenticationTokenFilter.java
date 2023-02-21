@@ -39,14 +39,14 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
         if (userModel != null) {
             tokenService.verifyToken(userModel);
 
-            AbstractAuthenticationToken authenticationToken = null;
-            switch (userModel.getLoginType()) {
-                case LoginType.USERNAME -> authenticationToken = new UsernameAuthenticationToken(userModel, Collections.emptyList());
-                case LoginType.EMAIL -> authenticationToken = new EmailAuthenticationToken(userModel, Collections.emptyList());
-            }
-            if (authenticationToken != null) {
-                authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-            }
+            AbstractAuthenticationToken authenticationToken;
+            authenticationToken = switch (userModel.getLoginType()) {
+                case LoginType.USERNAME -> new UsernameAuthenticationToken(userModel, Collections.emptyList());
+                case LoginType.EMAIL -> new EmailAuthenticationToken(userModel, Collections.emptyList());
+                default -> throw new IllegalStateException("Unexpected value: " + userModel.getLoginType());
+            };
+
+            authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
             SecurityContextHolder.getContext().setAuthentication(authenticationToken);
         }
 
