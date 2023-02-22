@@ -45,10 +45,12 @@ public class SysDeptServiceImpl implements SysDeptService {
     @Override
     public List<SysDept> selectDeptListTree(SysDept dept) {
         var deptList = deptMapper.selectDeptList(dept);
-        deptList.stream()
-            .filter(o -> o.getParentId() == 0)
-            .forEach(o -> o.setChildren(getChildrenList(deptList, o)));
-        return deptList;
+        return deptList.stream()
+            .filter(d -> d.getParentId() == 0)
+            .map(d -> {
+                d.setChildren(getChildrenList(deptList, d));
+                return d;
+            }).toList();
     }
 
     /**
@@ -59,10 +61,12 @@ public class SysDeptServiceImpl implements SysDeptService {
      * @return 子部门列表
      */
     private List<SysDept> getChildrenList(List<SysDept> deptList, SysDept parentDept) {
-        deptList.stream()
+        return deptList.stream()
             .filter(dept -> Objects.equals(dept.getParentId(), parentDept.getDeptId()))
-            .forEach(dept -> dept.setChildren(getChildrenList(deptList, dept)));
-        return deptList;
+            .map(dept -> {
+                dept.setChildren(getChildrenList(deptList, dept));
+                return dept;
+            }).toList();
     }
 
     /**

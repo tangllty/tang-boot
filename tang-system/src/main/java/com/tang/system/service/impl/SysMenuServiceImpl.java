@@ -65,10 +65,12 @@ public class SysMenuServiceImpl implements SysMenuService {
      * @return 子菜单列表
      */
     private List<SysMenu> getChildrenList(List<SysMenu> menuList, SysMenu parentMenu) {
-        menuList.stream()
+        return menuList.stream()
             .filter(menu -> Objects.equals(menu.getParentId(), parentMenu.getMenuId()))
-            .forEach(menu -> menu.setChildren(getChildrenList(menuList, menu)));
-        return menuList;
+            .map(menu -> {
+                menu.setChildren(getChildrenList(menuList, menu));
+                return menu;
+            }).toList();
     }
 
     /**
@@ -123,10 +125,14 @@ public class SysMenuServiceImpl implements SysMenuService {
             menuList = menuMapper.selectMenuListByUserId(userId);
         }
         menuList.removeIf(menu -> MenuType.BUTTON.getName().equals(menu.getMenuType()));
-        menuList.stream()
+        var list = menuList.stream()
             .filter(m -> m.getParentId() == 0)
-            .forEach(m -> m.setChildren(getChildrenList(menuList, m)));
-        return buildRoutes(menuList);
+            .map(m -> {
+                m.setChildren(getChildrenList(menuList, m));
+                return m;
+            })
+            .toList();
+        return buildRoutes(list);
     }
 
     /**
