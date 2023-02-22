@@ -38,7 +38,7 @@ public class LoginService {
      */
     public String login(LoginModel loginModel) {
         Authentication authentication;
-        AbstractAuthenticationToken authenticationToken = null;
+        AbstractAuthenticationToken authenticationToken;
 
         authenticationToken = switch (loginModel.getLoginType()) {
             case LoginType.USERNAME -> new UsernameAuthenticationToken(loginModel.getUsername(), loginModel.getPassword());
