@@ -76,4 +76,3 @@ public interface SysUserMapper {
     int deleteUserByUserId(Long userId);
 
 }
-

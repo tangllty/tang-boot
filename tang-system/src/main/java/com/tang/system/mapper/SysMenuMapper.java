@@ -111,4 +111,3 @@ public interface SysMenuMapper {
     int deleteRoleMenuByRoleId(Long roleId);
 
 }
-

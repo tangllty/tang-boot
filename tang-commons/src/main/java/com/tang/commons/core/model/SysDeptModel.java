@@ -120,4 +120,3 @@ public class SysDeptModel extends BaseEntity {
     }
 
 }
-

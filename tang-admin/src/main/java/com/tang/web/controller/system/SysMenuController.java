@@ -24,9 +24,6 @@ import com.tang.system.service.SysMenuService;
 @RequestMapping("/system/menu")
 public class SysMenuController {
 
-    /**
-     * 服务对象
-     */
     @Autowired
     private SysMenuService menuService;
 
@@ -46,7 +43,7 @@ public class SysMenuController {
     /**
      * 获取菜单树下拉选项
      *
-     * @param dept 菜单对象
+     * @param menu 菜单对象
      * @return 菜单树下拉选项
      */
     @PreAuthorize("@auth.hasAnyPermission('system:menu:list')")
@@ -120,4 +117,3 @@ public class SysMenuController {
     }
 
 }
-

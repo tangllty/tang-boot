@@ -1,9 +1,9 @@
 package com.tang.framework.security.authentication.username;
 
+import java.util.Collection;
+
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
-
-import java.util.Collection;
 
 /**
  * 用户名密码身份令牌

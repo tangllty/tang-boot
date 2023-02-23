@@ -24,9 +24,6 @@ import com.tang.system.service.SysDeptService;
 @RequestMapping("/system/dept")
 public class SysDeptController {
 
-    /**
-     * 服务对象
-     */
     @Autowired
     private SysDeptService deptService;
 
@@ -59,13 +56,13 @@ public class SysDeptController {
     /**
      * 通过主键查询单条数据
      *
-     * @param userId 主键
+     * @param deptId 主键
      * @return 部门对象
      */
     @PreAuthorize("@auth.hasAnyPermission('system:dept:list')")
     @GetMapping("/{userId}")
-    public AjaxResult selectDeptByDeptId(@PathVariable("userId") Long userId) {
-        return AjaxResult.success(deptService.selectDeptByDeptId(userId));
+    public AjaxResult selectDeptByDeptId(@PathVariable("deptId") Long deptId) {
+        return AjaxResult.success(deptService.selectDeptByDeptId(deptId));
     }
 
     /**
@@ -120,4 +117,3 @@ public class SysDeptController {
     }
 
 }
-

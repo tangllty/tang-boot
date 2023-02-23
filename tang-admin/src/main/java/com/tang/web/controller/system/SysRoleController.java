@@ -26,9 +26,6 @@ import com.tang.system.service.SysRoleService;
 @RequestMapping("/system/role")
 public class SysRoleController {
 
-    /**
-     * 服务对象
-     */
     @Autowired
     private SysRoleService roleService;
 

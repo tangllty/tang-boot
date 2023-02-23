@@ -27,9 +27,6 @@ import com.tang.system.service.SysUserService;
 @RequestMapping("/system/user")
 public class SysUserController {
 
-    /**
-     * 服务对象
-     */
     @Autowired
     private SysUserService userService;
 
@@ -53,7 +50,7 @@ public class SysUserController {
     /**
      * 通过主键查询单条数据
      *
-     * @param userId 主键
+     * @param userId 用户主键
      * @return 用户对象
      */
     @PreAuthorize("@auth.hasAnyPermission('system:user:list')")
@@ -65,7 +62,7 @@ public class SysUserController {
     /**
      * 获取角色下拉框数据
      *
-     * @return 用户对象
+     * @return 角色下拉框数据
      */
     @PreAuthorize("@auth.hasAnyPermission('system:user:add')")
     @GetMapping("/getRoleSelect")
@@ -112,7 +109,7 @@ public class SysUserController {
     /**
      * 通过主键删除数据
      *
-     * @param userId 主键
+     * @param userId 用户主键
      * @return 影响行数
      */
     @PreAuthorize("@auth.hasAnyPermission('system:user:delete')")

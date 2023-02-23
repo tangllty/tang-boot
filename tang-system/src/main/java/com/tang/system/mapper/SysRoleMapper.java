@@ -87,4 +87,3 @@ public interface SysRoleMapper {
     int deleteUserRoleByUserId(Long userId);
 
 }
-

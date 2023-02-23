@@ -120,4 +120,3 @@ public class SysRole extends BaseEntity {
     }
 
 }
-

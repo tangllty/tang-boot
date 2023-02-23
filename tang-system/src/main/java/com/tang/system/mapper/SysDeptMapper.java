@@ -76,4 +76,3 @@ public interface SysDeptMapper {
     int deleteDeptByDeptId(Long deptId);
 
 }
-
