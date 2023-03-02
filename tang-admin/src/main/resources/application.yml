@@ -75,6 +75,6 @@ token:
   # 令牌密钥 Create by https://www.allkeysgenerator.com/Random/Security-Encryption-Key-Generator.aspx 256-bit with Hex
   secret: 556A586E3272357538782F413F4428472D4B6150645367566B59703373367639
   # 时间颗粒度
-  time-unit: minutes
+  time-unit: hours
   # 令牌有效期
-  expire-time: 30
+  expire-time: 2
