@@ -51,10 +51,12 @@ public class SysMenuServiceImpl implements SysMenuService {
     @Override
     public List<SysMenu> selectMenuListTree(SysMenu menu) {
         var menuList = menuMapper.selectMenuList(menu);
-        menuList.stream()
+        return  menuList.stream()
             .filter(o -> o.getParentId() == 0)
-            .forEach(o -> o.setChildren(getChildrenList(menuList, o)));
-        return menuList;
+            .map(o -> {
+                o.setChildren(getChildrenList(menuList, o));
+                return o;
+            }).toList();
     }
 
     /**
