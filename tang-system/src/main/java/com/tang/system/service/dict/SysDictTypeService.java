@@ -1,15 +1,15 @@
-package com.tang.system.mapper;
+package com.tang.system.service.dict;
 
 import java.util.List;
 
-import com.tang.system.entity.SysDictType;
+import com.tang.system.entity.dict.SysDictType;
 
 /**
- * 字典类型表 sys_dict_type 表数据库访问层
+ * 字典类型表 SysDictType 表服务接口
  *
  * @author Tang
  */
-public interface SysDictTypeMapper {
+public interface SysDictTypeService {
 
     /**
      * 获取字典类型列表
@@ -17,7 +17,7 @@ public interface SysDictTypeMapper {
      * @param dictType 字典类型对象
      * @return 字典类型列表
      */
-    List<SysDictType> selectDictDataList(SysDictType dictType);
+    List<SysDictType> selectDictTypeList(SysDictType dictType);
 
     /**
      * 通过主键查询单条数据
@@ -25,7 +25,7 @@ public interface SysDictTypeMapper {
      * @param typeId 字典类型主键
      * @return 字典类型对象
      */
-    SysDictType selectDictDataByTypeId(Long typeId);
+    SysDictType selectDictTypeByTypeId(Long typeId);
 
     /**
      * 新增字典类型信息
@@ -33,7 +33,7 @@ public interface SysDictTypeMapper {
      * @param dictType 字典类型对象
      * @return 影响行数
      */
-    int insertDictData(SysDictType dictType);
+    int insertDictType(SysDictType dictType);
 
     /**
      * 修改字典类型信息
@@ -41,7 +41,7 @@ public interface SysDictTypeMapper {
      * @param dictType 字典类型对象
      * @return 影响行数
      */
-    int updateDictDataByTypeId(SysDictType dictType);
+    int updateDictTypeByTypeId(SysDictType dictType);
 
     /**
      * 通过主键删除字典类型数据
@@ -49,6 +49,6 @@ public interface SysDictTypeMapper {
      * @param typeId 字典类型主键
      * @return 影响行数
      */
-    int deleteDictDataByTypeId(Long typeId);
+    int deleteDictTypeByTypeId(Long typeId);
 
 }

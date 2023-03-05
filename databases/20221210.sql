@@ -60,8 +60,8 @@ create table sys_user (
 ) engine = InnoDB auto_increment = 100 comment = '用户表';
 
 insert into sys_user values (1, 4, 'admin', '糖猫猫', 'admin@163.com', '16888888888', '保密', '', '$2a$10$QclgMfXBXPoXX6BEJxNyz.aARYqwyOwCnikxWiRK0v4c8zR9/kuQu', '0', '0', '127.0.0.1', null, 'admin', sysdate(), '', null, '超级管理员');
-insert into sys_user values (2, 4, 'tang',  '糖糖',   'tang@163.com',     '16888888888', '保密', '', '$2a$10$QclgMfXBXPoXX6BEJxNyz.aARYqwyOwCnikxWiRK0v4c8zR9/kuQu', '0', '0', '127.0.0.1', null, 'admin', sysdate(), '', null, '普通用户');
-insert into sys_user values (3, 4, 'miao',  '猫猫',   'miao@163.com',     '16888888888', '保密', '', '$2a$10$QclgMfXBXPoXX6BEJxNyz.aARYqwyOwCnikxWiRK0v4c8zR9/kuQu', '0', '0', '127.0.0.1', null, 'admin', sysdate(), '', null, '游客用户');
+insert into sys_user values (2, 4, 'tang',  '糖糖',   'tang@163.com',  '16888888888', '保密', '', '$2a$10$QclgMfXBXPoXX6BEJxNyz.aARYqwyOwCnikxWiRK0v4c8zR9/kuQu', '0', '0', '127.0.0.1', null, 'admin', sysdate(), '', null, '普通用户');
+insert into sys_user values (3, 4, 'miao',  '猫猫',   'miao@163.com',  '16888888888', '保密', '', '$2a$10$QclgMfXBXPoXX6BEJxNyz.aARYqwyOwCnikxWiRK0v4c8zR9/kuQu', '0', '0', '127.0.0.1', null, 'admin', sysdate(), '', null, '游客用户');
 
 
 -- -----------------------------
@@ -123,6 +123,7 @@ insert into sys_menu values (11, 1, '0,1', '用户管理', 'user', 'system/user/
 insert into sys_menu values (12, 1, '0,1', '部门管理', 'dept', 'system/dept/index', 'system:dept:menu', '部门管理', 'M', '0', 2, '0', '0', 'admin', sysdate(), '', null, '部门管理菜单');
 insert into sys_menu values (13, 1, '0,1', '角色管理', 'role', 'system/role/index', 'system:role:menu', '角色管理', 'M', '0', 3, '0', '0', 'admin', sysdate(), '', null, '角色管理菜单');
 insert into sys_menu values (14, 1, '0,1', '菜单管理', 'menu', 'system/menu/index', 'system:menu:menu', '菜单管理', 'M', '0', 4, '0', '0', 'admin', sysdate(), '', null, '菜单管理菜单');
+insert into sys_menu values (15, 1, '0,1', '字典管理', 'dict', 'system/dict/index', 'system:dict:menu', '字典管理', 'M', '0', 5, '0', '0', 'admin', sysdate(), '', null, '字典管理菜单');
 
 -- 用户管理按钮
 insert into sys_menu values (101, 11, '0,1,11', '用户查询', '', '', 'system:user:list',   '', 'B', '0', 1, '0', '0', 'admin', sysdate(), '', null, '用户查询按钮');
@@ -147,6 +148,12 @@ insert into sys_menu values (113, 14, '0,1,14', '菜单查询', '', '', 'system:
 insert into sys_menu values (114, 14, '0,1,14', '菜单添加', '', '', 'system:menu:add',    '', 'B', '0', 2, '0', '0', 'admin', sysdate(), '', null, '菜单添加按钮');
 insert into sys_menu values (115, 14, '0,1,14', '菜单修改', '', '', 'system:menu:edit',   '', 'B', '0', 3, '0', '0', 'admin', sysdate(), '', null, '菜单修改按钮');
 insert into sys_menu values (116, 14, '0,1,14', '菜单删除', '', '', 'system:menu:delete', '', 'B', '0', 4, '0', '0', 'admin', sysdate(), '', null, '菜单删除按钮');
+
+-- 菜单管理按钮
+insert into sys_menu values (117, 15, '0,1,15', '字典查询', '', '', 'system:dict:list',   '', 'B', '0', 1, '0', '0', 'admin', sysdate(), '', null, '字典查询按钮');
+insert into sys_menu values (118, 15, '0,1,15', '字典添加', '', '', 'system:dict:add',    '', 'B', '0', 2, '0', '0', 'admin', sysdate(), '', null, '字典添加按钮');
+insert into sys_menu values (119, 15, '0,1,15', '字典修改', '', '', 'system:dict:edit',   '', 'B', '0', 3, '0', '0', 'admin', sysdate(), '', null, '字典修改按钮');
+insert into sys_menu values (120, 15, '0,1,15', '字典删除', '', '', 'system:dict:delete', '', 'B', '0', 4, '0', '0', 'admin', sysdate(), '', null, '字典删除按钮');
 
 
 -- -----------------------------
@@ -195,6 +202,10 @@ insert into sys_role_menu values (2, 113);
 insert into sys_role_menu values (2, 114);
 insert into sys_role_menu values (2, 115);
 insert into sys_role_menu values (2, 116);
+insert into sys_role_menu values (2, 117);
+insert into sys_role_menu values (2, 118);
+insert into sys_role_menu values (2, 119);
+insert into sys_role_menu values (2, 120);
 insert into sys_role_menu values (3, 1);
 insert into sys_role_menu values (3, 11);
 insert into sys_role_menu values (3, 12);
@@ -204,5 +215,59 @@ insert into sys_role_menu values (3, 101);
 insert into sys_role_menu values (3, 105);
 insert into sys_role_menu values (3, 109);
 insert into sys_role_menu values (3, 113);
+insert into sys_role_menu values (3, 117);
+
+
+-- -----------------------------
+-- 字典类型表
+-- -----------------------------
+drop table if exists sys_dict_type;
+create table sys_dict_type (
+    type_id      bigint(20)    not null auto_increment  comment '类型ID',
+    type_name    varchar(32)   default ''               comment '字典名称',
+    dict_type    varchar(64)   default ''               comment '字典类型',
+    status       char(1)       default '0'              comment '状态{0=正常, 1=停用}',
+    create_by    varchar(64)   default ''               comment '创建者',
+    create_time  datetime                               comment '创建时间',
+    update_by    varchar(64)   default ''               comment '更新者',
+    update_time  datetime                               comment '更新时间',
+    remark       varchar(500)  default ''               comment '备注',
+    primary key (type_id),
+    unique (dict_type)
+) engine = InnoDB auto_increment = 100 comment = '字典类型表';
+
+insert into sys_dict_type values(1, '信息状态', 'sys_status',   '0', 'admin', sysdate(), '', null, '信息状态类型');
+insert into sys_dict_type values(2, '删除标志', 'sys_del_flag', '0', 'admin', sysdate(), '', null, '删除标志类型');
+insert into sys_dict_type values(3, '用户性别', 'sys_user_sex', '0', 'admin', sysdate(), '', null, '用户性别类型');
+
+
+-- -----------------------------
+-- 字典数据表
+-- -----------------------------
+drop table if exists sys_dict_data;
+create table sys_dict_data (
+    data_id      bigint(20)    not null auto_increment  comment '数据ID',
+    dict_type    varchar(64)   default ''               comment '字典类型',
+    data_label   varchar(32)   default ''               comment '字典标签',
+    data_value   varchar(32)   default ''               comment '字典键值',
+    css_class    varchar(32)   default ''               comment '样式属性',
+    type_class   varchar(32)   default ''               comment '类型样式',
+    sort         int(4)        default 0                comment '显示顺序',
+    status       char(1)       default '0'              comment '状态{0=正常, 1=停用}',
+    create_by    varchar(64)   default ''               comment '创建者',
+    create_time  datetime                               comment '创建时间',
+    update_by    varchar(64)   default ''               comment '更新者',
+    update_time  datetime                               comment '更新时间',
+    remark       varchar(500)  default ''               comment '备注',
+    primary key (data_id)
+) engine = InnoDB auto_increment = 100 comment = '字典数据表';
+
+insert into sys_dict_data values(1, 'sys_status',   '0', '正常', '', '', 1, '0', 'admin', sysdate(), '', null, '正常状态');
+insert into sys_dict_data values(2, 'sys_status',   '1', '停用', '', '', 2, '0', 'admin', sysdate(), '', null, '停用状态');
+insert into sys_dict_data values(3, 'sys_del_flag', '0', '正常', '', '', 1, '0', 'admin', sysdate(), '', null, '正常状态');
+insert into sys_dict_data values(4, 'sys_del_flag', '1', '删除', '', '', 2, '0', 'admin', sysdate(), '', null, '删除状态');
+insert into sys_dict_data values(5, 'sys_user_sex', '0', '保密', '', '', 1, '0', 'admin', sysdate(), '', null, '性别保密');
+insert into sys_dict_data values(6, 'sys_user_sex', '1', '男',   '', '', 2, '0', 'admin', sysdate(), '', null, '性别男');
+insert into sys_dict_data values(7, 'sys_user_sex', '2', '女',   '', '', 3, '0', 'admin', sysdate(), '', null, '性别女');
 
 commit;
