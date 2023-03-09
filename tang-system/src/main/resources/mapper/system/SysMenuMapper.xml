@@ -126,8 +126,8 @@
         where menu_id = #{menuId}
     </update>
 
-    <update id="updateDeptChildren">
-        update sys_dept set ancestors = #{ancestors} where dept_id = #{deptId}
+    <update id="updateMenuChildren">
+        update sys_menu set ancestors = #{ancestors} where menu_id = #{menuId}
     </update>
 
     <update id="updateMenuStatusByMenuId">
