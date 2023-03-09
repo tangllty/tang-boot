@@ -116,14 +116,16 @@ create table sys_menu (
 ) engine = InnoDB auto_increment = 100 comment = '菜单权限表';
 
 -- 目录
-insert into sys_menu values (1, 0, '0', '系统管理', 'system', '', '', '系统管理', 'D', '0', 1, '0', '0', 'admin', sysdate(), '', null, '系统管理目录');
+insert into sys_menu values (1, 0, '0', '系统管理', 'system',  '', '', '系统管理', 'D', '0', 1, '0', '0', 'admin', sysdate(), '', null, '系统管理目录');
+insert into sys_menu values (2, 0, '0', '系统监控', 'monitor', '', '', '系统监控', 'D', '0', 2, '0', '0', 'admin', sysdate(), '', null, '系统监控目录');
 
 -- 菜单
-insert into sys_menu values (11, 1, '0,1', '用户管理', 'user', 'system/user/index', 'system:user:menu', '用户管理', 'M', '0', 1, '0', '0', 'admin', sysdate(), '', null, '用户管理菜单');
-insert into sys_menu values (12, 1, '0,1', '部门管理', 'dept', 'system/dept/index', 'system:dept:menu', '部门管理', 'M', '0', 2, '0', '0', 'admin', sysdate(), '', null, '部门管理菜单');
-insert into sys_menu values (13, 1, '0,1', '角色管理', 'role', 'system/role/index', 'system:role:menu', '角色管理', 'M', '0', 3, '0', '0', 'admin', sysdate(), '', null, '角色管理菜单');
-insert into sys_menu values (14, 1, '0,1', '菜单管理', 'menu', 'system/menu/index', 'system:menu:menu', '菜单管理', 'M', '0', 4, '0', '0', 'admin', sysdate(), '', null, '菜单管理菜单');
-insert into sys_menu values (15, 1, '0,1', '字典管理', 'dict', 'system/dict/index', 'system:dict:menu', '字典管理', 'M', '0', 5, '0', '0', 'admin', sysdate(), '', null, '字典管理菜单');
+insert into sys_menu values (11, 1, '0,1', '用户管理', 'user',   'system/user/index',    'system:user:menu',    '用户管理', 'M', '0', 1, '0', '0', 'admin', sysdate(), '', null, '用户管理菜单');
+insert into sys_menu values (12, 1, '0,1', '部门管理', 'dept',   'system/dept/index',    'system:dept:menu',    '部门管理', 'M', '0', 2, '0', '0', 'admin', sysdate(), '', null, '部门管理菜单');
+insert into sys_menu values (13, 1, '0,1', '角色管理', 'role',   'system/role/index',    'system:role:menu',    '角色管理', 'M', '0', 3, '0', '0', 'admin', sysdate(), '', null, '角色管理菜单');
+insert into sys_menu values (14, 1, '0,1', '菜单管理', 'menu',   'system/menu/index',    'system:menu:menu',    '菜单管理', 'M', '0', 4, '0', '0', 'admin', sysdate(), '', null, '菜单管理菜单');
+insert into sys_menu values (15, 1, '0,1', '字典管理', 'dict',   'system/dict/index',    'system:dict:menu',    '字典管理', 'M', '0', 5, '0', '0', 'admin', sysdate(), '', null, '字典管理菜单');
+insert into sys_menu values (16, 2, '0,2', '在线用户', 'online', 'monitor/online/index', 'monitor:online:menu', '在线用户', 'M', '0', 1, '0', '0', 'admin', sysdate(), '', null, '在线用户菜单');
 
 -- 用户管理按钮
 insert into sys_menu values (101, 11, '0,1,11', '用户查询', '', '', 'system:user:list',   '', 'B', '0', 1, '0', '0', 'admin', sysdate(), '', null, '用户查询按钮');
@@ -154,6 +156,10 @@ insert into sys_menu values (117, 15, '0,1,15', '字典查询', '', '', 'system:
 insert into sys_menu values (118, 15, '0,1,15', '字典添加', '', '', 'system:dict:add',    '', 'B', '0', 2, '0', '0', 'admin', sysdate(), '', null, '字典添加按钮');
 insert into sys_menu values (119, 15, '0,1,15', '字典修改', '', '', 'system:dict:edit',   '', 'B', '0', 3, '0', '0', 'admin', sysdate(), '', null, '字典修改按钮');
 insert into sys_menu values (120, 15, '0,1,15', '字典删除', '', '', 'system:dict:delete', '', 'B', '0', 4, '0', '0', 'admin', sysdate(), '', null, '字典删除按钮');
+
+-- 在线用户按钮
+insert into sys_menu values (121, 16, '0,1,16', '在线用户查询', '', '', 'monitor:online:list',   '', 'B', '0', 1, '0', '0', 'admin', sysdate(), '', null, '在线用户查询按钮');
+insert into sys_menu values (122, 16, '0,1,16', '在线用户删除', '', '', 'monitor:online:delete', '', 'B', '0', 2, '0', '0', 'admin', sysdate(), '', null, '在线用户删除按钮');
 
 
 -- -----------------------------
@@ -206,6 +212,8 @@ insert into sys_role_menu values (2, 117);
 insert into sys_role_menu values (2, 118);
 insert into sys_role_menu values (2, 119);
 insert into sys_role_menu values (2, 120);
+insert into sys_role_menu values (2, 121);
+insert into sys_role_menu values (2, 122);
 insert into sys_role_menu values (3, 1);
 insert into sys_role_menu values (3, 11);
 insert into sys_role_menu values (3, 12);
@@ -216,6 +224,7 @@ insert into sys_role_menu values (3, 105);
 insert into sys_role_menu values (3, 109);
 insert into sys_role_menu values (3, 113);
 insert into sys_role_menu values (3, 117);
+insert into sys_role_menu values (3, 121);
 
 
 -- -----------------------------
@@ -236,9 +245,9 @@ create table sys_dict_type (
     unique (dict_type)
 ) engine = InnoDB auto_increment = 100 comment = '字典类型表';
 
-insert into sys_dict_type values(1, '信息状态', 'sys_status',   '0', 'admin', sysdate(), '', null, '信息状态类型');
-insert into sys_dict_type values(2, '删除标志', 'sys_del_flag', '0', 'admin', sysdate(), '', null, '删除标志类型');
-insert into sys_dict_type values(3, '用户性别', 'sys_user_sex', '0', 'admin', sysdate(), '', null, '用户性别类型');
+insert into sys_dict_type values(1, '信息状态', 'sys_status',      '0', 'admin', sysdate(), '', null, '信息状态类型');
+insert into sys_dict_type values(2, '删除标志', 'sys_del_flag',    '0', 'admin', sysdate(), '', null, '删除标志类型');
+insert into sys_dict_type values(3, '用户性别', 'sys_user_gender', '0', 'admin', sysdate(), '', null, '用户性别类型');
 
 
 -- -----------------------------
@@ -262,12 +271,12 @@ create table sys_dict_data (
     primary key (data_id)
 ) engine = InnoDB auto_increment = 100 comment = '字典数据表';
 
-insert into sys_dict_data values(1, 'sys_status',   '0', '正常', '', '', 1, '0', 'admin', sysdate(), '', null, '正常状态');
-insert into sys_dict_data values(2, 'sys_status',   '1', '停用', '', '', 2, '0', 'admin', sysdate(), '', null, '停用状态');
-insert into sys_dict_data values(3, 'sys_del_flag', '0', '正常', '', '', 1, '0', 'admin', sysdate(), '', null, '正常状态');
-insert into sys_dict_data values(4, 'sys_del_flag', '1', '删除', '', '', 2, '0', 'admin', sysdate(), '', null, '删除状态');
-insert into sys_dict_data values(5, 'sys_user_sex', '0', '保密', '', '', 1, '0', 'admin', sysdate(), '', null, '性别保密');
-insert into sys_dict_data values(6, 'sys_user_sex', '1', '男',   '', '', 2, '0', 'admin', sysdate(), '', null, '性别男');
-insert into sys_dict_data values(7, 'sys_user_sex', '2', '女',   '', '', 3, '0', 'admin', sysdate(), '', null, '性别女');
+insert into sys_dict_data values(1, 'sys_status',      '0', '正常', '', '', 1, '0', 'admin', sysdate(), '', null, '正常状态');
+insert into sys_dict_data values(2, 'sys_status',      '1', '停用', '', '', 2, '0', 'admin', sysdate(), '', null, '停用状态');
+insert into sys_dict_data values(3, 'sys_del_flag',    '0', '正常', '', '', 1, '0', 'admin', sysdate(), '', null, '正常状态');
+insert into sys_dict_data values(4, 'sys_del_flag',    '1', '删除', '', '', 2, '0', 'admin', sysdate(), '', null, '删除状态');
+insert into sys_dict_data values(5, 'sys_user_gender', '0', '保密', '', '', 1, '0', 'admin', sysdate(), '', null, '性别保密');
+insert into sys_dict_data values(6, 'sys_user_gender', '1', '男',   '', '', 2, '0', 'admin', sysdate(), '', null, '性别男');
+insert into sys_dict_data values(7, 'sys_user_gender', '2', '女',   '', '', 3, '0', 'admin', sysdate(), '', null, '性别女');
 
 commit;
