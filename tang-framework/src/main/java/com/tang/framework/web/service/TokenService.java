@@ -17,6 +17,8 @@ import com.tang.commons.utils.IdUtils;
 import com.tang.commons.utils.IpUtils;
 import com.tang.commons.utils.RedisUtils;
 import com.tang.commons.utils.ServletUtils;
+import com.tang.system.entity.SysUser;
+import com.tang.system.mapper.SysUserMapper;
 
 import cn.hutool.http.useragent.UserAgent;
 import cn.hutool.http.useragent.UserAgentUtil;
@@ -45,6 +47,9 @@ public class TokenService {
 
     @Autowired
     private TokenProperties tokenProperties;
+
+    @Autowired
+    private SysUserMapper userMapper;
 
     /**
      * 获取登陆用户身份信息
@@ -131,7 +136,7 @@ public class TokenService {
      *
      * @param userModel 登陆用户信息
      */
-    public void setUserAgent(UserModel userModel) {
+    public void setUserAgent(@NonNull UserModel userModel) {
         UserAgent userAgent = UserAgentUtil.parse(ServletUtils.getRequest().getHeader("User-Agent"));
         userModel.setIp(IpUtils.getIpAddr(ServletUtils.getRequest()));
         userModel.setLocation(IpUtils.getCity(userModel.getIp()));
@@ -144,6 +149,20 @@ public class TokenService {
         userModel.setEngine(userAgent.getEngine().getName());
         userModel.setEngineVersion(userAgent.getEngineVersion());
         userModel.setLoginTime(new Date(System.currentTimeMillis()));
+        updateUserLoginInfo(userModel);
+    }
+
+    /**
+     * 更新用户登陆信息
+     *
+     * @param userModel 登陆用户信息
+     */
+    private void updateUserLoginInfo(UserModel userModel) {
+        var user = new SysUser();
+        user.setUserId(userModel.getUser().getUserId());
+        user.setLoginIp(userModel.getIp());
+        user.setLoginDate(userModel.getLoginTime());
+        userMapper.updateUserByUserId(user);
     }
 
     /**
