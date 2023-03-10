@@ -44,7 +44,7 @@ create table sys_user (
     nickname     varchar(32)   default ''               comment '昵称',
     email        varchar(64)   default ''               comment '邮箱',
     phone        varchar(11)   default ''               comment '手机号码',
-    gender       char(2)       default '0'              comment '性别{0=保密, 1=男, 2=女}',
+    gender       char(1)       default '0'              comment '性别{0=保密, 1=男, 2=女}',
     avatar       varchar(128)  default ''               comment '头像地址',
     password     varchar(128)  default ''               comment '密码',
     status       char(1)       default '0'              comment '帐号状态{0=正常, 1=停用}',
@@ -59,9 +59,9 @@ create table sys_user (
     primary key (user_id)
 ) engine = InnoDB auto_increment = 100 comment = '用户表';
 
-insert into sys_user values (1, 4, 'admin', '糖猫猫', 'admin@163.com', '16888888888', '保密', '', '$2a$10$QclgMfXBXPoXX6BEJxNyz.aARYqwyOwCnikxWiRK0v4c8zR9/kuQu', '0', '0', '127.0.0.1', null, 'admin', sysdate(), '', null, '超级管理员');
-insert into sys_user values (2, 4, 'tang',  '糖糖',   'tang@163.com',  '16888888888', '保密', '', '$2a$10$QclgMfXBXPoXX6BEJxNyz.aARYqwyOwCnikxWiRK0v4c8zR9/kuQu', '0', '0', '127.0.0.1', null, 'admin', sysdate(), '', null, '普通用户');
-insert into sys_user values (3, 4, 'miao',  '猫猫',   'miao@163.com',  '16888888888', '保密', '', '$2a$10$QclgMfXBXPoXX6BEJxNyz.aARYqwyOwCnikxWiRK0v4c8zR9/kuQu', '0', '0', '127.0.0.1', null, 'admin', sysdate(), '', null, '游客用户');
+insert into sys_user values (1, 4, 'admin', '糖猫猫', 'admin@163.com', '16888888888', '0', '', '$2a$10$QclgMfXBXPoXX6BEJxNyz.aARYqwyOwCnikxWiRK0v4c8zR9/kuQu', '0', '0', '127.0.0.1', null, 'admin', sysdate(), '', null, '超级管理员');
+insert into sys_user values (2, 4, 'tang',  '糖糖',   'tang@163.com',  '16888888888', '0', '', '$2a$10$QclgMfXBXPoXX6BEJxNyz.aARYqwyOwCnikxWiRK0v4c8zR9/kuQu', '0', '0', '127.0.0.1', null, 'admin', sysdate(), '', null, '普通用户');
+insert into sys_user values (3, 4, 'miao',  '猫猫',   'miao@163.com',  '16888888888', '0', '', '$2a$10$QclgMfXBXPoXX6BEJxNyz.aARYqwyOwCnikxWiRK0v4c8zR9/kuQu', '0', '0', '127.0.0.1', null, 'admin', sysdate(), '', null, '游客用户');
 
 
 -- -----------------------------
@@ -271,12 +271,12 @@ create table sys_dict_data (
     primary key (data_id)
 ) engine = InnoDB auto_increment = 100 comment = '字典数据表';
 
-insert into sys_dict_data values(1, 'sys_status',      '0', '正常', '', '', 1, '0', 'admin', sysdate(), '', null, '正常状态');
-insert into sys_dict_data values(2, 'sys_status',      '1', '停用', '', '', 2, '0', 'admin', sysdate(), '', null, '停用状态');
-insert into sys_dict_data values(3, 'sys_del_flag',    '0', '正常', '', '', 1, '0', 'admin', sysdate(), '', null, '正常状态');
-insert into sys_dict_data values(4, 'sys_del_flag',    '1', '删除', '', '', 2, '0', 'admin', sysdate(), '', null, '删除状态');
-insert into sys_dict_data values(5, 'sys_user_gender', '0', '保密', '', '', 1, '0', 'admin', sysdate(), '', null, '性别保密');
-insert into sys_dict_data values(6, 'sys_user_gender', '1', '男',   '', '', 2, '0', 'admin', sysdate(), '', null, '性别男');
-insert into sys_dict_data values(7, 'sys_user_gender', '2', '女',   '', '', 3, '0', 'admin', sysdate(), '', null, '性别女');
+insert into sys_dict_data values(1, 'sys_status',      '正常', '0', '', '', 1, '0', 'admin', sysdate(), '', null, '正常状态');
+insert into sys_dict_data values(2, 'sys_status',      '停用', '1', '', '', 2, '0', 'admin', sysdate(), '', null, '停用状态');
+insert into sys_dict_data values(3, 'sys_del_flag',    '正常', '0', '', '', 1, '0', 'admin', sysdate(), '', null, '正常状态');
+insert into sys_dict_data values(4, 'sys_del_flag',    '删除', '1', '', '', 2, '0', 'admin', sysdate(), '', null, '删除状态');
+insert into sys_dict_data values(5, 'sys_user_gender', '保密', '0', '', '', 1, '0', 'admin', sysdate(), '', null, '性别保密');
+insert into sys_dict_data values(6, 'sys_user_gender', '男',   '1',  '', '', 2, '0', 'admin', sysdate(), '', null, '性别男');
+insert into sys_dict_data values(7, 'sys_user_gender', '女',   '2', '', '', 3, '0', 'admin', sysdate(), '', null, '性别女');
 
 commit;
