@@ -61,7 +61,7 @@ public class SysDeptController {
      */
     @PreAuthorize("@auth.hasAnyPermission('system:dept:list')")
     @GetMapping("/{userId}")
-    public AjaxResult selectDeptByDeptId(@PathVariable("deptId") Long deptId) {
+    public AjaxResult selectDeptByDeptId(@PathVariable Long deptId) {
         return AjaxResult.success(deptService.selectDeptByDeptId(deptId));
     }
 

@@ -51,7 +51,7 @@ public class SysRoleController {
      */
     @PreAuthorize("@auth.hasAnyPermission('system:role:list')")
     @GetMapping("/{roleId}")
-    public AjaxResult selectRoleByRoleId(@PathVariable("roleId") Long roleId) {
+    public AjaxResult selectRoleByRoleId(@PathVariable Long roleId) {
         return AjaxResult.success(roleService.selectRoleByRoleId(roleId));
     }
 

@@ -48,7 +48,7 @@ public class SysDictTypeController {
      * @return 字典类型对象
      */
     @GetMapping("/{typeId}")
-    public AjaxResult selectDictTypeByTypeId(@PathVariable("typeId") Long typeId) {
+    public AjaxResult selectDictTypeByTypeId(@PathVariable Long typeId) {
         return AjaxResult.success(dictTypeService.selectDictTypeByTypeId(typeId));
     }
 
@@ -80,7 +80,7 @@ public class SysDictTypeController {
      * @param typeId 字典类型主键
      * @return 影响行数
      */
-    @DeleteMapping
+    @DeleteMapping("/{typeId}")
     public AjaxResult delete(Long typeId) {
         return AjaxResult.success(dictTypeService.deleteDictTypeByTypeId(typeId));
     }

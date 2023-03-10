@@ -61,7 +61,7 @@ public class SysMenuController {
      */
     @PreAuthorize("@auth.hasAnyPermission('system:menu:list')")
     @GetMapping("/{menuId}")
-    public AjaxResult selectMenuByMenuId(@PathVariable("menuId") Long menuId) {
+    public AjaxResult selectMenuByMenuId(@PathVariable Long menuId) {
         return AjaxResult.success(menuService.selectMenuByMenuId(menuId));
     }
 

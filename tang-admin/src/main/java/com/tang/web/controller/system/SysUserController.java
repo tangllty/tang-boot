@@ -55,7 +55,7 @@ public class SysUserController {
      */
     @PreAuthorize("@auth.hasAnyPermission('system:user:list')")
     @GetMapping("/{userId}")
-    public AjaxResult selectUserByUserId(@PathVariable("userId") Long userId) {
+    public AjaxResult selectUserByUserId(@PathVariable Long userId) {
         return AjaxResult.success(userService.selectUserByUserId(userId));
     }
 

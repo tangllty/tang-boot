@@ -60,7 +60,7 @@ public class SysDictDataController {
      * @return 字典数据对象
      */
     @GetMapping("/{dataId}")
-    public AjaxResult selectDictDataByDataId(@PathVariable("dataId") Long dataId) {
+    public AjaxResult selectDictDataByDataId(@PathVariable Long dataId) {
         return AjaxResult.success(dictDataService.selectDictDataByDataId(dataId));
     }
 
@@ -92,7 +92,7 @@ public class SysDictDataController {
      * @param dataId 字典数据主键
      * @return 影响行数
      */
-    @DeleteMapping
+    @DeleteMapping("/{dataId}")
     public AjaxResult delete(Long dataId) {
         return AjaxResult.success(dictDataService.deleteDictDataByDataId(dataId));
     }
