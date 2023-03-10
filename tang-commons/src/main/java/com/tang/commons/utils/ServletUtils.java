@@ -24,7 +24,7 @@ public class ServletUtils {
     }
 
     public static ServletRequestAttributes getRequestAttributes() {
-        return (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+        return (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
     }
 
     /**
