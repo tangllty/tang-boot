@@ -2,8 +2,6 @@ package com.tang.commons.utils;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.Enumeration;
-
 import org.lionsoul.ip2region.xdb.Searcher;
 import org.springframework.util.ResourceUtils;
 
@@ -31,14 +29,18 @@ public class IpUtils {
         if (request == null) {
             return unknown;
         }
-        // TODO
-        Enumeration<String> headerNames = request.getHeaderNames();
-        String ip = request.getHeader("x-forwarded-for");
+        String ip = request.getHeader("X-Forwarded-For");
         if (ip == null || ip.length() == 0 || unknown.equalsIgnoreCase(ip)) {
             ip = request.getHeader("Proxy-Client-IP");
         }
         if (ip == null || ip.length() == 0 || unknown.equalsIgnoreCase(ip)) {
             ip = request.getHeader("WL-Proxy-Client-IP");
+        }
+        if (ip == null || ip.length() == 0 || unknown.equalsIgnoreCase(ip)) {
+            ip = request.getHeader("HTTP_CLIENT_IP");
+        }
+        if (ip == null || ip.length() == 0 || unknown.equalsIgnoreCase(ip)) {
+            ip = request.getHeader("HTTP_X_FORWARDED_FOR");
         }
         if (ip == null || ip.length() == 0 || unknown.equalsIgnoreCase(ip)) {
             ip = request.getHeader("X-Real-IP");
