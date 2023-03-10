@@ -25,6 +25,10 @@ server:
 
 # Spring 配置
 spring:
+  # Jackson 配置
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
   # 服务模块
   devtools:
     restart:
@@ -35,11 +39,11 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/tang-vue?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
     username: root
-    password: Tang
+    password: password
   # Redis 配置
   data:
     redis:
-      password:
+      password: password
 
 # MyBatis 配置
 mybatis:
