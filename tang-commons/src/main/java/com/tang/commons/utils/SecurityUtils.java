@@ -76,7 +76,7 @@ public class SecurityUtils {
     /**
      * BCryptPasswordEncoder 生成密文密码
      *
-     * @param password 明文密码
+     * @param rawPassword 明文密码
      * @return 密文密码
      */
     public static String encryptPassword(String rawPassword) {

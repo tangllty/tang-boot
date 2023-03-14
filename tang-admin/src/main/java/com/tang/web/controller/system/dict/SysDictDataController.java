@@ -93,7 +93,7 @@ public class SysDictDataController {
      * @return 影响行数
      */
     @DeleteMapping("/{dataId}")
-    public AjaxResult delete(Long dataId) {
+    public AjaxResult delete(@PathVariable Long dataId) {
         return AjaxResult.success(dictDataService.deleteDictDataByDataId(dataId));
     }
 

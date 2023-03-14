@@ -35,8 +35,8 @@ public class OnlineUserController {
     public TableDataResult list(OnlineUser onlineUser) {
         var pageNum = ServletUtils.getParameter("pageNum");
         var pageSize = ServletUtils.getParameter("pageSize");
-        var pageNumLong = Long.valueOf(pageNum);
-        var pageSizeLong = Long.valueOf(pageSize);
+        var pageNumLong = Long.parseLong(pageNum);
+        var pageSizeLong = Long.parseLong(pageSize);
         var skip = (pageNumLong - 1) * pageSizeLong;
         var list = onlineUserService.selectOnlineUserList(onlineUser);
         list.sort(Comparator.comparing(OnlineUser::getLoginTime).reversed());

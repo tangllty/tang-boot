@@ -22,9 +22,9 @@ public enum MenuType {
      */
     BUTTON("B");
 
-    private String name;
+    private final String name;
 
-    private MenuType(String name) {
+    MenuType(String name) {
         this.name = name;
     }
 

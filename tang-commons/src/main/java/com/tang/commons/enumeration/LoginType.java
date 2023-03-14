@@ -17,9 +17,9 @@ public enum LoginType {
      */
     EMAIL("email");
 
-    private String name;
+    private final String name;
 
-    private LoginType(String name) {
+    LoginType(String name) {
         this.name = name;
     }
 

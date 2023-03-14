@@ -60,7 +60,7 @@ public class SysDeptController {
      * @return 部门对象
      */
     @PreAuthorize("@auth.hasAnyPermission('system:dept:list')")
-    @GetMapping("/{userId}")
+    @GetMapping("/{deptId}")
     public AjaxResult selectDeptByDeptId(@PathVariable Long deptId) {
         return AjaxResult.success(deptService.selectDeptByDeptId(deptId));
     }

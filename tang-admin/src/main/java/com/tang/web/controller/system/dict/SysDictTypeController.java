@@ -81,7 +81,7 @@ public class SysDictTypeController {
      * @return 影响行数
      */
     @DeleteMapping("/{typeId}")
-    public AjaxResult delete(Long typeId) {
+    public AjaxResult delete(@PathVariable Long typeId) {
         return AjaxResult.success(dictTypeService.deleteDictTypeByTypeId(typeId));
     }
 
