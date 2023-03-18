@@ -1,0 +1,78 @@
+package ${packageName}.service.impl;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import ${packageName}.entity.$ClassName;
+import ${packageName}.mapper.${ClassName}Mapper;
+import ${packageName}.service.${ClassName}Service;
+
+/**
+ * ${classComment}业务逻辑层接口实现
+ *
+ * @author $author
+ */
+@Service
+public class ${ClassName}ServiceImpl implements ${ClassName}Service {
+
+    @Autowired
+    private ${ClassName}Mapper ${className}Mapper;
+
+    /**
+     * 查询${classComment}列表
+     *
+     * @param $className ${classComment}对象
+     * @return ${classComment}列表
+     */
+    @Override
+    public List<$ClassName> select${ClassName}List($ClassName $className) {
+        return ${className}Mapper.select${ClassName}List($className);
+    }
+
+    /**
+     * 通过${classComment}主键查询${classComment}信息
+     *
+     * @param $primaryKey ${classComment}主键
+     * @return ${classComment}信息
+     */
+    @Override
+    public $ClassName select${ClassName}By${PrimaryKey}(Long $primaryKey) {
+        return ${className}Mapper.select${ClassName}By${PrimaryKey}($primaryKey);
+    }
+
+    /**
+     * 新增${classComment}信息
+     *
+     * @param $className ${classComment}信息
+     * @return 影响行数
+     */
+    @Override
+    public int insert${ClassName}($ClassName $className) {
+        return ${className}Mapper.insert${ClassName}($className);
+    }
+
+    /**
+     * 通过${classComment}主键修改${classComment}信息
+     *
+     * @param $className ${classComment}信息
+     * @return 影响行数
+     */
+    @Override
+    public int update${ClassName}By${PrimaryKey}($ClassName $className) {
+        return ${className}Mapper.update${ClassName}By${PrimaryKey}($className);
+    }
+
+    /**
+     * 通过${classComment}主键删除${classComment}信息
+     *
+     * @param $primaryKey ${classComment}主键
+     * @return 影响行数
+     */
+    @Override
+    public int delete${ClassName}By${PrimaryKey}(Long $primaryKey) {
+        return ${className}Mapper.delete${ClassName}By${PrimaryKey}($primaryKey);
+    }
+
+}

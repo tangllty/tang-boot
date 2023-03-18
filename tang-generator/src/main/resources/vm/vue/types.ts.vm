@@ -1,0 +1,53 @@
+// ${classComment}对象
+export interface $ClassName {
+#foreach($column in $columnList)
+#if ($column.javaType == 'Integer')
+  $column.javaField: number
+#end
+#if ($column.javaType == 'Long')
+  $column.javaField: number
+#end
+#if ($column.javaType == 'String')
+  $column.javaField: string
+#end
+#if ($column.javaType == 'Date')
+  $column.javaField: Date
+#end
+#end
+}
+
+// ${classComment}表单对象
+export interface ${ClassName}Form {
+#foreach($column in $columnList)
+#if ($column.javaType == 'Integer')
+  $column.javaField: number
+#end
+#if ($column.javaType == 'Long')
+  $column.javaField: number
+#end
+#if ($column.javaType == 'String')
+  $column.javaField: string
+#end
+#if ($column.javaType == 'Date')
+  $column.javaField: Date
+#end
+#end
+}
+
+// ${classComment}查询参数
+export interface ${ClassName}Query extends PageQuery {
+#foreach($column in $columnList)
+#if ($column.javaType == 'Integer')
+  $column.javaField: number
+#end
+#if ($column.javaType == 'Long')
+  $column.javaField: number
+#end
+#if ($column.javaType == 'String')
+  $column.javaField: string
+#end
+#if ($column.javaType == 'Date')
+  $column.javaField: Date
+#end
+#end
+}

@@ -1,0 +1,45 @@
+import request from '@/utils/request'
+import { ${ClassName}Query, ${ClassName}Form } from './types'
+
+// 查询${classComment}列表
+export const list$ClassName = (queryParams: ${ClassName}Query) => {
+  return request({
+    url: '/$moduleName/$businessName/list',
+    method: 'get',
+    params: queryParams
+  })
+}
+
+// 查询${classComment}信息
+export const get$ClassName = ($primaryKey: number) => {
+  return request({
+    url: '/$moduleName/$businessName/' + $primaryKey,
+    method: 'get'
+  })
+}
+
+// 添加${classComment}信息
+export const add$ClassName = (data: ${ClassName}Form) => {
+  return request({
+    url: '/$moduleName/$businessName',
+    method: 'post',
+    data
+  })
+}
+
+// 修改${classComment}信息
+export const edit$ClassName = (data: ${ClassName}Form) => {
+  return request({
+    url: '/$moduleName/$businessName',
+    method: 'put',
+    data
+  })
+}
+
+// 删除${classComment}信息
+export const delete$ClassName = ($primaryKey: number) => {
+  return request({
+    url: '/$moduleName/$businessName/' + $primaryKey,
+    method: 'delete'
+  })
+}

@@ -118,6 +118,7 @@ create table sys_menu (
 -- 目录
 insert into sys_menu values (1, 0, '0', '系统管理', 'system',  '', '', '系统管理', 'D', '0', 1, '0', '0', 'admin', sysdate(), '', null, '系统管理目录');
 insert into sys_menu values (2, 0, '0', '系统监控', 'monitor', '', '', '系统监控', 'D', '0', 2, '0', '0', 'admin', sysdate(), '', null, '系统监控目录');
+insert into sys_menu values (3, 0, '0', '系统工具', 'tool',    '', '', '系统工具', 'D', '0', 2, '0', '0', 'admin', sysdate(), '', null, '系统工具目录');
 
 -- 菜单
 insert into sys_menu values (11, 1, '0,1', '用户管理', 'user',   'system/user/index',    'system:user:menu',    '用户管理', 'M', '0', 1, '0', '0', 'admin', sysdate(), '', null, '用户管理菜单');
@@ -126,6 +127,7 @@ insert into sys_menu values (13, 1, '0,1', '角色管理', 'role',   'system/rol
 insert into sys_menu values (14, 1, '0,1', '菜单管理', 'menu',   'system/menu/index',    'system:menu:menu',    '菜单管理', 'M', '0', 4, '0', '0', 'admin', sysdate(), '', null, '菜单管理菜单');
 insert into sys_menu values (15, 1, '0,1', '字典管理', 'dict',   'system/dict/index',    'system:dict:menu',    '字典管理', 'M', '0', 5, '0', '0', 'admin', sysdate(), '', null, '字典管理菜单');
 insert into sys_menu values (16, 2, '0,2', '在线用户', 'online', 'monitor/online/index', 'monitor:online:menu', '在线用户', 'M', '0', 1, '0', '0', 'admin', sysdate(), '', null, '在线用户菜单');
+insert into sys_menu values (17, 3, '0,3', '代码生成', 'generator', 'tool/generator/index', 'tool:generator:menu', '代码生成', 'M', '0', 1, '0', '0', 'admin', sysdate(), '', null, '代码生成菜单');
 
 -- 用户管理按钮
 insert into sys_menu values (101, 11, '0,1,11', '用户查询', '', '', 'system:user:list',   '', 'B', '0', 1, '0', '0', 'admin', sysdate(), '', null, '用户查询按钮');
@@ -278,5 +280,59 @@ insert into sys_dict_data values(4, 'sys_del_flag',    '删除', '1', '', '', 2,
 insert into sys_dict_data values(5, 'sys_user_gender', '保密', '0', '', '', 1, '0', 'admin', sysdate(), '', null, '性别保密');
 insert into sys_dict_data values(6, 'sys_user_gender', '男',   '1',  '', '', 2, '0', 'admin', sysdate(), '', null, '性别男');
 insert into sys_dict_data values(7, 'sys_user_gender', '女',   '2', '', '', 3, '0', 'admin', sysdate(), '', null, '性别女');
+
+
+-- -----------------------------
+-- 代码生成表
+-- -----------------------------
+drop table if exists gen_table;
+create table gen_table (
+    table_id         bigint(20)    not null auto_increment  comment '编号',
+    table_name       varchar(64)   default ''               comment '表名称',
+    table_comment    varchar(128)  default ''               comment '表描述',
+    class_name       varchar(128)  default ''               comment '实体类名称',
+    package_name     varchar(128)                           comment '包路径',
+    module_name      varchar(32)                            comment '模块名',
+    business_name    varchar(32)                            comment '业务名',
+    class_comment    varchar(64)                            comment '类注释',
+    author           varchar(64)                            comment '作者',
+    create_by        varchar(64)   default ''               comment '创建者',
+    create_time      datetime                               comment '创建时间',
+    update_by        varchar(64)   default ''               comment '更新者',
+    update_time      datetime                               comment '更新时间',
+    remark           varchar(500)  default ''               comment '备注',
+    primary key (table_id)
+) engine = InnoDB auto_increment = 1 comment = '代码生成表';
+
+
+-- -----------------------------
+-- 代码字段生成表
+-- -----------------------------
+drop table if exists gen_table_column;
+create table gen_table_column (
+    column_id       bigint(20)    not null auto_increment  comment '编号',
+    table_id        bigint(20)    default null             comment '归属表编号',
+    column_name     varchar(64)   default ''               comment '字段名称',
+    column_comment  varchar(128)  default ''               comment '字段描述',
+    column_type     varchar(128)  default ''               comment '字段类型',
+    java_type       varchar(128)  default ''               comment 'JAVA类型',
+    java_field      varchar(128)  default ''               comment 'JAVA属性',
+    is_pk           char(1)       default '0'              comment '是否主键{0=否, 1=是}',
+    is_increment    char(1)       default '0'              comment '是否自增{0=否, 1=是}',
+    is_list         char(1)       default '0'              comment '是否列表字段{0=否, 1=是}',
+    is_insert       char(1)       default '0'              comment '是否为插入字段{0=否, 1=是}',
+    is_edit         char(1)       default '0'              comment '是否编辑字段{0=否, 1=是}',
+    is_required     char(1)       default '0'              comment '是否必填{0=否, 1=是}',
+    query_type      varchar(128)  default 'equal'          comment '查询方式{equal=等于, fuzzy=模糊}',
+    html_type       varchar(128)  default ''               comment '显示类型{文本框、文本域、下拉框、复选框、单选框、日期控件}',
+    dict_type       varchar(128)  default ''               comment '字典类型',
+    sort            int(4)        default 0                comment '显示顺序',
+    create_by       varchar(64)   default ''               comment '创建者',
+    create_time     datetime                               comment '创建时间',
+    update_by       varchar(64)   default ''               comment '更新者',
+    update_time     datetime                               comment '更新时间',
+    remark          varchar(500)  default ''               comment '备注',
+    primary key (column_id)
+) engine = InnoDB auto_increment = 1 comment = '代码字段生成表';
 
 commit;

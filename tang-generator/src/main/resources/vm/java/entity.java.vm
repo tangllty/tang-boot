@@ -1,0 +1,42 @@
+package ${packageName}.entity;
+
+import java.util.Date;
+
+import com.tang.commons.core.base.entity.BaseEntity;
+
+/**
+ * ${classComment}实体类 $tableName
+ *
+ * @author $author
+ */
+public class $ClassName extends BaseEntity {
+
+    @java.io.Serial
+    private static final long serialVersionUID = 1L;
+#foreach ($column in $columnList)
+#if (!$column.isSuperField)
+
+    /**
+     * $column.columnComment
+     */
+    private $column.javaType $column.javaField;
+#end
+#end
+
+#foreach ($column in $columnList)
+#set($javaType = $column.javaType)
+#set($javaField = $column.javaField)
+#set($JavaField = $column.javaField.substring(0, 1).toUpperCase() + ${column.javaField.substring(1)})
+#if (!$column.isSuperField)
+
+    public $javaType get${JavaField}() {
+        return $javaField;
+    }
+
+    public void set${JavaField}($javaType $javaField) {
+        this.$javaField = $javaField;
+    }
+#end
+#end
+
+}

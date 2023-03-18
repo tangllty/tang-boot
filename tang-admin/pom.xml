@@ -47,6 +47,11 @@
             <artifactId>tang-framework</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>com.tang</groupId>
+            <artifactId>tang-generator</artifactId>
+        </dependency>
+
     </dependencies>
 
     <build>
