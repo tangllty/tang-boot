@@ -139,7 +139,7 @@ insert into sys_menu values (104, 11, '0,1,11', '用户删除', '', '', 'system:
 insert into sys_menu values (105, 12, '0,1,12', '部门查询', '', '', 'system:dept:list',   '', 'B', '0', 1, '0', '0', 'admin', sysdate(), '', null, '部门查询按钮');
 insert into sys_menu values (106, 12, '0,1,12', '部门添加', '', '', 'system:dept:add',    '', 'B', '0', 2, '0', '0', 'admin', sysdate(), '', null, '部门添加按钮');
 insert into sys_menu values (107, 12, '0,1,12', '部门修改', '', '', 'system:dept:edit',   '', 'B', '0', 3, '0', '0', 'admin', sysdate(), '', null, '部门修改按钮');
-insert into sys_menu values (108, 12, '0,1,12', '部门删除', '', '', 'system:dept:edlete', '', 'B', '0', 4, '0', '0', 'admin', sysdate(), '', null, '部门删除按钮');
+insert into sys_menu values (108, 12, '0,1,12', '部门删除', '', '', 'system:dept:delete', '', 'B', '0', 4, '0', '0', 'admin', sysdate(), '', null, '部门删除按钮');
 
 -- 角色管理按钮
 insert into sys_menu values (109, 13, '0,1,13', '角色查询', '', '', 'system:role:list',   '', 'B', '0', 1, '0', '0', 'admin', sysdate(), '', null, '角色查询按钮');
@@ -160,8 +160,15 @@ insert into sys_menu values (119, 15, '0,1,15', '字典修改', '', '', 'system:
 insert into sys_menu values (120, 15, '0,1,15', '字典删除', '', '', 'system:dict:delete', '', 'B', '0', 4, '0', '0', 'admin', sysdate(), '', null, '字典删除按钮');
 
 -- 在线用户按钮
-insert into sys_menu values (121, 16, '0,1,16', '在线用户查询', '', '', 'monitor:online:list',   '', 'B', '0', 1, '0', '0', 'admin', sysdate(), '', null, '在线用户查询按钮');
-insert into sys_menu values (122, 16, '0,1,16', '在线用户删除', '', '', 'monitor:online:delete', '', 'B', '0', 2, '0', '0', 'admin', sysdate(), '', null, '在线用户删除按钮');
+insert into sys_menu values (121, 16, '0,2,16', '在线用户查询', '', '', 'monitor:online:list',   '', 'B', '0', 1, '0', '0', 'admin', sysdate(), '', null, '在线用户查询按钮');
+insert into sys_menu values (122, 16, '0,2,16', '在线用户删除', '', '', 'monitor:online:delete', '', 'B', '0', 2, '0', '0', 'admin', sysdate(), '', null, '在线用户删除按钮');
+
+-- 代码生成按钮
+insert into sys_menu values (123, 17, '0,3,17', '代码生成查询', '', '', 'tool:generator:list',   '', 'B', '0', 1, '0', '0', 'admin', sysdate(), '', null, '代码生成查询按钮');
+insert into sys_menu values (124, 17, '0,3,17', '代码生成修改', '', '', 'tool:generator:edit',   '', 'B', '0', 2, '0', '0', 'admin', sysdate(), '', null, '代码生成修改按钮');
+insert into sys_menu values (125, 17, '0,3,17', '代码生成删除', '', '', 'tool:generator:delete', '', 'B', '0', 3, '0', '0', 'admin', sysdate(), '', null, '代码生成删除按钮');
+insert into sys_menu values (126, 17, '0,3,17', '代码生成导入', '', '', 'tool:generator:import', '', 'B', '0', 4, '0', '0', 'admin', sysdate(), '', null, '代码生成导入按钮');
+insert into sys_menu values (127, 17, '0,3,17', '代码生成导出', '', '', 'tool:generator:export', '', 'B', '0', 5, '0', '0', 'admin', sysdate(), '', null, '代码生成导出按钮');
 
 
 -- -----------------------------
@@ -216,6 +223,11 @@ insert into sys_role_menu values (2, 119);
 insert into sys_role_menu values (2, 120);
 insert into sys_role_menu values (2, 121);
 insert into sys_role_menu values (2, 122);
+insert into sys_role_menu values (2, 123);
+insert into sys_role_menu values (2, 124);
+insert into sys_role_menu values (2, 125);
+insert into sys_role_menu values (2, 126);
+insert into sys_role_menu values (2, 127);
 insert into sys_role_menu values (3, 1);
 insert into sys_role_menu values (3, 11);
 insert into sys_role_menu values (3, 12);
@@ -227,6 +239,7 @@ insert into sys_role_menu values (3, 109);
 insert into sys_role_menu values (3, 113);
 insert into sys_role_menu values (3, 117);
 insert into sys_role_menu values (3, 121);
+insert into sys_role_menu values (3, 123);
 
 
 -- -----------------------------
@@ -324,7 +337,7 @@ create table gen_table_column (
     is_edit         char(1)       default '0'              comment '是否编辑字段{0=否, 1=是}',
     is_required     char(1)       default '0'              comment '是否必填{0=否, 1=是}',
     query_type      varchar(128)  default 'equal'          comment '查询方式{equal=等于, fuzzy=模糊}',
-    html_type       varchar(128)  default ''               comment '显示类型{文本框、文本域、下拉框、复选框、单选框、日期控件}',
+    html_type       varchar(128)  default ''               comment '显示类型',
     dict_type       varchar(128)  default ''               comment '字典类型',
     sort            int(4)        default 0                comment '显示顺序',
     create_by       varchar(64)   default ''               comment '创建者',

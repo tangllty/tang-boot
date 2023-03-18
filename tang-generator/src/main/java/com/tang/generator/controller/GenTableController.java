@@ -46,6 +46,7 @@ public class GenTableController {
      * @param table 代码生成对象
      * @return 代码生成列表
      */
+    @PreAuthorize("@auth.hasAnyPermission('tool:generator:list')")
     @GetMapping("/list")
     public TableDataResult list(GenTable table) {
         PageUtils.startPage();
@@ -122,7 +123,7 @@ public class GenTableController {
      *
      * @param tableId 主键
      */
-    @PreAuthorize("@auth.hasAnyPermission('tool:generator:import')")
+    @PreAuthorize("@auth.hasAnyPermission('tool:generator:list')")
     @GetMapping("/preview/{tableId}")
     public AjaxResult importTable(@PathVariable Long tableId) {
         return AjaxResult.success(tableService.previewCode(tableId));
