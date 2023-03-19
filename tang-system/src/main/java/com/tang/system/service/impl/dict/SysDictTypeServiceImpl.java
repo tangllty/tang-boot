@@ -4,8 +4,10 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.tang.system.entity.dict.SysDictType;
+import com.tang.system.mapper.dict.SysDictDataMapper;
 import com.tang.system.mapper.dict.SysDictTypeMapper;
 import com.tang.system.service.dict.SysDictTypeService;
 
@@ -20,6 +22,8 @@ public class SysDictTypeServiceImpl implements SysDictTypeService {
     @Autowired
     private SysDictTypeMapper dictTypeMapper;
 
+    @Autowired
+    private SysDictDataMapper dictDataMapper;
 
     /**
      * 获取字典类型列表
@@ -27,6 +31,7 @@ public class SysDictTypeServiceImpl implements SysDictTypeService {
      * @param dictType 字典类型对象
      * @return 字典类型列表
      */
+    @Override
     public List<SysDictType> selectDictTypeList(SysDictType dictType) {
         return dictTypeMapper.selectDictTypeList(dictType);
     }
@@ -37,6 +42,7 @@ public class SysDictTypeServiceImpl implements SysDictTypeService {
      * @param typeId 字典类型主键
      * @return 字典类型对象
      */
+    @Override
     public SysDictType selectDictTypeByTypeId(Long typeId) {
         return dictTypeMapper.selectDictTypeByTypeId(typeId);
     }
@@ -47,6 +53,7 @@ public class SysDictTypeServiceImpl implements SysDictTypeService {
      * @param dictType 字典类型对象
      * @return 影响行数
      */
+    @Override
     public int insertDictType(SysDictType dictType) {
         return dictTypeMapper.insertDictType(dictType);
     }
@@ -57,6 +64,7 @@ public class SysDictTypeServiceImpl implements SysDictTypeService {
      * @param dictType 字典类型对象
      * @return 影响行数
      */
+    @Override
     public int updateDictTypeByTypeId(SysDictType dictType) {
         return dictTypeMapper.updateDictTypeByTypeId(dictType);
     }
@@ -67,8 +75,24 @@ public class SysDictTypeServiceImpl implements SysDictTypeService {
      * @param typeId 字典类型主键
      * @return 影响行数
      */
+    @Override
+    @Transactional(rollbackFor = Exception.class)
     public int deleteDictTypeByTypeId(Long typeId) {
+        dictDataMapper.deleteDictDataByTypeId(typeId);
         return dictTypeMapper.deleteDictTypeByTypeId(typeId);
+    }
+
+    /**
+     * 通过主键数组批量删除字典类型数据
+     *
+     * @param typeIds 字典类型主键数组
+     * @return 影响行数
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public int deleteDictTypeByTypeIds(Long[] typeIds) {
+        dictDataMapper.deleteDictDataByTypeIds(typeIds);
+        return dictTypeMapper.deleteDictTypeByTypeIds(typeIds);
     }
 
 }

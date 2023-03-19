@@ -61,6 +61,14 @@ public interface GenTableService {
     int deleteTableByTableId(Long tableId);
 
     /**
+     * 通过表主键数组批量删除数据
+     *
+     * @param tableIds 表主键集合
+     * @return 影响行数
+     */
+    int deleteTableByTableIds(Long[] tableIds);
+
+    /**
      * 导入表信息
      *
      * @param tableNames 表名称集合

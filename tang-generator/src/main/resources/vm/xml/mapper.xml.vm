@@ -62,4 +62,11 @@
         delete from $tableName where $tablePrimaryKey = #{$primaryKey}
     </delete>
 
+    <delete id="delete${ClassName}By${PrimaryKey}s">
+        delete from $tableName where $tablePrimaryKey in
+        <foreach item="$primaryKey" collection="array" open="(" separator="," close=")">
+            #{$primaryKey}
+        </foreach>
+    </delete>
+
 </mapper>

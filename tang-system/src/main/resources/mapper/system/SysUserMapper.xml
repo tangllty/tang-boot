@@ -140,4 +140,11 @@
         update sys_user set del_flag = '1' where user_id = #{userId}
     </delete>
 
+    <delete id="deleteUserByUserIds">
+        update sys_user set del_flag = '1' where user_id in
+        <foreach item="userId" collection="array" open="(" separator="," close=")">
+            #{userId}
+        </foreach>
+    </delete>
+
 </mapper>

@@ -51,4 +51,12 @@ public interface SysDictTypeService {
      */
     int deleteDictTypeByTypeId(Long typeId);
 
+    /**
+     * 通过主键数组批量删除字典类型数据
+     *
+     * @param typeIds 字典类型主键数组
+     * @return 影响行数
+     */
+    int deleteDictTypeByTypeIds(Long[] typeIds);
+
 }

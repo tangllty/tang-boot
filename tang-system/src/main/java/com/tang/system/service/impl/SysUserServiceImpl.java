@@ -130,4 +130,17 @@ public class SysUserServiceImpl implements SysUserService {
         return userMapper.deleteUserByUserId(userId);
     }
 
+    /**
+     * 批量删除用户
+     *
+     * @param userIds 用户主键数组
+     * @return 影响行数
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public int deleteUserByUserIds(Long[] userIds) {
+        roleMapper.deleteUserRoleByUserIds(userIds);
+        return userMapper.deleteUserByUserIds(userIds);
+    }
+
 }

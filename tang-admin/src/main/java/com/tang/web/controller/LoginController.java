@@ -15,7 +15,7 @@ import com.tang.framework.web.service.LoginService;
 import com.tang.system.service.SysMenuService;
 
 /**
- * 登陆验证
+ * 登陆验证逻辑控制层
  *
  * @author Tang
  */

@@ -110,4 +110,12 @@ public interface SysMenuMapper {
      */
     int deleteRoleMenuByRoleId(Long roleId);
 
+    /**
+     * 通过角色主键批量删除角色菜单关联信息
+     *
+     * @param roleIds 角色主键集合
+     * @return 影响行数
+     */
+    int deleteRoleMenuByRoleIds(Long[] roleIds);
+
 }

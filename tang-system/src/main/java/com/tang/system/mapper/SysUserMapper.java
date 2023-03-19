@@ -75,4 +75,12 @@ public interface SysUserMapper {
      */
     int deleteUserByUserId(Long userId);
 
+    /**
+     * 批量删除用户
+     *
+     * @param userIds 用户主键数组
+     * @return 影响行数
+     */
+    int deleteUserByUserIds(Long[] userIds);
+
 }

@@ -86,4 +86,20 @@ public interface SysRoleMapper {
      */
     int deleteUserRoleByUserId(Long userId);
 
+    /**
+     * 通过用户主键数组批量删除用户角色关联数据
+     *
+     * @param userIds 用户主键数组
+     * @return 影响行数
+     */
+    int deleteUserRoleByUserIds(Long[] userIds);
+
+    /**
+     * 通过角色主键数组批量删除角色关联数据
+     *
+     * @param roleIds 角色主键数组
+     * @return 影响行数
+     */
+    int deleteRoleByRoleIds(Long[] roleIds);
+
 }

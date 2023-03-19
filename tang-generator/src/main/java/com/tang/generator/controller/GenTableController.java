@@ -26,7 +26,7 @@ import com.tang.generator.service.GenTableService;
 import jakarta.servlet.http.HttpServletResponse;
 
 /**
- * 代码生成表 gen_table 表控制层
+ * 代码生成逻辑控制层
  *
  * @author Tang
  */
@@ -46,7 +46,7 @@ public class GenTableController {
      * @param table 代码生成对象
      * @return 代码生成列表
      */
-    @PreAuthorize("@auth.hasAnyPermission('tool:generator:list')")
+    @PreAuthorize("@auth.hasPermission('tool:generator:list')")
     @GetMapping("/list")
     public TableDataResult list(GenTable table) {
         PageUtils.startPage();
@@ -60,7 +60,7 @@ public class GenTableController {
      * @param table 代码生成对象
      * @return 表列表
      */
-    @PreAuthorize("@auth.hasAnyPermission('tool:generator:list')")
+    @PreAuthorize("@auth.hasPermission('tool:generator:list')")
     @GetMapping("/table/list")
     public TableDataResult listDatabaseTable(GenTable table) {
         PageUtils.startPage();
@@ -74,7 +74,7 @@ public class GenTableController {
      * @param tableId 主键
      * @return 代码生成对象
      */
-    @PreAuthorize("@auth.hasAnyPermission('tool:generator:list')")
+    @PreAuthorize("@auth.hasPermission('tool:generator:list')")
     @GetMapping("/{tableId}")
     public AjaxResult getInfo(@PathVariable Long tableId) {
         var table = tableService.selectTableByTableId(tableId);
@@ -88,7 +88,7 @@ public class GenTableController {
      * @param table 代码生成对象
      * @return 影响行数
      */
-    @PreAuthorize("@auth.hasAnyPermission('tool:generator:edit')")
+    @PreAuthorize("@auth.hasPermission('tool:generator:edit')")
     @PutMapping
     public AjaxResult edit(@RequestBody GenTable table) {
         return AjaxResult.success(tableService.updateTableByTableId(table));
@@ -100,10 +100,22 @@ public class GenTableController {
      * @param tableId 主键
      * @return 影响行数
      */
-    @PreAuthorize("@auth.hasAnyPermission('tool:generator:delete')")
+    @PreAuthorize("@auth.hasPermission('tool:generator:delete')")
     @DeleteMapping("/{tableId}")
     public AjaxResult delete(@PathVariable Long tableId) {
         return AjaxResult.success(tableService.deleteTableByTableId(tableId));
+    }
+
+    /**
+     * 通过表主键数组批量删除数据
+     *
+     * @param tableIds 表主键数组
+     * @return 影响行数
+     */
+    @PreAuthorize("@auth.hasPermission('tool:generator:delete')")
+    @DeleteMapping
+    public AjaxResult deletes(@RequestBody Long[] tableIds) {
+        return AjaxResult.success(tableService.deleteTableByTableIds(tableIds));
     }
 
     /**
@@ -111,7 +123,7 @@ public class GenTableController {
      *
      * @param tableNames 表名称集合
      */
-    @PreAuthorize("@auth.hasAnyPermission('tool:generator:import')")
+    @PreAuthorize("@auth.hasPermission('tool:generator:import')")
     @PostMapping("/import")
     public AjaxResult importTable(String[] tableNames) {
         tableService.importTable(tableNames);
@@ -123,7 +135,7 @@ public class GenTableController {
      *
      * @param tableId 主键
      */
-    @PreAuthorize("@auth.hasAnyPermission('tool:generator:list')")
+    @PreAuthorize("@auth.hasPermission('tool:generator:list')")
     @GetMapping("/preview/{tableId}")
     public AjaxResult importTable(@PathVariable Long tableId) {
         return AjaxResult.success(tableService.previewCode(tableId));
@@ -134,7 +146,7 @@ public class GenTableController {
      *
      * @param tableName 表名称
      */
-    @PreAuthorize("@auth.hasAnyPermission('tool:generator:export')")
+    @PreAuthorize("@auth.hasPermission('tool:generator:export')")
     @GetMapping("/download/{tableName}")
     public void downloadCode(HttpServletResponse response, @PathVariable String tableName) throws IOException {
         byte[] data = tableService.downloadCodes(new String[] {tableName});
@@ -146,7 +158,7 @@ public class GenTableController {
      *
      * @param tableNames 表名称集合
      */
-    @PreAuthorize("@auth.hasAnyPermission('tool:generator:export')")
+    @PreAuthorize("@auth.hasPermission('tool:generator:export')")
     @GetMapping("/downloads")
     public void downloadCodes(HttpServletResponse response, String[] tableNames) throws IOException {
         byte[] data = tableService.downloadCodes(tableNames);

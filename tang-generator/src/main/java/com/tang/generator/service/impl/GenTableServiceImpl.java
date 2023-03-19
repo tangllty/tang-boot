@@ -110,11 +110,21 @@ public class GenTableServiceImpl implements GenTableService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public int deleteTableByTableId(Long tableId) {
-        var rows = tableMapper.deleteTableByTableId(tableId);
-        if (rows > 0) {
-            tableColumnMapper.deleteTableColumnByTableId(tableId);
-        }
-        return rows;
+        tableColumnMapper.deleteTableColumnByTableId(tableId);
+        return tableMapper.deleteTableByTableId(tableId);
+    }
+
+    /**
+     * 通过表主键数组批量删除数据
+     *
+     * @param tableIds 表主键集合
+     * @return 影响行数
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public int deleteTableByTableIds(Long[] tableIds) {
+        tableColumnMapper.deleteTableColumnByTableIds(tableIds);
+        return tableMapper.deleteTableByTableIds(tableIds);
     }
 
     /**

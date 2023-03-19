@@ -16,7 +16,7 @@ import com.tang.system.entity.SysMenu;
 import com.tang.system.service.SysMenuService;
 
 /**
- * 菜单权限表 SysMenu 表控制层
+ * 菜单权限逻辑控制层
  *
  * @author Tang
  */
@@ -33,7 +33,7 @@ public class SysMenuController {
      * @param menu 菜单对象
      * @return 菜单列表
      */
-    @PreAuthorize("@auth.hasAnyPermission('system:menu:list')")
+    @PreAuthorize("@auth.hasPermission('system:menu:list')")
     @GetMapping("/list")
     public AjaxResult list(SysMenu menu){
         var list = menuService.selectMenuListTree(menu);
@@ -46,7 +46,7 @@ public class SysMenuController {
      * @param menu 菜单对象
      * @return 菜单树下拉选项
      */
-    @PreAuthorize("@auth.hasAnyPermission('system:menu:list')")
+    @PreAuthorize("@auth.hasPermission('system:menu:list')")
     @GetMapping("/menuTree")
     public AjaxResult menuTree(SysMenu menu){
         var list = menuService.selectMenuTree(menu);
@@ -59,7 +59,7 @@ public class SysMenuController {
      * @param menuId 主键
      * @return 菜单对象
      */
-    @PreAuthorize("@auth.hasAnyPermission('system:menu:list')")
+    @PreAuthorize("@auth.hasPermission('system:menu:list')")
     @GetMapping("/{menuId}")
     public AjaxResult selectMenuByMenuId(@PathVariable Long menuId) {
         return AjaxResult.success(menuService.selectMenuByMenuId(menuId));
@@ -71,7 +71,7 @@ public class SysMenuController {
      * @param menu 菜单对象
      * @return 影响行数
      */
-    @PreAuthorize("@auth.hasAnyPermission('system:menu:add')")
+    @PreAuthorize("@auth.hasPermission('system:menu:add')")
     @PostMapping
     public AjaxResult add(@RequestBody SysMenu menu) {
         return AjaxResult.success(menuService.insertMenu(menu));
@@ -83,7 +83,7 @@ public class SysMenuController {
      * @param menu 菜单对象
      * @return 影响行数
      */
-    @PreAuthorize("@auth.hasAnyPermission('system:menu:edit')")
+    @PreAuthorize("@auth.hassPermission('system:menu:edit')")
     @PutMapping
     public AjaxResult edit(@RequestBody SysMenu menu) {
         return AjaxResult.success(menuService.updateMenuByMenuId(menu));
@@ -95,7 +95,7 @@ public class SysMenuController {
      * @param menu 菜单对象
      * @return 影响行数
      */
-    @PreAuthorize("@auth.hasAnyPermission('system:menu:edit')")
+    @PreAuthorize("@auth.hasPermission('system:menu:edit')")
     @PutMapping("/changeStatus")
     public AjaxResult changeStatus(@RequestBody SysMenu menu) {
         return AjaxResult.success(menuService.updateMenuStatusByMenuId(menu));
@@ -107,7 +107,7 @@ public class SysMenuController {
      * @param menuId 主键
      * @return 影响行数
      */
-    @PreAuthorize("@auth.hasAnyPermission('system:menu:delete')")
+    @PreAuthorize("@auth.hasPermission('system:menu:delete')")
     @DeleteMapping("/{menuId}")
     public AjaxResult delete(@PathVariable Long menuId) {
         if (menuService.checkHasChildren(menuId)) {

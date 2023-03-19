@@ -16,7 +16,7 @@ import com.tang.system.entity.SysDept;
 import com.tang.system.service.SysDeptService;
 
 /**
- * 部门表 SysDept 表控制层
+ * 部门逻辑控制层
  *
  * @author Tang
  */
@@ -33,7 +33,7 @@ public class SysDeptController {
      * @param dept 部门对象
      * @return 部门列表
      */
-    @PreAuthorize("@auth.hasAnyPermission('system:dept:list')")
+    @PreAuthorize("@auth.hasPermission('system:dept:list')")
     @GetMapping("/list")
     public AjaxResult list(SysDept dept){
         var list = deptService.selectDeptListTree(dept);
@@ -46,7 +46,7 @@ public class SysDeptController {
      * @param dept 部门对象
      * @return 部门树下拉选项
      */
-    @PreAuthorize("@auth.hasAnyPermission('system:dept:list')")
+    @PreAuthorize("@auth.hasPermission('system:dept:list')")
     @GetMapping("/deptTree")
     public AjaxResult deptTree(SysDept dept){
         var list = deptService.selectDeptTree(dept);
@@ -59,7 +59,7 @@ public class SysDeptController {
      * @param deptId 主键
      * @return 部门对象
      */
-    @PreAuthorize("@auth.hasAnyPermission('system:dept:list')")
+    @PreAuthorize("@auth.hasPermission('system:dept:list')")
     @GetMapping("/{deptId}")
     public AjaxResult selectDeptByDeptId(@PathVariable Long deptId) {
         return AjaxResult.success(deptService.selectDeptByDeptId(deptId));
@@ -71,7 +71,7 @@ public class SysDeptController {
      * @param dept 部门对象
      * @return 影响行数
      */
-    @PreAuthorize("@auth.hasAnyPermission('system:dept:add')")
+    @PreAuthorize("@auth.hasPermission('system:dept:add')")
     @PostMapping
     public AjaxResult add(@RequestBody SysDept dept) {
         return AjaxResult.success(deptService.insertDept(dept));
@@ -83,7 +83,7 @@ public class SysDeptController {
      * @param dept 部门对象
      * @return 影响行数
      */
-    @PreAuthorize("@auth.hasAnyPermission('system:dept:edit')")
+    @PreAuthorize("@auth.hasPermission('system:dept:edit')")
     @PutMapping
     public AjaxResult edit(@RequestBody SysDept dept) {
         return AjaxResult.success(deptService.updateDeptByDeptId(dept));
@@ -95,7 +95,7 @@ public class SysDeptController {
      * @param dept 部门对象
      * @return 影响行数
      */
-    @PreAuthorize("@auth.hasAnyPermission('system:dept:edit')")
+    @PreAuthorize("@auth.hasPermission('system:dept:edit')")
     @PutMapping("/changeStatus")
     public AjaxResult changeStatus(@RequestBody SysDept dept) {
         return AjaxResult.success(deptService.updateDeptStatusByDeptId(dept));
@@ -107,7 +107,7 @@ public class SysDeptController {
      * @param deptId 主键
      * @return 影响行数
      */
-    @PreAuthorize("@auth.hasAnyPermission('system:dept:delete')")
+    @PreAuthorize("@auth.hasPermission('system:dept:delete')")
     @DeleteMapping("/{deptId}")
     public AjaxResult delete(@PathVariable Long deptId) {
         if (deptService.checkHasChildren(deptId)) {

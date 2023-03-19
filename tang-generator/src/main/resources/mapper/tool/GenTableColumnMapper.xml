@@ -136,4 +136,11 @@
         delete from gen_table_column where table_id = #{tableId}
     </delete>
 
+    <delete id="deleteTableColumnByTableIds">
+        delete from gen_table_column where table_id in
+        <foreach item="tableId" collection="array" open="(" separator="," close=")">
+            #{tableId}
+        </foreach>
+    </delete>
+
 </mapper>

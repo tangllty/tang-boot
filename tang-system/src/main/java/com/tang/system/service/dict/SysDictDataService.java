@@ -59,4 +59,12 @@ public interface SysDictDataService {
      */
     int deleteDictDataByDataId(Long dataId);
 
+    /**
+     * 通过字典数据主键数组批量删除字典数据数据
+     *
+     * @param dataIds 字典数据主键数组
+     * @return 影响行数
+     */
+    int deleteDictDataByDataIds(Long[] dataIds);
+
 }

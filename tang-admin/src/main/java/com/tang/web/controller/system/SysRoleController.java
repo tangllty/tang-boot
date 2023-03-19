@@ -18,7 +18,7 @@ import com.tang.system.entity.SysRole;
 import com.tang.system.service.SysRoleService;
 
 /**
- * 角色表 SysRole 表控制层
+ * 角色逻辑控制层
  *
  * @author Tang
  */
@@ -35,7 +35,7 @@ public class SysRoleController {
      * @param role 角色对象
      * @return 角色列表
      */
-    @PreAuthorize("@auth.hasAnyPermission('system:role:list')")
+    @PreAuthorize("@auth.hasPermission('system:role:list')")
     @GetMapping("/list")
     public TableDataResult list(SysRole role){
         PageUtils.startPage();
@@ -49,7 +49,7 @@ public class SysRoleController {
      * @param roleId 主键
      * @return 角色对象
      */
-    @PreAuthorize("@auth.hasAnyPermission('system:role:list')")
+    @PreAuthorize("@auth.hasPermission('system:role:list')")
     @GetMapping("/{roleId}")
     public AjaxResult selectRoleByRoleId(@PathVariable Long roleId) {
         return AjaxResult.success(roleService.selectRoleByRoleId(roleId));
@@ -61,7 +61,7 @@ public class SysRoleController {
      * @param role 角色对象
      * @return 影响行数
      */
-    @PreAuthorize("@auth.hasAnyPermission('system:role:add')")
+    @PreAuthorize("@auth.hasPermission('system:role:add')")
     @PostMapping
     public AjaxResult add(@RequestBody SysRole role) {
         return AjaxResult.success(roleService.insertRole(role));
@@ -73,7 +73,7 @@ public class SysRoleController {
      * @param role 角色对象
      * @return 影响行数
      */
-    @PreAuthorize("@auth.hasAnyPermission('system:role:edit')")
+    @PreAuthorize("@auth.hasPermission('system:role:edit')")
     @PutMapping
     public AjaxResult edit(@RequestBody SysRole role) {
         return AjaxResult.success(roleService.updateRoleByRoleId(role));
@@ -85,7 +85,7 @@ public class SysRoleController {
      * @param role 角色对象
      * @return 影响行数
      */
-    @PreAuthorize("@auth.hasAnyPermission('system:role:edit')")
+    @PreAuthorize("@auth.hasPermission('system:role:edit')")
     @PutMapping("/changeStatus")
     public AjaxResult changeStatus(@RequestBody SysRole role) {
         return AjaxResult.success(roleService.updateRoleStatusByRoleId(role));
@@ -97,10 +97,22 @@ public class SysRoleController {
      * @param roleId 主键
      * @return 影响行数
      */
-    @PreAuthorize("@auth.hasAnyPermission('system:role:delete')")
+    @PreAuthorize("@auth.hasPermission('system:role:delete')")
     @DeleteMapping("/{roleId}")
     public AjaxResult delete(@PathVariable Long roleId) {
         return AjaxResult.success(roleService.deleteRoleByRoleId(roleId));
+    }
+
+    /**
+     * 批量删除角色
+     *
+     * @param roleIds 角色主键数组
+     * @return 影响行数
+     */
+    @PreAuthorize("@auth.hasPermission('system:role:delete')")
+    @DeleteMapping
+    public AjaxResult deletes(@RequestBody Long[] roleIds) {
+        return AjaxResult.success(roleService.deleteRoleByRoleIds(roleIds));
     }
 
 }

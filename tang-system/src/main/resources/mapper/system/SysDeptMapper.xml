@@ -31,6 +31,7 @@
         <if test="status != null and status != ''">
             and d.status = #{status}
         </if>
+        order by d.sort
     </select>
 
     <select id="selectDeptChildrenByDeptId" resultMap="SysDeptMap">

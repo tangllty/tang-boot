@@ -121,12 +121,12 @@ insert into sys_menu values (2, 0, '0', '系统监控', 'monitor', '', '', '系�
 insert into sys_menu values (3, 0, '0', '系统工具', 'tool',    '', '', '系统工具', 'D', '0', 2, '0', '0', 'admin', sysdate(), '', null, '系统工具目录');
 
 -- 菜单
-insert into sys_menu values (11, 1, '0,1', '用户管理', 'user',   'system/user/index',    'system:user:menu',    '用户管理', 'M', '0', 1, '0', '0', 'admin', sysdate(), '', null, '用户管理菜单');
-insert into sys_menu values (12, 1, '0,1', '部门管理', 'dept',   'system/dept/index',    'system:dept:menu',    '部门管理', 'M', '0', 2, '0', '0', 'admin', sysdate(), '', null, '部门管理菜单');
-insert into sys_menu values (13, 1, '0,1', '角色管理', 'role',   'system/role/index',    'system:role:menu',    '角色管理', 'M', '0', 3, '0', '0', 'admin', sysdate(), '', null, '角色管理菜单');
-insert into sys_menu values (14, 1, '0,1', '菜单管理', 'menu',   'system/menu/index',    'system:menu:menu',    '菜单管理', 'M', '0', 4, '0', '0', 'admin', sysdate(), '', null, '菜单管理菜单');
-insert into sys_menu values (15, 1, '0,1', '字典管理', 'dict',   'system/dict/index',    'system:dict:menu',    '字典管理', 'M', '0', 5, '0', '0', 'admin', sysdate(), '', null, '字典管理菜单');
-insert into sys_menu values (16, 2, '0,2', '在线用户', 'online', 'monitor/online/index', 'monitor:online:menu', '在线用户', 'M', '0', 1, '0', '0', 'admin', sysdate(), '', null, '在线用户菜单');
+insert into sys_menu values (11, 1, '0,1', '用户管理', 'user',      'system/user/index',    'system:user:menu',    '用户管理', 'M', '0', 1, '0', '0', 'admin', sysdate(), '', null, '用户管理菜单');
+insert into sys_menu values (12, 1, '0,1', '部门管理', 'dept',      'system/dept/index',    'system:dept:menu',    '部门管理', 'M', '0', 2, '0', '0', 'admin', sysdate(), '', null, '部门管理菜单');
+insert into sys_menu values (13, 1, '0,1', '角色管理', 'role',      'system/role/index',    'system:role:menu',    '角色管理', 'M', '0', 3, '0', '0', 'admin', sysdate(), '', null, '角色管理菜单');
+insert into sys_menu values (14, 1, '0,1', '菜单管理', 'menu',      'system/menu/index',    'system:menu:menu',    '菜单管理', 'M', '0', 4, '0', '0', 'admin', sysdate(), '', null, '菜单管理菜单');
+insert into sys_menu values (15, 1, '0,1', '字典管理', 'dict',      'system/dict/index',    'system:dict:menu',    '字典管理', 'M', '0', 5, '0', '0', 'admin', sysdate(), '', null, '字典管理菜单');
+insert into sys_menu values (16, 2, '0,2', '在线用户', 'online',    'monitor/online/index', 'monitor:online:menu', '在线用户', 'M', '0', 1, '0', '0', 'admin', sysdate(), '', null, '在线用户菜单');
 insert into sys_menu values (17, 3, '0,3', '代码生成', 'generator', 'tool/generator/index', 'tool:generator:menu', '代码生成', 'M', '0', 1, '0', '0', 'admin', sysdate(), '', null, '代码生成菜单');
 
 -- 用户管理按钮

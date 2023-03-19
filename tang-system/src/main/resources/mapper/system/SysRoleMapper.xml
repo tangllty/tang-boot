@@ -32,6 +32,7 @@
         <if test="status != null and status != ''">
             and r.status = #{status}
         </if>
+        order by r.sort
     </select>
 
     <select id="selectRoleByRoleId" resultMap="SysRoleMap">
@@ -98,6 +99,20 @@
 
     <delete id="deleteUserRoleByUserId">
         delete from sys_user_role where user_id = #{userId}
+    </delete>
+
+    <delete id="deleteUserRoleByUserIds">
+        delete from sys_user_role where user_id in
+        <foreach item="userId" collection="array" open="(" separator="," close=")">
+            #{userId}
+        </foreach>
+    </delete>
+
+    <delete id="deleteRoleByRoleIds">
+        update sys_role set del_flag = '1' where role_id in
+        <foreach item="roleId" collection="array" open="(" separator="," close=")">
+            #{roleId}
+        </foreach>
     </delete>
 
 </mapper>

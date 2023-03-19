@@ -46,10 +46,18 @@
             @click="handleAdd"
           >新增</el-button>
           <el-button
+            type="success"
+            :icon="Edit"
+            :disabled="${primaryKey}s.length !== 1"
+            v-hasPermission="'system:dict:edit'"
+            @click="handleEdit"
+          >修改</el-button>
+          <el-button
             type="danger"
             :icon="Delete"
+            :disabled="${primaryKey}s.length === 0"
             v-hasPermission="'$moduleName:$businessName:delete'"
-            @click="handleDelete"
+            @click="handleDeletes"
           >删除</el-button>
         </el-row>
       </template>
@@ -175,13 +183,13 @@
 
 <script lang="ts" setup>
 import { getCurrentInstance, onMounted, reactive, ref, toRefs } from 'vue'
-import { ElMessage, ElMessageBox, FormInstance, FormRules } from 'element-plus'
+import { FormInstance, FormRules } from 'element-plus'
 import { Plus, Edit, Delete, Search, Refresh } from '@element-plus/icons-vue'
-import { list$ClassName, get$ClassName, add$ClassName, edit$ClassName, delete$ClassName } from '@/api/$moduleName/$businessName'
+import { list$ClassName, get$ClassName, add$ClassName, edit$ClassName, delete$ClassName, delete${ClassName}s } from '@/api/$moduleName/$businessName'
 import { $ClassName, ${ClassName}Form, ${ClassName}Query } from '@/api/$moduleName/$businessName/types'
 
-#if ($hasDictType)
 const { proxy }: any = getCurrentInstance()
+#if ($hasDictType)
 const { $dictTypeVar } = proxy.$dict($dictTypeParams)
 
 #end
@@ -252,7 +260,11 @@ function handleAdd() {
 
 // 修改${classComment}信息
 function handleEdit(row: any) {
-  get${ClassName}(row.$primaryKey).then((res: any) => {
+  let $primaryKey = state.$primaryKey
+  if (row.$primaryKey) {
+    $primaryKey = row.$primaryKey
+  }
+  get${ClassName}($primaryKey).then((res: any) => {
     state.${className}Form = res.data
   })
 
@@ -265,9 +277,25 @@ function handleEdit(row: any) {
 
 // 删除${classComment}信息
 function handleDelete(row: any) {
-  delete${ClassName}(row.$primaryKey).then(() => {
-    ElMessage.success("删除${classComment}信息成功")
-    handleList()
+  proxy.$confirm('确认删除"' + row.$primaryKey + '"${classComment}信息吗？', '提示', {
+    type: 'warning'
+  }).then(() => {
+    delete${ClassName}(row.$primaryKey).then(() => {
+      proxy.$message.success("删除${classComment}信息成功")
+      handleList()
+    })
+  })
+}
+
+// 批量删除${classComment}信息
+function handleDeletes() {
+  proxy.$confirm('确认删除"' + row.${primaryKey}s + '"${classComment}信息吗？', '提示', {
+    type: 'warning'
+  }).then(() => {
+    delete${ClassName}s(row.${primaryKey}s).then(() => {
+      proxy.$message.success("删除${classComment}信息成功")
+      handleList()
+    })
   })
 }
 
@@ -299,14 +327,14 @@ const submitForm = async (formEl: FormInstance | undefined) => {
     if (valid) {
       if (${className}Dialog.value.type == 'add') {
         add${ClassName}(state.${className}Form).then(() => {
-          ElMessage.success("添加${classComment}信息成功")
+          proxy.$message.success("添加${classComment}信息成功")
           close${ClassName}Dialog()
           handleList()
         })
       }
       if (${className}Dialog.value.type == 'edit') {
         edit${ClassName}(state.${className}Form).then(() => {
-          ElMessage.success("修改${classComment}信息成功")
+          proxy.$message.success("修改${classComment}信息成功")
           close${ClassName}Dialog()
           handleList()
         })

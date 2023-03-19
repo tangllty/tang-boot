@@ -1,6 +1,7 @@
 package com.tang.web.controller.system.dict;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,7 +18,7 @@ import com.tang.system.entity.dict.SysDictData;
 import com.tang.system.service.dict.SysDictDataService;
 
 /**
- * 字典数据表 SysDictData 表控制层
+ * 字典数据逻辑控制层
  *
  * @author Tang
  * @since 2023-02-23 21:05:59
@@ -35,6 +36,7 @@ public class SysDictDataController {
      * @param dictData 字典数据对象
      * @return 字典数据列表
      */
+    @PreAuthorize("@auth.hasPermission('system:dict:list')")
     @GetMapping("/list")
     public TableDataResult list(SysDictData dictData) {
         PageUtils.startPage();
@@ -48,8 +50,9 @@ public class SysDictDataController {
      * @param dictType 字典类型
      * @return 字典数据列表
      */
+    @PreAuthorize("@auth.hasPermission('system:dict:list')")
     @GetMapping("/type/{dictType}")
-    public AjaxResult selectDictDataListByDictType(@PathVariable("dictType") String dictType) {
+    public AjaxResult selectDictDataListByDictType(@PathVariable String dictType) {
         return AjaxResult.success(dictDataService.selectDictDataListByDictType(dictType));
     }
 
@@ -59,6 +62,7 @@ public class SysDictDataController {
      * @param dataId 字典数据主键
      * @return 字典数据对象
      */
+    @PreAuthorize("@auth.hasPermission('system:dict:list')")
     @GetMapping("/{dataId}")
     public AjaxResult selectDictDataByDataId(@PathVariable Long dataId) {
         return AjaxResult.success(dictDataService.selectDictDataByDataId(dataId));
@@ -70,6 +74,7 @@ public class SysDictDataController {
      * @param dictData 字典数据对象
      * @return 影响行数
      */
+    @PreAuthorize("@auth.hasPermission('system:dict:add')")
     @PostMapping
     public AjaxResult add(@RequestBody SysDictData dictData) {
         return AjaxResult.success(dictDataService.insertDictData(dictData));
@@ -81,6 +86,7 @@ public class SysDictDataController {
      * @param dictData 字典数据对象
      * @return 影响行数
      */
+    @PreAuthorize("@auth.hasPermission('system:dict:edit')")
     @PutMapping
     public AjaxResult edit(@RequestBody SysDictData dictData) {
         return AjaxResult.success(dictDataService.updateDictDataByDataId(dictData));
@@ -92,9 +98,22 @@ public class SysDictDataController {
      * @param dataId 字典数据主键
      * @return 影响行数
      */
+    @PreAuthorize("@auth.hasPermission('system:dict:delete')")
     @DeleteMapping("/{dataId}")
     public AjaxResult delete(@PathVariable Long dataId) {
         return AjaxResult.success(dictDataService.deleteDictDataByDataId(dataId));
+    }
+
+    /**
+     * 批量删除字典数据数据
+     *
+     * @param dataIds 字典数据主键数组
+     * @return 影响行数
+     */
+    @PreAuthorize("@auth.hasPermission('system:dict:delete')")
+    @DeleteMapping
+    public AjaxResult deletes(@RequestBody Long[] dataIds) {
+        return AjaxResult.success(dictDataService.deleteDictDataByDataIds(dataIds));
     }
 
 }

@@ -75,4 +75,12 @@ public interface GenTableColumnMapper {
      */
     int deleteTableColumnByTableId(Long tableId);
 
+    /**
+     * 通过表主键数组批量删除数据
+     *
+     * @param tableIds 表主键数组
+     * @return 影响行数
+     */
+    int deleteTableColumnByTableIds(Long[] tableIds);
+
 }

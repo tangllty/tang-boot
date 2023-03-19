@@ -26,6 +26,14 @@
 
     <select id="selectTableList" resultMap="GenTableMap">
         <include refid="GenTableVo" />
+        <where>
+            <if test="tableName != null and tableName != ''">
+                and lower(gt.table_name) like lower(concat('%', #{tableName}, '%'))
+            </if>
+            <if test="tableComment != null and tableComment != ''">
+                and gt.table_comment like concat('%', #{tableComment}, '%')
+            </if>
+        </where>
     </select>
 
     <select id="selectDatabaseTableList" resultMap="GenTableMap">
@@ -38,7 +46,7 @@
             and lower(table_name) like lower(concat('%', #{tableName}, '%'))
         </if>
         <if test="tableComment != null and tableComment != ''">
-            and lower(table_comment) like lower(concat('%', #{tableComment}, '%'))
+            and gt.table_comment like concat('%', #{tableComment}, '%')
         </if>
         order by create_time desc
 	</select>
@@ -112,6 +120,13 @@
 
     <delete id="deleteTableByTableId">
         delete from gen_table where table_id = #{tableId}
+    </delete>
+
+    <delete id="deleteTableByTableIds">
+        delete from gen_table where table_id in
+        <foreach item="tableId" collection="array" open="(" separator="," close=")">
+            #{tableId}
+        </foreach>
     </delete>
 
 </mapper>

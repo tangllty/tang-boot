@@ -135,4 +135,17 @@ public class SysRoleServiceImpl implements SysRoleService {
         return roleMapper.deleteRoleByRoleId(roleId);
     }
 
+    /**
+     * 批量删除角色
+     *
+     * @param roleIds 角色主键集合
+     * @return 影响行数
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public int deleteRoleByRoleIds(Long[] roleIds) {
+        menuMapper.deleteRoleMenuByRoleIds(roleIds);
+        return roleMapper.deleteRoleByRoleIds(roleIds);
+    }
+
 }

@@ -21,6 +21,17 @@
 
     <select id="selectDictTypeList" resultMap="SysDictTypeMap">
         <include refid="SysDictTypeVo" />
+        <where>
+            <if test="dictType != null and dictType != ''">
+                and dt.dict_type like concat('%', #{dictType}, '%')
+            </if>
+            <if test="typeName != null and typeName != ''">
+                and dt.type_name like concat('%', #{typeName}, '%')
+            </if>
+            <if test="status != null and status != ''">
+                and dt.status = #{status}
+            </if>
+        </where>
     </select>
 
     <select id="selectDictTypeByTypeId" resultMap="SysDictTypeMap">
@@ -63,6 +74,13 @@
 
     <delete id="deleteDictTypeByTypeId">
         delete from sys_dict_type where type_id = #{typeId}
+    </delete>
+
+    <delete id="deleteDictTypeByTypeIds">
+        delete from sys_dict_type where type_id in
+        <foreach item="typeId" collection="array" open="(" separator="," close=")">
+            #{typeId}
+        </foreach>
     </delete>
 
 </mapper>

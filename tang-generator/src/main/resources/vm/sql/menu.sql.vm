@@ -1,1 +1,19 @@
-$author
+-- ${classComment}菜单
+insert into sys_menu (parent_id, ancestors, menu_name, path, component, permission, icon, menu_type, create_by, create_time, remark)
+values (1, '0,1', '$classComment', '$moduleName', '$moduleName/$businessName/index', '$moduleName:$businessName:menu', '$classComment', 'M', '$author', sysdate(), '${classComment}菜单');
+
+-- 父菜单ID
+select @parentId := last_insert_id();
+
+-- ${classComment}按钮
+insert into sys_menu (parent_id, ancestors, menu_name, permission, menu_type, sort, create_by, create_time, remark)
+values (@parentId, '0,1,@parentId', '${classComment}查询', '$moduleName:$businessName:list', 'B', 1, '$author', sysdate(), '${classComment}查询按钮');
+
+insert into sys_menu (parent_id, ancestors, menu_name, permission, menu_type, create_by, create_time, remark)
+values (@parentId, '0,1,@parentId', '${classComment}新增', '$moduleName:$businessName:add', 'B', 2, '$author', sysdate(), '${classComment}新增按钮');
+
+insert into sys_menu (parent_id, ancestors, menu_name, permission, menu_type, create_by, create_time, remark)
+values (@parentId, '0,1,@parentId', '${classComment}修改', '$moduleName:$businessName:edit', 'B', 3, '$author', sysdate(), '${classComment}修改按钮');
+
+insert into sys_menu (parent_id, ancestors, menu_name, permission, menu_type, create_by, create_time, remark)
+values (@parentId, '0,1,@parentId', '${classComment}删除', '$moduleName:$businessName:remove', 'B', 4, '$author', sysdate(), '${classComment}删除按钮');

@@ -19,7 +19,7 @@ import com.tang.system.service.SysRoleService;
 import com.tang.system.service.SysUserService;
 
 /**
- * 用户表 SysUser 表控制层
+ * 用户逻辑控制层
  *
  * @author Tang
  */
@@ -39,7 +39,7 @@ public class SysUserController {
      * @param user 用户对象
      * @return 用户列表
      */
-    @PreAuthorize("@auth.hasAnyPermission('system:user:list')")
+    @PreAuthorize("@auth.hasPermission('system:user:list')")
     @GetMapping("/list")
     public TableDataResult list(SysUser user){
         PageUtils.startPage();
@@ -53,7 +53,7 @@ public class SysUserController {
      * @param userId 用户主键
      * @return 用户对象
      */
-    @PreAuthorize("@auth.hasAnyPermission('system:user:list')")
+    @PreAuthorize("@auth.hasPermission('system:user:list')")
     @GetMapping("/{userId}")
     public AjaxResult selectUserByUserId(@PathVariable Long userId) {
         return AjaxResult.success(userService.selectUserByUserId(userId));
@@ -64,7 +64,7 @@ public class SysUserController {
      *
      * @return 角色下拉框数据
      */
-    @PreAuthorize("@auth.hasAnyPermission('system:user:add')")
+    @PreAuthorize("@auth.hasPermission('system:user:add')")
     @GetMapping("/getRoleSelect")
     public AjaxResult getRoleSelect() {
         return AjaxResult.success(roleService.selectRolesSelect());
@@ -76,7 +76,7 @@ public class SysUserController {
      * @param user 用户对象
      * @return 影响行数
      */
-    @PreAuthorize("@auth.hasAnyPermission('system:user:add')")
+    @PreAuthorize("@auth.hasPermission('system:user:add')")
     @PostMapping
     public AjaxResult add(@RequestBody SysUser user) {
         return AjaxResult.success(userService.insertUser(user));
@@ -88,7 +88,7 @@ public class SysUserController {
      * @param user 用户对象
      * @return 影响行数
      */
-    @PreAuthorize("@auth.hasAnyPermission('system:user:edit')")
+    @PreAuthorize("@auth.hasPermission('system:user:edit')")
     @PutMapping
     public AjaxResult edit(@RequestBody SysUser user) {
         return AjaxResult.success(userService.updateUserByUserId(user));
@@ -100,7 +100,7 @@ public class SysUserController {
      * @param user 用户对象
      * @return 影响行数
      */
-    @PreAuthorize("@auth.hasAnyPermission('system:user:edit')")
+    @PreAuthorize("@auth.hasPermission('system:user:edit')")
     @PutMapping("/changeStatus")
     public AjaxResult changeStatus(@RequestBody SysUser user) {
         return AjaxResult.success(userService.updateUserStatusByUserId(user));
@@ -112,10 +112,22 @@ public class SysUserController {
      * @param userId 用户主键
      * @return 影响行数
      */
-    @PreAuthorize("@auth.hasAnyPermission('system:user:delete')")
+    @PreAuthorize("@auth.hasPermission('system:user:delete')")
     @DeleteMapping("/{userId}")
     public AjaxResult delete(@PathVariable Long userId) {
         return AjaxResult.success(userService.deleteUserByUserId(userId));
+    }
+
+    /**
+     * 批量删除用户
+     *
+     * @param userIds 用户主键数组
+     * @return 影响行数
+     */
+    @PreAuthorize("@auth.hasPermission('system:user:delete')")
+    @DeleteMapping
+    public AjaxResult deletes(@RequestBody Long[] userIds) {
+        return AjaxResult.success(userService.deleteUserByUserIds(userIds));
     }
 
 }

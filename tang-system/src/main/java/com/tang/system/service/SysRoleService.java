@@ -76,4 +76,12 @@ public interface SysRoleService {
      */
     int deleteRoleByRoleId(Long roleId);
 
+    /**
+     * 批量删除角色
+     *
+     * @param roleIds 角色主键集合
+     * @return 影响行数
+     */
+    int deleteRoleByRoleIds(Long[] roleIds);
+
 }

@@ -75,4 +75,15 @@ public class ${ClassName}ServiceImpl implements ${ClassName}Service {
         return ${className}Mapper.delete${ClassName}By${PrimaryKey}($primaryKey);
     }
 
+    /**
+     * 通过${classComment}主键数组批量删除${classComment}信息
+     *
+     * @param ${primaryKey}s ${classComment}主键数组
+     * @return 影响行数
+     */
+    @Override
+    public int delete${ClassName}By${PrimaryKey}s(Long[] ${primaryKey}s) {
+        return ${className}Mapper.delete${ClassName}By${PrimaryKey}s(${primaryKey}s);
+    }
+
 }

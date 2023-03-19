@@ -19,7 +19,7 @@ import com.tang.monitor.entity.OnlineUser;
 import com.tang.monitor.service.OnlineUserService;
 
 /**
- * 在线用户控制器
+ * 在线用户逻辑控制层
  *
  * @author Tang
  */
@@ -30,7 +30,7 @@ public class OnlineUserController {
     @Autowired
     private OnlineUserService onlineUserService;
 
-    @PreAuthorize("@auth.hasAnyPermission('monitor:online:list')")
+    @PreAuthorize("@auth.hasPermission('monitor:online:list')")
     @GetMapping("/list")
     public TableDataResult list(OnlineUser onlineUser) {
         var pageNum = ServletUtils.getParameter("pageNum");
@@ -55,7 +55,7 @@ public class OnlineUserController {
      * @param token 唯一凭证
      * @return 在线用户
      */
-    @PreAuthorize("@auth.hasAnyPermission('monitor:online:list')")
+    @PreAuthorize("@auth.hasPermission('monitor:online:list')")
     @GetMapping("/{token}")
     public AjaxResult getInfo(@PathVariable String token) {
         return AjaxResult.success(onlineUserService.selectOnlineUserByToken(token));
@@ -67,7 +67,7 @@ public class OnlineUserController {
      * @param token 唯一凭证
      * @return 结果
      */
-    @PreAuthorize("@auth.hasAnyPermission('monitor:online:delete')")
+    @PreAuthorize("@auth.hasPermission('monitor:online:delete')")
     @DeleteMapping("/{token}")
     public AjaxResult delete(@PathVariable String token) {
         return AjaxResult.success(onlineUserService.deleteOnlineUserByToken(token));

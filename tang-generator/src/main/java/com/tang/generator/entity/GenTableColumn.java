@@ -83,7 +83,7 @@ public class GenTableColumn extends BaseEntity {
     private String queryType;
 
     /**
-     * 显示类型{文本框、文本域、下拉框、复选框、单选框、日期控件}
+     * 显示类型
      */
     private String htmlType;
 

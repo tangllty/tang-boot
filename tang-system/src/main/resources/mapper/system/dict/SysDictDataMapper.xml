@@ -18,13 +18,13 @@
         <result property="remark" column="remark" />
     </resultMap>
 
-    <sql id="SysDictData">
+    <sql id="SysDictDataVo">
         select dd.data_id, dd.dict_type, dd.data_label, dd.data_value, dd.css_class, dd.type_class, dd.sort, dd.status, dd.create_by, dd.create_time, dd.update_by, dd.update_time, dd.remark
         from sys_dict_data dd
     </sql>
 
     <select id="selectDictDataList" resultMap="SysDictDataMap">
-        <include refid="SysDictData" />
+        <include refid="SysDictDataVo" />
         <where>
             <if test="dictType != null and dictType != ''">
                 and dd.dict_type = #{dictType}
@@ -33,12 +33,12 @@
     </select>
 
     <select id="selectDictDataListByDictType" resultMap="SysDictDataMap">
-        <include refid="SysDictData" />
+        <include refid="SysDictDataVo" />
         where dd.dict_type = #{dictType}
     </select>
 
     <select id="selectDictDataByDataId" resultMap="SysDictDataMap">
-        <include refid="SysDictData" />
+        <include refid="SysDictDataVo" />
         where dd.data_id = #{dataId}
     </select>
 
@@ -88,6 +88,24 @@
 
     <delete id="deleteDictDataByDataId">
         delete from sys_dict_data where data_id = #{dataId}
+    </delete>
+
+    <delete id="deleteDictDataByTypeId">
+        delete from sys_dict_data where dict_type = (select dict_type from sys_dict_type where type_id = #{typeId})
+    </delete>
+
+    <delete id="deleteDictDataByTypeIds">
+        delete from sys_dict_data where dict_type in
+        <foreach item="typeId" collection="array" open="(" separator="," close=")">
+            (select dict_type from sys_dict_type where type_id = #{typeId})
+        </foreach>
+    </delete>
+
+    <delete id="deleteDictDataByDataIds">
+        delete from sys_dict_data where data_id in
+        <foreach item="dataId" collection="array" open="(" separator="," close=")">
+            #{dataId}
+        </foreach>
     </delete>
 
 </mapper>
