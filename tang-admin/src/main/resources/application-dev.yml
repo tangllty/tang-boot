@@ -14,6 +14,8 @@ spring:
   # Redis 配置
   data:
     redis:
+      host: localhost
+      port: 6379
       password: password
 
 # 接口文档配置
