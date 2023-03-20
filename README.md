@@ -5,6 +5,9 @@
 tang-vue 是基于 Spring Boot3 的权限管理系统
 
 * 采用 Spring Boot3 + Spring Security + MyBatis + Redis + Jwt
+* 自定义多种登录认证方式
+* 动态权限菜单
+* 代码生成器，一键生成前后端基本代码
 
 #### 环境要求
 
@@ -24,7 +27,7 @@ tang-vue 是基于 Spring Boot3 的权限管理系统
 
 #### 项目地址
 
-| 项目 | Gitee                                        | GitHub                                         |
-| ---- | -------------------------------------------- | ---------------------------------------------- |
-| 后端 | [tang-vue](https://gitee.com/tangllty/tang-vue) | [tang-vue](https://github.com/tangllty/tang-vue)  |
-| 前端 | [tang-ui](https://gitee.com/tangllty/tang-ui)   | [tang-ui](https://github.com/tangllty/tang-ui)    |
+| 项目  | Gitee                                           | GitHub                                           |
+|-----|-------------------------------------------------|--------------------------------------------------|
+| 后端  | [tang-vue](https://gitee.com/tangllty/tang-vue) | [tang-vue](https://github.com/tangllty/tang-vue) |
+| 前端  | [tang-ui](https://gitee.com/tangllty/tang-ui)   | [tang-ui](https://github.com/tangllty/tang-ui)   |
