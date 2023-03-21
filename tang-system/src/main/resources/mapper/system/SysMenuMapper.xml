@@ -31,14 +31,13 @@
 
     <select id="selectMenuList" resultMap="SysMenuMap">
         <include refid="SysMenuVo" />
-        <where>
-            <if test="menuName != null and menuName != ''">
-                and m.menu_name like concat('%', #{menuName}, '%')
-            </if>
-            <if test="status != null and status != ''">
-                and m.status = #{status}
-            </if>
-        </where>
+        where m.del_flag = '0'
+        <if test="menuName != null and menuName != ''">
+            and m.menu_name like concat('%', #{menuName}, '%')
+        </if>
+        <if test="status != null and status != ''">
+            and m.status = #{status}
+        </if>
         order by m.sort
     </select>
 
