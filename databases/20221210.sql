@@ -127,7 +127,8 @@ insert into sys_menu values (13, 1, '0,1', '角色管理', 'role',      'system/
 insert into sys_menu values (14, 1, '0,1', '菜单管理', 'menu',      'system/menu/index',    'system:menu:menu',    '菜单管理', 'M', '0', 4, '0', '0', 'admin', sysdate(), '', null, '菜单管理菜单');
 insert into sys_menu values (15, 1, '0,1', '字典管理', 'dict',      'system/dict/index',    'system:dict:menu',    '字典管理', 'M', '0', 5, '0', '0', 'admin', sysdate(), '', null, '字典管理菜单');
 insert into sys_menu values (16, 2, '0,2', '在线用户', 'online',    'monitor/online/index', 'monitor:online:menu', '在线用户', 'M', '0', 1, '0', '0', 'admin', sysdate(), '', null, '在线用户菜单');
-insert into sys_menu values (17, 3, '0,3', '代码生成', 'generator', 'tool/generator/index', 'tool:generator:menu', '代码生成', 'M', '0', 1, '0', '0', 'admin', sysdate(), '', null, '代码生成菜单');
+insert into sys_menu values (17, 2, '0,2', '服务监控', 'server',    'monitor/server/index', 'monitor:server:menu', '服务监控', 'M', '0', 2, '0', '0', 'admin', sysdate(), '', null, '服务监控菜单');
+insert into sys_menu values (18, 3, '0,3', '代码生成', 'generator', 'tool/generator/index', 'tool:generator:menu', '代码生成', 'M', '0', 1, '0', '0', 'admin', sysdate(), '', null, '代码生成菜单');
 
 -- 用户管理按钮
 insert into sys_menu values (101, 11, '0,1,11', '用户查询', '', '', 'system:user:list',   '', 'B', '0', 1, '0', '0', 'admin', sysdate(), '', null, '用户查询按钮');
@@ -163,12 +164,15 @@ insert into sys_menu values (120, 15, '0,1,15', '字典删除', '', '', 'system:
 insert into sys_menu values (121, 16, '0,2,16', '在线用户查询', '', '', 'monitor:online:list',   '', 'B', '0', 1, '0', '0', 'admin', sysdate(), '', null, '在线用户查询按钮');
 insert into sys_menu values (122, 16, '0,2,16', '在线用户删除', '', '', 'monitor:online:delete', '', 'B', '0', 2, '0', '0', 'admin', sysdate(), '', null, '在线用户删除按钮');
 
+-- 服务监控按钮
+insert into sys_menu values (123, 17, '0,2,17', '服务监控查询', '', '', 'monitor:server:list',   '', 'B', '0', 1, '0', '0', 'admin', sysdate(), '', null, '服务监控查询按钮');
+
 -- 代码生成按钮
-insert into sys_menu values (123, 17, '0,3,17', '代码生成查询', '', '', 'tool:generator:list',   '', 'B', '0', 1, '0', '0', 'admin', sysdate(), '', null, '代码生成查询按钮');
-insert into sys_menu values (124, 17, '0,3,17', '代码生成修改', '', '', 'tool:generator:edit',   '', 'B', '0', 2, '0', '0', 'admin', sysdate(), '', null, '代码生成修改按钮');
-insert into sys_menu values (125, 17, '0,3,17', '代码生成删除', '', '', 'tool:generator:delete', '', 'B', '0', 3, '0', '0', 'admin', sysdate(), '', null, '代码生成删除按钮');
-insert into sys_menu values (126, 17, '0,3,17', '代码生成导入', '', '', 'tool:generator:import', '', 'B', '0', 4, '0', '0', 'admin', sysdate(), '', null, '代码生成导入按钮');
-insert into sys_menu values (127, 17, '0,3,17', '代码生成导出', '', '', 'tool:generator:export', '', 'B', '0', 5, '0', '0', 'admin', sysdate(), '', null, '代码生成导出按钮');
+insert into sys_menu values (124, 18, '0,3,18', '代码生成查询', '', '', 'tool:generator:list',   '', 'B', '0', 1, '0', '0', 'admin', sysdate(), '', null, '代码生成查询按钮');
+insert into sys_menu values (125, 18, '0,3,18', '代码生成修改', '', '', 'tool:generator:edit',   '', 'B', '0', 2, '0', '0', 'admin', sysdate(), '', null, '代码生成修改按钮');
+insert into sys_menu values (126, 18, '0,3,18', '代码生成删除', '', '', 'tool:generator:delete', '', 'B', '0', 3, '0', '0', 'admin', sysdate(), '', null, '代码生成删除按钮');
+insert into sys_menu values (127, 18, '0,3,18', '代码生成导入', '', '', 'tool:generator:import', '', 'B', '0', 4, '0', '0', 'admin', sysdate(), '', null, '代码生成导入按钮');
+insert into sys_menu values (128, 18, '0,3,18', '代码生成导出', '', '', 'tool:generator:export', '', 'B', '0', 5, '0', '0', 'admin', sysdate(), '', null, '代码生成导出按钮');
 
 
 -- -----------------------------
@@ -228,6 +232,7 @@ insert into sys_role_menu values (2, 124);
 insert into sys_role_menu values (2, 125);
 insert into sys_role_menu values (2, 126);
 insert into sys_role_menu values (2, 127);
+insert into sys_role_menu values (2, 128);
 insert into sys_role_menu values (3, 1);
 insert into sys_role_menu values (3, 11);
 insert into sys_role_menu values (3, 12);
@@ -240,6 +245,7 @@ insert into sys_role_menu values (3, 113);
 insert into sys_role_menu values (3, 117);
 insert into sys_role_menu values (3, 121);
 insert into sys_role_menu values (3, 123);
+insert into sys_role_menu values (3, 124);
 
 
 -- -----------------------------

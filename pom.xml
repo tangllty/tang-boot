@@ -133,6 +133,20 @@
                 <version>5.8.15</version>
             </dependency>
 
+            <!-- https://mvnrepository.com/artifact/cn.hutool/hutool-system -->
+            <dependency>
+                <groupId>cn.hutool</groupId>
+                <artifactId>hutool-system</artifactId>
+                <version>5.8.15</version>
+            </dependency>
+
+            <!-- https://mvnrepository.com/artifact/com.github.oshi/oshi-core -->
+            <dependency>
+                <groupId>com.github.oshi</groupId>
+                <artifactId>oshi-core</artifactId>
+                <version>5.6.1</version>
+            </dependency>
+
             <!-- https://mvnrepository.com/artifact/org.lionsoul/ip2region -->
             <dependency>
                 <groupId>org.lionsoul</groupId>
