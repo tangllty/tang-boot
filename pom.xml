@@ -21,7 +21,7 @@
     </modules>
 
     <properties>
-        <tang.version>1.3.1</tang.version>
+        <tang.version>1.4.0</tang.version>
         <java.version>17</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
