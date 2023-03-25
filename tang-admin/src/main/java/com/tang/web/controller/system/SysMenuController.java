@@ -83,7 +83,7 @@ public class SysMenuController {
      * @param menu 菜单对象
      * @return 影响行数
      */
-    @PreAuthorize("@auth.hassPermission('system:menu:edit')")
+    @PreAuthorize("@auth.hasPermission('system:menu:edit')")
     @PutMapping
     public AjaxResult edit(@RequestBody SysMenu menu) {
         return AjaxResult.success(menuService.updateMenuByMenuId(menu));
