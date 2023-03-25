@@ -1,7 +1,6 @@
 package com.tang.framework.web.exception;
 
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -9,6 +8,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import com.tang.commons.constants.HttpStatus;
 import com.tang.commons.exception.ServiceException;
 import com.tang.commons.utils.AjaxResult;
+import com.tang.commons.utils.LogUtils;
 
 /**
  * 全局异常处理
@@ -18,7 +18,7 @@ import com.tang.commons.utils.AjaxResult;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(GlobalExceptionHandler.class);
+    private static final Logger LOGGER = LogUtils.getLogger();
 
     /**
      * 业务异常
