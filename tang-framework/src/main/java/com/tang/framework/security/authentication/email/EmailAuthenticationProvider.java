@@ -8,8 +8,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.stereotype.Component;
 
-import com.tang.commons.constants.LoginType;
 import com.tang.commons.core.model.UserModel;
+import com.tang.commons.enumeration.LoginType;
 import com.tang.framework.web.service.AuthenticationService;
 import com.tang.system.service.SysUserService;
 
@@ -38,7 +38,7 @@ public class EmailAuthenticationProvider implements AuthenticationProvider {
 
         var user = userService.selectUserByEmail(email);
 
-        UserModel userModel = authenticationService.createUserModel(user, password, LoginType.EMAIL);
+        UserModel userModel = authenticationService.createUserModel(user, password, LoginType.EMAIL.getName());
 
         authenticationToken = new EmailAuthenticationToken(userModel, Collections.emptyList());
 
