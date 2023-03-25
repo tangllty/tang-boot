@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import com.tang.commons.enumeration.LoginType;
+import com.tang.commons.exception.user.IllegalLoginTypeException;
 import com.tang.framework.security.authentication.email.EmailAuthenticationToken;
 import com.tang.framework.security.authentication.username.UsernameAuthenticationToken;
 import com.tang.framework.web.service.TokenService;
@@ -43,7 +44,7 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
             authenticationToken = switch (LoginType.getLoginType(userModel.getLoginType())) {
                 case USERNAME -> new UsernameAuthenticationToken(userModel, Collections.emptyList());
                 case EMAIL -> new EmailAuthenticationToken(userModel, Collections.emptyList());
-                default -> throw new IllegalStateException("Unexpected value: " + userModel.getLoginType());
+                default -> throw new IllegalLoginTypeException("Unexpected login type: " + userModel.getLoginType());
             };
 
             authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 import com.tang.commons.core.model.LoginModel;
 import com.tang.commons.core.model.UserModel;
 import com.tang.commons.enumeration.LoginType;
+import com.tang.commons.exception.user.IllegalLoginTypeException;
 import com.tang.framework.security.authentication.email.EmailAuthenticationToken;
 import com.tang.framework.security.authentication.username.UsernameAuthenticationToken;
 
@@ -43,7 +44,7 @@ public class LoginService {
         authenticationToken = switch (LoginType.getLoginType(loginModel.getLoginType())) {
             case USERNAME -> new UsernameAuthenticationToken(loginModel.getUsername(), loginModel.getPassword());
             case EMAIL -> new EmailAuthenticationToken(loginModel.getEmail(), loginModel.getPassword());
-            default -> throw new IllegalStateException("Unexpected value: " + loginModel.getLoginType());
+            default -> throw new IllegalLoginTypeException("Unexpected login type: " + loginModel.getLoginType());
         };
 
         SecurityContextHolder.getContext().setAuthentication(authenticationToken);
