@@ -21,6 +21,8 @@ import org.springframework.security.web.authentication.logout.LogoutSuccessHandl
 
 import com.tang.framework.security.filter.JwtAuthenticationTokenFilter;
 
+import static org.springframework.security.config.Customizer.withDefaults;
+
 /**
  * Spring Security 配置
  *
@@ -42,24 +44,22 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity
+        return httpSecurity
                 // 禁用 CSRF
-                .csrf().disable()
+                .csrf(csrf -> csrf.disable())
                 // 启用 CORS
-                .cors().and()
+                .cors(withDefaults())
                 // 设置 session 管理器为无状态
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
+                .sessionManagement(management -> management.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 // 设置未登陆过滤器
-                .exceptionHandling().authenticationEntryPoint(authenticationEntryPoint).and()
+                .exceptionHandling(handling -> handling.authenticationEntryPoint(authenticationEntryPoint))
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/login").permitAll()
                         .anyRequest().authenticated()
-                );
-        httpSecurity
-                .logout().logoutUrl("/logout").logoutSuccessHandler(logoutSuccessHandler);
-        httpSecurity
-                .addFilterBefore(jwtAuthenticationTokenFilter, UsernamePasswordAuthenticationFilter.class);
-        return httpSecurity.build();
+                )
+                .logout(logout -> logout.logoutUrl("/logout").logoutSuccessHandler(logoutSuccessHandler))
+                .addFilterBefore(jwtAuthenticationTokenFilter, UsernamePasswordAuthenticationFilter.class)
+                .build();
     }
 
     @Autowired
