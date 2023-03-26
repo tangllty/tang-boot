@@ -3,7 +3,7 @@ tang:
   # 名称
   name: Tang
   # 版本
-  version: 1.4.0
+  version: 1.4.1
 
 # 环境配置
 server:
