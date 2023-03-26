@@ -4,7 +4,6 @@ import java.util.Set;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
 import com.tang.commons.constants.Status;
@@ -14,6 +13,7 @@ import com.tang.commons.core.model.UserModel;
 import com.tang.commons.exception.status.DeletedException;
 import com.tang.commons.exception.status.DisabledException;
 import com.tang.commons.exception.user.PasswordMismatchException;
+import com.tang.commons.exception.user.UserNotFoundException;
 import com.tang.commons.utils.SecurityUtils;
 import com.tang.system.entity.SysUser;
 import com.tang.system.service.SysMenuService;
@@ -41,7 +41,7 @@ public class AuthenticationService {
      */
     public UserModel createUserModel(SysUser user, String password, String loginType) {
         if (user == null) {
-            throw new UsernameNotFoundException("用户不存在");
+            throw new UserNotFoundException("用户不存在");
         }
 
         if (!SecurityUtils.matchesPassword(password, user.getPassword())) {
