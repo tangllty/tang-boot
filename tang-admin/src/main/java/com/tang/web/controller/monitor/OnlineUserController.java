@@ -30,6 +30,12 @@ public class OnlineUserController {
     @Autowired
     private OnlineUserService onlineUserService;
 
+    /**
+     * 查询在线用户列表
+     *
+     * @param onlineUser 在线用户
+     * @return 在线用户列表
+     */
     @PreAuthorize("@auth.hasPermission('monitor:online:list')")
     @GetMapping("/list")
     public TableDataResult list(OnlineUser onlineUser) {
