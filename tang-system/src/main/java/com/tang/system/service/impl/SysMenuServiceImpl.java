@@ -7,7 +7,6 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.tang.commons.core.vo.MetaVo;
@@ -28,8 +27,11 @@ import com.tang.system.service.SysMenuService;
 @Service
 public class SysMenuServiceImpl implements SysMenuService {
 
-    @Autowired
-    private SysMenuMapper menuMapper;
+    private final SysMenuMapper menuMapper;
+
+    public SysMenuServiceImpl(SysMenuMapper menuMapper) {
+        this.menuMapper = menuMapper;
+    }
 
     /**
      * 获取菜单列表

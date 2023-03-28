@@ -2,7 +2,6 @@ package com.tang.web.controller.monitor;
 
 import java.util.Comparator;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,8 +26,11 @@ import com.tang.monitor.service.OnlineUserService;
 @RequestMapping("/monitor/online")
 public class OnlineUserController {
 
-    @Autowired
-    private OnlineUserService onlineUserService;
+    private final OnlineUserService onlineUserService;
+
+    public OnlineUserController(OnlineUserService onlineUserService) {
+        this.onlineUserService = onlineUserService;
+    }
 
     @PreAuthorize("@auth.hasPermission('monitor:online:list')")
     @GetMapping("/list")

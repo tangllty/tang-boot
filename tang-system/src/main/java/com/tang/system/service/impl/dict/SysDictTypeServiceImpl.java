@@ -2,7 +2,6 @@ package com.tang.system.service.impl.dict;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,11 +18,14 @@ import com.tang.system.service.dict.SysDictTypeService;
 @Service
 public class SysDictTypeServiceImpl implements SysDictTypeService {
 
-    @Autowired
-    private SysDictTypeMapper dictTypeMapper;
+    private final SysDictTypeMapper dictTypeMapper;
 
-    @Autowired
-    private SysDictDataMapper dictDataMapper;
+    private final SysDictDataMapper dictDataMapper;
+
+    public SysDictTypeServiceImpl(SysDictTypeMapper dictTypeMapper, SysDictDataMapper dictDataMapper) {
+        this.dictTypeMapper = dictTypeMapper;
+        this.dictDataMapper = dictDataMapper;
+    }
 
     /**
      * 获取字典类型列表

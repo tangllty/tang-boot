@@ -1,6 +1,5 @@
 package com.tang.web.controller.system;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,8 +23,11 @@ import com.tang.system.service.SysMenuService;
 @RequestMapping("/system/menu")
 public class SysMenuController {
 
-    @Autowired
-    private SysMenuService menuService;
+    private final SysMenuService menuService;
+
+    public SysMenuController(SysMenuService menuService) {
+        this.menuService = menuService;
+    }
 
     /**
      * 获取菜单列表

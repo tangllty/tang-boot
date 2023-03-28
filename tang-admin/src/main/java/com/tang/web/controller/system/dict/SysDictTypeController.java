@@ -1,6 +1,5 @@
 package com.tang.web.controller.system.dict;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,8 +25,11 @@ import com.tang.system.service.dict.SysDictTypeService;
 @RequestMapping("/system/dict/type")
 public class SysDictTypeController {
 
-    @Autowired
-    private SysDictTypeService dictTypeService;
+    private final SysDictTypeService dictTypeService;
+
+    public SysDictTypeController(SysDictTypeService dictTypeService) {
+        this.dictTypeService = dictTypeService;
+    }
 
     /**
      * 获取字典类型列表

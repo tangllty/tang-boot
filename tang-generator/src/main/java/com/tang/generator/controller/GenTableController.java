@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.Map;
 
 import org.apache.commons.io.IOUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,11 +33,14 @@ import jakarta.servlet.http.HttpServletResponse;
 @RequestMapping("/tool/generator")
 public class GenTableController {
 
-    @Autowired
-    private GenTableService tableService;
+    private final GenTableService tableService;
 
-    @Autowired
-    private GenTableColumnService tableColumnService;
+    private final GenTableColumnService tableColumnService;
+
+    public GenTableController(GenTableService tableService, GenTableColumnService tableColumnService) {
+        this.tableService = tableService;
+        this.tableColumnService = tableColumnService;
+    }
 
     /**
      * 获取代码生成列表

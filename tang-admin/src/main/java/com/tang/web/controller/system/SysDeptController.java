@@ -1,6 +1,5 @@
 package com.tang.web.controller.system;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,8 +23,11 @@ import com.tang.system.service.SysDeptService;
 @RequestMapping("/system/dept")
 public class SysDeptController {
 
-    @Autowired
-    private SysDeptService deptService;
+    private final SysDeptService deptService;
+
+    public SysDeptController(SysDeptService deptService) {
+        this.deptService = deptService;
+    }
 
     /**
      * 获取部门列表

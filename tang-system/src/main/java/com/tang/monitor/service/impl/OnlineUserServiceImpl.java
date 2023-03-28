@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 
@@ -23,8 +22,11 @@ public class OnlineUserServiceImpl implements OnlineUserService {
 
     private static final String LOGIN_TOKEN_KEY = "login_tokens:";
 
-    @Autowired
-    private RedisUtils redisUtils;
+    private final RedisUtils redisUtils;
+
+    public OnlineUserServiceImpl(RedisUtils redisUtils) {
+        this.redisUtils = redisUtils;
+    }
 
     /**
      * 查询在线用户列表

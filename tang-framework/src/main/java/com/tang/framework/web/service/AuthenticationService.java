@@ -3,7 +3,6 @@ package com.tang.framework.web.service;
 import java.util.Set;
 
 import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.tang.commons.constants.Status;
@@ -27,11 +26,14 @@ import com.tang.system.service.SysRoleService;
 @Component
 public class AuthenticationService {
 
-    @Autowired
-    private SysRoleService roleService;
+    private final SysRoleService roleService;
 
-    @Autowired
-    private SysMenuService menuService;
+    private final SysMenuService menuService;
+
+    public AuthenticationService(SysRoleService roleService, SysMenuService menuService) {
+        this.roleService = roleService;
+        this.menuService = menuService;
+    }
 
     /**
      * 创建登陆用户模型

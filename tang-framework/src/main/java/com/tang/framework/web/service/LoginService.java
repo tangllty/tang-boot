@@ -1,6 +1,5 @@
 package com.tang.framework.web.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.Authentication;
@@ -22,11 +21,14 @@ import com.tang.framework.security.authentication.username.UsernameAuthenticatio
 @Component
 public class LoginService {
 
-    @Autowired
-     private AuthenticationManager authenticationManager;
+    private final AuthenticationManager authenticationManager;
 
-     @Autowired
-     private TokenService tokenService;
+    private final TokenService tokenService;
+
+    public LoginService(AuthenticationManager authenticationManager, TokenService tokenService) {
+        this.authenticationManager = authenticationManager;
+        this.tokenService = tokenService;
+    }
 
     /**
      * 登陆

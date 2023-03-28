@@ -1,6 +1,5 @@
 package ${packageName}.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,8 +25,11 @@ import ${packageName}.service.${ClassName}Service;
 @RequestMapping("/$moduleName/$businessName")
 public class ${ClassName}Controller {
 
-    @Autowired
-    private ${ClassName}Service ${className}Service;
+    private final ${ClassName}Service ${className}Service;
+
+    public ${ClassName}Controller(${ClassName}Service ${className}Service) {
+        this.${className}Service = ${className}Service;
+    }
 
     /**
      * 查询${classComment}列表
