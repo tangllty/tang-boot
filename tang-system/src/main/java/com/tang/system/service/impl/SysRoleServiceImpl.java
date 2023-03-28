@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,11 +22,14 @@ import com.tang.system.service.SysRoleService;
 @Service
 public class SysRoleServiceImpl implements SysRoleService {
 
-    @Autowired
-    private SysRoleMapper roleMapper;
+    private final SysRoleMapper roleMapper;
 
-    @Autowired
-    private SysMenuMapper menuMapper;
+    private final SysMenuMapper menuMapper;
+
+    public SysRoleServiceImpl(SysRoleMapper roleMapper, SysMenuMapper menuMapper) {
+        this.roleMapper = roleMapper;
+        this.menuMapper = menuMapper;
+    }
 
     /**
      * 获取角色列表

@@ -2,7 +2,6 @@ package com.tang.system.service.impl.dict;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.tang.system.entity.dict.SysDictData;
@@ -17,9 +16,11 @@ import com.tang.system.service.dict.SysDictDataService;
 @Service
 public class SysDictDataServiceImpl implements SysDictDataService {
 
-    @Autowired
-    private SysDictDataMapper dictDataMapper;
+    private final SysDictDataMapper dictDataMapper;
 
+    public SysDictDataServiceImpl(SysDictDataMapper dictDataMapper) {
+        this.dictDataMapper = dictDataMapper;
+    }
 
     /**
      * 获取字典数据列表

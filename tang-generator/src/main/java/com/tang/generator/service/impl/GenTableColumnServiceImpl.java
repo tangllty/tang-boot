@@ -2,7 +2,6 @@ package com.tang.generator.service.impl;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.tang.generator.entity.GenTableColumn;
@@ -17,8 +16,11 @@ import com.tang.generator.service.GenTableColumnService;
 @Service
 public class GenTableColumnServiceImpl implements GenTableColumnService {
 
-    @Autowired
-    private GenTableColumnMapper tableColumnMapper;
+    private final GenTableColumnMapper tableColumnMapper;
+
+    public GenTableColumnServiceImpl(GenTableColumnMapper tableColumnMapper) {
+        this.tableColumnMapper = tableColumnMapper;
+    }
 
     /**
      * 获取代码字段生成列表

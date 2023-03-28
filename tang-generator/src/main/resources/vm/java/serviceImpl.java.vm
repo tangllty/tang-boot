@@ -2,7 +2,6 @@ package ${packageName}.service.impl;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ${packageName}.entity.$ClassName;
@@ -17,8 +16,11 @@ import ${packageName}.service.${ClassName}Service;
 @Service
 public class ${ClassName}ServiceImpl implements ${ClassName}Service {
 
-    @Autowired
-    private ${ClassName}Mapper ${className}Mapper;
+    private final ${ClassName}Mapper ${className}Mapper;
+
+    public ${ClassName}ServiceImpl(${ClassName}Mapper ${className}Mapper) {
+        this.${className}Mapper = ${className}Mapper;
+    }
 
     /**
      * 查询${classComment}列表

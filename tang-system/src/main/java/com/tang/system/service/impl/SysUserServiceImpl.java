@@ -2,7 +2,6 @@ package com.tang.system.service.impl;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,11 +20,14 @@ import com.tang.system.service.SysUserService;
 @Service
 public class SysUserServiceImpl implements SysUserService {
 
-    @Autowired
-    private SysUserMapper userMapper;
+    private final SysUserMapper userMapper;
 
-    @Autowired
-    private SysRoleMapper roleMapper;
+    private final SysRoleMapper roleMapper;
+
+    public SysUserServiceImpl(SysUserMapper userMapper, SysRoleMapper roleMapper) {
+        this.userMapper = userMapper;
+        this.roleMapper = roleMapper;
+    }
 
     /**
      * 获取用户列表

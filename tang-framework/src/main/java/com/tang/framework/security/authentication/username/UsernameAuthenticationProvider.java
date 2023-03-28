@@ -2,7 +2,6 @@ package com.tang.framework.security.authentication.username;
 
 import java.util.Collections;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
@@ -21,11 +20,14 @@ import com.tang.system.service.SysUserService;
 @Component
 public class UsernameAuthenticationProvider implements AuthenticationProvider {
 
-    @Autowired
-    private SysUserService userService;
+    private final SysUserService userService;
 
-    @Autowired
-    private AuthenticationService authenticationService;
+    private final AuthenticationService authenticationService;
+
+    public UsernameAuthenticationProvider(SysUserService userService, AuthenticationService authenticationService) {
+        this.userService = userService;
+        this.authenticationService = authenticationService;
+    }
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {

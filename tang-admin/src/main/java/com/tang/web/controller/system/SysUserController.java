@@ -1,6 +1,5 @@
 package com.tang.web.controller.system;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,11 +26,14 @@ import com.tang.system.service.SysUserService;
 @RequestMapping("/system/user")
 public class SysUserController {
 
-    @Autowired
-    private SysUserService userService;
+    private final SysUserService userService;
 
-    @Autowired
-    private SysRoleService roleService;
+    private final SysRoleService roleService;
+
+    public SysUserController(SysUserService userService, SysRoleService roleService) {
+        this.userService = userService;
+        this.roleService = roleService;
+    }
 
     /**
      * 获取用户列表

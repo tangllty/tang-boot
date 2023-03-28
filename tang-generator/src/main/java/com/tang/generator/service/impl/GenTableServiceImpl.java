@@ -13,7 +13,6 @@ import java.util.zip.ZipOutputStream;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.velocity.app.Velocity;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -34,11 +33,14 @@ import com.tang.generator.utils.VelocityUtils;
 @Service
 public class GenTableServiceImpl implements GenTableService {
 
-    @Autowired
-    private GenTableMapper tableMapper;
+    private final GenTableMapper tableMapper;
 
-    @Autowired
-    private GenTableColumnMapper tableColumnMapper;
+    private final GenTableColumnMapper tableColumnMapper;
+
+    public GenTableServiceImpl(GenTableMapper tableMapper, GenTableColumnMapper tableColumnMapper) {
+        this.tableMapper = tableMapper;
+        this.tableColumnMapper = tableColumnMapper;
+    }
 
     /**
      * 获取代码生成列表

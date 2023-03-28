@@ -2,7 +2,6 @@ package com.tang.web.controller;
 
 import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,11 +21,14 @@ import com.tang.system.service.SysMenuService;
 @RestController
 public class LoginController {
 
-    @Autowired
-    private LoginService loginService;
+    private final LoginService loginService;
 
-    @Autowired
-    private SysMenuService menuService;
+    private final SysMenuService menuService;
+
+    public LoginController(LoginService loginService, SysMenuService menuService) {
+        this.loginService = loginService;
+        this.menuService = menuService;
+    }
 
     /**
      * 登陆

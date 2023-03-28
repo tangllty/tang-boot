@@ -1,6 +1,5 @@
 package com.tang.web.controller.system.dict;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,8 +26,11 @@ import com.tang.system.service.dict.SysDictDataService;
 @RequestMapping("/system/dict/data")
 public class SysDictDataController {
 
-    @Autowired
-    private SysDictDataService dictDataService;
+    private final SysDictDataService dictDataService;
+
+    public SysDictDataController(SysDictDataService dictDataService) {
+        this.dictDataService = dictDataService;
+    }
 
     /**
      * 获取字典数据列表

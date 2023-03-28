@@ -7,7 +7,6 @@ import java.util.Map;
 import javax.crypto.SecretKey;
 
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 
@@ -40,16 +39,19 @@ public class TokenService {
 
     private static final String LOGIN_TOKEN_KEY = "login_tokens:";
 
-    public static final String TOKEN_PREFIX = "Bearer ";
+    private static final String TOKEN_PREFIX = "Bearer ";
 
-    @Autowired
-    private RedisUtils redisUtils;
+    private final RedisUtils redisUtils;
 
-    @Autowired
-    private TokenProperties tokenProperties;
+    private final TokenProperties tokenProperties;
 
-    @Autowired
-    private SysUserMapper userMapper;
+    private final SysUserMapper userMapper;
+
+    public TokenService(RedisUtils redisUtils, TokenProperties tokenProperties, SysUserMapper userMapper) {
+        this.redisUtils = redisUtils;
+        this.tokenProperties = tokenProperties;
+        this.userMapper = userMapper;
+    }
 
     /**
      * 获取登陆用户身份信息
