@@ -26,6 +26,8 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <spring-boot-dependencies.version>3.0.5</spring-boot-dependencies.version>
+        <jjwt.version>0.11.5</jjwt.version>
+        <hutool.version>5.8.16</hutool.version>
     </properties>
 
     <dependencyManagement>
@@ -107,14 +109,14 @@
             <dependency>
                 <groupId>io.jsonwebtoken</groupId>
                 <artifactId>jjwt-api</artifactId>
-                <version>0.11.5</version>
+                <version>${jjwt.version}</version>
             </dependency>
 
             <!-- https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt-impl -->
             <dependency>
                 <groupId>io.jsonwebtoken</groupId>
                 <artifactId>jjwt-impl</artifactId>
-                <version>0.11.5</version>
+                <version>${jjwt.version}</version>
                 <scope>runtime</scope>
             </dependency>
 
@@ -122,7 +124,7 @@
             <dependency>
                 <groupId>io.jsonwebtoken</groupId>
                 <artifactId>jjwt-jackson</artifactId>
-                <version>0.11.5</version>
+                <version>${jjwt.version}</version>
                 <scope>runtime</scope>
             </dependency>
 
@@ -130,14 +132,14 @@
             <dependency>
                 <groupId>cn.hutool</groupId>
                 <artifactId>hutool-http</artifactId>
-                <version>5.8.15</version>
+                <version>${hutool.version}</version>
             </dependency>
 
             <!-- https://mvnrepository.com/artifact/cn.hutool/hutool-system -->
             <dependency>
                 <groupId>cn.hutool</groupId>
                 <artifactId>hutool-system</artifactId>
-                <version>5.8.15</version>
+                <version>${hutool.version}</version>
             </dependency>
 
             <!-- https://mvnrepository.com/artifact/com.github.oshi/oshi-core -->
