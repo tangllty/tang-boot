@@ -10,7 +10,7 @@
 
     <sql id="${ClassName}Vo">
         select#foreach ($column in $columnList) ${tableAlias}.$column.columnName#if ($foreach.count != $columnList.size()),#end#end
-        form $tableName $tableAlias
+        from $tableName $tableAlias
     </sql>
 
     <select id="select${ClassName}List" resultMap="${ClassName}Map">
@@ -39,11 +39,15 @@
     <insert id="insert${ClassName}" useGeneratedKeys="true" keyProperty="$primaryKey">
         insert into $tableName (
 #foreach ($column in $columnList)
-            <if test="$column.javaField != null#if($column.javaType == 'String') and $column.javaField != ''#end">$column.columnName,</if>
+            <trim suffixOverrides=",">
+                <if test="$column.javaField != null#if($column.javaType == 'String') and $column.javaField != ''#end">$column.columnName,</if>
+            </trim>
 #end
         ) values (
 #foreach ($column in $columnList)
-            <if test="$column.javaField != null#if($column.javaType == 'String') and $column.javaField != ''#end">#{$column.javaField},</if>
+            <trim suffixOverrides=",">
+                <if test="$column.javaField != null#if($column.javaType == 'String') and $column.javaField != ''#end">#{$column.javaField},</if>
+            </trim>
 #end
         )
     </insert>
@@ -52,7 +56,9 @@
         update $tableName
         <set>
 #foreach ($column in $columnList)
+#if ($column.javaField != $primaryKey)
             <if test="$column.javaField != null#if($column.javaType == 'String') and $column.javaField != ''#end">$column.columnName = #{$column.javaField},</if>
+#end
 #end
         </set>
         where $tablePrimaryKey = #{$primaryKey}

@@ -45,7 +45,7 @@ export const delete$ClassName = ($primaryKey: number) => {
 }
 
 // 批量删除${classComment}信息
-export const delete$ClassName = (${primaryKey}s: number[]) => {
+export const delete${ClassName}s = (${primaryKey}s: number[]) => {
   return request({
     url: '/$moduleName/$businessName',
     method: 'delete',

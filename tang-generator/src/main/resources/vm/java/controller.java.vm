@@ -37,7 +37,7 @@ public class ${ClassName}Controller {
      * @param $className ${classComment}对象
      * @return ${classComment}列表
      */
-    @PreAuthorize("@auth.hasPermission('$moduleName:$businessName:list')")
+    @PreAuthorize("@auth.hasPermission('$moduleName:$permissionName:list')")
     @GetMapping("/list")
     public TableDataResult list($ClassName $className){
         PageUtils.startPage();
@@ -51,7 +51,7 @@ public class ${ClassName}Controller {
      * @param $primaryKey ${classComment}主键
      * @return ${classComment}信息
      */
-    @PreAuthorize("@auth.hasPermission('$moduleName:$businessName:list')")
+    @PreAuthorize("@auth.hasPermission('$moduleName:$permissionName:list')")
     @GetMapping("/{$primaryKey}")
     public AjaxResult select${ClassName}By${PrimaryKey}(@PathVariable Long $primaryKey) {
         return AjaxResult.success(${className}Service.select${ClassName}By${PrimaryKey}($primaryKey));
@@ -63,7 +63,7 @@ public class ${ClassName}Controller {
      * @param $className ${classComment}信息
      * @return 影响行数
      */
-    @PreAuthorize("@auth.hasPermission('$moduleName:$businessName:add')")
+    @PreAuthorize("@auth.hasPermission('$moduleName:$permissionName:add')")
     @PostMapping
     public AjaxResult add(@RequestBody $ClassName $className) {
         return AjaxResult.success(${className}Service.insert${ClassName}($className));
@@ -75,7 +75,7 @@ public class ${ClassName}Controller {
      * @param $className ${classComment}信息
      * @return 影响行数
      */
-    @PreAuthorize("@auth.hasPermission('$moduleName:$businessName:edit')")
+    @PreAuthorize("@auth.hasPermission('$moduleName:$permissionName:edit')")
     @PutMapping
     public AjaxResult edit(@RequestBody $ClassName $className) {
         return AjaxResult.success(${className}Service.update${ClassName}By${PrimaryKey}($className));
@@ -87,7 +87,7 @@ public class ${ClassName}Controller {
      * @param $primaryKey ${classComment}主键
      * @return 影响行数
      */
-    @PreAuthorize("@auth.hasPermission('$moduleName:$businessName:delete')")
+    @PreAuthorize("@auth.hasPermission('$moduleName:$permissionName:delete')")
     @DeleteMapping("/{$primaryKey}")
     public AjaxResult delete(@PathVariable Long $primaryKey) {
         return AjaxResult.success(${className}Service.delete${ClassName}By${PrimaryKey}($primaryKey));
@@ -99,7 +99,7 @@ public class ${ClassName}Controller {
      * @param ${primaryKey}s ${classComment}主键数组
      * @return 影响行数
      */
-    @PreAuthorize("@auth.hasPermission('$moduleName:$businessName:delete')")
+    @PreAuthorize("@auth.hasPermission('$moduleName:$permissionName:delete')")
     @DeleteMapping
     public AjaxResult deletes(@RequestBody Long[] ${primaryKey}s) {
         return AjaxResult.success(${className}Service.delete${ClassName}By${PrimaryKey}s(${primaryKey}s));

@@ -95,6 +95,7 @@ public class VelocityUtils {
         velocityContext.put("columnList", TableColumnUtils.getTableColumnList(table.getTableColumnList()));
         velocityContext.put("moduleName", table.getModuleName());
         velocityContext.put("businessName", table.getBusinessName());
+        velocityContext.put("permissionName", table.getBusinessName().replace("/", ":"));
         velocityContext.put("tableAlias", getTableAlias(table.getTableName()));
         velocityContext.put("hasDictType", getHasDictType(table));
         velocityContext.put("dictTypeVar", getDictTypeVar(table));

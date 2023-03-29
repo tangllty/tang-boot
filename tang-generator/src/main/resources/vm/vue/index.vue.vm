@@ -14,6 +14,7 @@
             v-model="queryParams.$column.javaField"
             placeholder="请输入$column.columnComment"
             @keyup.enter="handleList"
+            clearable
           />
         </el-form-item>
 #end
@@ -42,7 +43,7 @@
           <el-button
             type="primary"
             :icon="Plus"
-            v-hasPermission="'$moduleName:$businessName:add'"
+            v-hasPermission="'$moduleName:$permissionName:add'"
             @click="handleAdd"
           >新增</el-button>
           <el-button
@@ -56,7 +57,7 @@
             type="danger"
             :icon="Delete"
             :disabled="${primaryKey}s.length === 0"
-            v-hasPermission="'$moduleName:$businessName:delete'"
+            v-hasPermission="'$moduleName:$permissionName:delete'"
             @click="handleDeletes"
           >删除</el-button>
         </el-row>
@@ -91,7 +92,7 @@
               link
               :icon="Edit"
               size="small"
-              v-hasPermission="'$moduleName:$businessName:edit'"
+              v-hasPermission="'$moduleName:$permissionName:edit'"
               @click="handleEdit(scope.row)"
             >修改</el-button>
             <el-button
@@ -99,7 +100,7 @@
               link
               :icon="Delete"
               size="small"
-              v-hasPermission="'$moduleName:$businessName:delete'"
+              v-hasPermission="'$moduleName:$permissionName:delete'"
               @click="handleDelete(scope.row)"
             >删除</el-button>
           </template>
@@ -130,6 +131,7 @@
         status-icon
       >
 #foreach ($column in $columnList)
+#if ($column.javaField != $primaryKey)
 #if ($column.htmlType == 'input')
         <el-form-item label="$column.columnComment" prop="$column.javaField">
           <el-input
@@ -165,6 +167,7 @@
         </el-form-item>
 #end
 #end
+#end
       </el-form>
       <template #footer>
         <div class="dialog-footer">
@@ -191,8 +194,8 @@ import { $ClassName, ${ClassName}Form, ${ClassName}Query } from '@/api/$moduleNa
 const { proxy }: any = getCurrentInstance()
 #if ($hasDictType)
 const { $dictTypeVar } = proxy.$dict($dictTypeParams)
-
 #end
+
 const state = reactive({
   // 遮罩层
   loading: false,
@@ -275,13 +278,14 @@ function handleEdit(row: any) {
   }
 }
 
+#set($dollar = '$')
 // 删除${classComment}信息
 function handleDelete(row: any) {
   proxy.$confirm('确认删除"' + row.$primaryKey + '"${classComment}信息吗？', '提示', {
     type: 'warning'
   }).then(() => {
     delete${ClassName}(row.$primaryKey).then(() => {
-      proxy.$message.success("删除${classComment}信息成功")
+      proxy.${dollar}message.success("删除${classComment}信息成功")
       handleList()
     })
   })
@@ -289,11 +293,11 @@ function handleDelete(row: any) {
 
 // 批量删除${classComment}信息
 function handleDeletes() {
-  proxy.$confirm('确认删除"' + row.${primaryKey}s + '"${classComment}信息吗？', '提示', {
+  proxy.$confirm('确认删除"' + state.${primaryKey}s + '"${classComment}信息吗？', '提示', {
     type: 'warning'
   }).then(() => {
-    delete${ClassName}s(row.${primaryKey}s).then(() => {
-      proxy.$message.success("删除${classComment}信息成功")
+    delete${ClassName}s(state.${primaryKey}s).then(() => {
+      proxy.${dollar}message.success("删除${classComment}信息成功")
       handleList()
     })
   })
@@ -327,14 +331,14 @@ const submitForm = async (formEl: FormInstance | undefined) => {
     if (valid) {
       if (${className}Dialog.value.type == 'add') {
         add${ClassName}(state.${className}Form).then(() => {
-          proxy.$message.success("添加${classComment}信息成功")
+          proxy.${dollar}message.success("添加${classComment}信息成功")
           close${ClassName}Dialog()
           handleList()
         })
       }
       if (${className}Dialog.value.type == 'edit') {
         edit${ClassName}(state.${className}Form).then(() => {
-          proxy.$message.success("修改${classComment}信息成功")
+          proxy.${dollar}message.success("修改${classComment}信息成功")
           close${ClassName}Dialog()
           handleList()
         })
