@@ -8,6 +8,7 @@ import com.tang.commons.core.autoconfigure.TangProperties;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Contact;
 import io.swagger.v3.oas.models.info.Info;
+import io.swagger.v3.oas.models.info.License;
 
 /**
  * swagger 配置
@@ -27,9 +28,10 @@ public class SwaggerConfig {
     public OpenAPI openApi() {
         return new OpenAPI()
             .info(new Info()
-                .title("权限管理系统")
-                .description("description...")
+                .title("糖猫猫后台管理系统")
+                .description("糖猫猫后台管理系统")
                 .version("v" + tangProperties.getVersion())
+            .license(new License().name("MIT").url("https://gitee.com/tangllty/tang-vue/blob/master/LICENSE"))
             .contact(new Contact()
                 .name("Tang")
                 .email("")
