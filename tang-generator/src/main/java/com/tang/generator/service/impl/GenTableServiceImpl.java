@@ -98,7 +98,7 @@ public class GenTableServiceImpl implements GenTableService {
         var rows = tableMapper.updateTableByTableId(table);
         if (rows > 0) {
             var tableColumnList = table.getTableColumnList();
-            tableColumnList.forEach(tableColumn -> tableColumnMapper.updateTableColumnByColumnId(tableColumn));
+            tableColumnList.forEach(tableColumnMapper::updateTableColumnByColumnId);
         }
         return rows;
     }
@@ -133,12 +133,11 @@ public class GenTableServiceImpl implements GenTableService {
      * 导入表信息
      *
      * @param tableNames 表名称集合
-     * @return 影响行数
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void importTable(String[] tableNames) {
-        var tableList = Stream.of(tableNames).map(tableName -> tableMapper.selectDatabaseTableByTableName(tableName)).toList();
+        var tableList = Stream.of(tableNames).map(tableMapper::selectDatabaseTableByTableName).toList();
         tableList.forEach(table -> {
             TableUtils.initTable(table);
             var rows = tableMapper.insertTable(table);
