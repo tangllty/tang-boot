@@ -85,7 +85,7 @@ public class TableColumnUtils {
     /**
      * 获取HTML类型
      *
-     * @param columnType 字段类型
+     * @param columnName 字段名称
      * @return HTML类型
      */
     private static String getHtmlType(String columnName) {
