@@ -1,4 +1,4 @@
-package com.tang.framework.web.service;
+package com.tang.framework.web.service.authentication;
 
 import java.util.Set;
 
@@ -24,7 +24,7 @@ import com.tang.system.service.SysRoleService;
  * @author Tang
  */
 @Component
-public class AuthenticationService {
+public class AuthenticationService implements UserModelProvider {
 
     private final SysRoleService roleService;
 
@@ -36,10 +36,12 @@ public class AuthenticationService {
     }
 
     /**
-     * 创建登陆用户模型
+     * 创建用户模型
      *
      * @param user 用户信息
-     * @return 登陆用户模型
+     * @param password 明文密码
+     * @param loginType 登陆类型
+     * @return 用户模型
      */
     public UserModel createUserModel(SysUser user, String password, String loginType) {
         if (user == null) {
