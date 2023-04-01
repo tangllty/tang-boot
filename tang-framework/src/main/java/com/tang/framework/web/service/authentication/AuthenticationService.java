@@ -14,9 +14,11 @@ import com.tang.commons.exception.status.DisabledException;
 import com.tang.commons.exception.user.PasswordMismatchException;
 import com.tang.commons.exception.user.UserNotFoundException;
 import com.tang.commons.utils.SecurityUtils;
+import com.tang.framework.web.service.TokenService;
 import com.tang.system.entity.SysUser;
 import com.tang.system.service.SysMenuService;
 import com.tang.system.service.SysRoleService;
+import com.tang.system.service.log.SysLogLoginService;
 
 /**
  * 用户权限
@@ -30,9 +32,15 @@ public class AuthenticationService implements UserModelProvider {
 
     private final SysMenuService menuService;
 
-    public AuthenticationService(SysRoleService roleService, SysMenuService menuService) {
+    private final SysLogLoginService logLoginService;
+
+    private final TokenService tokenService;
+
+    public AuthenticationService(SysRoleService roleService, SysMenuService menuService, SysLogLoginService logLoginService, TokenService tokenService) {
         this.roleService = roleService;
         this.menuService = menuService;
+        this.logLoginService = logLoginService;
+        this.tokenService = tokenService;
     }
 
     /**
@@ -43,21 +51,26 @@ public class AuthenticationService implements UserModelProvider {
      * @param loginType 登陆类型
      * @return 用户模型
      */
-    public UserModel createUserModel(SysUser user, String password, String loginType) {
-        if (user == null) {
-            throw new UserNotFoundException("用户不存在");
-        }
+    public UserModel createUserModel(SysUser user, String password, String account, String loginType) {
+        try {
+            if (user == null) {
+                throw new UserNotFoundException("用户不存在");
+            }
 
-        if (!SecurityUtils.matchesPassword(password, user.getPassword())) {
-            throw new PasswordMismatchException("密码错误");
-        }
+            if (!SecurityUtils.matchesPassword(password, user.getPassword())) {
+                throw new PasswordMismatchException("密码错误");
+            }
 
-        if (user.getStatus().equals(Status.DISABLED)) {
-            throw new DisabledException("账号已停用");
-        }
+            if (user.getStatus().equals(Status.DISABLED)) {
+                throw new DisabledException("账号已停用");
+            }
 
-        if (user.getDelFlag().equals(Status.DELETED)) {
-            throw new DeletedException("账号已删除");
+            if (user.getDelFlag().equals(Status.DELETED)) {
+                throw new DeletedException("账号已删除");
+            }
+        } catch (RuntimeException e) {
+            logLoginService.recordLoginInfo(user == null ? null : user.getUserId(), tokenService.getUserAgent(), account, loginType, false, e.getMessage());
+            throw e;
         }
 
         var userModel = new UserModel();

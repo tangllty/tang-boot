@@ -155,6 +155,28 @@ public class TokenService {
     }
 
     /**
+     * 获取登陆用户代理信息
+     *
+     * @return 登陆用户信息
+     */
+    public UserModel getUserAgent() {
+        var userModel = new UserModel();
+        UserAgent userAgent = UserAgentUtil.parse(ServletUtils.getRequest().getHeader("User-Agent"));
+        userModel.setIp(IpUtils.getIpAddr(ServletUtils.getRequest()));
+        userModel.setLocation(IpUtils.getCity(userModel.getIp()));
+        userModel.setMobile(userAgent.isMobile());
+        userModel.setBrowser(userAgent.getBrowser().getName());
+        userModel.setVersion(userAgent.getVersion());
+        userModel.setPlatform(userAgent.getPlatform().getName());
+        userModel.setOs(userAgent.getOs().getName());
+        userModel.setOsVersion(userAgent.getOsVersion());
+        userModel.setEngine(userAgent.getEngine().getName());
+        userModel.setEngineVersion(userAgent.getEngineVersion());
+        userModel.setLoginTime(new Date(System.currentTimeMillis()));
+        return userModel;
+    }
+
+    /**
      * 更新用户登陆信息
      *
      * @param userModel 登陆用户信息

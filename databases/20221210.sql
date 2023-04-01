@@ -118,7 +118,7 @@ create table sys_menu (
 -- 目录
 insert into sys_menu values (1, 0, '0', '系统管理', 'system',  '', '', '系统管理', 'D', '0', 1, '0', '0', 'admin', sysdate(), '', null, '系统管理目录');
 insert into sys_menu values (2, 0, '0', '系统监控', 'monitor', '', '', '系统监控', 'D', '0', 2, '0', '0', 'admin', sysdate(), '', null, '系统监控目录');
-insert into sys_menu values (3, 0, '0', '系统工具', 'tool',    '', '', '系统工具', 'D', '0', 2, '0', '0', 'admin', sysdate(), '', null, '系统工具目录');
+insert into sys_menu values (3, 0, '0', '系统工具', 'tool',    '', '', '系统工具', 'D', '0', 3, '0', '0', 'admin', sysdate(), '', null, '系统工具目录');
 
 -- 菜单
 insert into sys_menu values (11, 1, '0,1', '用户管理', 'user',      'system/user/index',    'system:user:menu',    '用户管理', 'M', '0', 1, '0', '0', 'admin', sysdate(), '', null, '用户管理菜单');
@@ -129,6 +129,8 @@ insert into sys_menu values (15, 1, '0,1', '字典管理', 'dict',      'system/
 insert into sys_menu values (16, 2, '0,2', '在线用户', 'online',    'monitor/online/index', 'monitor:online:menu', '在线用户', 'M', '0', 1, '0', '0', 'admin', sysdate(), '', null, '在线用户菜单');
 insert into sys_menu values (17, 2, '0,2', '服务监控', 'server',    'monitor/server/index', 'monitor:server:menu', '服务监控', 'M', '0', 2, '0', '0', 'admin', sysdate(), '', null, '服务监控菜单');
 insert into sys_menu values (18, 3, '0,3', '代码生成', 'generator', 'tool/generator/index', 'tool:generator:menu', '代码生成', 'M', '0', 1, '0', '0', 'admin', sysdate(), '', null, '代码生成菜单');
+insert into sys_menu values (19, 1, '0,1', '日志管理', 'log',       '',                     '',                    '日志管理', 'D', '0', 6, '0', '0', 'admin', sysdate(), '', null, '日志管理目录');
+insert into sys_menu values (20, 19, '0,1,19', '登陆日志', 'login', 'system/log/login/index', 'system:log:login:menu', '登陆日志', 'M', '0', 1, '0', '0', 'admin', sysdate(), '', null, '登陆日志菜单');
 
 -- 用户管理按钮
 insert into sys_menu values (101, 11, '0,1,11', '用户查询', '', '', 'system:user:list',   '', 'B', '0', 1, '0', '0', 'admin', sysdate(), '', null, '用户查询按钮');
@@ -173,6 +175,10 @@ insert into sys_menu values (125, 18, '0,3,18', '代码生成修改', '', '', 't
 insert into sys_menu values (126, 18, '0,3,18', '代码生成删除', '', '', 'tool:generator:delete', '', 'B', '0', 3, '0', '0', 'admin', sysdate(), '', null, '代码生成删除按钮');
 insert into sys_menu values (127, 18, '0,3,18', '代码生成导入', '', '', 'tool:generator:import', '', 'B', '0', 4, '0', '0', 'admin', sysdate(), '', null, '代码生成导入按钮');
 insert into sys_menu values (128, 18, '0,3,18', '代码生成导出', '', '', 'tool:generator:export', '', 'B', '0', 5, '0', '0', 'admin', sysdate(), '', null, '代码生成导出按钮');
+
+-- 登陆日志按钮
+insert into sys_menu values (129, 20, '0,1,19,20', '登陆日志查询', '', '', 'system:log:login:list',   '', 'B', '0', 1, '0', '0', 'admin', sysdate(), '', null, '登陆日志查询按钮');
+insert into sys_menu values (130, 20, '0,1,19,20', '登陆日志删除', '', '', 'system:log:login:delete', '', 'B', '0', 2, '0', '0', 'admin', sysdate(), '', null, '登陆日志删除按钮');
 
 
 -- -----------------------------
@@ -233,6 +239,8 @@ insert into sys_role_menu values (2, 125);
 insert into sys_role_menu values (2, 126);
 insert into sys_role_menu values (2, 127);
 insert into sys_role_menu values (2, 128);
+insert into sys_role_menu values (2, 129);
+insert into sys_role_menu values (2, 130);
 insert into sys_role_menu values (3, 1);
 insert into sys_role_menu values (3, 11);
 insert into sys_role_menu values (3, 12);
@@ -246,6 +254,7 @@ insert into sys_role_menu values (3, 117);
 insert into sys_role_menu values (3, 121);
 insert into sys_role_menu values (3, 123);
 insert into sys_role_menu values (3, 124);
+insert into sys_role_menu values (3, 129);
 
 
 -- -----------------------------
@@ -297,8 +306,28 @@ insert into sys_dict_data values(2, 'sys_status',      '停用', '1', '', '', 2,
 insert into sys_dict_data values(3, 'sys_del_flag',    '正常', '0', '', '', 1, '0', 'admin', sysdate(), '', null, '正常状态');
 insert into sys_dict_data values(4, 'sys_del_flag',    '删除', '1', '', '', 2, '0', 'admin', sysdate(), '', null, '删除状态');
 insert into sys_dict_data values(5, 'sys_user_gender', '保密', '0', '', '', 1, '0', 'admin', sysdate(), '', null, '性别保密');
-insert into sys_dict_data values(6, 'sys_user_gender', '男',   '1',  '', '', 2, '0', 'admin', sysdate(), '', null, '性别男');
+insert into sys_dict_data values(6, 'sys_user_gender', '男',   '1', '', '', 2, '0', 'admin', sysdate(), '', null, '性别男');
 insert into sys_dict_data values(7, 'sys_user_gender', '女',   '2', '', '', 3, '0', 'admin', sysdate(), '', null, '性别女');
+
+
+-- -----------------------------
+-- 登陆日志表
+-- -----------------------------
+drop table if exists sys_log_login;
+create table sys_log_login (
+    login_id      bigint(20)    not null auto_increment  comment '日志ID',
+    user_id       bigint(20)    default  null            comment '用户ID',
+    account       varchar(128)  default ''               comment '登陆账号',
+    login_type    varchar(32)   default ''               comment '登陆类型',
+    os            varchar(64)   default ''               comment '操作系统',
+    browser       varchar(64)   default ''               comment '浏览器类型',
+    ip            varchar(64)   default ''               comment '登录IP地址',
+    location      varchar(64)   default ''               comment '登录地点',
+    login_time    datetime                               comment '登录时间',
+    success       char(2)       default ''               comment '是否成功',
+    message       varchar(128)  default ''               comment '返回消息',
+    primary key (login_id)
+) engine = InnoDB auto_increment = 100 comment = '登陆日志表';
 
 
 -- -----------------------------

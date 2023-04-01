@@ -40,7 +40,7 @@ public class EmailAuthenticationProvider implements AuthenticationProvider {
 
         var user = userService.selectUserByEmail(email);
 
-        UserModel userModel = authenticationService.createUserModel(user, password, LoginType.EMAIL.getName());
+        UserModel userModel = authenticationService.createUserModel(user, password, email, LoginType.EMAIL.getName());
 
         authenticationToken = new EmailAuthenticationToken(userModel, Collections.emptyList());
 

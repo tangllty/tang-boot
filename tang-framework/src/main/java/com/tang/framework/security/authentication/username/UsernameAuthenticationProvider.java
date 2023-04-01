@@ -40,7 +40,7 @@ public class UsernameAuthenticationProvider implements AuthenticationProvider {
 
         var user = userService.selectUserByUsername(username);
 
-        UserModel userModel = authenticationService.createUserModel(user, password, LoginType.USERNAME.getName());
+        UserModel userModel = authenticationService.createUserModel(user, password, username, LoginType.USERNAME.getName());
 
         authenticationToken = new UsernameAuthenticationToken(userModel, Collections.emptyList());
 

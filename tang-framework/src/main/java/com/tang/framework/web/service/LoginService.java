@@ -12,6 +12,7 @@ import com.tang.commons.enumeration.LoginType;
 import com.tang.commons.exception.user.IllegalLoginTypeException;
 import com.tang.framework.security.authentication.email.EmailAuthenticationToken;
 import com.tang.framework.security.authentication.username.UsernameAuthenticationToken;
+import com.tang.system.service.log.SysLogLoginService;
 
 /**
  * 登陆服务
@@ -25,9 +26,12 @@ public class LoginService {
 
     private final TokenService tokenService;
 
-    public LoginService(AuthenticationManager authenticationManager, TokenService tokenService) {
+    private final SysLogLoginService logLoginService;
+
+    public LoginService(AuthenticationManager authenticationManager, TokenService tokenService, SysLogLoginService logLoginService) {
         this.authenticationManager = authenticationManager;
         this.tokenService = tokenService;
+        this.logLoginService = logLoginService;
     }
 
     /**
@@ -50,11 +54,16 @@ public class LoginService {
         };
 
         SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+        var account = authenticationToken.getPrincipal().toString();
         authentication = authenticationManager.authenticate(authenticationToken);
 
         var userModel = (UserModel) authentication.getPrincipal();
 
-        return tokenService.createToken(userModel);
+        var token = tokenService.createToken(userModel);
+
+        logLoginService.recordLoginInfo(userModel.getUser().getUserId(), userModel, account, LoginType.USERNAME.getName(), true, "登陆成功");
+
+        return token;
     }
 
 }
