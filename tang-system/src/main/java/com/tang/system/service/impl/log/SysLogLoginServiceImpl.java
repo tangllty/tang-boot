@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.tang.commons.core.model.UserModel;
+import com.tang.commons.utils.SecurityUtils;
 import com.tang.system.entity.log.SysLogLogin;
 import com.tang.system.mapper.log.SysLogLoginMapper;
 import com.tang.system.service.log.SysLogLoginService;
@@ -32,6 +33,18 @@ public class SysLogLoginServiceImpl implements SysLogLoginService {
     @Override
     public List<SysLogLogin> selectSysLogLoginList(SysLogLogin sysLogLogin) {
         return sysLogLoginMapper.selectSysLogLoginList(sysLogLogin);
+    }
+
+    /**
+     * 查询用户登陆日志列表
+     *
+     * @param logLogin 登陆日志对象
+     * @return 登陆日志列表
+     */
+    @Override
+    public List<SysLogLogin> selectSysLogLoginListByUser(SysLogLogin logLogin) {
+        logLogin.setUserId(SecurityUtils.getUser().getUserId());
+        return sysLogLoginMapper.selectSysLogLoginListByUser(logLogin);
     }
 
     /**

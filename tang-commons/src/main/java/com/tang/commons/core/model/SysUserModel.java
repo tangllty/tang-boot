@@ -3,6 +3,7 @@ package com.tang.commons.core.model;
 import com.tang.commons.core.base.entity.BaseEntity;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * 用户模型
@@ -12,7 +13,7 @@ import java.util.Date;
 public class SysUserModel extends BaseEntity {
 
     @java.io.Serial
-    private static final long serialVersionUID = 7817228544683111473L;
+    private static final long serialVersionUID = 8680278499560297179L;
 
     /**
      * 用户ID
@@ -83,6 +84,11 @@ public class SysUserModel extends BaseEntity {
      * 部门对象
      */
     private SysDeptModel dept;
+
+    /**
+     * 角色主键集合
+     */
+    private List<Long> roleIds;
 
 
     public Long getUserId() {
@@ -195,6 +201,14 @@ public class SysUserModel extends BaseEntity {
 
     public void setDept(SysDeptModel dept) {
         this.dept = dept;
+    }
+
+    public List<Long> getRoleIds() {
+        return roleIds;
+    }
+
+    public void setRoleIds(List<Long> roleIds) {
+        this.roleIds = roleIds;
     }
 
 }

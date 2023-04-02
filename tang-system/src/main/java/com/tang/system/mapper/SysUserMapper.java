@@ -68,6 +68,14 @@ public interface SysUserMapper {
     int updateUserStatusByUserId(SysUser user);
 
     /**
+     * 修改用户密码
+     *
+     * @param user 用户对象
+     * @return 影响行数
+     */
+    int updatePasswordByUserId(SysUser  user);
+
+    /**
      * 通过主键删除数据
      *
      * @param userId 主键

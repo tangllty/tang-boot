@@ -80,6 +80,7 @@ public class AuthenticationService implements UserModelProvider {
         BeanUtils.copyProperties(user, sysUserModel);
         BeanUtils.copyProperties(user.getDept(), sysDeptModel);
         sysUserModel.setDept(sysDeptModel);
+        sysUserModel.setRoleIds(roleService.getRoleIdsByUserId(user.getUserId()));
         // 角色集合
         var roles = roleService.getRolesByUserId(user.getUserId());
         // 权限集合

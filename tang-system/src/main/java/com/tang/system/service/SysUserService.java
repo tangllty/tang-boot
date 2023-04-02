@@ -2,6 +2,7 @@ package com.tang.system.service;
 
 import java.util.List;
 
+import com.tang.commons.core.vo.PasswordVo;
 import com.tang.system.entity.SysUser;
 
 /**
@@ -66,6 +67,14 @@ public interface SysUserService {
      * @return 影响行数
      */
     int updateUserStatusByUserId(SysUser user);
+
+    /**
+     * 修改用户密码
+     *
+     * @param passwordVo 密码对象
+     * @return 影响行数
+     */
+    int updatePasswordByUserId(PasswordVo passwordVo);
 
     /**
      * 通过主键删除数据

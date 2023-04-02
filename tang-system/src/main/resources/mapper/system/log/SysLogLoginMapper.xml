@@ -34,6 +34,18 @@
         order by ll.login_time desc
     </select>
 
+    <select id="selectSysLogLoginListByUser" resultMap="SysLogLoginMap">
+        <include refid="SysLogLoginVo" />
+        where ll.user_id = #{userId}
+        <if test="account != null and account != ''">
+            and ll.account = #{account}
+        </if>
+        <if test="success != null and success != ''">
+            and ll.success = #{success}
+        </if>
+        order by ll.login_time desc
+    </select>
+
     <select id="selectSysLogLoginByLoginId" resultMap="SysLogLoginMap">
         <include refid="SysLogLoginVo" />
         where ll.login_id = #{loginId}

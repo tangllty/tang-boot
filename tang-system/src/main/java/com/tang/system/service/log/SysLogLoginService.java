@@ -21,6 +21,14 @@ public interface SysLogLoginService {
     List<SysLogLogin> selectSysLogLoginList(SysLogLogin sysLogLogin);
 
     /**
+     * 查询用户登陆日志列表
+     *
+     * @param logLogin 登陆日志对象
+     * @return 登陆日志列表
+     */
+    List<SysLogLogin> selectSysLogLoginListByUser(SysLogLogin logLogin);
+
+    /**
      * 通过登陆日志主键查询登陆日志信息
      *
      * @param loginId 登陆日志主键

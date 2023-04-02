@@ -1,15 +1,14 @@
 package com.tang.system.entity.log;
 
+import java.io.Serializable;
 import java.util.Date;
-
-import com.tang.commons.core.base.entity.BaseEntity;
 
 /**
  * 登陆日志实体类 sys_log_login
  *
  * @author Tang
  */
-public class SysLogLogin extends BaseEntity {
+public class SysLogLogin implements Serializable {
 
     @java.io.Serial
     private static final long serialVersionUID = 5985309601668830597L;

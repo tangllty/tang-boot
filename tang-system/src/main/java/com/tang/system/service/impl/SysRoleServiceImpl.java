@@ -63,9 +63,22 @@ public class SysRoleServiceImpl implements SysRoleService {
      * @param userId 用户主键
      * @return 角色集合
      */
+    @Override
     public Set<String> getRolesByUserId(Long userId) {
         var roleList = roleMapper.selectRoleListByUserId(userId);
         return roleList.stream().map(SysRole::getRoleKey).collect(Collectors.toSet());
+    }
+
+    /**
+     * 根据用户主键获取角色主键集合
+     *
+     * @param userId 用户主键
+     * @return 角色主键集合
+     */
+    @Override
+    public List<Long> getRoleIdsByUserId(Long userId) {
+        var roleList = roleMapper.selectRoleListByUserId(userId);
+        return roleList.stream().map(SysRole::getRoleId).collect(Collectors.toList());
     }
 
     /**
@@ -73,6 +86,7 @@ public class SysRoleServiceImpl implements SysRoleService {
      *
      * @return 角色下拉框数据
      */
+    @Override
     public List<TreeSelect> selectRolesSelect() {
         var roleList = roleMapper.selectRoleList(null);
         return roleList.stream().map(role -> new TreeSelect(role.getRoleId(), role.getRoleName())).toList();

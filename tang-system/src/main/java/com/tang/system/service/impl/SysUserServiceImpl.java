@@ -5,6 +5,9 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.tang.commons.core.vo.PasswordVo;
+import com.tang.commons.exception.user.PasswordMismatchException;
+import com.tang.commons.exception.user.UserNotFoundException;
 import com.tang.commons.utils.SecurityUtils;
 import com.tang.system.entity.SysRole;
 import com.tang.system.entity.SysUser;
@@ -117,6 +120,35 @@ public class SysUserServiceImpl implements SysUserService {
     @Override
     public int updateUserStatusByUserId(SysUser user) {
         return userMapper.updateUserStatusByUserId(user);
+    }
+
+    /**
+     * 修改用户密码
+     *
+     * @param passwordVo 密码对象
+     * @return 影响行数
+     */
+    public int updatePasswordByUserId(PasswordVo passwordVo) {
+        var user = userMapper.selectUserByUserId(passwordVo.getUserId());
+
+        if (user == null) {
+            throw new UserNotFoundException("用户不存在");
+        }
+
+        if (!SecurityUtils.matchesPassword(passwordVo.getOldPassword(), user.getPassword())) {
+            throw new PasswordMismatchException("旧密码错误");
+        }
+
+        if (passwordVo.getNewPassword().equals(passwordVo.getOldPassword())) {
+            throw new PasswordMismatchException("新密码不能与旧密码相同");
+        }
+
+        if (!passwordVo.getNewPassword().equals(passwordVo.getConfirmPassword())) {
+            throw new PasswordMismatchException("两次输入密码不一致");
+        }
+
+        user.setPassword(SecurityUtils.encryptPassword(passwordVo.getNewPassword()));
+        return userMapper.updateUserByUserId(user);
     }
 
     /**
