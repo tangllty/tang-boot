@@ -1,8 +1,8 @@
 package com.tang.commons.core.model;
 
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Date;
 import java.util.Set;
 
 import org.springframework.security.core.GrantedAuthority;
@@ -19,7 +19,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class UserModel implements UserDetails {
 
     @java.io.Serial
-    private static final long serialVersionUID = -3458669023009166129L;
+    private static final long serialVersionUID = 1700642694582927208L;
 
     /**
      * ip
@@ -80,13 +80,13 @@ public class UserModel implements UserDetails {
      * 登陆时间
      */
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private Date loginTime;
+    private LocalDateTime loginTime;
 
     /**
      * 过期时间
      */
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private Date expireTime;
+    private LocalDateTime expireTime;
 
     /**
      * 用户唯一标识
@@ -108,12 +108,6 @@ public class UserModel implements UserDetails {
      */
     private SysUserModel user;
 
-    public UserModel() {
-    }
-
-    public UserModel(SysUserModel user) {
-      this.user = user;
-    }
 
     public String getIp() {
         return ip;
@@ -203,19 +197,19 @@ public class UserModel implements UserDetails {
         this.loginType = loginType;
     }
 
-    public Date getLoginTime() {
+    public LocalDateTime getLoginTime() {
         return loginTime;
     }
 
-    public void setLoginTime(Date loginTime) {
+    public void setLoginTime(LocalDateTime loginTime) {
         this.loginTime = loginTime;
     }
 
-    public Date getExpireTime() {
+    public LocalDateTime getExpireTime() {
         return expireTime;
     }
 
-    public void setExpireTime(Date expireTime) {
+    public void setExpireTime(LocalDateTime expireTime) {
         this.expireTime = expireTime;
     }
 

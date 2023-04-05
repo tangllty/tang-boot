@@ -1,6 +1,6 @@
 package ${packageName}.entity;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import com.tang.commons.core.base.entity.BaseEntity;
 

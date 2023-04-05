@@ -1,7 +1,9 @@
 package com.tang.system.entity.log;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDateTime;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 /**
  * 登陆日志实体类 sys_log_login
@@ -11,7 +13,7 @@ import java.util.Date;
 public class SysLogLogin implements Serializable {
 
     @java.io.Serial
-    private static final long serialVersionUID = 5985309601668830597L;
+    private static final long serialVersionUID = -7179007173307071853L;
 
     /**
      * 日志ID
@@ -56,7 +58,8 @@ public class SysLogLogin implements Serializable {
     /**
      * 登录时间
      */
-    private Date loginTime;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime loginTime;
 
     /**
      * 是否成功
@@ -133,11 +136,11 @@ public class SysLogLogin implements Serializable {
         this.location = location;
     }
 
-    public Date getLoginTime() {
+    public LocalDateTime getLoginTime() {
         return loginTime;
     }
 
-    public void setLoginTime(Date loginTime) {
+    public void setLoginTime(LocalDateTime loginTime) {
         this.loginTime = loginTime;
     }
 

@@ -1,8 +1,9 @@
 package com.tang.system.entity;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.tang.commons.core.base.entity.BaseEntity;
 
 /**
@@ -13,7 +14,7 @@ import com.tang.commons.core.base.entity.BaseEntity;
 public class SysUser extends BaseEntity {
 
     @java.io.Serial
-    private static final long serialVersionUID = -865170054594766314L;
+    private static final long serialVersionUID = 7083199038942669698L;
 
     /**
      * 用户ID
@@ -78,7 +79,8 @@ public class SysUser extends BaseEntity {
     /**
      * 最后登录时间
      */
-    private Date loginDate;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime loginDate;
 
     /**
      * 部门对象
@@ -187,11 +189,11 @@ public class SysUser extends BaseEntity {
         this.loginIp = loginIp;
     }
 
-    public Date getLoginDate() {
+    public LocalDateTime getLoginDate() {
         return loginDate;
     }
 
-    public void setLoginDate(Date loginDate) {
+    public void setLoginDate(LocalDateTime loginDate) {
         this.loginDate = loginDate;
     }
 

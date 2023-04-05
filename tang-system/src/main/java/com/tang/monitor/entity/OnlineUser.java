@@ -1,7 +1,7 @@
 package com.tang.monitor.entity;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -13,7 +13,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 public class OnlineUser implements Serializable {
 
     @java.io.Serial
-    private static final long serialVersionUID = -5846462221239438990L;
+    private static final long serialVersionUID = 2084767932630868859L;
 
     /**
      * 用户唯一标识
@@ -109,13 +109,13 @@ public class OnlineUser implements Serializable {
      * 登陆时间
      */
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private Date loginTime;
+    private LocalDateTime loginTime;
 
     /**
      * 过期时间
      */
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private Date expireTime;
+    private LocalDateTime expireTime;
 
 
     public String getToken() {
@@ -262,19 +262,19 @@ public class OnlineUser implements Serializable {
         this.loginType = loginType;
     }
 
-    public Date getLoginTime() {
+    public LocalDateTime getLoginTime() {
         return loginTime;
     }
 
-    public void setLoginTime(Date loginTime) {
+    public void setLoginTime(LocalDateTime loginTime) {
         this.loginTime = loginTime;
     }
 
-    public Date getExpireTime() {
+    public LocalDateTime getExpireTime() {
         return expireTime;
     }
 
-    public void setExpireTime(Date expireTime) {
+    public void setExpireTime(LocalDateTime expireTime) {
         this.expireTime = expireTime;
     }
 

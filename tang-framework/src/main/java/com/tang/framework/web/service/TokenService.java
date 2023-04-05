@@ -1,6 +1,7 @@
 package com.tang.framework.web.service;
 
-import java.util.Date;
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -127,7 +128,7 @@ public class TokenService {
      * @param userModel 登陆用户信息
      */
     public void refreshToken(UserModel userModel) {
-        userModel.setExpireTime(new Date(System.currentTimeMillis() + tokenProperties.getExpireTimeLong()));
+        userModel.setExpireTime(LocalDateTime.now().plus(Duration.ofMillis(tokenProperties.getExpireTimeLong())));
         // 缓存登陆信息
         String userKey = getTokenKey(userModel.getToken());
         redisUtils.set(userKey, userModel, tokenProperties.getExpireTime(), tokenProperties.getTimeUnit());
@@ -150,7 +151,7 @@ public class TokenService {
         userModel.setOsVersion(userAgent.getOsVersion());
         userModel.setEngine(userAgent.getEngine().getName());
         userModel.setEngineVersion(userAgent.getEngineVersion());
-        userModel.setLoginTime(new Date(System.currentTimeMillis()));
+        userModel.setLoginTime(LocalDateTime.now());
         updateUserLoginInfo(userModel);
     }
 
@@ -172,7 +173,7 @@ public class TokenService {
         userModel.setOsVersion(userAgent.getOsVersion());
         userModel.setEngine(userAgent.getEngine().getName());
         userModel.setEngineVersion(userAgent.getEngineVersion());
-        userModel.setLoginTime(new Date(System.currentTimeMillis()));
+        userModel.setLoginTime(LocalDateTime.now());
         return userModel;
     }
 

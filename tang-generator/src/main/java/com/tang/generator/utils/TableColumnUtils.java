@@ -66,9 +66,7 @@ public class TableColumnUtils {
      * @return 字段列表
      */
     public static List<GenTableColumn> getTableColumnList(List<GenTableColumn> tableColumnList) {
-        tableColumnList.forEach(tableColumn -> {
-            tableColumn.setIsSuperField(getIsSuperField(tableColumn.getJavaField()));
-        });
+        tableColumnList.forEach(tableColumn -> tableColumn.setIsSuperField(getIsSuperField(tableColumn.getJavaField())));
         return tableColumnList;
     }
 
@@ -145,7 +143,7 @@ public class TableColumnUtils {
             return "Long";
         }
         if (List.of(DATE_TYPE).contains(columnType)) {
-            return "Date";
+            return "LocalDateTime";
         }
         return "";
     }
