@@ -4,6 +4,10 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import com.tang.commons.core.base.entity.BaseEntity;
 
 /**
@@ -14,7 +18,7 @@ import com.tang.commons.core.base.entity.BaseEntity;
 public class SysUserModel extends BaseEntity {
 
     @java.io.Serial
-    private static final long serialVersionUID = 5531404836138478586L;
+    private static final long serialVersionUID = 8680278499560297179L;
 
     /**
      * 用户ID
@@ -79,6 +83,8 @@ public class SysUserModel extends BaseEntity {
     /**
      * 最后登录时间
      */
+    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
+    @JsonSerialize(using = LocalDateTimeSerializer.class)
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime loginDate;
 
