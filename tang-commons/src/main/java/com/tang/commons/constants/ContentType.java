@@ -20,4 +20,9 @@ public class ContentType {
      */
     public static final String APPLICATION_OCTET_STREAM = "application/octet-stream";
 
+    /**
+     * Excel 2007 数据格式
+     */
+    public static final String APPLICATION_XLSX = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+
 }
