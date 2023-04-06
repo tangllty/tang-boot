@@ -137,9 +137,9 @@ public class ExcelUtils {
      * @param response 响应
      */
     private static void response(HSSFWorkbook workbook, String fileName, HttpServletResponse response) {
+        response.setContentType(ContentType.APPLICATION_XLSX);
+        response.setHeader("Content-Disposition", "attachment; filename="+ System.currentTimeMillis() +".xlsx");
         try {
-            response.setContentType(ContentType.APPLICATION_XLSX);
-            response.setHeader("Content-disposition", "attachment;filename=" + fileName + ".xlsx");
             workbook.write(response.getOutputStream());
         } catch (Exception e) {
             LOGGER.error("导出 Excel 异常", e);

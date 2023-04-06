@@ -172,8 +172,8 @@ public class GenTableController {
      */
     private void responseCode(HttpServletResponse response, byte[] data) throws IOException {
         response.reset();
-        response.setHeader("Content-Disposition", "attachment; filename=\"tang.zip\"");
-        response.setContentType(ContentType.APPLICATION_OCTET_STREAM);
+        response.setContentType(ContentType.APPLICATION_ZIP);
+        response.setHeader("Content-Disposition", "attachment; filename="+ System.currentTimeMillis() +".zip");
         IOUtils.write(data, response.getOutputStream());
     }
 
