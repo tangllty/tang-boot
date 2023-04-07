@@ -40,7 +40,7 @@ public class ExcelUtils {
      * @param list     数据
      * @param fileName 文件名
      */
-    public static void export(HttpServletResponse response, Class<?> clazz, List<?> list, String fileName) {
+    public static void export(HttpServletResponse response, Class<?> clazz, List<?> list) {
         var maxRowNum = 65535;
         var sheetNum = (list.size() + maxRowNum) / maxRowNum;
         var map = new LinkedHashMap<String, List<?>>(sheetNum);
@@ -50,7 +50,7 @@ public class ExcelUtils {
             map.put("sheet" + i, list.subList(formIndex, toIndex));
         }
 
-        export(response, clazz, map, fileName);
+        export(response, clazz, map);
     }
 
     /**
@@ -61,7 +61,7 @@ public class ExcelUtils {
      * @param map      数据(key sheet name, value data, 使用 LinkedHashMap 保证顺序)
      * @param fileName 文件名
      */
-    public static void export(HttpServletResponse response, Class<?> clazz, Map<String, List<?>> map, String fileName) {
+    public static void export(HttpServletResponse response, Class<?> clazz, Map<String, List<?>> map) {
         var workbook = new HSSFWorkbook();
 
         var fields = getFields(clazz);
@@ -72,7 +72,7 @@ public class ExcelUtils {
             setTitle(fields, sheet);
             setData(fields, list, sheet);
         });
-        response(workbook, fileName, response);
+        response(response, workbook);
     }
 
     /**
@@ -136,7 +136,7 @@ public class ExcelUtils {
      * @param fileName 文件名
      * @param response 响应
      */
-    private static void response(HSSFWorkbook workbook, String fileName, HttpServletResponse response) {
+    private static void response(HttpServletResponse response, HSSFWorkbook workbook) {
         response.setContentType(ContentType.APPLICATION_XLSX);
         response.setHeader("Content-Disposition", "attachment; filename="+ System.currentTimeMillis() +".xlsx");
         try {

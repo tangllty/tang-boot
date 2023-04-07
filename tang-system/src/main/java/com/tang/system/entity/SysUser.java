@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.tang.commons.annotation.poi.Excel;
 import com.tang.commons.core.base.entity.BaseEntity;
 
 /**
@@ -19,36 +20,43 @@ public class SysUser extends BaseEntity {
     /**
      * 用户ID
      */
+    @Excel("用户ID")
     private Long userId;
 
     /**
      * 部门ID
      */
+    @Excel("部门ID")
     private Long deptId;
 
     /**
      * 用户账号
      */
+    @Excel("用户账号")
     private String username;
 
     /**
      * 昵称
      */
+    @Excel("昵称")
     private String nickname;
 
     /**
      * 邮箱
      */
+    @Excel("邮箱")
     private String email;
 
     /**
      * 手机号码
      */
+    @Excel("手机号码")
     private String phone;
 
     /**
      * 性别
      */
+    @Excel("性别")
     private String gender;
 
     /**
@@ -64,21 +72,25 @@ public class SysUser extends BaseEntity {
     /**
      * 帐号状态
      */
+    @Excel("帐号状态")
     private String status;
 
     /**
      * 删除标志
      */
+    @Excel("删除标志")
     private String delFlag;
 
     /**
      * 最后登录IP
      */
+    @Excel("最后登录IP")
     private String loginIp;
 
     /**
      * 最后登录时间
      */
+    @Excel("最后登录时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime loginDate;
 

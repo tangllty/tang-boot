@@ -13,9 +13,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.tang.commons.utils.AjaxResult;
 import com.tang.commons.utils.page.PageUtils;
 import com.tang.commons.utils.page.TableDataResult;
+import com.tang.commons.utils.poi.ExcelUtils;
 import com.tang.system.entity.SysUser;
 import com.tang.system.service.SysRoleService;
 import com.tang.system.service.SysUserService;
+
+import jakarta.servlet.http.HttpServletResponse;
 
 /**
  * 用户逻辑控制层
@@ -130,6 +133,19 @@ public class SysUserController {
     @DeleteMapping
     public AjaxResult deletes(@RequestBody Long[] userIds) {
         return AjaxResult.success(userService.deleteUserByUserIds(userIds));
+    }
+
+    /**
+     * 导出用户信息
+     *
+     * @param response 响应对象
+     * @param user     用户对象
+     */
+    @PreAuthorize("@auth.hasPermission('system:user:export')")
+    @GetMapping("/export")
+    public void export(HttpServletResponse response, SysUser user) {
+        var list = userService.selectUserList(user);
+        ExcelUtils.export(response, SysUser.class, list);
     }
 
 }
