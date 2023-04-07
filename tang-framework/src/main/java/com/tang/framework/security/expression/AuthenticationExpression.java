@@ -42,6 +42,25 @@ public class AuthenticationExpression {
     }
 
     /**
+     * 验证用户是否有全部角色
+     *
+     * @param roles 角色列表
+     * @return 结果
+     */
+    public boolean hasAllRole(String... roles) {
+        if (SecurityUtils.isAdmin()) {
+            return true;
+        }
+        var roleSet = SecurityUtils.getRoles();
+        for (String role : roles) {
+            if (!roleSet.contains(role)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
      * 验证用户是否有该权限
      *
      * @param permission 权限
@@ -68,6 +87,25 @@ public class AuthenticationExpression {
             }
         }
         return false;
+    }
+
+    /**
+     * 验证用户是否有全部权限
+     *
+     * @param permissions 权限列表
+     * @return 结果
+     */
+    public boolean hasAllPermission(String... permissions) {
+        if (SecurityUtils.isAdmin()) {
+            return true;
+        }
+        var permissionSet = SecurityUtils.getPermissions();
+        for (String permission : permissions) {
+            if (!permissionSet.contains(permission)) {
+                return false;
+            }
+        }
+        return true;
     }
 
 }
