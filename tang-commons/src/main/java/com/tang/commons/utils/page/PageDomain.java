@@ -77,13 +77,11 @@ public class PageDomain {
 
     public void setIsAsc(String isAsc) {
         if (StringUtils.isNoneBlank(isAsc)) {
-            if (ASCENDING.equals(isAsc)) {
-                isAsc = "asc";
-            }
-            if (DESCENDING.equals(isAsc)) {
-                isAsc = "desc";
-            }
-            this.isAsc = isAsc;
+            this.isAsc = switch (isAsc) {
+                case ASCENDING -> "asc";
+                case DESCENDING -> "desc";
+                default -> isAsc;
+            };
         }
     }
 
