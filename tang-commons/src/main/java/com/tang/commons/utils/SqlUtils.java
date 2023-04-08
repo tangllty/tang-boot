@@ -1,5 +1,7 @@
 package com.tang.commons.utils;
 
+import org.apache.commons.lang3.StringUtils;
+
 import com.tang.commons.exception.UtilsException;
 
 /**
@@ -21,7 +23,7 @@ public class SqlUtils {
      * 检查字符，防止注入绕过
      */
     public static String escapeOrderBySql(String value) {
-        if (value != null && !"".equals(value) && !isValidOrderBySql(value)) {
+        if (StringUtils.isNotBlank(value) && !isValidOrderBySql(value)) {
             throw new UtilsException("查询失败, 参数不符合规范");
         }
         return value;
