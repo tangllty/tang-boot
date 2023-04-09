@@ -1,36 +1,35 @@
-# tang-vue
+# tang-boot
 
-#### Description
-tang-vue
+[**简体中文**](./README.md) | [**English**](./README.en.md)
 
-#### Software Architecture
-Software architecture description
+#### Project Description
 
-#### Installation
+tang-boot is a permission management system based on Spring Boot3
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+* Using Spring Boot3 + Spring Security + MyBatis + Redis + Jwt
+* Customized multiple login authentication methods
+* Dynamic permissions menu
+* Code generator, one click to generate the basic front-end and back-end code
 
-#### Instructions
+#### Environment Requirements
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+* OpenJDK 17.0.6
+* Apache Maven 3.8.7
+* Mysql 8.0.29
+* Redis 7.0.2
 
-#### Contribution
+#### Project Startup
 
-1.  Fork the repository
-2.  Create Feat_xxx branch
-3.  Commit your code
-4.  Create Pull Request
+1. execute the databases/20221210.sql file ( **contains drop database statement, please check it carefully and execute the sql file** )
+2. modify tang-admin/src/main/resources/application.yml password and other information
+3. modify tang-admin/src/main/resources/logback.xml log storage path
+4. ```
+   $ mvn package && cd tang-admin/target && java -jar tang-admin.jar
+   ```
 
+#### Project address
 
-#### Gitee Feature
-
-1.  You can use Readme\_XXX.md to support different languages, such as Readme\_en.md, Readme\_zh.md
-2.  Gitee blog [blog.gitee.com](https://blog.gitee.com)
-3.  Explore open source project [https://gitee.com/explore](https://gitee.com/explore)
-4.  The most valuable open source project [GVP](https://gitee.com/gvp)
-5.  The manual of Gitee [https://gitee.com/help](https://gitee.com/help)
-6.  The most popular members  [https://gitee.com/gitee-stars/](https://gitee.com/gitee-stars/)
+| Project   | Gitee                                          | GitHub                                          |
+| --------- | ---------------------------------------------- | ----------------------------------------------- |
+| Back End  | [tang-boot](https://gitee.com/tangllty/tang-boot) | [tang-boot](https://github.com/tangllty/tang-boot) |
+| Front End | [tang-vue](https://gitee.com/tangllty/tang-vue)   | [tang-vue](https://github.com/tangllty/tang-vue)   |
