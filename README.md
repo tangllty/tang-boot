@@ -1,5 +1,7 @@
 # tang-boot
 
+[**简体中文**](./README.md) | [**English**](./README.en.md)
+
 #### 项目简介
 
 tang-boot 是基于 Spring Boot3 的权限管理系统
