@@ -30,4 +30,9 @@ public @interface Excel {
     @AliasFor("value")
     String name() default "";
 
+    /**
+     * 顺序
+     */
+    int sort() default 0;
+
 }
