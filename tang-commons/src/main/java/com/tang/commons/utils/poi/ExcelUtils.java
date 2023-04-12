@@ -3,6 +3,7 @@ package com.tang.commons.utils.poi;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -38,7 +39,6 @@ public class ExcelUtils {
      * @param response 响应
      * @param clazz    类
      * @param list     数据
-     * @param fileName 文件名
      */
     public static void export(HttpServletResponse response, Class<?> clazz, List<?> list) {
         var maxRowNum = 65535;
@@ -46,7 +46,7 @@ public class ExcelUtils {
         var map = new LinkedHashMap<String, List<?>>(sheetNum);
         for (int i = 0; i < sheetNum; i++) {
             var formIndex = i * maxRowNum;
-            var toIndex = formIndex + maxRowNum > list.size() ? list.size() : formIndex + maxRowNum;
+            var toIndex = Math.min(formIndex + maxRowNum, list.size());
             map.put("sheet" + i, list.subList(formIndex, toIndex));
         }
 
@@ -59,7 +59,6 @@ public class ExcelUtils {
      * @param response 响应
      * @param clazz    类
      * @param map      数据(key sheet name, value data, 使用 LinkedHashMap 保证顺序)
-     * @param fileName 文件名
      */
     public static void export(HttpServletResponse response, Class<?> clazz, Map<String, List<?>> map) {
         var workbook = new HSSFWorkbook();
@@ -128,7 +127,7 @@ public class ExcelUtils {
             .filter(field -> field.isAnnotationPresent(Excel.class))
             .collect(Collectors.toMap(field -> field, field -> AnnotationUtils.getAnnotation(field, Excel.class), (k1, k2) -> k1, LinkedHashMap::new))
             .entrySet().stream()
-            .sorted(Map.Entry.comparingByValue((o1, o2) -> o1.sort() - o2.sort()))
+            .sorted(Map.Entry.comparingByValue(Comparator.comparingInt(Excel::sort)))
             .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (k1, k2) -> k1, LinkedHashMap::new));
     }
 
@@ -136,7 +135,6 @@ public class ExcelUtils {
      * 响应 Excel
      *
      * @param workbook 工作簿
-     * @param fileName 文件名
      * @param response 响应
      */
     private static void response(HttpServletResponse response, HSSFWorkbook workbook) {
