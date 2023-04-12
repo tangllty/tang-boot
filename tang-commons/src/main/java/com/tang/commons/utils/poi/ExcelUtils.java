@@ -64,7 +64,7 @@ public class ExcelUtils {
     public static void export(HttpServletResponse response, Class<?> clazz, Map<String, List<?>> map) {
         var workbook = new HSSFWorkbook();
 
-        var fields = getFieldsSorted(clazz);
+        var fields = getFields(clazz);
 
         map.forEach((sheetName, list) -> {
             var sheet = workbook.createSheet(sheetName);
@@ -114,28 +114,6 @@ public class ExcelUtils {
     }
 
     /**
-     * 获取所有字段并排序
-     */
-    private static LinkedHashMap<Field, Excel> getFieldsSorted(Class<?> clazz) {
-        var fields = getFields(clazz);
-        var sortedFields = fields.entrySet().stream()
-            .sorted(Map.Entry.comparingByValue((o1, o2) -> o1.sort() - o2.sort()))
-            .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (k1, k2) -> k1, LinkedHashMap::new));
-        var i = 0;
-        for (var entry : sortedFields.entrySet()) {
-            var excel = entry.getValue();
-            try {
-                var sortField = Excel.class.getDeclaredField("sort");
-                ReflectionUtils.makeAccessible(sortField);
-                sortField.set(excel, i++);
-            } catch (Exception e) {
-                LOGGER.error("设置排序异常", e);
-            }
-        }
-        return sortedFields;
-    }
-
-    /**
      * 获取所有字段
      *
      * @param clazz 类
@@ -148,7 +126,10 @@ public class ExcelUtils {
 
         return fields.stream()
             .filter(field -> field.isAnnotationPresent(Excel.class))
-            .collect(Collectors.toMap(field -> field, field -> AnnotationUtils.getAnnotation(field, Excel.class), (k1, k2) -> k1, LinkedHashMap::new));
+            .collect(Collectors.toMap(field -> field, field -> AnnotationUtils.getAnnotation(field, Excel.class), (k1, k2) -> k1, LinkedHashMap::new))
+            .entrySet().stream()
+            .sorted(Map.Entry.comparingByValue((o1, o2) -> o1.sort() - o2.sort()))
+            .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (k1, k2) -> k1, LinkedHashMap::new));
     }
 
     /**
