@@ -21,7 +21,7 @@ tang-boot 是基于 Spring Boot3 的权限管理系统
 #### 项目启动
 
 1. 执行 databases/20221210.sql 文件 ( **包含 drop database 语句, 请仔细查看后执行 sql 文件** )
-2. 修改 tang-admin/src/main/resources/application.yml password 等信息
+2. 修改 tang-admin/src/main/resources/application-dev.yml password 等信息
 3. 修改 tang-admin/src/main/resources/logback.xml 日志存放路径
 4. ```
    $ mvn package && cd tang-admin/target && java -jar tang-admin.jar
