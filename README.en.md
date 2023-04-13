@@ -1,6 +1,6 @@
 # tang-boot
 
-[**简体中文**](./README.md) | [**English**](./README.en.md)
+[**简体中文**](./README.md) | **English**
 
 #### Project Description
 
@@ -21,7 +21,7 @@ tang-boot is a permission management system based on Spring Boot3
 #### Project Startup
 
 1. execute the databases/20221210.sql file ( **contains drop database statement, please check it carefully and execute the sql file** )
-2. modify tang-admin/src/main/resources/application.yml password and other information
+2. modify tang-admin/src/main/resources/application-dev.yml password and other information
 3. modify tang-admin/src/main/resources/logback.xml log storage path
 4. ```
    $ mvn package && cd tang-admin/target && java -jar tang-admin.jar
