@@ -243,7 +243,7 @@ const ${className}Rules = reactive<FormRules>({
 })
 
 // 查询${classComment}列表
-function handleList() {
+const handleList = () => {
   state.loading = true
   list${ClassName}(state.queryParams).then((res:any) => {
     state.${className}List = res.rows
@@ -253,7 +253,7 @@ function handleList() {
 }
 
 // 添加${classComment}信息
-function handleAdd() {
+const handleAdd = () => {
   state.${className}Dialog = {
     title: '新增${classComment}信息',
     type: 'add',
@@ -262,7 +262,7 @@ function handleAdd() {
 }
 
 // 修改${classComment}信息
-function handleEdit(row: any) {
+const handleEdit = (row: any) => {
   let $primaryKey = state.$primaryKey
   if (row.$primaryKey) {
     $primaryKey = row.$primaryKey
@@ -280,7 +280,7 @@ function handleEdit(row: any) {
 
 #set($dollar = '$')
 // 删除${classComment}信息
-function handleDelete(row: any) {
+const handleDelete = (row: any) => {
   proxy.$confirm('确认删除"' + row.$primaryKey + '"${classComment}信息吗？', '提示', {
     type: 'warning'
   }).then(() => {
@@ -292,7 +292,7 @@ function handleDelete(row: any) {
 }
 
 // 批量删除${classComment}信息
-function handleDeletes() {
+const handleDeletes = () => {
   proxy.$confirm('确认删除"' + state.${primaryKey}s + '"${classComment}信息吗？', '提示', {
     type: 'warning'
   }).then(() => {
@@ -304,20 +304,20 @@ function handleDeletes() {
 }
 
 // 重置表单
-function resetQuery() {
+const resetQuery = () => {
   ${className}QueryFormRef.value?.resetFields()
   handleList()
 }
 
 // 关闭对话框
-function close${ClassName}Dialog() {
+const close${ClassName}Dialog = () => {
   state.${className}Dialog.visible = false
   ${className}RuleFormRef.value?.clearValidate()
   ${className}RuleFormRef.value?.resetFields()
 }
 
 // 多选框
-function handleSelectionChange(selection: any) {
+const handleSelectionChange = (selection: any) => {
   state.${primaryKey}s = selection.map((item: any) => item.$primaryKey)
   if (selection.length === 1) {
     state.$primaryKey = ${primaryKey}s.value[0]
