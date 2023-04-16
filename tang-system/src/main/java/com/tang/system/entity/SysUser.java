@@ -5,6 +5,8 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.tang.commons.annotation.poi.Excel;
+import com.tang.commons.annotation.poi.Excel.CellType;
+import com.tang.commons.annotation.poi.Excel.Type;
 import com.tang.commons.core.base.entity.BaseEntity;
 
 /**
@@ -20,13 +22,13 @@ public class SysUser extends BaseEntity {
     /**
      * 用户ID
      */
-    @Excel("用户ID")
+    @Excel(name = "用户ID", cellType = CellType.NUMBER, type = Type.EXPORT)
     private Long userId;
 
     /**
      * 部门ID
      */
-    @Excel("部门ID")
+    @Excel(name = "部门ID", cellType = CellType.NUMBER)
     private Long deptId;
 
     /**
@@ -90,7 +92,7 @@ public class SysUser extends BaseEntity {
     /**
      * 最后登录时间
      */
-    @Excel("最后登录时间")
+    @Excel(name = "最后登录时间", cellType = CellType.DATE)
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime loginDate;
 

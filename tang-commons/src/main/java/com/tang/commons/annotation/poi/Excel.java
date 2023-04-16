@@ -35,4 +35,113 @@ public @interface Excel {
      */
     int sort() default 0;
 
+    /**
+     * 单元格类型
+     */
+    CellType cellType() default CellType.STRING;
+
+    /**
+     * 日期格式
+     */
+    String dateFormat() default "yyyy-MM-dd HH:mm:ss";
+
+    /**
+     * 字段类型
+     */
+    Type type() default Type.ALL;
+
+    /**
+     * 单元格类型
+     */
+    public enum CellType {
+
+        /**
+         * 字符串
+         */
+        STRING(0),
+
+        /**
+         * 数字
+         */
+        NUMBER(1),
+
+        /**
+         * 日期
+         */
+        DATE(2);
+
+        private final int code;
+
+        CellType(int code) {
+            this.code = code;
+        }
+
+        public int getCode() {
+            return code;
+        }
+
+        /**
+         * 根据 code 返回枚举类型
+         *
+         * @param code 单元格类型
+         * @return CellType 单元格类型
+         */
+        public static CellType getCellType(int code) {
+            for (CellType cellType : CellType.values()) {
+                if (cellType.getCode() == code) {
+                    return cellType;
+                }
+            }
+            return null;
+        }
+
+    }
+
+    /**
+     * 字段类型
+     */
+    public enum Type {
+
+        /**
+         * 导入导出
+         */
+        ALL(0),
+
+        /**
+        * 导入
+        */
+        IMPORT(1),
+
+        /**
+        * 导出
+        */
+        EXPORT(2);
+
+        private final int code;
+
+        Type(int code) {
+            this.code = code;
+        }
+
+        public int getCode() {
+            return code;
+        }
+
+        /**
+        * 根据 code 返回枚举类型
+        *
+        * @param code 导出或导入
+        * @return Type 导出或导入
+        */
+        public static Type getType(int code) {
+            for (Type type : Type.values()) {
+                if (type.getCode() == code) {
+                    return type;
+                }
+            }
+            return null;
+        }
+
+    }
+
 }

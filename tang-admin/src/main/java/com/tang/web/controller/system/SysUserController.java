@@ -1,5 +1,6 @@
 package com.tang.web.controller.system;
 
+import java.util.Arrays;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.tang.commons.utils.AjaxResult;
 import com.tang.commons.utils.page.PageUtils;
@@ -133,6 +135,27 @@ public class SysUserController {
     @DeleteMapping
     public AjaxResult deletes(@RequestBody Long[] userIds) {
         return AjaxResult.success(userService.deleteUserByUserIds(userIds));
+    }
+
+    /**
+     * 导入用户信息
+     *
+     * @param file    文件对象
+     * @param deptId  部门主键
+     * @param roleIds 角色主键数组
+     * @return 影响行数
+     */
+    @PreAuthorize("@auth.hasPermission('system:user:import')")
+    @PostMapping("/import")
+    public AjaxResult importUser(MultipartFile file, Long deptId, Long[] roleIds) {
+        var list = ExcelUtils.importExcel(SysUser.class, file);
+        list.forEach(user -> {
+            user.setDeptId(deptId);
+            user.setRoleIds(Arrays.asList(roleIds));
+            user.setPassword("123456");
+            userService.insertUser(user);
+        });
+        return AjaxResult.success();
     }
 
     /**
