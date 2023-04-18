@@ -27,7 +27,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <spring-boot-dependencies.version>3.0.5</spring-boot-dependencies.version>
         <jjwt.version>0.11.5</jjwt.version>
-        <hutool.version>5.8.16</hutool.version>
+        <hutool.version>5.8.18</hutool.version>
     </properties>
 
     <dependencyManagement>
