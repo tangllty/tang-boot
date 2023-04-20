@@ -31,11 +31,11 @@ public class SwaggerConfig {
                 .title("糖猫猫后台管理系统")
                 .description("糖猫猫后台管理系统")
                 .version("v" + tangProperties.getVersion())
-            .license(new License().name("MIT").url("https://gitee.com/tangllty/tang-vue/blob/master/LICENSE"))
+            .license(new License().name("MIT").url("https://gitee.com/tangllty/tang-boot/blob/master/LICENSE"))
             .contact(new Contact()
                 .name("Tang")
                 .email("")
-                .url("https://gitee.com/tangllty/tang-vue")));
+                .url("https://gitee.com/tangllty/tang-boot")));
     }
 
 }

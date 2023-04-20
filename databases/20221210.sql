@@ -1,10 +1,10 @@
-drop database if exists `tang-vue`;
+drop database if exists `tang-boot`;
 
-create database `tang-vue` default character set utf8mb4 collate utf8mb4_unicode_ci;
+create database `tang-boot` default character set utf8mb4 collate utf8mb4_unicode_ci;
 
 set names utf8mb4;
 
-use `tang-vue`;
+use `tang-boot`;
 
 -- -----------------------------
 -- 部门表

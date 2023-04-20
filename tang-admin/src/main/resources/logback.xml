@@ -4,7 +4,7 @@
     <!-- SpringBoot logback 默认的配置 -->
     <include resource="org/springframework/boot/logging/logback/defaults.xml" />
 
-    <property name="LOG_PATH" value="/home/tang/logs/tang-vue" />
+    <property name="LOG_PATH" value="/home/tang/logs/tang-boot" />
     <property name="FILE_LOG_PATTERN" value="%d{HH:mm:ss.SSS} %5level ${PID:- } --- [%15.15t] %-40.40logger{39} : %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}" />
     <property name="MAX_FILE_SIZE" value="64MB" /> <!-- 文件大小 -->
     <property name="MAX_HISTORY" value="90" /> <!-- 日志文件保留天数 -->
