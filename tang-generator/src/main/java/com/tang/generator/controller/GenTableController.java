@@ -151,7 +151,7 @@ public class GenTableController {
     @PreAuthorize("@auth.hasPermission('tool:generator:export')")
     @GetMapping("/download/{tableName}")
     public void downloadCode(HttpServletResponse response, @PathVariable String tableName) throws IOException {
-        byte[] data = tableService.downloadCodes(new String[] {tableName});
+        var data = tableService.downloadCodes(new String[] {tableName});
         responseCode(response, data);
     }
 
@@ -163,7 +163,7 @@ public class GenTableController {
     @PreAuthorize("@auth.hasPermission('tool:generator:export')")
     @GetMapping("/downloads")
     public void downloadCodes(HttpServletResponse response, String[] tableNames) throws IOException {
-        byte[] data = tableService.downloadCodes(tableNames);
+        var data = tableService.downloadCodes(tableNames);
         responseCode(response, data);
     }
 
@@ -176,6 +176,5 @@ public class GenTableController {
         response.setHeader("Content-Disposition", "attachment; filename="+ System.currentTimeMillis() +".zip");
         IOUtils.write(data, response.getOutputStream());
     }
-
 
 }

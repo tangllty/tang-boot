@@ -20,7 +20,6 @@ import com.tang.commons.utils.ServletUtils;
 import com.tang.system.entity.SysUser;
 import com.tang.system.mapper.SysUserMapper;
 
-import cn.hutool.http.useragent.UserAgent;
 import cn.hutool.http.useragent.UserAgentUtil;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -62,13 +61,13 @@ public class TokenService {
      */
     public UserModel get(@NonNull HttpServletRequest request) {
         // 获取请求携带的令牌
-        String token = getToken(request);
+        var token = getToken(request);
         if (StringUtils.isNotEmpty(token)) {
-            Claims claims = parseToken(token);
+            var claims = parseToken(token);
             // 解析对应的权限以及登陆用户信息
-            String uuid = (String) claims.get(LOGIN_USER_KEY);
-            String userKey = getTokenKey(uuid);
-            Object userModel = redisUtils.get(userKey);
+            var uuid = (String) claims.get(LOGIN_USER_KEY);
+            var userKey = getTokenKey(uuid);
+            var userModel = redisUtils.get(userKey);
             return (UserModel) userModel;
         }
         return null;
@@ -81,7 +80,7 @@ public class TokenService {
      */
     public void delete(String token) {
         if (StringUtils.isNotEmpty(token)) {
-            String userKey = getTokenKey(token);
+            var userKey = getTokenKey(token);
             redisUtils.delete(userKey);
         }
     }
@@ -92,12 +91,12 @@ public class TokenService {
      * @param userModel 登陆用户信息
      * @return 令牌
      */
-    public String createToken(UserModel userModel) {
-        String token = IdUtils.getUUID();
+    public String createToken(@NonNull UserModel userModel) {
+        var token = IdUtils.getUUID();
         userModel.setToken(token);
         setUserAgent(userModel);
         set(userModel);
-        Map<String, Object> claims = new HashMap<>(16);
+        var claims = new HashMap<String, Object>(16);
         claims.put(LOGIN_USER_KEY, token);
         return createToken(claims);
     }
@@ -107,8 +106,8 @@ public class TokenService {
      *
      * @param userModel 登陆用户信息
      */
-    public void set(UserModel userModel) {
-        if (userModel != null && StringUtils.isNotEmpty(userModel.getToken())) {
+    public void set(@NonNull UserModel userModel) {
+        if (StringUtils.isNotEmpty(userModel.getToken())) {
             refreshToken(userModel);
         }
     }
@@ -118,7 +117,7 @@ public class TokenService {
      *
      * @param userModel 登陆用户信息
      */
-    public void verifyToken(UserModel userModel) {
+    public void verifyToken(@NonNull UserModel userModel) {
         refreshToken(userModel);
     }
 
@@ -127,10 +126,10 @@ public class TokenService {
      *
      * @param userModel 登陆用户信息
      */
-    public void refreshToken(UserModel userModel) {
+    public void refreshToken(@NonNull UserModel userModel) {
         userModel.setExpireTime(LocalDateTime.now().plus(Duration.ofMillis(tokenProperties.getExpireTimeLong())));
         // 缓存登陆信息
-        String userKey = getTokenKey(userModel.getToken());
+        var userKey = getTokenKey(userModel.getToken());
         redisUtils.set(userKey, userModel, tokenProperties.getExpireTime(), tokenProperties.getTimeUnit());
     }
 
@@ -140,7 +139,7 @@ public class TokenService {
      * @param userModel 登陆用户信息
      */
     public void setUserAgent(@NonNull UserModel userModel) {
-        UserAgent userAgent = UserAgentUtil.parse(ServletUtils.getRequest().getHeader("User-Agent"));
+        var userAgent = UserAgentUtil.parse(ServletUtils.getRequest().getHeader("User-Agent"));
         userModel.setIp(IpUtils.getIpAddr(ServletUtils.getRequest()));
         userModel.setLocation(IpUtils.getCity(userModel.getIp()));
         userModel.setMobile(userAgent.isMobile());
@@ -162,7 +161,7 @@ public class TokenService {
      */
     public UserModel getUserAgent() {
         var userModel = new UserModel();
-        UserAgent userAgent = UserAgentUtil.parse(ServletUtils.getRequest().getHeader("User-Agent"));
+        var userAgent = UserAgentUtil.parse(ServletUtils.getRequest().getHeader("User-Agent"));
         userModel.setIp(IpUtils.getIpAddr(ServletUtils.getRequest()));
         userModel.setLocation(IpUtils.getCity(userModel.getIp()));
         userModel.setMobile(userAgent.isMobile());
@@ -182,7 +181,7 @@ public class TokenService {
      *
      * @param userModel 登陆用户信息
      */
-    private void updateUserLoginInfo(UserModel userModel) {
+    private void updateUserLoginInfo(@NonNull UserModel userModel) {
         var user = new SysUser();
         user.setUserId(userModel.getUser().getUserId());
         user.setLoginIp(userModel.getIp());
@@ -223,7 +222,7 @@ public class TokenService {
      * @return 密钥
      */
     private SecretKey getSecretKey() {
-        byte[] secretBytes = Decoders.BASE64.decode(tokenProperties.getSecret());
+        var secretBytes = Decoders.BASE64.decode(tokenProperties.getSecret());
         return Keys.hmacShaKeyFor(secretBytes);
     }
 
@@ -234,7 +233,7 @@ public class TokenService {
      * @return 令牌
      */
     private String getToken(@NonNull HttpServletRequest request) {
-        String token = request.getHeader(tokenProperties.getHeader());
+        var token = request.getHeader(tokenProperties.getHeader());
         if (StringUtils.isNotEmpty(token) && token.startsWith(TOKEN_PREFIX)) {
             token = token.replace(TOKEN_PREFIX, "");
         }
