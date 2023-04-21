@@ -32,16 +32,4 @@ YML_PATH="tang-admin/src/main/resources/application.yml"
 sed -i "0,/version:/ s/\(version:\s*\)[^\n]*/\1$NEW_VERSION/" $YML_PATH
 echo "Version number changed from ${OLD_VERSION} to ${NEW_VERSION} in ${YML_PATH}"
 
-# Define the start.sh file path
-START_SH_PATH="bin/start.sh"
-
-sed -i "0,/VERSION=/ s/\(VERSION=\)[^\n]*/\1$NEW_VERSION/" $START_SH_PATH
-echo "Version number changed from ${OLD_VERSION} to ${NEW_VERSION} in ${START_SH_PATH}"
-
-# Define the stop.sh file path
-STOP_SH_PATH="bin/stop.sh"
-
-sed -i "0,/VERSION=/ s/\(VERSION=\)[^\n]*/\1$NEW_VERSION/" $STOP_SH_PATH
-echo "Version number changed from ${OLD_VERSION} to ${NEW_VERSION} in ${STOP_SH_PATH}"
-
 echo "Version number changed from ${OLD_VERSION} to ${NEW_VERSION} in project"

@@ -3,7 +3,7 @@
 # Into the root directory of the project
 cd "$(dirname "$0")/.."
 
-VERSION=1.5.2
+VERSION=$(sed -n 's/.*<tang.version>\(.*\)<\/tang.version>.*/\1/p' pom.xml)
 APPLICATION=tang-admin-${VERSION}.jar
 PID=$(ps -ef | grep $APPLICATION | grep -v grep | awk '{print $2}')
 
