@@ -14,7 +14,7 @@ if [[ ! $NEW_VERSION =~ $PATTERN ]]; then
 fi
 
 # Get the old version number
-OLD_VERSION=$(sed -n "0,/<version>[^<]*<\/version>/ s/<version>\([^<]*\)<\/version>.*/\1/p" pom.xml)
+OLD_VERSION=$(sed -n 's/.*<tang.version>\(.*\)<\/tang.version>.*/\1/p' pom.xml)
 
 # Modify the version of the parent module and the tang.version of the properties
 sed -i "0,/<version>[^<]*<\/version>/ s/<version>[^<]*<\/version>/<version>${NEW_VERSION}<\/version>/; s/<tang.version>[^<]*<\/tang.version>/<tang.version>${NEW_VERSION}<\/tang.version>/g" pom.xml
