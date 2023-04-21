@@ -23,7 +23,7 @@ sed -i "0,/<version>[^<]*<\/version>/ s/<version>[^<]*<\/version>/<version>${NEW
 for module in $(ls | grep '^tang-')
 do
 	sed -i "0,/<version>[^<]*<\/version>/ s/<version>[^<]*<\/version>/<version>${NEW_VERSION}<\/version>/" "${module}/pom.xml"
-	echo "Version number changed from ${OLD_VERSION} to ${NEW_VERSION} in ${module}"
+	echo "Version number changed from ${OLD_VERSION} to ${NEW_VERSION} in ${module}/pom.xml"
 done
 
 # Define the application yml file path
@@ -31,5 +31,3 @@ YML_PATH="tang-admin/src/main/resources/application.yml"
 
 sed -i "0,/version:/ s/\(version:\s*\)[^\n]*/\1$NEW_VERSION/" $YML_PATH
 echo "Version number changed from ${OLD_VERSION} to ${NEW_VERSION} in ${YML_PATH}"
-
-echo "Version number changed from ${OLD_VERSION} to ${NEW_VERSION} in project"
