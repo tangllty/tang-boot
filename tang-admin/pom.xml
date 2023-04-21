@@ -6,7 +6,7 @@
     <parent>
         <groupId>com.tang</groupId>
         <artifactId>tang-parent</artifactId>
-        <version>${tang.version}</version>
+        <version>1.5.2</version>
     </parent>
 
     <artifactId>tang-admin</artifactId>
@@ -58,6 +58,7 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>3.0.5</version>
                 <executions>
                     <execution>
                         <goals>
@@ -69,6 +70,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
+                <version>3.3.2</version>
                 <configuration>
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                     <warName>${project.artifactId}</warName>
