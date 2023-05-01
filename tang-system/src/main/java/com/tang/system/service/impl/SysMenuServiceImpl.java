@@ -6,8 +6,10 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.tang.commons.core.vo.MetaVo;
 import com.tang.commons.core.vo.RouteVo;
@@ -108,6 +110,7 @@ public class SysMenuServiceImpl implements SysMenuService {
      * @param userId 用户主键
      * @return 权限集合
      */
+    @Override
     public Set<String> getPermissionsByUserId(Long userId) {
         var menuList = menuMapper.selectMenuListByUserId(userId);
         var permissions = menuList.stream().map(SysMenu::getPermission).collect(Collectors.toSet());
@@ -121,6 +124,7 @@ public class SysMenuServiceImpl implements SysMenuService {
      * @param userId 用户主键
      * @return 菜单树
      */
+    @Override
     public List<RouteVo> selectMenuListTreeByUserId(Long userId) {
         List<SysMenu> menuList;
         if (SecurityUtils.isAdmin()) {
@@ -145,7 +149,19 @@ public class SysMenuServiceImpl implements SysMenuService {
      * @param menuList 菜单列表
      * @return 路由列表
      */
+    @Override
     public List<RouteVo> buildRoutes(List<SysMenu> menuList) {
+        return buildRoutes(menuList, menuList);
+    }
+
+    /**
+     * 构建路由菜单
+     *
+     * @param menuList         菜单列表
+     * @param originalMenuList 原始菜单列表
+     * @return 路由列表
+     */
+    private List<RouteVo> buildRoutes(List<SysMenu> menuList, List<SysMenu> originalMenuList) {
         return menuList.stream().map(menu -> {
             var children = menu.getChildren();
             var route = new RouteVo();
@@ -158,8 +174,8 @@ public class SysMenuServiceImpl implements SysMenuService {
                     route.setPath("/" + menu.getPath());
                     route.setComponent("Layout");
                 }
-                if (StringUtils.isEmpty(route.getRedirect()) && children != null && !children.isEmpty()) {
-                    route.setRedirect(route.getPath() + "/" + menu.getChildren().get(0).getPath());
+                if (CollectionUtils.isNotEmpty(children)) {
+                    setRedirect(originalMenuList, menu, route);
                 }
             }
             if (menuType.equals(MenuType.MENU.getName())) {
@@ -169,11 +185,47 @@ public class SysMenuServiceImpl implements SysMenuService {
             meta.setTitle(menu.getMenuName());
             meta.setIcon(menu.getIcon());
             route.setMeta(meta);
-            if (children != null && !children.isEmpty()) {
-                route.setChildren(buildRoutes(children));
+            if (CollectionUtils.isNotEmpty(children)) {
+                route.setChildren(buildRoutes(children, originalMenuList));
             }
             return route;
         }).toList();
+    }
+
+    /**
+     * 设置重定向
+     *
+     * @param originalMenuList 原始菜单列表
+     * @param menu             菜单对象
+     * @param route            路由对象
+     */
+    private void setRedirect(List<SysMenu> originalMenuList, SysMenu menu, RouteVo route) {
+        route.setRedirect(route.getPath() + "/" + menu.getChildren().get(0).getPath());
+        if (!route.getPath().startsWith("/")) {
+            var parentPath = getParentPath(originalMenuList, menu.getParentId());
+            route.setRedirect(parentPath + "/" + route.getRedirect());
+        }
+    }
+
+    /**
+     * 获取父级路径
+     *
+     * @param originalMenuList 原始菜单列表
+     * @param parentId         父级主键
+     * @return 父级路径
+     */
+    private String getParentPath(List<SysMenu> originalMenuList, Long parentId) {
+        var parentPath = new StringBuilder();
+        for (var menu : originalMenuList) {
+            if (menu.getMenuId().equals(parentId)) {
+                parentPath.append("/").append(menu.getPath());
+            }
+            var children = menu.getChildren();
+            if (CollectionUtils.isNotEmpty(children)) {
+                parentPath.append(getParentPath(menu.getChildren(), parentId));
+            }
+        }
+        return parentPath.toString();
     }
 
     /**
@@ -201,6 +253,7 @@ public class SysMenuServiceImpl implements SysMenuService {
      * @return 影响行数
      */
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public int updateMenuByMenuId(SysMenu menu) {
         var newMenu = menuMapper.selectMenuByMenuId(menu.getParentId());
         var oldMenu = menuMapper.selectMenuByMenuId(menu.getMenuId());
@@ -226,6 +279,7 @@ public class SysMenuServiceImpl implements SysMenuService {
      * @param menu 菜单对象
      * @return 影响行数
      */
+    @Override
     public int updateMenuStatusByMenuId(SysMenu menu) {
         return menuMapper.updateMenuStatusByMenuId(menu);
     }
