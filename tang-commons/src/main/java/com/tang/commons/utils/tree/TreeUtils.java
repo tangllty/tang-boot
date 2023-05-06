@@ -69,7 +69,6 @@ public class TreeUtils {
                 }
                 children.add(treeSelect);
                 recursionTree(treeSelectList, treeSelect);
-
             }
         });
     }

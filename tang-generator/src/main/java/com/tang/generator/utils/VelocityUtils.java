@@ -212,23 +212,9 @@ public class VelocityUtils {
      * @return 模板列表
      */
     public static List<String> getTemplateList() {
-        var templateList = new ArrayList<String>();
-        templateList.add(VM_JAVA_ENTITY);
-        templateList.add(VM_JAVA_MAPPER);
-        templateList.add(VM_JAVA_SERVICE);
-        templateList.add(VM_JAVA_SERVICE_IMPL);
-        templateList.add(VM_JAVA_CONTROLLER);
-        // templateList.add(VM_KOTLIN_ENTITY);
-        // templateList.add(VM_KOTLIN_MAPPER);
-        // templateList.add(VM_KOTLIN_SERVICE);
-        // templateList.add(VM_KOTLIN_SERVICE_IMPL);
-        // templateList.add(VM_KOTLIN_CONTROLLER);
-        templateList.add(VM_XML_MAPPER);
-        templateList.add(VM_VUE_INDEX);
-        templateList.add(VM_VUE_INDEX_TS);
-        templateList.add(VM_VUE_TYPES);
-        templateList.add(VM_SQL_MENU);
-        return templateList;
+        return List.of(VM_JAVA_ENTITY, VM_JAVA_MAPPER, VM_JAVA_SERVICE, VM_JAVA_SERVICE_IMPL, VM_JAVA_CONTROLLER,
+            // VM_KOTLIN_ENTITY, VM_KOTLIN_MAPPER, VM_KOTLIN_SERVICE, VM_KOTLIN_SERVICE_IMPL, VM_KOTLIN_CONTROLLER,
+            VM_XML_MAPPER, VM_VUE_INDEX, VM_VUE_INDEX_TS, VM_VUE_TYPES, VM_SQL_MENU);
     }
 
     /**

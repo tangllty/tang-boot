@@ -2,7 +2,9 @@ package com.tang.framework.security.expression;
 
 import org.springframework.stereotype.Component;
 
-import com.tang.commons.utils.SecurityUtils;
+import static com.tang.commons.utils.SecurityUtils.getPermissions;
+import static com.tang.commons.utils.SecurityUtils.getRoles;
+import static com.tang.commons.utils.SecurityUtils.isAdmin;
 
 /**
  * 认证表达式
@@ -29,10 +31,10 @@ public class AuthenticationExpression {
      * @return 结果
      */
     public boolean hasAnyRole(String... roles) {
-        if (SecurityUtils.isAdmin()) {
+        if (isAdmin()) {
             return true;
         }
-        var roleSet = SecurityUtils.getRoles();
+        var roleSet = getRoles();
         for (String role : roles) {
             if (roleSet.contains(role)) {
                 return true;
@@ -48,10 +50,10 @@ public class AuthenticationExpression {
      * @return 结果
      */
     public boolean hasAllRole(String... roles) {
-        if (SecurityUtils.isAdmin()) {
+        if (isAdmin()) {
             return true;
         }
-        var roleSet = SecurityUtils.getRoles();
+        var roleSet = getRoles();
         for (String role : roles) {
             if (!roleSet.contains(role)) {
                 return false;
@@ -77,10 +79,10 @@ public class AuthenticationExpression {
      * @return 结果
      */
     public boolean hasAnyPermission(String... permissions) {
-        if (SecurityUtils.isAdmin()) {
+        if (isAdmin()) {
             return true;
         }
-        var permissionSet = SecurityUtils.getPermissions();
+        var permissionSet = getPermissions();
         for (String permission : permissions) {
             if (permissionSet.contains(permission)) {
                 return true;
@@ -96,10 +98,10 @@ public class AuthenticationExpression {
      * @return 结果
      */
     public boolean hasAllPermission(String... permissions) {
-        if (SecurityUtils.isAdmin()) {
+        if (isAdmin()) {
             return true;
         }
-        var permissionSet = SecurityUtils.getPermissions();
+        var permissionSet = getPermissions();
         for (String permission : permissions) {
             if (!permissionSet.contains(permission)) {
                 return false;

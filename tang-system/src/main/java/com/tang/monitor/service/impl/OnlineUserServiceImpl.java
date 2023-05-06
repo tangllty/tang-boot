@@ -44,11 +44,11 @@ public class OnlineUserServiceImpl implements OnlineUserService {
         });
         var username = onlineUser.getUsername();
         if (StringUtils.isNotBlank(username)) {
-            onlineUserList.removeIf(o -> !o.getUsername().contains(username));
+            onlineUserList.removeIf(user -> !user.getUsername().contains(username));
         }
         var nickname = onlineUser.getNickname();
         if (StringUtils.isNotBlank(nickname)) {
-            onlineUserList.removeIf(o -> !o.getNickname().contains(nickname));
+            onlineUserList.removeIf(user -> !user.getNickname().contains(nickname));
         }
         return onlineUserList;
     }

@@ -15,15 +15,18 @@ import com.tang.commons.utils.SqlUtils;
  */
 public class PageUtils extends PageHelper {
 
+    private PageUtils() {
+    }
+
     /**
      * 设置请求分页数据
      */
     public static void startPage() {
-        PageDomain pageDomain = TableSupport.buildPageRequest();
-        Integer pageNum = pageDomain.getPageNum();
-        Integer pageSize = pageDomain.getPageSize();
-        String orderBy = SqlUtils.escapeOrderBySql(pageDomain.getOrderBy());
-        Boolean reasonable = pageDomain.getReasonable();
+        var pageDomain = TableSupport.buildPageRequest();
+        var pageNum = pageDomain.getPageNum();
+        var pageSize = pageDomain.getPageSize();
+        var orderBy = SqlUtils.escapeOrderBySql(pageDomain.getOrderBy());
+        var reasonable = pageDomain.getReasonable();
         PageMethod.startPage(pageNum, pageSize, orderBy).setReasonable(reasonable);
     }
 

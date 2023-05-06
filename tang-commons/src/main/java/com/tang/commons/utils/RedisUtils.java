@@ -162,9 +162,7 @@ public class RedisUtils {
      */
     public BoundSetOperations<String, Object> setSet(String key, Set<Object> dataSet) {
         var setOperation = redisTemplate.boundSetOps(key);
-        for (Object data : dataSet) {
-            setOperation.add(data);
-        }
+        setOperation.add(dataSet.toArray());
         return setOperation;
     }
 

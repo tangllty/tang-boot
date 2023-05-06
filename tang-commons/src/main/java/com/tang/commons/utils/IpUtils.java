@@ -2,6 +2,8 @@ package com.tang.commons.utils;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.List;
+
 import org.lionsoul.ip2region.xdb.Searcher;
 import org.springframework.util.ResourceUtils;
 
@@ -24,32 +26,18 @@ public class IpUtils {
      * @return IP 地址
      */
     public static String getIpAddr(HttpServletRequest request) {
-        String unknown = "unknown";
+        var headers = List.of("X-Forwarded-For", "Proxy-Client-IP", "WL-Proxy-Client-IP", "HTTP_CLIENT_IP", "HTTP_X_FORWARDED_FOR", "X-Real-IP");
+        var unknown = "unknown";
 
         if (request == null) {
             return unknown;
         }
-        String ip = request.getHeader("X-Forwarded-For");
-        if (ip == null || ip.length() == 0 || unknown.equalsIgnoreCase(ip)) {
-            ip = request.getHeader("Proxy-Client-IP");
-        }
-        if (ip == null || ip.length() == 0 || unknown.equalsIgnoreCase(ip)) {
-            ip = request.getHeader("WL-Proxy-Client-IP");
-        }
-        if (ip == null || ip.length() == 0 || unknown.equalsIgnoreCase(ip)) {
-            ip = request.getHeader("HTTP_CLIENT_IP");
-        }
-        if (ip == null || ip.length() == 0 || unknown.equalsIgnoreCase(ip)) {
-            ip = request.getHeader("HTTP_X_FORWARDED_FOR");
-        }
-        if (ip == null || ip.length() == 0 || unknown.equalsIgnoreCase(ip)) {
-            ip = request.getHeader("X-Real-IP");
-        }
-
-        if (ip == null || ip.length() == 0 || unknown.equalsIgnoreCase(ip)) {
-            ip = request.getRemoteAddr();
-        }
-        return "0:0:0:0:0:0:0:1".equals(ip) ? "127.0.0.1" : ip;
+        var ipAddr = headers.stream()
+            .map(request::getHeader)
+            .filter(ip -> ip != null && ip.length() != 0 && !unknown.equalsIgnoreCase(ip))
+            .findFirst()
+            .orElse(request.getRemoteAddr());
+        return "0:0:0:0:0:0:0:1".equals(ipAddr) ? "127.0.0.1" : ipAddr;
     }
 
     /**
@@ -59,7 +47,7 @@ public class IpUtils {
      * @return 城市名称
      */
     public static String getCity(String ip) {
-        String region = getRegion(ip);
+        var region = getRegion(ip);
         return region.split("\\|")[3];
     }
 

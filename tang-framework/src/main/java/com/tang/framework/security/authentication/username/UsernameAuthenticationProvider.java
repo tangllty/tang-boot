@@ -7,7 +7,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.stereotype.Component;
 
-import com.tang.commons.core.model.UserModel;
 import com.tang.commons.enumeration.LoginType;
 import com.tang.framework.web.service.authentication.AuthenticationService;
 import com.tang.system.service.SysUserService;
@@ -40,7 +39,7 @@ public class UsernameAuthenticationProvider implements AuthenticationProvider {
 
         var user = userService.selectUserByUsername(username);
 
-        UserModel userModel = authenticationService.createUserModel(user, password, username, LoginType.USERNAME.getName());
+        var userModel = authenticationService.createUserModel(user, password, username, LoginType.USERNAME.getName());
 
         authenticationToken = new UsernameAuthenticationToken(userModel, Collections.emptyList());
 

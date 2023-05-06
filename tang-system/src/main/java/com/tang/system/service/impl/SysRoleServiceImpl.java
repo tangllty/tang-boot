@@ -101,7 +101,7 @@ public class SysRoleServiceImpl implements SysRoleService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public int insertRole(SysRole role) {
-        int rows = roleMapper.insertRole(role);
+        var rows = roleMapper.insertRole(role);
         var menuIds = role.getMenuIds();
         if (!menuIds.isEmpty()) {
             menuMapper.insertRoleMenu(role.getRoleId(), menuIds);

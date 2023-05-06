@@ -11,7 +11,7 @@ import java.util.List;
 public class TableDataResult implements Serializable {
 
     @java.io.Serial
-    private static final long serialVersionUID = -3574841096909987024L;
+    private static final long serialVersionUID = 8981940053131272343L;
 
     /**
      * 总记录数
@@ -21,7 +21,7 @@ public class TableDataResult implements Serializable {
     /**
      * 列表数据
      */
-    private List<?> rows;
+    private transient List<?> rows;
 
     /**
      * 消息状态码

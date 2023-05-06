@@ -134,15 +134,12 @@ public class SysUserServiceImpl implements SysUserService {
         if (user == null) {
             throw new UserNotFoundException("用户不存在");
         }
-
         if (!SecurityUtils.matchesPassword(passwordVo.getOldPassword(), user.getPassword())) {
             throw new PasswordMismatchException("旧密码错误");
         }
-
         if (passwordVo.getNewPassword().equals(passwordVo.getOldPassword())) {
             throw new PasswordMismatchException("新密码不能与旧密码相同");
         }
-
         if (!passwordVo.getNewPassword().equals(passwordVo.getConfirmPassword())) {
             throw new PasswordMismatchException("两次输入密码不一致");
         }

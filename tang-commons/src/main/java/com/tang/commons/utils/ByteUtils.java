@@ -1,6 +1,7 @@
 package com.tang.commons.utils;
 
 import java.text.DecimalFormat;
+import java.util.List;
 
 /**
  * 字节工具类
@@ -22,9 +23,10 @@ public class ByteUtils {
         if (size <= 0) {
             return "0 B";
         }
-        final String[] units = { "B", "KB", "MB", "GB", "TB", "PB", "EB" };
-        int digitGroups = (int) (Math.log10(size) / Math.log10(1024));
-        return new DecimalFormat("#,##0.#").format(size / Math.pow(1024, digitGroups)) + " " + units[digitGroups];
+        var sizeUnits = List.of("B", "KB", "MB", "GB", "TB", "PB", "EB");
+        var formatter = new DecimalFormat("#,##0.#");
+        var digitGroups = (int) (Math.log10(size) / Math.log10(1024));
+        return formatter.format(size / Math.pow(1024, digitGroups)) + " " + sizeUnits.get(digitGroups);
     }
 
 }

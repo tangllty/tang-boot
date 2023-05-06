@@ -1,6 +1,6 @@
 package com.tang.framework.config;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -56,9 +56,7 @@ public class SecurityConfig {
 
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationProvider usernameAuthenticationProvider, AuthenticationProvider emailAuthenticationProvider) {
-        var providers = new ArrayList<AuthenticationProvider>();
-        providers.add(usernameAuthenticationProvider);
-        providers.add(emailAuthenticationProvider);
+        var providers = List.of(usernameAuthenticationProvider, emailAuthenticationProvider);
         return new ProviderManager(providers);
     }
 

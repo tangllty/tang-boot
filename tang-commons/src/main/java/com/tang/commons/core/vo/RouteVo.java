@@ -9,16 +9,34 @@ import java.util.List;
  */
 public class RouteVo {
 
+    /**
+     * 路由名称
+     */
     private String name;
 
+    /**
+     * 路由路径
+     */
     private String path;
 
+    /**
+     * 路由组件
+     */
     private String component;
 
+    /**
+     * 重定向地址
+     */
     private String redirect;
 
+    /**
+     * 路由显示信息
+     */
     private MetaVo meta;
 
+    /**
+     * 子路由集合
+     */
     List<RouteVo> children;
 
 

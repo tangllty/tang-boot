@@ -1,5 +1,7 @@
 package com.tang.commons.utils.page;
 
+import org.apache.commons.lang3.StringUtils;
+
 import com.tang.commons.utils.ServletUtils;
 
 /**
@@ -41,7 +43,7 @@ public class TableSupport {
      * 封装分页对象
      */
     public static PageDomain getPageDomain() {
-        PageDomain pageDomain = new PageDomain();
+        var pageDomain = new PageDomain();
         pageDomain.setPageNum(toInteger(ServletUtils.getParameter(PAGE_NUM), 1));
         pageDomain.setPageSize(toInteger(ServletUtils.getParameter(PAGE_SIZE), 10));
         pageDomain.setOrderByColumn(ServletUtils.getParameter(ORDER_BY_COLUMN));
@@ -71,8 +73,8 @@ public class TableSupport {
         if (value instanceof Number number) {
             return number.intValue();
         }
-        final String valueStr = String.valueOf(value);
-        if (valueStr == null || "".equals(valueStr.trim())) {
+        var valueStr = String.valueOf(value);
+        if (StringUtils.isBlank(valueStr)) {
             return defaultValue;
         }
         try {
@@ -106,8 +108,8 @@ public class TableSupport {
         if (value instanceof Boolean booleanValue) {
             return booleanValue;
         }
-        String valueStr = String.valueOf(value);
-        if (valueStr == null || "".equals(valueStr.trim())) {
+        var valueStr = String.valueOf(value);
+        if (StringUtils.isBlank(valueStr)) {
             return defaultValue;
         }
         valueStr = valueStr.trim().toLowerCase();

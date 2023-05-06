@@ -7,8 +7,14 @@ package com.tang.commons.core.vo;
  */
 public class MetaVo {
 
+    /**
+     * 路由标题
+     */
     private String title;
 
+    /**
+     * 路由图标
+     */
     private String icon;
 
 
