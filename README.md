@@ -4,16 +4,16 @@
 
 #### 项目简介
 
-tang-boot 是基于 Spring Boot3 的权限管理系统
+tang-boot 是基于 Spring Boot 3 的权限管理系统
 
-* 采用 Spring Boot3 + Spring Security + MyBatis + Redis + Jwt
+* 采用 Spring Boot 3 + Spring Security + MyBatis + Redis + Jwt
 * 自定义多种登录认证方式
 * 动态权限菜单
 * 代码生成器，一键生成前后端基本代码
 
 #### 环境要求
 
-* OpenJDK 17.0.6
+* OpenJDK 17.0.7
 * Apache Maven 3.8.7
 * Mysql 8.0.29
 * Redis 7.0.2
@@ -24,7 +24,7 @@ tang-boot 是基于 Spring Boot3 的权限管理系统
 2. 修改 tang-admin/src/main/resources/application-dev.yml password 等信息
 3. 修改 tang-admin/src/main/resources/logback.xml 日志存放路径
 4. ```
-   $ mvn package && cd tang-admin/target && java -jar tang-admin.jar
+   $ mvn package && sh bin/start.sh
    ```
 
 #### 项目地址
