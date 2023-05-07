@@ -24,7 +24,7 @@ public final class SpringUtils implements BeanFactoryPostProcessor, ApplicationC
         SpringUtils.beanFactory = beanFactory;
     }
 
-    private static void setStaticApplicationContext(ApplicationContext applicationContext) {
+    private static void setStaticAppCtx(ApplicationContext applicationContext) {
         SpringUtils.applicationContext = applicationContext;
     }
 
@@ -35,7 +35,7 @@ public final class SpringUtils implements BeanFactoryPostProcessor, ApplicationC
 
     @Override
     public void setApplicationContext(@NonNull ApplicationContext applicationContext) throws BeansException {
-        SpringUtils.setStaticApplicationContext(applicationContext);
+        SpringUtils.setStaticAppCtx(applicationContext);
     }
 
     public static ConfigurableListableBeanFactory getBeanFactory() {
