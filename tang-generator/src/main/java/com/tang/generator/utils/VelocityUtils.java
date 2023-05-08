@@ -17,6 +17,8 @@ import com.tang.generator.entity.GenTableColumn;
 import static com.tang.commons.utils.StringUtils.format;
 
 /**
+ * Velocity 工具类
+ *
  * @author Tang
  */
 public class VelocityUtils {
@@ -172,6 +174,7 @@ public class VelocityUtils {
 
     /**
      * 获取表别名
+     *
      * @param tableName 表名
      * @return 表别名
      */
