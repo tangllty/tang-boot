@@ -22,7 +22,7 @@ public class LogUtils {
     /**
      * 获取调用者类
      *
-     * Class<?> callerClass = STACK_WALKER.STACK_WALKER.getCallerClass();
+     * Class<?> callerClass = STACK_WALKER.getCallerClass();
      * Class<?> callerClass = STACK_WALKER.walk(frames -> frames.skip(1).findFirst().orElseThrow()).getDeclaringClass();
      *
      * @return 调用者类
