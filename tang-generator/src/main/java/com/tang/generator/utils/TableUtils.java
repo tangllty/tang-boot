@@ -15,7 +15,7 @@ public class TableUtils {
     private TableUtils() {
     }
 
-    private static final GeneratorProperties GENERATOR_PROPERTIES = SpringUtils.getApplicationContext().getBean(GeneratorProperties.class);
+    private static final GeneratorProperties GENERATOR_PROPERTIES = SpringUtils.getBean(GeneratorProperties.class);
 
     /**
      * 初始化表信息

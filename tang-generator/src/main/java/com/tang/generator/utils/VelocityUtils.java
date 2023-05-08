@@ -74,7 +74,7 @@ public class VelocityUtils {
 
     private static final String VM_SQL_MENU = "vm/sql/menu.sql.vm";
 
-    private static final GeneratorProperties GENERATOR_PROPERTIES = SpringUtils.getApplicationContext().getBean(GeneratorProperties.class);
+    private static final GeneratorProperties GENERATOR_PROPERTIES = SpringUtils.getBean(GeneratorProperties.class);
 
     /**
      * 设置模板变量信息
