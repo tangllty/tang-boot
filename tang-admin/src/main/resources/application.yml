@@ -27,7 +27,7 @@ server:
 spring:
   # 运行环境
   profiles:
-    active: dev
+    active: @profileActive@
   # Jackson 配置
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss

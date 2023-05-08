@@ -78,6 +78,16 @@
             </plugin>
         </plugins>
         <finalName>${project.artifactId}-${tang.version}</finalName>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+                <includes>
+                    <include>application.yml</include>
+                    <include>application-${profileActive}.yml</include>
+                </includes>
+            </resource>
+        </resources>
     </build>
 
 </project>
