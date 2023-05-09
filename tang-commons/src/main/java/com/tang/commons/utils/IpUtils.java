@@ -1,6 +1,5 @@
 package com.tang.commons.utils;
 
-import java.io.IOException;
 import java.util.List;
 
 import org.lionsoul.ip2region.xdb.Searcher;
@@ -66,8 +65,6 @@ public class IpUtils {
             var region = searcher.search(ip);
             searcher.close();
             return region;
-        } catch (IOException e) {
-            e.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
         }
