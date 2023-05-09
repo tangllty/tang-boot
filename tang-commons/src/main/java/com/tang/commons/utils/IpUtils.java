@@ -1,11 +1,12 @@
 package com.tang.commons.utils;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
 
 import org.lionsoul.ip2region.xdb.Searcher;
 import org.springframework.util.ResourceUtils;
+
+import com.google.common.io.Files;
 
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -57,41 +58,20 @@ public class IpUtils {
      * @param ip IP 地址
      * @return 地区信息
      */
-    public static String getRegion(String ip) {
-        // 1、创建 searcher 对象
-        String dbPath = null;
+    private static String getRegion(String ip) {
         try {
-            dbPath = ResourceUtils.getFile("classpath:ip2region.xdb").getPath();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        Searcher searcher = null;
-        try {
-            searcher = Searcher.newWithFileOnly(dbPath);
+            var file = ResourceUtils.getFile("classpath:ip2region.xdb");
+            var byteArray = Files.toByteArray(file);
+            var searcher = Searcher.newWithBuffer(byteArray);
+            var region = searcher.search(ip);
+            searcher.close();
+            return region;
         } catch (IOException e) {
             e.printStackTrace();
-        }
-
-        String region = null;
-        try {
-            if (searcher != null) {
-                // 2、查询
-                region = searcher.search(ip);
-            }
         } catch (Exception e) {
             e.printStackTrace();
-        } finally {
-            // 3、关闭资源
-            if (searcher != null) {
-                try {
-                    searcher.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-
         }
-        return region != null ? region : "";
+        return "";
     }
 
 }
