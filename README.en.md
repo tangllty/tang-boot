@@ -16,7 +16,7 @@ tang-boot is a permission management system based on Spring Boot 3
 * OpenJDK 17.0.7
 * Apache Maven 3.8.7
 * MySQL 8.0.33
-* Redis 7.0.2
+* Redis 7.0.11
 
 #### Project Startup
 
