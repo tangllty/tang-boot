@@ -1,0 +1,34 @@
+version: '1.0'
+
+services:
+  mysql:
+    container_name: mysql
+    image: mysql:8.0.33
+    ports:
+      - "3306:3306"
+    restart: always
+    volumes:
+      - ./docker/mysql/conf:/etc/mysql/conf.d
+      - ./docker/mysql/logs:/logs
+      - ./docker/mysql/data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: XTJC1qazxsw2!
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+      - --default-time-zone=+8:00
+      - --lower-case-table-names=1
+
+  redis:
+    container_name: redis
+    image: redis:7.0.11
+    ports:
+      - "6379:6379"
+    restart: always
+    volumes:
+      - ./docker/redis/conf/redis.conf:/usr/local/etc/redis/redis.conf
+      - ./docker/redis/data:/data
+    environment:
+        - REDIS_PASSWORD=XTJC1qazxsw2!
+    command:
+      redis-server /usr/local/etc/redis/redis.conf
