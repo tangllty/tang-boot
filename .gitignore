@@ -43,3 +43,8 @@ target/
 
 ### Others ###
 *.log
+
+### Docker ###
+docker/
+!docker/**/Dockerfile
+!docker/redis/conf/redis.conf

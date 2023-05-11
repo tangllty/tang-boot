@@ -7,12 +7,14 @@ services:
     ports:
       - "3306:3306"
     restart: always
+    build:
+      context: ./docker/mysql
     volumes:
       - ./docker/mysql/conf:/etc/mysql/conf.d
-      - ./docker/mysql/logs:/logs
       - ./docker/mysql/data:/var/lib/mysql
+      - ./docker/mysql/logs:/logs
     environment:
-      MYSQL_ROOT_PASSWORD: passwrod
+      MYSQL_ROOT_PASSWORD: password
     command:
       - --character-set-server=utf8mb4
       - --collation-server=utf8mb4_unicode_ci
@@ -25,10 +27,13 @@ services:
     ports:
       - "6379:6379"
     restart: always
+    build:
+      context: ./docker/redis
     volumes:
-      - ./docker/redis/conf/redis.conf:/usr/local/etc/redis/redis.conf
+      - ./docker/redis/conf/redis.conf:/opt/redis/redis.conf
       - ./docker/redis/data:/data
+      - ./docker/redis/logs:/logs
     environment:
-        - REDIS_PASSWORD=passwrod
+        - REDIS_PASSWORD=password
     command:
-      redis-server /usr/local/etc/redis/redis.conf
+      redis-server /opt/redis/redis.conf
