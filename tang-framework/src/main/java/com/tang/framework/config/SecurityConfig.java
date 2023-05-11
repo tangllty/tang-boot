@@ -36,22 +36,22 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity, AuthenticationEntryPoint authenticationEntryPoint,
             JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter, LogoutSuccessHandler logoutSuccessHandler) throws Exception {
         return httpSecurity
-                // 禁用 CSRF
-                .csrf(csrf -> csrf.disable())
-                // 启用 CORS
-                .cors(withDefaults())
-                // 设置 session 管理器为无状态
-                .sessionManagement(management -> management.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                // 设置未登陆过滤器
-                .exceptionHandling(handling -> handling.authenticationEntryPoint(authenticationEntryPoint))
-                .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/login").permitAll()
-                        .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()
-                        .anyRequest().authenticated()
-                )
-                .logout(logout -> logout.logoutUrl("/logout").logoutSuccessHandler(logoutSuccessHandler))
-                .addFilterBefore(jwtAuthenticationTokenFilter, UsernamePasswordAuthenticationFilter.class)
-                .build();
+            // 禁用 CSRF
+            .csrf(csrf -> csrf.disable())
+            // 启用 CORS
+            .cors(withDefaults())
+            // 设置 session 管理器为无状态
+            .sessionManagement(management -> management.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+            // 设置未登陆过滤器
+            .exceptionHandling(handling -> handling.authenticationEntryPoint(authenticationEntryPoint))
+            .authorizeHttpRequests(authorize -> authorize
+                .requestMatchers("/login").permitAll()
+                .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()
+                .anyRequest().authenticated()
+            )
+            .logout(logout -> logout.logoutUrl("/logout").logoutSuccessHandler(logoutSuccessHandler))
+            .addFilterBefore(jwtAuthenticationTokenFilter, UsernamePasswordAuthenticationFilter.class)
+            .build();
     }
 
     @Bean
