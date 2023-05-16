@@ -3,7 +3,6 @@ package com.tang.commons.utils.oshi;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import com.tang.commons.utils.ByteUtils;
 import com.tang.commons.utils.MathUtils;
