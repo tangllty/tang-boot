@@ -44,7 +44,7 @@ public enum LoginType {
      * 根据 name 返回枚举类型
      *
      * @param name 登陆方式
-     * @return LoginType 登陆方式名称
+     * @return {@link LoginType} 登陆方式名称
      */
     public static LoginType getLoginType(String name) {
         for (LoginType loginType : LoginType.values()) {

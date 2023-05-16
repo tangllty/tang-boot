@@ -14,16 +14,16 @@ public class LogUtils {
     }
 
     /**
-     * 定义了一个 StackWalker 实例，使用 StackWalker.Option.RETAIN_CLASS_REFERENCE 选项来获取调用类的引用。
-     * StackWalker 是一个新的 Java 9 API，可以方便地访问栈帧，并提供了比 Thread.getStackTrace() 更高效的方法来获取堆栈跟踪信息。
+     * 定义了一个 {@link StackWalker} 实例，使用 {@link StackWalker.Option#RETAIN_CLASS_REFERENCE} 选项来获取调用类的引用。
+     * {@link StackWalker} 是一个新的 Java 9 API，可以方便地访问栈帧，并提供了比 {@link Thread#getStackTrace()} 更高效的方法来获取堆栈跟踪信息。
      */
     private static final StackWalker STACK_WALKER = StackWalker.getInstance(StackWalker.Option.RETAIN_CLASS_REFERENCE);
 
     /**
      * 获取调用者类
-     *
-     * Class<?> callerClass = STACK_WALKER.getCallerClass();
-     * Class<?> callerClass = STACK_WALKER.walk(frames -> frames.skip(1).findFirst().orElseThrow()).getDeclaringClass();
+     * <p>
+     * <pre>{@code Class<?> callerClass = STACK_WALKER.getCallerClass();}</pre>
+     * <pre>{@code Class<?> callerClass = STACK_WALKER.walk(frames -> frames.skip(1).findFirst().orElseThrow()).getDeclaringClass();}</pre>
      *
      * @return 调用者类
      */
@@ -32,9 +32,9 @@ public class LogUtils {
     }
 
     /**
-     * 获取 Logger
+     * 获取 {@link Logger}
      *
-     * @return Logger
+     * @return {@link Logger}
      */
     public static Logger getLogger() {
         return LoggerFactory.getLogger(STACK_WALKER.getCallerClass());

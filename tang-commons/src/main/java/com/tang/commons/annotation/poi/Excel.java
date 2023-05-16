@@ -53,7 +53,7 @@ public @interface Excel {
     /**
      * 单元格类型
      */
-    public enum CellType {
+    enum CellType {
 
         /**
          * 字符串
@@ -84,7 +84,7 @@ public @interface Excel {
          * 根据 code 返回枚举类型
          *
          * @param code 单元格类型
-         * @return CellType 单元格类型
+         * @return {@link CellType} 单元格类型
          */
         public static CellType getCellType(int code) {
             for (CellType cellType : CellType.values()) {
@@ -100,7 +100,7 @@ public @interface Excel {
     /**
      * 字段类型
      */
-    public enum Type {
+    enum Type {
 
         /**
          * 导入导出
@@ -131,7 +131,7 @@ public @interface Excel {
         * 根据 code 返回枚举类型
         *
         * @param code 导出或导入
-        * @return Type 导出或导入
+        * @return {@link Type} 导出或导入
         */
         public static Type getType(int code) {
             for (Type type : Type.values()) {

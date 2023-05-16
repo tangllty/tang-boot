@@ -22,7 +22,7 @@ public class IpUtils {
     /**
      * 获取客户端IP
      *
-     * @param request request
+     * @param request {@link HttpServletRequest}
      * @return IP 地址
      */
     public static String getIpAddr(HttpServletRequest request) {

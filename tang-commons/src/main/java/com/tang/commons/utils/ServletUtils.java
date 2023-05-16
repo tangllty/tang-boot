@@ -23,33 +23,44 @@ public class ServletUtils {
     private ServletUtils() {
     }
 
+    /**
+     * 获取 {@link ServletRequestAttributes}
+     *
+     * @return {@link ServletRequestAttributes}
+     */
     public static ServletRequestAttributes getRequestAttributes() {
         return (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
     }
 
     /**
-     * 获取request
+     * 获取 {@link HttpServletRequest}
+     *
+     * @return {@link HttpServletRequest}
      */
     public static HttpServletRequest getRequest() {
         return getRequestAttributes().getRequest();
     }
 
     /**
-     * 获取response
+     * 获取 {@link HttpServletResponse}
+     *
+     * @return {@link HttpServletResponse}
      */
     public static HttpServletResponse getResponse() {
         return getRequestAttributes().getResponse();
     }
 
     /**
-     * 获取session
+     * 获取 {@link HttpSession}
+     *
+     * @return {@link HttpSession}
      */
     public static HttpSession getSession() {
         return getRequest().getSession();
     }
 
     /**
-     * 获取String参数
+     * 获取 {@link String} 参数
      */
     public static String getParameter(String name) {
         return getRequest().getParameter(name);

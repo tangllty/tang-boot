@@ -30,13 +30,13 @@ public class AjaxResult extends HashMap<String, Object> {
     private static final String DATA_TAG = "data";
 
     /**
-     * 初始化一个新创建的 AjaxResult 对象
+     * 初始化一个新创建的 {@link AjaxResult} 对象
      */
     public AjaxResult() {
     }
 
     /**
-     * 初始化一个新创建的 AjaxResult 对象
+     * 初始化一个新创建的 {@link AjaxResult} 对象
      *
      * @param code 状态码
      * @param msg  返回内容
@@ -47,7 +47,7 @@ public class AjaxResult extends HashMap<String, Object> {
     }
 
     /**
-     * 初始化一个新创建的 AjaxResult 对象
+     * 初始化一个新创建的 {@link AjaxResult} 对象
      *
      * @param code 状态码
      * @param msg  返回内容
