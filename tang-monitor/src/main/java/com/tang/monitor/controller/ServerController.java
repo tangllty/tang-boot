@@ -1,4 +1,4 @@
-package com.tang.web.controller.monitor;
+package com.tang.monitor.controller;
 
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;

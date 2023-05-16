@@ -1,4 +1,4 @@
-package com.tang.web.controller.monitor;
+package com.tang.monitor.controller;
 
 import java.util.Comparator;
 
