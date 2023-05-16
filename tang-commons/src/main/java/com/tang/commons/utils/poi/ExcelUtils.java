@@ -192,21 +192,14 @@ public class ExcelUtils {
             ReflectionUtils.makeAccessible(field);
             var stringValue = field.get(clazz) == null ? "" : field.get(clazz).toString();
             switch (excel.cellType()) {
-                case STRING -> {
-                    cell.setCellValue(stringValue);
-                    break;
-                }
-                case NUMBER -> {
-                    cell.setCellValue(Double.parseDouble(stringValue));
-                    break;
-                }
+                case STRING -> cell.setCellValue(stringValue);
+                case NUMBER -> cell.setCellValue(Double.parseDouble(stringValue));
                 case DATE -> {
                     if (StringUtils.isNotBlank(stringValue)) {
                         var formatter = DateTimeFormatter.ofPattern(excel.dateFormat());
                         var formattedDate = formatter.format(LocalDateTime.parse(stringValue));
                         cell.setCellValue(formattedDate);
                     }
-                    break;
                 }
                 default -> throw new IllegalArgumentException("不支持的单元格类型: " + excel.cellType());
             }

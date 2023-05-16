@@ -116,7 +116,7 @@ public class OshiUtils {
             partitionInfo.setUsed(ByteUtils.getSize(fileStore.getTotalSpace() - fileStore.getUsableSpace()));
             partitionInfo.setUsage(MathUtils.getPercent(fileStore.getTotalSpace(), fileStore.getTotalSpace() - fileStore.getUsableSpace()) + "%");
             return partitionInfo;
-        }).collect(Collectors.toList());
+        }).toList();
     }
 
     /**
