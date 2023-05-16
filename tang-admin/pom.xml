@@ -12,7 +12,7 @@
     <artifactId>tang-admin</artifactId>
 
     <description>
-        tang-admin
+        tang-admin 后台管理
     </description>
 
     <dependencies>
@@ -37,11 +37,6 @@
         </dependency>
 
         <dependency>
-            <groupId>org.springdoc</groupId>
-            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
-        </dependency>
-
-        <dependency>
             <groupId>com.tang</groupId>
             <artifactId>tang-framework</artifactId>
         </dependency>
@@ -49,6 +44,16 @@
         <dependency>
             <groupId>com.tang</groupId>
             <artifactId>tang-generator</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.tang</groupId>
+            <artifactId>tang-monitor</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.tang</groupId>
+            <artifactId>tang-swagger</artifactId>
         </dependency>
 
     </dependencies>

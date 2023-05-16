@@ -1,4 +1,4 @@
-package com.tang.web.controller;
+package com.tang.admin.controller;
 
 import java.util.Map;
 

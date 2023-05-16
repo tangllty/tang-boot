@@ -9,28 +9,22 @@
         <version>1.5.3</version>
     </parent>
 
-    <artifactId>tang-framework</artifactId>
+    <artifactId>tang-swagger</artifactId>
 
     <description>
-        tang-framework 系统框架
+        tang-swagger 接口文档
     </description>
 
     <dependencies>
 
-        <!-- SpringBoot Web容器 -->
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.mybatis.spring.boot</groupId>
-            <artifactId>mybatis-spring-boot-starter</artifactId>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
         </dependency>
 
         <dependency>
             <groupId>com.tang</groupId>
-            <artifactId>tang-system</artifactId>
+            <artifactId>tang-commons</artifactId>
         </dependency>
 
     </dependencies>

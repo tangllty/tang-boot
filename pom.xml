@@ -17,6 +17,8 @@
         <module>tang-commons</module>
         <module>tang-framework</module>
         <module>tang-generator</module>
+        <module>tang-monitor</module>
+        <module>tang-swagger</module>
         <module>tang-system</module>
     </modules>
 
@@ -206,6 +208,18 @@
             <dependency>
                 <groupId>com.tang</groupId>
                 <artifactId>tang-generator</artifactId>
+                <version>${tang.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.tang</groupId>
+                <artifactId>tang-monitor</artifactId>
+                <version>${tang.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.tang</groupId>
+                <artifactId>tang-swagger</artifactId>
                 <version>${tang.version}</version>
             </dependency>
 

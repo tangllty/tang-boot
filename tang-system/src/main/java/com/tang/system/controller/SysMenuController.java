@@ -1,4 +1,4 @@
-package com.tang.web.controller.system;
+package com.tang.system.controller;
 
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;

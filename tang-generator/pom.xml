@@ -12,7 +12,7 @@
     <artifactId>tang-generator</artifactId>
 
     <description>
-        tang-generator
+        tang-generator 代码生成
     </description>
 
     <dependencies>

@@ -1,4 +1,4 @@
-package com.tang.web.controller.profile;
+package com.tang.admin.controller;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.security.access.prepost.PreAuthorize;

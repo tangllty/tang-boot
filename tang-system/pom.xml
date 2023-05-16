@@ -12,7 +12,7 @@
     <artifactId>tang-system</artifactId>
 
     <description>
-        tang-system
+        tang-system 系统核心
     </description>
 
     <dependencies>
