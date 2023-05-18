@@ -1,5 +1,6 @@
 package com.tang.framework.web.service;
 
+import org.slf4j.Logger;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.Authentication;
@@ -10,6 +11,7 @@ import com.tang.commons.core.model.LoginModel;
 import com.tang.commons.core.model.UserModel;
 import com.tang.commons.enumeration.LoginType;
 import com.tang.commons.exception.user.IllegalLoginTypeException;
+import com.tang.commons.utils.LogUtils;
 import com.tang.framework.security.authentication.email.EmailAuthenticationToken;
 import com.tang.framework.security.authentication.username.UsernameAuthenticationToken;
 import com.tang.system.service.log.SysLogLoginService;
@@ -21,6 +23,8 @@ import com.tang.system.service.log.SysLogLoginService;
  */
 @Component
 public class LoginService {
+
+    private static final Logger LOGGER = LogUtils.getLogger();
 
     private final AuthenticationManager authenticationManager;
 
@@ -61,7 +65,8 @@ public class LoginService {
 
         var token = tokenService.createToken(userModel);
 
-        logLoginService.recordLoginInfo(userModel.getUser().getUserId(), userModel, account, LoginType.USERNAME.getName(), true, "登陆成功");
+        logLoginService.recordLoginInfo(userModel.getUser().getUserId(), userModel, account, loginModel.getLoginType(), true, "登陆成功");
+        LOGGER.info("用户使用 {} 方式登陆成功，登陆账号：{}", loginModel.getLoginType(), account);
 
         return token;
     }
