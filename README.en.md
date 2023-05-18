@@ -6,6 +6,8 @@
 
 tang-boot is a permission management system based on Spring Boot 3
 
+You can read the [documentation](./docs/documentation.en.md) for more information
+
 * Using Spring Boot 3 + Spring Security + MyBatis + Redis + Jwt
 * Customized multiple login authentication methods
 * Dynamic permissions menu
