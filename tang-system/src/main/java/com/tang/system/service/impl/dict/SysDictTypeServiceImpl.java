@@ -17,7 +17,7 @@ import com.tang.system.service.dict.SysDictTypeService;
 
 import jakarta.annotation.PostConstruct;
 
-import static com.tang.commons.constants.CachePrefix.DICT;
+import static com.tang.commons.constants.CachePrefix.DICT_TYPE;
 
 /**
  * 字典类型表 SysDictType 表服务实现类
@@ -53,7 +53,7 @@ public class SysDictTypeServiceImpl implements SysDictTypeService {
         var dictTypeList = dictTypeMapper.selectDictTypeList(new SysDictType());
         dictTypeList.forEach(dictType -> {
             var dictDataList = dictDataMapper.selectDictDataListByDictType(dictType.getDictType());
-            redisUtils.set(DICT + dictType.getDictType(), dictDataList);
+            redisUtils.set(DICT_TYPE + dictType.getDictType(), dictDataList);
         });
         LOGGER.info("End caching dictionary data");
     }
@@ -88,7 +88,7 @@ public class SysDictTypeServiceImpl implements SysDictTypeService {
      */
     @Override
     public int insertDictType(SysDictType dictType) {
-        redisUtils.set(DICT + dictType.getDictType(), Collections.emptyList());
+        redisUtils.set(DICT_TYPE + dictType.getDictType(), Collections.emptyList());
         return dictTypeMapper.insertDictType(dictType);
     }
 
@@ -102,8 +102,8 @@ public class SysDictTypeServiceImpl implements SysDictTypeService {
     public int updateDictTypeByTypeId(SysDictType dictType) {
         var oldDictType = dictTypeMapper.selectDictTypeByTypeId(dictType.getTypeId()).getDictType();
         var dictDataList = dictDataService.selectDictDataListByDictType(oldDictType);
-        redisUtils.delete(DICT + oldDictType);
-        redisUtils.set(DICT + dictType.getDictType(), dictDataList);
+        redisUtils.delete(DICT_TYPE + oldDictType);
+        redisUtils.set(DICT_TYPE + dictType.getDictType(), dictDataList);
         return dictTypeMapper.updateDictTypeByTypeId(dictType);
     }
 
@@ -117,7 +117,7 @@ public class SysDictTypeServiceImpl implements SysDictTypeService {
     @Transactional(rollbackFor = Exception.class)
     public int deleteDictTypeByTypeId(Long typeId) {
         var dictType = dictTypeMapper.selectDictTypeByTypeId(typeId).getDictType();
-        redisUtils.delete(DICT + dictType);
+        redisUtils.delete(DICT_TYPE + dictType);
         dictDataMapper.deleteDictDataByTypeId(typeId);
         return dictTypeMapper.deleteDictTypeByTypeId(typeId);
     }
@@ -133,7 +133,7 @@ public class SysDictTypeServiceImpl implements SysDictTypeService {
     public int deleteDictTypeByTypeIds(Long[] typeIds) {
         for (Long typeId : typeIds) {
             var dictType = dictTypeMapper.selectDictTypeByTypeId(typeId).getDictType();
-            redisUtils.delete(DICT + dictType);
+            redisUtils.delete(DICT_TYPE + dictType);
         }
         dictDataMapper.deleteDictDataByTypeIds(typeIds);
         return dictTypeMapper.deleteDictTypeByTypeIds(typeIds);

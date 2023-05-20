@@ -23,6 +23,6 @@ public class CachePrefix {
     /**
      * 字典数据缓存前缀
      */
-    public static final String DICT = SYSTEM + "dict_type:";
+    public static final String DICT_TYPE = SYSTEM + "dict_type:";
 
 }
