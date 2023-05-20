@@ -31,3 +31,9 @@ YML_PATH="tang-admin/src/main/resources/application.yml"
 
 sed -i "0,/version:/ s/\(version:\s*\)[^\n]*/\1$NEW_VERSION/" $YML_PATH
 echo "Version number changed from ${OLD_VERSION} to ${NEW_VERSION} in ${YML_PATH}"
+
+# Define the docker-compose.yml file path
+DOCKER_COMPOSE_PATH="docker-compose.yml"
+
+sed -i "0,/version:/ s/\(version:\s*\)[^\n]*/\1'$NEW_VERSION'/" $DOCKER_COMPOSE_PATH
+echo "Version number changed from ${OLD_VERSION} to ${NEW_VERSION} in ${DOCKER_COMPOSE_PATH}"
