@@ -11,6 +11,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 
+import com.tang.commons.constants.CachePrefix;
 import com.tang.commons.core.autoconfigure.TokenProperties;
 import com.tang.commons.core.model.UserModel;
 import com.tang.commons.utils.IdUtils;
@@ -36,8 +37,6 @@ import jakarta.servlet.http.HttpServletRequest;
 public class TokenService {
 
     private static final String LOGIN_USER_KEY = "login_user_key";
-
-    private static final String LOGIN_TOKEN_KEY = "login_tokens:";
 
     private static final String TOKEN_PREFIX = "Bearer ";
 
@@ -247,7 +246,7 @@ public class TokenService {
      * @return 键
      */
     private String getTokenKey(String uuid) {
-        return LOGIN_TOKEN_KEY + uuid;
+        return CachePrefix.LOGIN_TOKENS + uuid;
     }
 
 }
