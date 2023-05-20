@@ -1,14 +1,23 @@
 package com.tang.system.service.impl.dict;
 
+import java.util.Collections;
 import java.util.List;
 
+import org.slf4j.Logger;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.tang.commons.utils.LogUtils;
+import com.tang.commons.utils.RedisUtils;
 import com.tang.system.entity.dict.SysDictType;
 import com.tang.system.mapper.dict.SysDictDataMapper;
 import com.tang.system.mapper.dict.SysDictTypeMapper;
+import com.tang.system.service.dict.SysDictDataService;
 import com.tang.system.service.dict.SysDictTypeService;
+
+import jakarta.annotation.PostConstruct;
+
+import static com.tang.commons.constants.CachePrefix.DICT;
 
 /**
  * 字典类型表 SysDictType 表服务实现类
@@ -18,13 +27,35 @@ import com.tang.system.service.dict.SysDictTypeService;
 @Service
 public class SysDictTypeServiceImpl implements SysDictTypeService {
 
+    private static final Logger LOGGER = LogUtils.getLogger();
+
     private final SysDictTypeMapper dictTypeMapper;
 
     private final SysDictDataMapper dictDataMapper;
 
-    public SysDictTypeServiceImpl(SysDictTypeMapper dictTypeMapper, SysDictDataMapper dictDataMapper) {
+    private final SysDictDataService dictDataService;
+
+    private final RedisUtils redisUtils;
+
+    public SysDictTypeServiceImpl(SysDictTypeMapper dictTypeMapper, SysDictDataMapper dictDataMapper, SysDictDataService dictDataService, RedisUtils redisUtils) {
         this.dictTypeMapper = dictTypeMapper;
         this.dictDataMapper = dictDataMapper;
+        this.dictDataService = dictDataService;
+        this.redisUtils = redisUtils;
+    }
+
+    /**
+     * 缓存字典数据
+     */
+    @PostConstruct
+    public void init() {
+        LOGGER.info("Start caching dictionary data");
+        var dictTypeList = dictTypeMapper.selectDictTypeList(new SysDictType());
+        dictTypeList.forEach(dictType -> {
+            var dictDataList = dictDataMapper.selectDictDataListByDictType(dictType.getDictType());
+            redisUtils.set(DICT + dictType.getDictType(), dictDataList);
+        });
+        LOGGER.info("End caching dictionary data");
     }
 
     /**
@@ -57,6 +88,7 @@ public class SysDictTypeServiceImpl implements SysDictTypeService {
      */
     @Override
     public int insertDictType(SysDictType dictType) {
+        redisUtils.set(DICT + dictType.getDictType(), Collections.emptyList());
         return dictTypeMapper.insertDictType(dictType);
     }
 
@@ -68,6 +100,10 @@ public class SysDictTypeServiceImpl implements SysDictTypeService {
      */
     @Override
     public int updateDictTypeByTypeId(SysDictType dictType) {
+        var oldDictType = dictTypeMapper.selectDictTypeByTypeId(dictType.getTypeId()).getDictType();
+        var dictDataList = dictDataService.selectDictDataListByDictType(oldDictType);
+        redisUtils.delete(DICT + oldDictType);
+        redisUtils.set(DICT + dictType.getDictType(), dictDataList);
         return dictTypeMapper.updateDictTypeByTypeId(dictType);
     }
 
@@ -80,6 +116,8 @@ public class SysDictTypeServiceImpl implements SysDictTypeService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public int deleteDictTypeByTypeId(Long typeId) {
+        var dictType = dictTypeMapper.selectDictTypeByTypeId(typeId).getDictType();
+        redisUtils.delete(DICT + dictType);
         dictDataMapper.deleteDictDataByTypeId(typeId);
         return dictTypeMapper.deleteDictTypeByTypeId(typeId);
     }
@@ -93,6 +131,10 @@ public class SysDictTypeServiceImpl implements SysDictTypeService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public int deleteDictTypeByTypeIds(Long[] typeIds) {
+        for (Long typeId : typeIds) {
+            var dictType = dictTypeMapper.selectDictTypeByTypeId(typeId).getDictType();
+            redisUtils.delete(DICT + dictType);
+        }
         dictDataMapper.deleteDictDataByTypeIds(typeIds);
         return dictTypeMapper.deleteDictTypeByTypeIds(typeIds);
     }
