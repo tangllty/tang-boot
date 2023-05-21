@@ -58,7 +58,7 @@ public class SysUser extends BaseEntity {
     /**
      * 性别
      */
-    @Excel("性别")
+    @Excel(name = "性别", dictType = "sys_user_gender")
     private String gender;
 
     /**
@@ -74,13 +74,13 @@ public class SysUser extends BaseEntity {
     /**
      * 帐号状态
      */
-    @Excel("帐号状态")
+    @Excel(name = "帐号状态", dictType = "sys_status")
     private String status;
 
     /**
      * 删除标志
      */
-    @Excel("删除标志")
+    @Excel(name = "删除标志", dictType = "sys_del_flag")
     private String delFlag;
 
     /**

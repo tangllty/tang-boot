@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
+import com.tang.commons.core.model.SysDictDataModel;
 import com.tang.commons.utils.RedisUtils;
 import com.tang.system.entity.dict.SysDictData;
 import com.tang.system.mapper.dict.SysDictDataMapper;
@@ -48,10 +49,10 @@ public class SysDictDataServiceImpl implements SysDictDataService {
      * @return 字典数据列表
      */
     @Override
-    public List<SysDictData> selectDictDataListByDictType(String dictType) {
+    public List<SysDictDataModel> selectDictDataListByDictType(String dictType) {
         var dictDataList = redisUtils.get(DICT_TYPE + dictType);
         if (dictDataList instanceof List<?> list) {
-            return list.stream().map(SysDictData.class::cast).collect(Collectors.toList());
+            return list.stream().map(SysDictDataModel.class::cast).collect(Collectors.toList());
         }
         return Collections.emptyList();
     }
@@ -77,7 +78,7 @@ public class SysDictDataServiceImpl implements SysDictDataService {
     public int insertDictData(SysDictData dictData) {
         var rows = dictDataMapper.insertDictData(dictData);
         var dictDataList = selectDictDataListByDictType(dictData.getDictType());
-        dictDataList.add(dictData);
+        dictDataList.add(convertDictDataModel(dictData));
         redisUtils.set(DICT_TYPE + dictData.getDictType(), dictDataList);
         return rows;
     }
@@ -93,7 +94,7 @@ public class SysDictDataServiceImpl implements SysDictDataService {
         var dictDataList = selectDictDataListByDictType(dictData.getDictType()).stream()
             .filter(item -> !item.getDataId().equals(dictData.getDataId()))
             .collect(Collectors.toList());
-        dictDataList.add(dictData);
+        dictDataList.add(convertDictDataModel(dictData));
         redisUtils.set(DICT_TYPE + dictData.getDictType(), dictDataList);
         return dictDataMapper.updateDictDataByDataId(dictData);
     }
@@ -130,6 +131,26 @@ public class SysDictDataServiceImpl implements SysDictDataService {
             redisUtils.set(DICT_TYPE + dictType, dictDataList);
         }
         return dictDataMapper.deleteDictDataByDataIds(dataIds);
+    }
+
+    /**
+     * 转换字典类型为字典数据模型
+     *
+     * @param dictData 字典数据
+     * @return 字典数据模型
+     */
+    private SysDictDataModel convertDictDataModel(SysDictData dictData) {
+        var dictDataModel = new SysDictDataModel();
+        dictDataModel.setDataId(dictData.getDataId());
+        dictDataModel.setDictType(dictData.getDictType());
+        dictDataModel.setDataLabel(dictData.getDataLabel());
+        dictDataModel.setDataValue(dictData.getDataValue());
+        dictDataModel.setCssClass(dictData.getCssClass());
+        dictDataModel.setTypeClass(dictData.getTypeClass());
+        dictDataModel.setSort(dictData.getSort());
+        dictDataModel.setStatus(dictData.getStatus());
+        dictDataModel.setRemark(dictData.getRemark());
+        return dictDataModel;
     }
 
 }

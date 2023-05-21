@@ -51,6 +51,11 @@ public @interface Excel {
     Type type() default Type.ALL;
 
     /**
+     * 字典类型
+     */
+    String dictType() default "";
+
+    /**
      * 单元格类型
      */
     enum CellType {

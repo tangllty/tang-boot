@@ -2,13 +2,16 @@ package com.tang.system.service.impl.dict;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.tang.commons.core.model.SysDictDataModel;
 import com.tang.commons.utils.LogUtils;
 import com.tang.commons.utils.RedisUtils;
+import com.tang.system.entity.dict.SysDictData;
 import com.tang.system.entity.dict.SysDictType;
 import com.tang.system.mapper.dict.SysDictDataMapper;
 import com.tang.system.mapper.dict.SysDictTypeMapper;
@@ -53,7 +56,7 @@ public class SysDictTypeServiceImpl implements SysDictTypeService {
         var dictTypeList = dictTypeMapper.selectDictTypeList(new SysDictType());
         dictTypeList.forEach(dictType -> {
             var dictDataList = dictDataMapper.selectDictDataListByDictType(dictType.getDictType());
-            redisUtils.set(DICT_TYPE + dictType.getDictType(), dictDataList);
+            redisUtils.set(DICT_TYPE + dictType.getDictType(), convertDictDataModelList(dictDataList));
         });
         LOGGER.info("End caching dictionary data");
     }
@@ -137,6 +140,28 @@ public class SysDictTypeServiceImpl implements SysDictTypeService {
         }
         dictDataMapper.deleteDictDataByTypeIds(typeIds);
         return dictTypeMapper.deleteDictTypeByTypeIds(typeIds);
+    }
+
+    /**
+     * 转换字典类型集合为字典类型模型集合
+     *
+     * @param dictDataList 字典数据集合
+     * @return 字典数据模型集合
+     */
+    private List<SysDictDataModel> convertDictDataModelList(List<SysDictData> dictDataList) {
+        return dictDataList.stream().map(dictData -> {
+            var dictDataModel = new SysDictDataModel();
+            dictDataModel.setDataId(dictData.getDataId());
+            dictDataModel.setDictType(dictData.getDictType());
+            dictDataModel.setDataLabel(dictData.getDataLabel());
+            dictDataModel.setDataValue(dictData.getDataValue());
+            dictDataModel.setCssClass(dictData.getCssClass());
+            dictDataModel.setTypeClass(dictData.getTypeClass());
+            dictDataModel.setSort(dictData.getSort());
+            dictDataModel.setStatus(dictData.getStatus());
+            dictDataModel.setRemark(dictData.getRemark());
+            return dictDataModel;
+        }).collect(Collectors.toList());
     }
 
 }

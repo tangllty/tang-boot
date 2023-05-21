@@ -2,6 +2,7 @@ package com.tang.system.service.dict;
 
 import java.util.List;
 
+import com.tang.commons.core.model.SysDictDataModel;
 import com.tang.system.entity.dict.SysDictData;
 
 /**
@@ -25,7 +26,7 @@ public interface SysDictDataService {
      * @param dictType 字典类型
      * @return 字典数据列表
      */
-    List<SysDictData> selectDictDataListByDictType(String dictType);
+    List<SysDictDataModel> selectDictDataListByDictType(String dictType);
 
     /**
      * 通过主键查询单条数据

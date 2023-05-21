@@ -13,7 +13,9 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.poi.ss.util.CellRangeAddressList;
 import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFDataValidationHelper;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.slf4j.Logger;
@@ -26,8 +28,10 @@ import com.tang.commons.annotation.poi.Excel;
 import com.tang.commons.annotation.poi.Excel.Type;
 import com.tang.commons.constants.ContentType;
 import com.tang.commons.constants.FileType;
+import com.tang.commons.core.model.SysDictDataModel;
 import com.tang.commons.exception.FileNotExistException;
 import com.tang.commons.exception.FileTypeMismatchException;
+import com.tang.commons.utils.DictUtils;
 import com.tang.commons.utils.LogUtils;
 
 import jakarta.servlet.http.HttpServletResponse;
@@ -108,7 +112,13 @@ public class ExcelUtils {
 
         return switch(field.getType().getName()) {
             case "java.lang.Long" -> (long) cell.getNumericCellValue();
-            case "java.lang.String" -> cell.getStringCellValue();
+            case "java.lang.String" -> {
+                var dictType = excel.dictType();
+                if (StringUtils.isNotBlank(dictType)) {
+                    yield DictUtils.getDictValue(dictType, cell.getStringCellValue());
+                }
+                yield cell.getStringCellValue();
+            }
             case "java.time.LocalDateTime" -> {
                 if (StringUtils.isBlank(cell.getStringCellValue())) {
                     yield null;
@@ -192,7 +202,20 @@ public class ExcelUtils {
             ReflectionUtils.makeAccessible(field);
             var stringValue = field.get(clazz) == null ? "" : field.get(clazz).toString();
             switch (excel.cellType()) {
-                case STRING -> cell.setCellValue(stringValue);
+                case STRING -> {
+                    var dictType = excel.dictType();
+                    if (StringUtils.isNotBlank(dictType)) {
+                        var dictDataList = DictUtils.getDictDataList(dictType);
+                        var validationHelper = new XSSFDataValidationHelper(cell.getSheet());
+                        var validationConstraint = validationHelper.createExplicitListConstraint(dictDataList.stream().map(SysDictDataModel::getDataLabel).toList().toArray(new String[0]));
+                        var cellRangeAddressList = new CellRangeAddressList(cell.getRowIndex(), cell.getRowIndex(), cell.getColumnIndex(), cell.getColumnIndex());
+                        var validation = validationHelper.createValidation(validationConstraint, cellRangeAddressList);
+                        cell.setCellValue(DictUtils.getDictLabel(dictType, stringValue));
+                        cell.getSheet().addValidationData(validation);
+                    } else {
+                        cell.setCellValue(stringValue);
+                    }
+                }
                 case NUMBER -> cell.setCellValue(Double.parseDouble(stringValue));
                 case DATE -> {
                     if (StringUtils.isNotBlank(stringValue)) {
