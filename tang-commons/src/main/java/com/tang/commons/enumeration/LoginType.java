@@ -1,5 +1,7 @@
 package com.tang.commons.enumeration;
 
+import org.apache.commons.lang3.StringUtils;
+
 /**
  * 登陆方式
  *
@@ -15,7 +17,12 @@ public enum LoginType {
     /**
      * 邮箱密码
      */
-    EMAIL("email", "邮箱密码");
+    EMAIL("email", "邮箱密码"),
+
+    /**
+     * 未知
+     */
+    UNKNOWN("", "未知");
 
     /**
      * 登陆方式
@@ -47,12 +54,15 @@ public enum LoginType {
      * @return {@link LoginType} 登陆方式名称
      */
     public static LoginType getLoginType(String name) {
+        if (StringUtils.isBlank(name)) {
+            return UNKNOWN;
+        }
         for (LoginType loginType : LoginType.values()) {
             if (loginType.getName().equals(name)) {
                 return loginType;
             }
         }
-        return null;
+        return UNKNOWN;
     }
 
 }
