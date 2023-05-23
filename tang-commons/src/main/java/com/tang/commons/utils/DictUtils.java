@@ -1,11 +1,11 @@
 package com.tang.commons.utils;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import com.tang.commons.constants.CachePrefix;
 import com.tang.commons.core.model.SysDictDataModel;
-import java.util.Collections;
 
 /**
  * 字典工具类
