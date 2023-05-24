@@ -56,6 +56,21 @@ public @interface Excel {
     String dictType() default "";
 
     /**
+     * 列宽
+     */
+    int width() default 10;
+
+    /**
+     * 行高
+     */
+    int height() default 16;
+
+    /**
+     * 标题行高
+     */
+    int titleHeight() default 16;
+
+    /**
      * 单元格类型
      */
     enum CellType {

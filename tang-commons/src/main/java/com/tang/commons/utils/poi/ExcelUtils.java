@@ -186,6 +186,8 @@ public class ExcelUtils {
             fields.forEach((field, excel) -> {
                 var lastCellNum = row.getLastCellNum() == -1 ? 0 : row.getLastCellNum();
                 var cell = row.createCell(lastCellNum);
+                // 设置行高
+                row.setHeight((short) (excel.height() * 20));
                 setCellValue(cell, clazz, field, excel);
             });
         });
@@ -267,6 +269,10 @@ public class ExcelUtils {
             cellStyle.setBottomBorderColor(IndexedColors.BLACK.getIndex());
             // 设置样式
             cell.setCellStyle(cellStyle);
+            // 设置列宽
+            sheet.setColumnWidth(lastCellNum, excel.width() * 256);
+            // 设置行高
+            titleRow.setHeight((short) (excel.titleHeight() * 20));
         });
     }
 
