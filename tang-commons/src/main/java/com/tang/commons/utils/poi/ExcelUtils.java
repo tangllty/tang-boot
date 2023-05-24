@@ -13,6 +13,9 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.poi.ss.usermodel.BorderStyle;
+import org.apache.poi.ss.usermodel.FillPatternType;
+import org.apache.poi.ss.usermodel.IndexedColors;
 import org.apache.poi.ss.util.CellRangeAddressList;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFDataValidationHelper;
@@ -243,6 +246,27 @@ public class ExcelUtils {
             var lastCellNum = titleRow.getLastCellNum() == -1 ? 0 : titleRow.getLastCellNum();
             var cell = titleRow.createCell(lastCellNum);
             cell.setCellValue(excel.name());
+
+            // 设置标题样式
+            var cellStyle = sheet.getWorkbook().createCellStyle();
+            // 设置字体
+            var font = sheet.getWorkbook().createFont();
+            font.setBold(true);
+            cellStyle.setFont(font);
+            // 设置背景色
+            cellStyle.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());
+            cellStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+            // 设置边框
+            cellStyle.setBorderLeft(BorderStyle.THIN);
+            cellStyle.setLeftBorderColor(IndexedColors.BLACK.getIndex());
+            cellStyle.setBorderTop(BorderStyle.THIN);
+            cellStyle.setTopBorderColor(IndexedColors.BLACK.getIndex());
+            cellStyle.setBorderRight(BorderStyle.THIN);
+            cellStyle.setRightBorderColor(IndexedColors.BLACK.getIndex());
+            cellStyle.setBorderBottom(BorderStyle.THIN);
+            cellStyle.setBottomBorderColor(IndexedColors.BLACK.getIndex());
+            // 设置样式
+            cell.setCellStyle(cellStyle);
         });
     }
 
