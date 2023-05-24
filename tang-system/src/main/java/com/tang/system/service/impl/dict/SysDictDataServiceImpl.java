@@ -52,7 +52,7 @@ public class SysDictDataServiceImpl implements SysDictDataService {
     public List<SysDictDataModel> selectDictDataListByDictType(String dictType) {
         var dictDataList = redisUtils.get(DICT_TYPE + dictType);
         if (dictDataList instanceof List<?> list) {
-            return list.stream().map(SysDictDataModel.class::cast).collect(Collectors.toList());
+            return list.stream().map(SysDictDataModel.class::cast).toList();
         }
         return Collections.emptyList();
     }
@@ -110,7 +110,7 @@ public class SysDictDataServiceImpl implements SysDictDataService {
         var dictType = selectDictDataByDataId(dataId).getDictType();
         var dictDataList = selectDictDataListByDictType(dictType).stream()
             .filter(item -> !item.getDataId().equals(dataId))
-            .collect(Collectors.toList());
+            .toList();
         redisUtils.set(DICT_TYPE + dictType, dictDataList);
         return dictDataMapper.deleteDictDataByDataId(dataId);
     }
@@ -127,7 +127,7 @@ public class SysDictDataServiceImpl implements SysDictDataService {
             var dictType = selectDictDataByDataId(dataId).getDictType();
             var dictDataList = selectDictDataListByDictType(dictType).stream()
                 .filter(item -> !item.getDataId().equals(dataId))
-                .collect(Collectors.toList());
+                .toList();
             redisUtils.set(DICT_TYPE + dictType, dictDataList);
         }
         return dictDataMapper.deleteDictDataByDataIds(dataIds);
