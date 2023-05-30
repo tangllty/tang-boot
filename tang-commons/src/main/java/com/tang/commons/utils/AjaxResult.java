@@ -30,6 +30,16 @@ public class AjaxResult extends HashMap<String, Object> {
     private static final String DATA_TAG = "data";
 
     /**
+     * 操作成功信息
+     */
+    private static final String SUCCESS_MSG = "操作成功";
+
+    /**
+     * 操作失败信息
+     */
+    private static final String ERROR_MSG = "操作失败";
+
+    /**
      * 初始化一个新创建的 {@link AjaxResult} 对象
      */
     public AjaxResult() {
@@ -67,7 +77,7 @@ public class AjaxResult extends HashMap<String, Object> {
      * @return 成功消息
      */
     public static AjaxResult success() {
-        return AjaxResult.success("操作成功");
+        return AjaxResult.success(SUCCESS_MSG);
     }
 
     /**
@@ -87,7 +97,7 @@ public class AjaxResult extends HashMap<String, Object> {
      * @return 成功消息
      */
     public static AjaxResult success(Object data) {
-        return AjaxResult.success("操作成功", data);
+        return AjaxResult.success(SUCCESS_MSG, data);
     }
 
     /**
@@ -107,7 +117,7 @@ public class AjaxResult extends HashMap<String, Object> {
      * @return 失败消息
      */
     public static AjaxResult error() {
-        return AjaxResult.error("操作失败");
+        return AjaxResult.error(ERROR_MSG);
     }
 
     /**
