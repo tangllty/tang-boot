@@ -128,6 +128,7 @@ public class SysUserServiceImpl implements SysUserService {
      * @param passwordVo 密码对象
      * @return 影响行数
      */
+    @Override
     public int updatePasswordByUserId(PasswordVo passwordVo) {
         var user = userMapper.selectUserByUserId(passwordVo.getUserId());
 
@@ -146,6 +147,18 @@ public class SysUserServiceImpl implements SysUserService {
 
         user.setPassword(SecurityUtils.encryptPassword(passwordVo.getNewPassword()));
         return userMapper.updateUserByUserId(user);
+    }
+
+    /**
+     * 修改用户头像
+     *
+     * @param userId     用户主键
+     * @param avatarPath 头像路径
+     * @return 影响行数
+     */
+    @Override
+    public int updateAvatarByUserId(Long userId, String avatarPath) {
+        return userMapper.updateAvatarByUserId(userId, avatarPath);
     }
 
     /**

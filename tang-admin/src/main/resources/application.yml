@@ -1,9 +1,11 @@
 # 项目配置
 tang:
-  # 名称
+  # 项目名称
   name: 糖猫猫后台管理系统
-  # 版本
+  # 项目版本
   version: 1.5.4
+  # 文件上传路径
+  uploads: /home/tang/uploads/tang-boot
 
 # 环境配置
 server:

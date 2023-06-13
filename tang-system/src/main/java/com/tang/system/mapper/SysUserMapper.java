@@ -2,6 +2,8 @@ package com.tang.system.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.tang.system.entity.SysUser;
 
 /**
@@ -74,6 +76,15 @@ public interface SysUserMapper {
      * @return 影响行数
      */
     int updatePasswordByUserId(SysUser  user);
+
+    /**
+     * 修改用户头像
+     *
+     * @param userId     用户主键
+     * @param avatarPath 头像路径
+     * @return 影响行数
+     */
+    int updateAvatarByUserId(@Param("userId") Long userId, @Param("avatarPath") String avatarPath);
 
     /**
      * 通过主键删除数据

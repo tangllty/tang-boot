@@ -7,11 +7,13 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.tang.commons.core.model.SysUserModel;
 import com.tang.commons.core.vo.PasswordVo;
 import com.tang.commons.utils.AjaxResult;
 import com.tang.commons.utils.SecurityUtils;
+import com.tang.commons.utils.UploadsUtils;
 import com.tang.commons.utils.page.PageUtils;
 import com.tang.commons.utils.page.TableDataResult;
 import com.tang.framework.web.service.TokenService;
@@ -82,6 +84,21 @@ public class ProfileController {
         PageUtils.startPage();
         var list = logLoginService.selectSysLogLoginListByUser(logLogin);
         return PageUtils.getDataTable(list);
+    }
+
+    /**
+     * 修改用户头像
+     *
+     * @param avatar 头像文件
+     * @return 结果
+     */
+    @PreAuthorize("@auth.hasPermission('system:user:edit')")
+    @PutMapping("/edit-avatar")
+    public AjaxResult editAvatar(MultipartFile avatar) {
+        var avatarPath = UploadsUtils.uploadAvatar(avatar);
+        var userId = SecurityUtils.getUser().getUserId();
+        userService.updateAvatarByUserId(userId, avatarPath);
+        return AjaxResult.success();
     }
 
 }

@@ -77,6 +77,15 @@ public interface SysUserService {
     int updatePasswordByUserId(PasswordVo passwordVo);
 
     /**
+     * 修改用户头像
+     *
+     * @param userId     用户主键
+     * @param avatarPath 头像路径
+     * @return 影响行数
+     */
+    int updateAvatarByUserId(Long userId, String avatarPath);
+
+    /**
      * 通过主键删除数据
      *
      * @param userId 主键

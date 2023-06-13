@@ -140,6 +140,10 @@
         update sys_user set password = #{password} where user_id = #{userId}
     </update>
 
+    <update id="updateAvatarByUserId">
+        update sys_user set avatar = #{avatarPath} where user_id = #{userId}
+    </update>
+
     <delete id="deleteUserByUserId">
         update sys_user set del_flag = '1' where user_id = #{userId}
     </delete>

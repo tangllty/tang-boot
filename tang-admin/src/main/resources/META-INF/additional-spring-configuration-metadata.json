@@ -8,5 +8,10 @@
     "name": "tang.version",
     "type": "java.lang.String",
     "description": "A description for 'tang.version'"
+  },
+  {
+    "name": "tang.uploads",
+    "type": "java.lang.String",
+    "description": "A description for 'tang.uploads'"
   }
 ]}
