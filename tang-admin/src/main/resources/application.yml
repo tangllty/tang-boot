@@ -37,12 +37,12 @@ spring:
 
 # MyBatis 配置
 mybatis:
-    # 搜索指定包别名
-    # typeAliasesPackage: com.tang.**.entity
-    # 配置 mapper 的扫描，找到所有的 mapper.xml 映射文件
-    mapper-locations: classpath*:mapper/**/*Mapper.xml
-    # 加载全局的配置文件
-    # configLocation: classpath:mybatis/mybatis-config.xml
+  # 搜索包别名
+  # type-aliases-package: com.tang.**.entity
+  # 映射文件路径
+  mapper-locations: classpath*:mapper/**/*Mapper.xml
+  # 配置文件路径
+  # config-location: classpath:mybatis/mybatis-config.xml
 
 # 日志配置
 logging:
