@@ -3,9 +3,7 @@ package com.tang.commons.utils;
 import java.util.List;
 
 import org.lionsoul.ip2region.xdb.Searcher;
-import org.springframework.util.ResourceUtils;
-
-import com.google.common.io.Files;
+import org.springframework.core.io.ClassPathResource;
 
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -59,8 +57,9 @@ public class IpUtils {
      */
     private static String getRegion(String ip) {
         try {
-            var file = ResourceUtils.getFile("classpath:ip2region.xdb");
-            var byteArray = Files.toByteArray(file);
+            var classPathResource = new ClassPathResource("ip2region.xdb");
+            var inputStream = classPathResource.getInputStream();
+            var byteArray = inputStream.readAllBytes();
             var searcher = Searcher.newWithBuffer(byteArray);
             var region = searcher.search(ip);
             searcher.close();
