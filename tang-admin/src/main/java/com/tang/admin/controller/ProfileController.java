@@ -57,7 +57,7 @@ public class ProfileController {
         BeanUtils.copyProperties(user, sysUserModel);
         userModel.setUser(sysUserModel);
         tokenService.set(userModel);
-        return AjaxResult.success(userService.updateUserByUserId(user));
+        return AjaxResult.rows(userService.updateUserByUserId(user));
     }
 
     /**
@@ -69,7 +69,7 @@ public class ProfileController {
     @PreAuthorize("@auth.hasPermission('system:user:edit')")
     @PutMapping("/edit-password")
     public AjaxResult editPassword(@RequestBody PasswordVo passwordVo) {
-        return AjaxResult.success(userService.updatePasswordByUserId(passwordVo));
+        return AjaxResult.rows(userService.updatePasswordByUserId(passwordVo));
     }
 
     /**
@@ -97,8 +97,7 @@ public class ProfileController {
     public AjaxResult editAvatar(MultipartFile avatar) {
         var avatarPath = UploadsUtils.uploadAvatar(avatar);
         var userId = SecurityUtils.getUser().getUserId();
-        userService.updateAvatarByUserId(userId, avatarPath);
-        return AjaxResult.success();
+        return AjaxResult.rows(userService.updateAvatarByUserId(userId, avatarPath));
     }
 
 }

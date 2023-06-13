@@ -78,7 +78,7 @@ public class OnlineUserController {
     @PreAuthorize("@auth.hasPermission('monitor:online:delete')")
     @DeleteMapping("/{token}")
     public AjaxResult delete(@PathVariable String token) {
-        return AjaxResult.success(onlineUserService.deleteOnlineUserByToken(token));
+        return AjaxResult.rows(onlineUserService.deleteOnlineUserByToken(token));
     }
 
 }

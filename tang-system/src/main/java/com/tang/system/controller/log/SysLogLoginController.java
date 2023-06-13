@@ -66,7 +66,7 @@ public class SysLogLoginController {
     @PreAuthorize("@auth.hasPermission('system:log:login:add')")
     @PostMapping
     public AjaxResult add(@RequestBody SysLogLogin sysLogLogin) {
-        return AjaxResult.success(sysLogLoginService.insertSysLogLogin(sysLogLogin));
+        return AjaxResult.rows(sysLogLoginService.insertSysLogLogin(sysLogLogin));
     }
 
     /**
@@ -78,7 +78,7 @@ public class SysLogLoginController {
     @PreAuthorize("@auth.hasPermission('system:log:login:edit')")
     @PutMapping
     public AjaxResult edit(@RequestBody SysLogLogin sysLogLogin) {
-        return AjaxResult.success(sysLogLoginService.updateSysLogLoginByLoginId(sysLogLogin));
+        return AjaxResult.rows(sysLogLoginService.updateSysLogLoginByLoginId(sysLogLogin));
     }
 
     /**
@@ -90,7 +90,7 @@ public class SysLogLoginController {
     @PreAuthorize("@auth.hasPermission('system:log:login:delete')")
     @DeleteMapping("/{loginId}")
     public AjaxResult delete(@PathVariable Long loginId) {
-        return AjaxResult.success(sysLogLoginService.deleteSysLogLoginByLoginId(loginId));
+        return AjaxResult.rows(sysLogLoginService.deleteSysLogLoginByLoginId(loginId));
     }
 
     /**
@@ -102,7 +102,7 @@ public class SysLogLoginController {
     @PreAuthorize("@auth.hasPermission('system:log:login:delete')")
     @DeleteMapping
     public AjaxResult deletes(@RequestBody Long[] loginIds) {
-        return AjaxResult.success(sysLogLoginService.deleteSysLogLoginByLoginIds(loginIds));
+        return AjaxResult.rows(sysLogLoginService.deleteSysLogLoginByLoginIds(loginIds));
     }
 
 }

@@ -76,7 +76,7 @@ public class SysDeptController {
     @PreAuthorize("@auth.hasPermission('system:dept:add')")
     @PostMapping
     public AjaxResult add(@RequestBody SysDept dept) {
-        return AjaxResult.success(deptService.insertDept(dept));
+        return AjaxResult.rows(deptService.insertDept(dept));
     }
 
     /**
@@ -88,7 +88,7 @@ public class SysDeptController {
     @PreAuthorize("@auth.hasPermission('system:dept:edit')")
     @PutMapping
     public AjaxResult edit(@RequestBody SysDept dept) {
-        return AjaxResult.success(deptService.updateDeptByDeptId(dept));
+        return AjaxResult.rows(deptService.updateDeptByDeptId(dept));
     }
 
     /**
@@ -100,7 +100,7 @@ public class SysDeptController {
     @PreAuthorize("@auth.hasPermission('system:dept:edit')")
     @PutMapping("/changeStatus")
     public AjaxResult changeStatus(@RequestBody SysDept dept) {
-        return AjaxResult.success(deptService.updateDeptStatusByDeptId(dept));
+        return AjaxResult.rows(deptService.updateDeptStatusByDeptId(dept));
     }
 
     /**
@@ -115,7 +115,7 @@ public class SysDeptController {
         if (deptService.checkHasChildren(deptId)) {
             return AjaxResult.error("删除失败，存在下级部门");
         }
-        return AjaxResult.success(deptService.deleteDeptByDeptId(deptId));
+        return AjaxResult.rows(deptService.deleteDeptByDeptId(deptId));
     }
 
 }

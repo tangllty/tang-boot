@@ -76,7 +76,7 @@ public class SysMenuController {
     @PreAuthorize("@auth.hasPermission('system:menu:add')")
     @PostMapping
     public AjaxResult add(@RequestBody SysMenu menu) {
-        return AjaxResult.success(menuService.insertMenu(menu));
+        return AjaxResult.rows(menuService.insertMenu(menu));
     }
 
     /**
@@ -88,7 +88,7 @@ public class SysMenuController {
     @PreAuthorize("@auth.hasPermission('system:menu:edit')")
     @PutMapping
     public AjaxResult edit(@RequestBody SysMenu menu) {
-        return AjaxResult.success(menuService.updateMenuByMenuId(menu));
+        return AjaxResult.rows(menuService.updateMenuByMenuId(menu));
     }
 
     /**
@@ -100,7 +100,7 @@ public class SysMenuController {
     @PreAuthorize("@auth.hasPermission('system:menu:edit')")
     @PutMapping("/changeStatus")
     public AjaxResult changeStatus(@RequestBody SysMenu menu) {
-        return AjaxResult.success(menuService.updateMenuStatusByMenuId(menu));
+        return AjaxResult.rows(menuService.updateMenuStatusByMenuId(menu));
     }
 
     /**
@@ -115,7 +115,7 @@ public class SysMenuController {
         if (menuService.checkHasChildren(menuId)) {
             return AjaxResult.error("删除失败，存在下级部门");
         }
-        return AjaxResult.success(menuService.deleteMenuByMenuId(menuId));
+        return AjaxResult.rows(menuService.deleteMenuByMenuId(menuId));
     }
 
 }

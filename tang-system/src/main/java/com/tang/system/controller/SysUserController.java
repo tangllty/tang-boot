@@ -86,7 +86,7 @@ public class SysUserController {
     @PreAuthorize("@auth.hasPermission('system:user:add')")
     @PostMapping
     public AjaxResult add(@RequestBody SysUser user) {
-        return AjaxResult.success(userService.insertUser(user));
+        return AjaxResult.rows(userService.insertUser(user));
     }
 
     /**
@@ -98,7 +98,7 @@ public class SysUserController {
     @PreAuthorize("@auth.hasPermission('system:user:edit')")
     @PutMapping
     public AjaxResult edit(@RequestBody SysUser user) {
-        return AjaxResult.success(userService.updateUserByUserId(user));
+        return AjaxResult.rows(userService.updateUserByUserId(user));
     }
 
     /**
@@ -110,7 +110,7 @@ public class SysUserController {
     @PreAuthorize("@auth.hasPermission('system:user:edit')")
     @PutMapping("/changeStatus")
     public AjaxResult changeStatus(@RequestBody SysUser user) {
-        return AjaxResult.success(userService.updateUserStatusByUserId(user));
+        return AjaxResult.rows(userService.updateUserStatusByUserId(user));
     }
 
     /**
@@ -122,7 +122,7 @@ public class SysUserController {
     @PreAuthorize("@auth.hasPermission('system:user:delete')")
     @DeleteMapping("/{userId}")
     public AjaxResult delete(@PathVariable Long userId) {
-        return AjaxResult.success(userService.deleteUserByUserId(userId));
+        return AjaxResult.rows(userService.deleteUserByUserId(userId));
     }
 
     /**
@@ -134,7 +134,7 @@ public class SysUserController {
     @PreAuthorize("@auth.hasPermission('system:user:delete')")
     @DeleteMapping
     public AjaxResult deletes(@RequestBody Long[] userIds) {
-        return AjaxResult.success(userService.deleteUserByUserIds(userIds));
+        return AjaxResult.rows(userService.deleteUserByUserIds(userIds));
     }
 
     /**

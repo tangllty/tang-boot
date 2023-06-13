@@ -66,7 +66,7 @@ public class SysRoleController {
     @PreAuthorize("@auth.hasPermission('system:role:add')")
     @PostMapping
     public AjaxResult add(@RequestBody SysRole role) {
-        return AjaxResult.success(roleService.insertRole(role));
+        return AjaxResult.rows(roleService.insertRole(role));
     }
 
     /**
@@ -78,7 +78,7 @@ public class SysRoleController {
     @PreAuthorize("@auth.hasPermission('system:role:edit')")
     @PutMapping
     public AjaxResult edit(@RequestBody SysRole role) {
-        return AjaxResult.success(roleService.updateRoleByRoleId(role));
+        return AjaxResult.rows(roleService.updateRoleByRoleId(role));
     }
 
     /**
@@ -90,7 +90,7 @@ public class SysRoleController {
     @PreAuthorize("@auth.hasPermission('system:role:edit')")
     @PutMapping("/changeStatus")
     public AjaxResult changeStatus(@RequestBody SysRole role) {
-        return AjaxResult.success(roleService.updateRoleStatusByRoleId(role));
+        return AjaxResult.rows(roleService.updateRoleStatusByRoleId(role));
     }
 
     /**
@@ -102,7 +102,7 @@ public class SysRoleController {
     @PreAuthorize("@auth.hasPermission('system:role:delete')")
     @DeleteMapping("/{roleId}")
     public AjaxResult delete(@PathVariable Long roleId) {
-        return AjaxResult.success(roleService.deleteRoleByRoleId(roleId));
+        return AjaxResult.rows(roleService.deleteRoleByRoleId(roleId));
     }
 
     /**
@@ -114,7 +114,7 @@ public class SysRoleController {
     @PreAuthorize("@auth.hasPermission('system:role:delete')")
     @DeleteMapping
     public AjaxResult deletes(@RequestBody Long[] roleIds) {
-        return AjaxResult.success(roleService.deleteRoleByRoleIds(roleIds));
+        return AjaxResult.rows(roleService.deleteRoleByRoleIds(roleIds));
     }
 
 }

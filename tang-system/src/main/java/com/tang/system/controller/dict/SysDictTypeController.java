@@ -66,7 +66,7 @@ public class SysDictTypeController {
     @PreAuthorize("@auth.hasPermission('system:dict:add')")
     @PostMapping
     public AjaxResult add(@RequestBody SysDictType dictType) {
-        return AjaxResult.success(dictTypeService.insertDictType(dictType));
+        return AjaxResult.rows(dictTypeService.insertDictType(dictType));
     }
 
     /**
@@ -78,7 +78,7 @@ public class SysDictTypeController {
     @PreAuthorize("@auth.hasPermission('system:dict:edit')")
     @PutMapping
     public AjaxResult edit(@RequestBody SysDictType dictType) {
-        return AjaxResult.success(dictTypeService.updateDictTypeByTypeId(dictType));
+        return AjaxResult.rows(dictTypeService.updateDictTypeByTypeId(dictType));
     }
 
     /**
@@ -90,7 +90,7 @@ public class SysDictTypeController {
     @PreAuthorize("@auth.hasPermission('system:dict:delete')")
     @DeleteMapping("/{typeId}")
     public AjaxResult delete(@PathVariable Long typeId) {
-        return AjaxResult.success(dictTypeService.deleteDictTypeByTypeId(typeId));
+        return AjaxResult.rows(dictTypeService.deleteDictTypeByTypeId(typeId));
     }
 
     /**
@@ -102,7 +102,7 @@ public class SysDictTypeController {
     @PreAuthorize("@auth.hasPermission('system:dict:delete')")
     @DeleteMapping
     public AjaxResult deletes(@RequestBody Long[] typeIds) {
-        return AjaxResult.success(dictTypeService.deleteDictTypeByTypeIds(typeIds));
+        return AjaxResult.rows(dictTypeService.deleteDictTypeByTypeIds(typeIds));
     }
 
 }

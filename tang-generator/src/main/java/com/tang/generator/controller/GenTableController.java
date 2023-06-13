@@ -93,7 +93,7 @@ public class GenTableController {
     @PreAuthorize("@auth.hasPermission('tool:generator:edit')")
     @PutMapping
     public AjaxResult edit(@RequestBody GenTable table) {
-        return AjaxResult.success(tableService.updateTableByTableId(table));
+        return AjaxResult.rows(tableService.updateTableByTableId(table));
     }
 
     /**
@@ -105,7 +105,7 @@ public class GenTableController {
     @PreAuthorize("@auth.hasPermission('tool:generator:delete')")
     @DeleteMapping("/{tableId}")
     public AjaxResult delete(@PathVariable Long tableId) {
-        return AjaxResult.success(tableService.deleteTableByTableId(tableId));
+        return AjaxResult.rows(tableService.deleteTableByTableId(tableId));
     }
 
     /**
@@ -117,7 +117,7 @@ public class GenTableController {
     @PreAuthorize("@auth.hasPermission('tool:generator:delete')")
     @DeleteMapping
     public AjaxResult deletes(@RequestBody Long[] tableIds) {
-        return AjaxResult.success(tableService.deleteTableByTableIds(tableIds));
+        return AjaxResult.rows(tableService.deleteTableByTableIds(tableIds));
     }
 
     /**

@@ -153,6 +153,26 @@ public class AjaxResult extends HashMap<String, Object> {
     }
 
     /**
+     * 返回影响行数操作消息
+     *
+     * @param rows 影响行数
+     * @return 操作结果
+     */
+    public static AjaxResult rows(int rows) {
+        return rows > 0 ? AjaxResult.success() : AjaxResult.error();
+    }
+
+    /**
+     * 返回 boolean 操作消息
+     *
+     * @param flag 操作标识
+     * @return 操作结果
+     */
+    public static AjaxResult rows(boolean flag) {
+        return flag ? AjaxResult.success() : AjaxResult.error();
+    }
+
+    /**
      * 方便链式调用
      *
      * @param key   键
