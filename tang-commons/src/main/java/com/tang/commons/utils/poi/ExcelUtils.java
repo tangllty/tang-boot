@@ -9,6 +9,7 @@ import java.util.Comparator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
@@ -59,12 +60,12 @@ public class ExcelUtils {
      * @return 数据
      */
     public static <T> List<T> importExcel(Class<T> clazz, MultipartFile file) {
-        if (file == null) {
+        if (Objects.isNull(file)) {
             LOGGER.error("导入失败, 文件为空");
             throw new FileNotExistException("导入失败, 文件为空");
         }
         var fileName = file.getOriginalFilename();
-        if (fileName == null || !fileName.endsWith(FileType.EXCEL_2007)) {
+        if (Objects.isNull(fileName) || !fileName.endsWith(FileType.EXCEL_2007)) {
             LOGGER.error("导入失败, 只支持 Excel 2007 及以上版本");
             throw new FileTypeMismatchException("导入失败, 只支持 Excel 2007 及以上版本");
         }
@@ -109,7 +110,7 @@ public class ExcelUtils {
      * @return 值
      */
     private static Object getCellValue(Field field, XSSFCell cell, Excel excel) {
-        if (cell == null) {
+        if (Objects.isNull(cell)) {
             return null;
         }
 
@@ -205,7 +206,7 @@ public class ExcelUtils {
     private static <T> void setCellValue(XSSFCell cell, T clazz, Field field, Excel excel) {
         try {
             ReflectionUtils.makeAccessible(field);
-            var stringValue = field.get(clazz) == null ? "" : field.get(clazz).toString();
+            var stringValue = Objects.isNull(field.get(clazz)) ? "" : field.get(clazz).toString();
             switch (excel.cellType()) {
                 case STRING -> {
                     var dictType = excel.dictType();

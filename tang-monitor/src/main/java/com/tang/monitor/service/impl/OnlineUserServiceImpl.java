@@ -2,6 +2,7 @@ package com.tang.monitor.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.lang.NonNull;
@@ -79,11 +80,11 @@ public class OnlineUserServiceImpl implements OnlineUserService {
     private OnlineUser userModelConvertOnlineUser(@NonNull UserModel userModel) {
         var onlineUser = new OnlineUser();
         var user = userModel.getUser();
-        if (user != null) {
+        if (Objects.nonNull(user)) {
             onlineUser.setUsername(user.getUsername());
             onlineUser.setNickname(user.getNickname());
             var dept = user.getDept();
-            if (dept != null) {
+            if (Objects.nonNull(dept)) {
                 onlineUser.setDeptName(dept.getDeptName());
             }
         }
@@ -99,14 +100,14 @@ public class OnlineUserServiceImpl implements OnlineUserService {
     private OnlineUser userModelConvertOnlineUserDetail(@NonNull UserModel userModel) {
         var onlineUser = new OnlineUser();
         var user = userModel.getUser();
-        if (user != null) {
+        if (Objects.nonNull(user)) {
             onlineUser.setUsername(user.getUsername());
             onlineUser.setNickname(user.getNickname());
             onlineUser.setEmail(user.getEmail());
             onlineUser.setPhone(user.getPhone());
             onlineUser.setGender(user.getGender());
             var dept = user.getDept();
-            if (dept != null) {
+            if (Objects.nonNull(dept)) {
                 onlineUser.setDeptName(dept.getDeptName());
             }
         }

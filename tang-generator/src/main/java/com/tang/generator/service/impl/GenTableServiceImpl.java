@@ -7,6 +7,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Stream;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
@@ -215,7 +216,7 @@ public class GenTableServiceImpl implements GenTableService {
                 e.printStackTrace();
             } finally {
                 IOUtils.closeQuietly(stringWriter);
-                if (zip != null) {
+                if (Objects.nonNull(zip)) {
                     try {
                         zip.flush();
                         zip.closeEntry();

@@ -1,5 +1,7 @@
 package com.tang.commons.utils.page;
 
+import java.util.Objects;
+
 import org.apache.commons.lang3.StringUtils;
 
 import com.tang.commons.utils.ServletUtils;
@@ -64,7 +66,7 @@ public class TableSupport {
      * @return 结果
      */
     private static Integer toInteger(Object value, Integer defaultValue) {
-        if (value == null) {
+        if (Objects.isNull(value)) {
             return defaultValue;
         }
         if (value instanceof Integer integer) {
@@ -102,7 +104,7 @@ public class TableSupport {
      * @return 结果
      */
     private static Boolean toBoolean(Object value, Boolean defaultValue) {
-        if (value == null) {
+        if (Objects.isNull(value)) {
             return defaultValue;
         }
         if (value instanceof Boolean booleanValue) {

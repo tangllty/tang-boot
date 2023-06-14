@@ -1,5 +1,7 @@
 package com.tang.commons.utils.page;
 
+import java.util.Objects;
+
 import org.apache.commons.lang3.StringUtils;
 
 import com.google.common.base.CaseFormat;
@@ -86,7 +88,7 @@ public class PageDomain {
     }
 
     public Boolean getReasonable() {
-        if (reasonable == null) {
+        if (Objects.isNull(reasonable)) {
             return Boolean.TRUE;
         }
         return reasonable;

@@ -37,7 +37,7 @@ public class TreeUtils {
      * @return 树结构数据
      */
     public static List<TreeSelect> buildTree(List<TreeSelect> treeSelectList, Long parentId) {
-        if (treeSelectList == null) {
+        if (Objects.isNull(treeSelectList)) {
             return new ArrayList<>();
         }
         if (treeSelectList.isEmpty()) {
@@ -63,7 +63,7 @@ public class TreeUtils {
         treeSelectList.forEach(treeSelect -> {
             if (Objects.equals(treeSelect.getParentId(), parentTreeSelect.getValue())) {
                 List<TreeSelect> children = parentTreeSelect.getChildren();
-                if (children == null) {
+                if (Objects.isNull(children)) {
                     children = new ArrayList<>();
                     parentTreeSelect.setChildren(children);
                 }

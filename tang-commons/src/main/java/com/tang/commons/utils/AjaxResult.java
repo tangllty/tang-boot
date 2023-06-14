@@ -1,6 +1,7 @@
 package com.tang.commons.utils;
 
 import java.util.HashMap;
+import java.util.Objects;
 
 import com.tang.commons.constants.HttpStatus;
 
@@ -66,7 +67,7 @@ public class AjaxResult extends HashMap<String, Object> {
     public AjaxResult(int code, String msg, Object data) {
         super.put(CODE_TAG, code);
         super.put(MSG_TAG, msg);
-        if (data != null) {
+        if (Objects.nonNull(data)) {
             super.put(DATA_TAG, data);
         }
     }

@@ -257,7 +257,7 @@ public class SysMenuServiceImpl implements SysMenuService {
     public int updateMenuByMenuId(SysMenu menu) {
         var newMenu = menuMapper.selectMenuByMenuId(menu.getParentId());
         var oldMenu = menuMapper.selectMenuByMenuId(menu.getMenuId());
-        if (newMenu != null && oldMenu != null) {
+        if (Objects.nonNull(newMenu) && Objects.nonNull(oldMenu)) {
             var newAncestors = newMenu.getAncestors() + "," + newMenu.getMenuId();
             var oldAncestors = oldMenu.getAncestors();
             menu.setAncestors(newAncestors);

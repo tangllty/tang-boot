@@ -1,6 +1,7 @@
 package com.tang.commons.utils;
 
 import java.util.List;
+import java.util.Objects;
 
 import org.lionsoul.ip2region.xdb.Searcher;
 import org.springframework.core.io.ClassPathResource;
@@ -27,12 +28,12 @@ public class IpUtils {
         var headers = List.of("X-Forwarded-For", "Proxy-Client-IP", "WL-Proxy-Client-IP", "HTTP_CLIENT_IP", "HTTP_X_FORWARDED_FOR", "X-Real-IP");
         var unknown = "unknown";
 
-        if (request == null) {
+        if (Objects.isNull(request)) {
             return unknown;
         }
         var ipAddr = headers.stream()
             .map(request::getHeader)
-            .filter(ip -> ip != null && ip.length() != 0 && !unknown.equalsIgnoreCase(ip))
+            .filter(ip -> Objects.nonNull(ip) && ip.length() != 0 && !unknown.equalsIgnoreCase(ip))
             .findFirst()
             .orElse(request.getRemoteAddr());
         return "0:0:0:0:0:0:0:1".equals(ipAddr) ? "127.0.0.1" : ipAddr;

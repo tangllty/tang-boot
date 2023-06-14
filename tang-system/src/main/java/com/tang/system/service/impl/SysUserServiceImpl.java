@@ -1,6 +1,7 @@
 package com.tang.system.service.impl;
 
 import java.util.List;
+import java.util.Objects;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -132,7 +133,7 @@ public class SysUserServiceImpl implements SysUserService {
     public int updatePasswordByUserId(PasswordVo passwordVo) {
         var user = userMapper.selectUserByUserId(passwordVo.getUserId());
 
-        if (user == null) {
+        if (Objects.isNull(user)) {
             throw new UserNotFoundException("用户不存在");
         }
         if (!SecurityUtils.matchesPassword(passwordVo.getOldPassword(), user.getPassword())) {

@@ -1,6 +1,7 @@
 package com.tang.framework.security.handle;
 
 import java.io.IOException;
+import java.util.Objects;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
@@ -35,7 +36,7 @@ public class LogoutSuccessHandlerImpl implements LogoutSuccessHandler {
     @Override
     public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
         var userModel = tokenService.get(request);
-        if (userModel != null) {
+        if (Objects.nonNull(userModel)) {
             tokenService.delete(userModel.getToken());
         }
         var ajaxResult = AjaxResult.success("登出成功");

@@ -121,7 +121,7 @@ public class SysDeptServiceImpl implements SysDeptService {
     public int updateDeptByDeptId(SysDept dept) {
         var newDept = deptMapper.selectDeptByDeptId(dept.getParentId());
         var oldDept = deptMapper.selectDeptByDeptId(dept.getDeptId());
-        if (newDept != null && oldDept != null) {
+        if (Objects.nonNull(newDept) && Objects.nonNull(oldDept)) {
             var newAncestors = newDept.getAncestors() + "," + newDept.getDeptId();
             var oldAncestors = oldDept.getAncestors();
             dept.setAncestors(newAncestors);

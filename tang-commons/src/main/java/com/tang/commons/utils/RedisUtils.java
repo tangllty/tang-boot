@@ -3,6 +3,7 @@ package com.tang.commons.utils;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
@@ -128,7 +129,7 @@ public class RedisUtils {
      */
     public Boolean delete(Collection<String> collection) {
         var count = redisTemplate.delete(collection);
-        return count != null && count > 0;
+        return Objects.nonNull(count) && count > 0;
     }
 
     /**
@@ -140,7 +141,7 @@ public class RedisUtils {
      */
     public Long setList(String key, List<Object> dataList) {
         var count = redisTemplate.opsForList().rightPushAll(key, dataList);
-        return count == null ? 0 : count;
+        return Objects.isNull(count) ? 0 : count;
     }
 
     /**

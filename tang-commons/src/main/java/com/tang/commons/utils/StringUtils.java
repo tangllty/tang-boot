@@ -1,5 +1,7 @@
 package com.tang.commons.utils;
 
+import java.util.Objects;
+
 /**
  * 字符串工具类
  *
@@ -19,24 +21,27 @@ public class StringUtils {
      * 格式化字符串
      *
      * @param format 模板
-     * @param args 参数列表
+     * @param args   参数列表
      * @return 结果
      */
     public static String format(String format, Object... args) {
+        if (Objects.isNull(format) || Objects.isNull(args) || args.length == 0) {
+            return Objects.isNull(format) ? "" : format;
+        }
         return formatWith(format, DEFAULT_PLACE_HOLDER, args);
     }
 
     /**
      * 格式化字符串
      *
-     * @param format 模板
+     * @param format      模板
      * @param placeHolder 占位符
-     * @param args 参数列表
+     * @param args        参数列表
      * @return 结果
      */
     public static String formatWith(String format, String placeHolder, Object... args) {
-        if (format == null || placeHolder == null || args == null) {
-            return format == null ? "" : format;
+        if (Objects.isNull(format) || Objects.isNull(placeHolder) || Objects.isNull(args) || args.length == 0) {
+            return Objects.isNull(format) ? "" : format;
         }
 
         var formatLength = format.length();
@@ -49,7 +54,7 @@ public class StringUtils {
         // 占位符所在位置
         var placeHolderPosition = -1;
 
-        for (Object arg: args) {
+        for (Object arg : args) {
             placeHolderPosition = format.indexOf(placeHolder, placeHolderIndex);
             // 剩余部分无占位符
             if (placeHolderPosition == -1) {

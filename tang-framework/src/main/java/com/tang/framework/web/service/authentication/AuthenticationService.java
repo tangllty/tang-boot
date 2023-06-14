@@ -1,5 +1,6 @@
 package com.tang.framework.web.service.authentication;
 
+import java.util.Objects;
 import java.util.Set;
 
 import org.springframework.beans.BeanUtils;
@@ -53,7 +54,7 @@ public class AuthenticationService implements UserModelProvider {
      */
     public UserModel createUserModel(SysUser user, String password, String account, String loginType) {
         try {
-            if (user == null) {
+            if (Objects.isNull(user)) {
                 throw new UserNotFoundException("用户不存在");
             }
             if (!SecurityUtils.matchesPassword(password, user.getPassword())) {
@@ -66,7 +67,7 @@ public class AuthenticationService implements UserModelProvider {
                 throw new DeletedException("账号已删除");
             }
         } catch (RuntimeException e) {
-            logLoginService.recordLoginInfo(user == null ? null : user.getUserId(), tokenService.getUserAgent(), account, loginType, false, e.getMessage());
+            logLoginService.recordLoginInfo(Objects.isNull(user) ? null : user.getUserId(), tokenService.getUserAgent(), account, loginType, false, e.getMessage());
             throw e;
         }
 
