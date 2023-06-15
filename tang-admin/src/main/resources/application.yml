@@ -7,23 +7,31 @@ tang:
   # 文件上传路径
   uploads: /home/tang/uploads/tang-boot
 
-# 环境配置
+# 服务配置
 server:
-  # 服务器的HTTP端口，默认为8080
+  # 服务端口
   port: 8080
   servlet:
-    # 应用的访问路径
+    # 项目上下文路径
     context-path: /
   tomcat:
-    # tomcat的URI编码
+    # 设置字符集编码方式
     uri-encoding: UTF-8
-    # 连接数满后的排队数，默认为100
+    # 设置最大连接数
     accept-count: 1000
     threads:
-      # tomcat 最大线程数，默认为200
-      max: 800
-      # tomcat 启动初始化的线程数，默认值10
+      # 最大线程数
+      max: 1000
+      # 最小线程数
       min-spare: 100
+  # 配置压缩
+  compression:
+    # 是否开启压缩
+    enabled: true
+    # 压缩类型
+    mime-types: text/html,text/xml,text/plain,text/css,text/javascript,application/javascript,application/json
+    # 压缩最小值
+    min-response-size: 1024
 
 # Spring 配置
 spring:
