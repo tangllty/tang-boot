@@ -13,6 +13,8 @@ import com.tang.commons.utils.RedisUtils;
 import com.tang.monitor.entity.OnlineUser;
 import com.tang.monitor.service.OnlineUserService;
 
+import static com.tang.commons.constants.CachePrefix.LOGIN_TOKENS;
+
 /**
  * 在线用户服务实现
  *
@@ -20,8 +22,6 @@ import com.tang.monitor.service.OnlineUserService;
  */
 @Service
 public class OnlineUserServiceImpl implements OnlineUserService {
-
-    private static final String LOGIN_TOKEN_KEY = "login_tokens:";
 
     private final RedisUtils redisUtils;
 
@@ -37,7 +37,7 @@ public class OnlineUserServiceImpl implements OnlineUserService {
      */
     @Override
     public List<OnlineUser> selectOnlineUserList(OnlineUser onlineUser) {
-        var keys = redisUtils.keys(LOGIN_TOKEN_KEY + "*");
+        var keys = redisUtils.keys(LOGIN_TOKENS + "*");
         var onlineUserList = new ArrayList<OnlineUser>(keys.size());
         keys.forEach(key -> {
             var userModel = (UserModel) redisUtils.get(key);
@@ -62,7 +62,7 @@ public class OnlineUserServiceImpl implements OnlineUserService {
      */
     @Override
     public OnlineUser selectOnlineUserByToken(String token) {
-        var userModel = (UserModel) redisUtils.get(LOGIN_TOKEN_KEY + token);
+        var userModel = (UserModel) redisUtils.get(LOGIN_TOKENS + token);
         return userModelConvertOnlineUserDetail(userModel);
     }
 
@@ -74,7 +74,7 @@ public class OnlineUserServiceImpl implements OnlineUserService {
      */
     @Override
     public boolean deleteOnlineUserByToken(String token) {
-        return redisUtils.delete(LOGIN_TOKEN_KEY + token);
+        return redisUtils.delete(LOGIN_TOKENS + token);
     }
 
     private OnlineUser userModelConvertOnlineUser(@NonNull UserModel userModel) {
