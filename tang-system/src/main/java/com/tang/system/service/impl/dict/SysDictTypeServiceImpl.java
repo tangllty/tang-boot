@@ -1,5 +1,6 @@
 package com.tang.system.service.impl.dict;
 
+import java.time.Duration;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -52,13 +53,14 @@ public class SysDictTypeServiceImpl implements SysDictTypeService {
      */
     @PostConstruct
     public void init() {
-        LOGGER.info("Start caching dictionary data");
+        long startTime = System.nanoTime();
         var dictTypeList = dictTypeMapper.selectDictTypeList(new SysDictType());
         dictTypeList.forEach(dictType -> {
             var dictDataList = dictDataMapper.selectDictDataListByDictType(dictType.getDictType());
             redisUtils.set(DICT_TYPE + dictType.getDictType(), convertDictDataModelList(dictDataList));
         });
-        LOGGER.info("End caching dictionary data");
+        var timeTaken = Duration.ofNanos(System.nanoTime() - startTime);
+        LOGGER.info("Caching dictionary data in {} seconds", timeTaken.toMillis() / 1000.0);
     }
 
     /**
