@@ -16,6 +16,8 @@ import com.tang.commons.utils.page.TableDataResult;
 import com.tang.system.entity.SysRole;
 import com.tang.system.service.SysRoleService;
 
+import jakarta.validation.Valid;
+
 /**
  * 角色逻辑控制层
  *
@@ -65,7 +67,7 @@ public class SysRoleController {
      */
     @PreAuthorize("@auth.hasPermission('system:role:add')")
     @PostMapping
-    public AjaxResult add(@RequestBody SysRole role) {
+    public AjaxResult add(@Valid @RequestBody SysRole role) {
         return AjaxResult.rows(roleService.insertRole(role));
     }
 

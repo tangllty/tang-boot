@@ -14,6 +14,8 @@ import com.tang.commons.utils.AjaxResult;
 import com.tang.system.entity.SysMenu;
 import com.tang.system.service.SysMenuService;
 
+import jakarta.validation.Valid;
+
 /**
  * 菜单权限逻辑控制层
  *
@@ -75,7 +77,7 @@ public class SysMenuController {
      */
     @PreAuthorize("@auth.hasPermission('system:menu:add')")
     @PostMapping
-    public AjaxResult add(@RequestBody SysMenu menu) {
+    public AjaxResult add(@Valid @RequestBody SysMenu menu) {
         return AjaxResult.rows(menuService.insertMenu(menu));
     }
 

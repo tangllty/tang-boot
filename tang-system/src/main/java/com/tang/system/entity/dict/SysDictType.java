@@ -1,5 +1,7 @@
 package com.tang.system.entity.dict;
 
+import org.hibernate.validator.constraints.Length;
+
 import com.tang.commons.core.base.entity.BaseEntity;
 
 /**
@@ -21,11 +23,13 @@ public class SysDictType extends BaseEntity {
     /**
      * 字典名称
      */
+    @Length(min = 2, max = 32, message = "字典名称长度应在 2 到 32 之间")
     private String typeName;
 
     /**
      * 字典类型
      */
+    @Length(min = 4, max = 64, message = "字典类型长度应在 4 到 64 之间")
     private String dictType;
 
     /**

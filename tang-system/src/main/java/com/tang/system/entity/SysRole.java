@@ -2,6 +2,8 @@ package com.tang.system.entity;
 
 import java.util.List;
 
+import org.hibernate.validator.constraints.Length;
+
 import com.tang.commons.core.base.entity.BaseEntity;
 
 /**
@@ -22,11 +24,13 @@ public class SysRole extends BaseEntity {
     /**
      * 角色名称
      */
+    @Length(min = 2, max = 32, message = "角色名称长度应在 2 到 32 之间")
     private String roleName;
 
     /**
      * 角色权限字符串
      */
+    @Length(min = 2, max = 64, message = "权限字符长度应在 2 到 64 之间")
     private String roleKey;
 
     /**

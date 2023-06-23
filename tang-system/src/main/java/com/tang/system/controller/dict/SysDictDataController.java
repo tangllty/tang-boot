@@ -16,6 +16,8 @@ import com.tang.commons.utils.page.TableDataResult;
 import com.tang.system.entity.dict.SysDictData;
 import com.tang.system.service.dict.SysDictDataService;
 
+import jakarta.validation.Valid;
+
 /**
  * 字典数据逻辑控制层
  *
@@ -78,7 +80,7 @@ public class SysDictDataController {
      */
     @PreAuthorize("@auth.hasPermission('system:dict:add')")
     @PostMapping
-    public AjaxResult add(@RequestBody SysDictData dictData) {
+    public AjaxResult add(@Valid @RequestBody SysDictData dictData) {
         return AjaxResult.rows(dictDataService.insertDictData(dictData));
     }
 

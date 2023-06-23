@@ -1,6 +1,10 @@
 package com.tang.system.entity.dict;
 
+import org.hibernate.validator.constraints.Length;
+
 import com.tang.commons.core.base.entity.BaseEntity;
+
+import jakarta.validation.constraints.NotBlank;
 
 /**
  * 字典数据表 sys_dict_data 实体类
@@ -21,16 +25,19 @@ public class SysDictData extends BaseEntity {
     /**
      * 字典类型
      */
+    @Length(min = 4, max = 64, message = "字典类型长度应在 4 到 64 之间")
     private String dictType;
 
     /**
      * 字典标签
      */
+    @NotBlank(message = "字典标签不能为空")
     private String dataLabel;
 
     /**
      * 字典键值
      */
+    @NotBlank(message = "字典键值不能为空")
     private String dataValue;
 
     /**

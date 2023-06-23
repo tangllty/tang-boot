@@ -14,6 +14,8 @@ import com.tang.commons.utils.AjaxResult;
 import com.tang.system.entity.SysDept;
 import com.tang.system.service.SysDeptService;
 
+import jakarta.validation.Valid;
+
 /**
  * 部门逻辑控制层
  *
@@ -75,7 +77,7 @@ public class SysDeptController {
      */
     @PreAuthorize("@auth.hasPermission('system:dept:add')")
     @PostMapping
-    public AjaxResult add(@RequestBody SysDept dept) {
+    public AjaxResult add(@Valid @RequestBody SysDept dept) {
         return AjaxResult.rows(deptService.insertDept(dept));
     }
 

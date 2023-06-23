@@ -2,7 +2,13 @@ package com.tang.system.entity;
 
 import java.util.List;
 
+import org.hibernate.validator.constraints.Length;
+
 import com.tang.commons.core.base.entity.BaseEntity;
+
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
 
 /**
  * 部门表 sys_dept 实体类
@@ -22,6 +28,9 @@ public class SysDept extends BaseEntity {
     /**
      * 父部门id
      */
+    @NotNull(message = "父部门不能为空")
+    @Min(value = 1, message = "父部门编号不能小于1")
+    @Max(value = Long.MAX_VALUE, message = "父部门编号不能超过" + Long.MAX_VALUE)
     private Long parentId;
 
     /**
@@ -32,6 +41,7 @@ public class SysDept extends BaseEntity {
     /**
      * 部门名称
      */
+    @Length(min = 2, max = 32, message = "部门名称长度应在 2 到 32 之间")
     private String deptName;
 
     /**

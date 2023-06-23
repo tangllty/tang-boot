@@ -21,6 +21,7 @@ import com.tang.system.service.SysRoleService;
 import com.tang.system.service.SysUserService;
 
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.Valid;
 
 /**
  * 用户逻辑控制层
@@ -85,7 +86,7 @@ public class SysUserController {
      */
     @PreAuthorize("@auth.hasPermission('system:user:add')")
     @PostMapping
-    public AjaxResult add(@RequestBody SysUser user) {
+    public AjaxResult add(@Valid @RequestBody SysUser user) {
         return AjaxResult.rows(userService.insertUser(user));
     }
 

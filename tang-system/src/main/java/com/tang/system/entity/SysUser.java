@@ -3,11 +3,19 @@ package com.tang.system.entity;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import org.hibernate.validator.constraints.Length;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.tang.commons.annotation.poi.Excel;
 import com.tang.commons.annotation.poi.Excel.CellType;
 import com.tang.commons.annotation.poi.Excel.Type;
 import com.tang.commons.core.base.entity.BaseEntity;
+
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 
 /**
  * 用户表 sys_user 实体类
@@ -29,24 +37,31 @@ public class SysUser extends BaseEntity {
      * 部门ID
      */
     @Excel(name = "部门ID", cellType = CellType.NUMBER)
+    @NotNull(message = "部门不能为空")
+    @Min(value = 1, message = "部门编号不能小于1")
+    @Max(value = Long.MAX_VALUE, message = "部门编号不能超过" + Long.MAX_VALUE)
     private Long deptId;
 
     /**
      * 用户账号
      */
     @Excel("用户账号")
+    @Length(min = 4, max = 32, message = "用户名长度应在 4 到 32 之间")
     private String username;
 
     /**
      * 昵称
      */
     @Excel("昵称")
+    @Length(min = 4, max = 32, message = "昵称长度应在 4 到 32 之间")
     private String nickname;
 
     /**
      * 邮箱
      */
     @Excel("邮箱")
+    @Email(message = "邮箱格式不正确")
+    @Length(min = 4, max = 64, message = "邮箱长度应在 4 到 64 之间")
     private String email;
 
     /**
@@ -69,6 +84,7 @@ public class SysUser extends BaseEntity {
     /**
      * 密码
      */
+    @Length(min = 4, max = 32, message = "密码长度应在 4 到 32 之间")
     private String password;
 
     /**
@@ -104,6 +120,7 @@ public class SysUser extends BaseEntity {
     /**
      * 角色主键集合
      */
+    @NotEmpty(message = "角色不能为空")
     private List<Long> roleIds;
 
 

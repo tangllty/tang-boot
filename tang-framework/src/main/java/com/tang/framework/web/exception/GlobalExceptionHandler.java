@@ -1,7 +1,10 @@
 package com.tang.framework.web.exception;
 
+import java.util.Optional;
+
 import org.slf4j.Logger;
 import org.springframework.security.access.AccessDeniedException;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -45,6 +48,19 @@ public class GlobalExceptionHandler {
     public AjaxResult handleAccessDeniedException(AccessDeniedException e) {
         LOGGER.error(e.getMessage(), e);
         return AjaxResult.error(HttpStatus.FORBIDDEN, "权限受限，请联系管理员授权");
+    }
+
+    /**
+     * 方法参数无效异常
+     */
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public AjaxResult handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
+        LOGGER.error(e.getMessage(), e);
+        var fieldError = e.getBindingResult().getFieldError();
+        var message = Optional.ofNullable(fieldError)
+            .map(error -> error.getDefaultMessage())
+            .orElse(e.getMessage());
+        return AjaxResult.error(message);
     }
 
 }

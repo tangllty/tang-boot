@@ -1,5 +1,7 @@
 package com.tang.admin.controller;
 
+import java.util.Objects;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,6 +23,9 @@ import com.tang.system.entity.SysUser;
 import com.tang.system.entity.log.SysLogLogin;
 import com.tang.system.service.SysUserService;
 import com.tang.system.service.log.SysLogLoginService;
+
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 
 /**
  * 个人中心逻辑控制层
@@ -68,7 +73,7 @@ public class ProfileController {
      */
     @PreAuthorize("@auth.hasPermission('system:user:edit')")
     @PutMapping("/edit-password")
-    public AjaxResult editPassword(@RequestBody PasswordVo passwordVo) {
+    public AjaxResult editPassword(@Valid @RequestBody PasswordVo passwordVo) {
         return AjaxResult.rows(userService.updatePasswordByUserId(passwordVo));
     }
 
@@ -95,6 +100,9 @@ public class ProfileController {
     @PreAuthorize("@auth.hasPermission('system:user:edit')")
     @PutMapping("/edit-avatar")
     public AjaxResult editAvatar(MultipartFile avatar) {
+        if (Objects.isNull(avatar)) {
+            return AjaxResult.error("头像文件为空");
+        }
         var avatarPath = UploadsUtils.uploadAvatar(avatar);
         var userId = SecurityUtils.getUser().getUserId();
         return AjaxResult.rows(userService.updateAvatarByUserId(userId, avatarPath));

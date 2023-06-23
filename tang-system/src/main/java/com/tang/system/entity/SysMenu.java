@@ -2,7 +2,14 @@ package com.tang.system.entity;
 
 import java.util.List;
 
+import org.hibernate.validator.constraints.Length;
+
 import com.tang.commons.core.base.entity.BaseEntity;
+
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 /**
  * 菜单权限表 sys_menu 实体类
@@ -23,6 +30,9 @@ public class SysMenu extends BaseEntity {
     /**
      * 父菜单ID
      */
+    @NotNull(message = "父菜单不能为空")
+    @Min(value = 1, message = "父菜单编号不能小于1")
+    @Max(value = Long.MAX_VALUE, message = "父菜单编号不能超过" + Long.MAX_VALUE)
     private Long parentId;
 
     /**
@@ -33,6 +43,7 @@ public class SysMenu extends BaseEntity {
     /**
      * 菜单名称
      */
+    @Length(min = 2, max = 32, message = "菜单名称长度应在 2 到 32 之间")
     private String menuName;
 
     /**
@@ -58,6 +69,7 @@ public class SysMenu extends BaseEntity {
     /**
      * 菜单类型（M目录 C菜单 F按钮）
      */
+    @NotBlank(message = "菜单类型不能为空")
     private String menuType;
 
     /**

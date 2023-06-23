@@ -13,6 +13,8 @@ import com.tang.commons.utils.SecurityUtils;
 import com.tang.framework.web.service.LoginService;
 import com.tang.system.service.SysMenuService;
 
+import jakarta.validation.Valid;
+
 /**
  * 登陆验证逻辑控制层
  *
@@ -37,7 +39,7 @@ public class LoginController {
      * @return 令牌
      */
     @PostMapping("/login")
-    public AjaxResult login(@RequestBody LoginModel loginModel) {
+    public AjaxResult login(@Valid @RequestBody LoginModel loginModel) {
         var token = loginService.login(loginModel);
         return AjaxResult.success(Map.of("token", token));
     }
