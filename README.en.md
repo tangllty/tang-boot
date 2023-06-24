@@ -27,7 +27,7 @@ You can read the [documentation](https://tangllty.eu.org/) for more information
 2. modify tang-admin/src/main/resources/application-dev.yml password and other information
 3. modify tang-admin/src/main/resources/logback.xml log storage path
 4. ```bash
-   sh package.sh && sh bin/start.sh
+   sh bin/package.sh && sh bin/start.sh
    ```
 
 #### Project address

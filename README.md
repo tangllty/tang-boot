@@ -27,7 +27,7 @@ tang-boot 是基于 Spring Boot 3 的权限管理系统
 2. 修改 tang-admin/src/main/resources/application-dev.yml password 等信息
 3. 修改 tang-admin/src/main/resources/logback.xml 日志存放路径
 4. ```bash
-   sh package.sh && sh bin/start.sh
+   sh bin/package.sh && sh bin/start.sh
    ```
 
 #### 项目地址
