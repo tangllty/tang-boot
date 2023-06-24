@@ -25,7 +25,6 @@ import com.tang.system.service.SysUserService;
 import com.tang.system.service.log.SysLogLoginService;
 
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotNull;
 
 /**
  * 个人中心逻辑控制层
