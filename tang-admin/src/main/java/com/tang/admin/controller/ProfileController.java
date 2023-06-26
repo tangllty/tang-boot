@@ -104,7 +104,13 @@ public class ProfileController {
         }
         var avatarPath = UploadsUtils.uploadAvatar(avatar);
         var userId = SecurityUtils.getUser().getUserId();
-        return AjaxResult.rows(userService.updateAvatarByUserId(userId, avatarPath));
+        var userModel = SecurityUtils.getUserModel();
+        int rows = userService.updateAvatarByUserId(userId, avatarPath);
+        if (rows > 0) {
+            userModel.getUser().setAvatar(avatarPath);
+            tokenService.set(userModel);
+        }
+        return AjaxResult.rows(rows);
     }
 
 }
