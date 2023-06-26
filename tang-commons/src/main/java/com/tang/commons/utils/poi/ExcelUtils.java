@@ -33,8 +33,8 @@ import com.tang.commons.annotation.poi.Excel.Type;
 import com.tang.commons.constants.ContentType;
 import com.tang.commons.constants.FileType;
 import com.tang.commons.core.model.SysDictDataModel;
-import com.tang.commons.exception.FileNotExistException;
-import com.tang.commons.exception.FileTypeMismatchException;
+import com.tang.commons.exception.file.FileNotExistException;
+import com.tang.commons.exception.file.FileTypeMismatchException;
 import com.tang.commons.utils.DictUtils;
 import com.tang.commons.utils.LogUtils;
 

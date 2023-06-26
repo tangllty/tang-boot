@@ -1,4 +1,4 @@
-package com.tang.commons.exception;
+package com.tang.commons.exception.file;
 
 /**
  * 文件大小超过最大限制异常

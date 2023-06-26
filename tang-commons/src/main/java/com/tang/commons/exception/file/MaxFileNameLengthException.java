@@ -1,4 +1,4 @@
-package com.tang.commons.exception;
+package com.tang.commons.exception.file;
 
 /**
  * 文件名过长异常

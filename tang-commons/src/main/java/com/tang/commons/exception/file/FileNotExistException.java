@@ -1,4 +1,4 @@
-package com.tang.commons.exception;
+package com.tang.commons.exception.file;
 
 /**
  * 文件不存在异常

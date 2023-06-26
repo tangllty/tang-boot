@@ -1,4 +1,4 @@
-package com.tang.commons.exception;
+package com.tang.commons.exception.file;
 
 /**
  * 文件类型不匹配异常
