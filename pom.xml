@@ -5,7 +5,7 @@
 
     <groupId>com.tang</groupId>
     <artifactId>tang-parent</artifactId>
-    <version>1.5.4</version>
+    <version>1.5.5</version>
 
     <name>tang-boot</name>
     <url>https://gitee.com/tangllty/tang-boot</url>
@@ -23,7 +23,7 @@
     </modules>
 
     <properties>
-        <tang.version>1.5.4</tang.version>
+        <tang.version>1.5.5</tang.version>
         <java.version>17</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
