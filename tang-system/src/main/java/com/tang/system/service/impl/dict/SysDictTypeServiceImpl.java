@@ -9,7 +9,7 @@ import org.slf4j.Logger;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.tang.commons.core.model.SysDictDataModel;
+import com.tang.commons.model.SysDictDataModel;
 import com.tang.commons.utils.LogUtils;
 import com.tang.commons.utils.RedisUtils;
 import com.tang.system.entity.dict.SysDictData;

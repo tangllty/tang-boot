@@ -1,6 +1,6 @@
 package com.tang.framework.web.service.authentication;
 
-import com.tang.commons.core.model.UserModel;
+import com.tang.commons.model.UserModel;
 import com.tang.system.entity.SysUser;
 
 /**

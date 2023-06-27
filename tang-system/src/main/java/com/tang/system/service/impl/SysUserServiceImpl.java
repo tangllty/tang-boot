@@ -7,7 +7,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.tang.commons.core.vo.PasswordVo;
+import com.tang.commons.domain.vo.PasswordVo;
 import com.tang.commons.exception.user.EmailNotUniqueException;
 import com.tang.commons.exception.user.PasswordMismatchException;
 import com.tang.commons.exception.user.UserNotFoundException;

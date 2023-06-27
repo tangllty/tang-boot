@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.tang.commons.core.model.SysUserModel;
-import com.tang.commons.core.vo.PasswordVo;
+import com.tang.commons.domain.vo.PasswordVo;
+import com.tang.commons.model.SysUserModel;
 import com.tang.commons.utils.AjaxResult;
 import com.tang.commons.utils.SecurityUtils;
 import com.tang.commons.utils.UploadsUtils;

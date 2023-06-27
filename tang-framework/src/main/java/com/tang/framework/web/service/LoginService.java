@@ -7,10 +7,10 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
-import com.tang.commons.core.model.LoginModel;
-import com.tang.commons.core.model.UserModel;
 import com.tang.commons.enumeration.LoginType;
 import com.tang.commons.exception.user.IllegalLoginTypeException;
+import com.tang.commons.model.LoginModel;
+import com.tang.commons.model.UserModel;
 import com.tang.commons.utils.LogUtils;
 import com.tang.framework.security.authentication.email.EmailAuthenticationToken;
 import com.tang.framework.security.authentication.username.UsernameAuthenticationToken;

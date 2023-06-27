@@ -2,7 +2,7 @@ package com.tang.system.service.log;
 
 import java.util.List;
 
-import com.tang.commons.core.model.UserModel;
+import com.tang.commons.model.UserModel;
 import com.tang.system.entity.log.SysLogLogin;
 
 /**

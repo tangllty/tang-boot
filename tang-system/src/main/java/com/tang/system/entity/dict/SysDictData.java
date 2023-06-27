@@ -2,7 +2,7 @@ package com.tang.system.entity.dict;
 
 import org.hibernate.validator.constraints.Length;
 
-import com.tang.commons.core.base.entity.BaseEntity;
+import com.tang.commons.base.entity.BaseEntity;
 
 import jakarta.validation.constraints.NotBlank;
 

@@ -5,8 +5,8 @@ import java.util.Set;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import com.tang.commons.core.model.SysUserModel;
-import com.tang.commons.core.model.UserModel;
+import com.tang.commons.model.SysUserModel;
+import com.tang.commons.model.UserModel;
 
 /**
  * Spring Security 工具类

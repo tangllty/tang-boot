@@ -9,7 +9,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.tang.commons.annotation.poi.Excel;
 import com.tang.commons.annotation.poi.Excel.CellType;
 import com.tang.commons.annotation.poi.Excel.Type;
-import com.tang.commons.core.base.entity.BaseEntity;
+import com.tang.commons.base.entity.BaseEntity;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Max;

@@ -1,4 +1,4 @@
-package com.tang.generator.core.autoconfigure;
+package com.tang.generator.autoconfigure;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;

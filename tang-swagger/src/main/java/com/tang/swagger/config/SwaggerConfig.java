@@ -3,7 +3,7 @@ package com.tang.swagger.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import com.tang.commons.core.autoconfigure.TangProperties;
+import com.tang.commons.autoconfigure.TangProperties;
 
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Contact;
@@ -36,8 +36,9 @@ public class SwaggerConfig {
                 .url("https://gitee.com/tangllty/tang-boot/blob/master/LICENSE"))
             .contact(new Contact()
                 .name("Tang")
-                .email("")
-                .url("https://gitee.com/tangllty/tang-boot")));
+                .url("https://gitee.com/tangllty/tang-boot")))
+            .addServersItem(new io.swagger.v3.oas.models.servers.Server()
+                .url("http://localhost:8080"));
     }
 
 }

@@ -1,8 +1,8 @@
-package com.tang.commons.core.model;
-
-import com.tang.commons.core.base.entity.BaseEntity;
+package com.tang.commons.model;
 
 import java.util.List;
+
+import com.tang.commons.base.entity.BaseEntity;
 
 /**
  * 部门模型

@@ -8,7 +8,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 
-import com.tang.commons.core.model.UserModel;
+import com.tang.commons.model.UserModel;
 import com.tang.commons.utils.RedisUtils;
 import com.tang.monitor.entity.OnlineUser;
 import com.tang.monitor.service.OnlineUserService;

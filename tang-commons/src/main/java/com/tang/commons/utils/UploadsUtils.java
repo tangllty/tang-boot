@@ -6,8 +6,8 @@ import java.util.Objects;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import com.tang.commons.autoconfigure.TangProperties;
 import com.tang.commons.constants.UploadsPrefix;
-import com.tang.commons.core.autoconfigure.TangProperties;
 import com.tang.commons.exception.file.MaxFileNameLengthException;
 import com.tang.commons.exception.file.MaxFileSizeException;
 

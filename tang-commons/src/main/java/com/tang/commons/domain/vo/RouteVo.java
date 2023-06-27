@@ -1,4 +1,4 @@
-package com.tang.commons.core.vo;
+package com.tang.commons.domain.vo;
 
 import java.util.List;
 

@@ -2,7 +2,7 @@ package com.tang.system.service.dict;
 
 import java.util.List;
 
-import com.tang.commons.core.model.SysDictDataModel;
+import com.tang.commons.model.SysDictDataModel;
 import com.tang.system.entity.dict.SysDictData;
 
 /**

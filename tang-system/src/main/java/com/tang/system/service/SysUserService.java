@@ -2,7 +2,7 @@ package com.tang.system.service;
 
 import java.util.List;
 
-import com.tang.commons.core.vo.PasswordVo;
+import com.tang.commons.domain.vo.PasswordVo;
 import com.tang.system.entity.SysUser;
 
 /**

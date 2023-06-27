@@ -1,4 +1,4 @@
-package com.tang.commons.core.model;
+package com.tang.commons.model;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -8,7 +8,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
-import com.tang.commons.core.base.entity.BaseEntity;
+import com.tang.commons.base.entity.BaseEntity;
 
 /**
  * 用户模型

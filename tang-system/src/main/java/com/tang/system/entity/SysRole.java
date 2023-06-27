@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.hibernate.validator.constraints.Length;
 
-import com.tang.commons.core.base.entity.BaseEntity;
+import com.tang.commons.base.entity.BaseEntity;
 
 /**
  * 角色表 sys_role 实体类

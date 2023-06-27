@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
-import com.tang.commons.core.model.SysDictDataModel;
+import com.tang.commons.model.SysDictDataModel;
 import com.tang.commons.utils.RedisUtils;
 import com.tang.system.entity.dict.SysDictData;
 import com.tang.system.mapper.dict.SysDictDataMapper;

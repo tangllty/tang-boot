@@ -11,9 +11,9 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 
+import com.tang.commons.autoconfigure.TokenProperties;
 import com.tang.commons.constants.CachePrefix;
-import com.tang.commons.core.autoconfigure.TokenProperties;
-import com.tang.commons.core.model.UserModel;
+import com.tang.commons.model.UserModel;
 import com.tang.commons.utils.IdUtils;
 import com.tang.commons.utils.IpUtils;
 import com.tang.commons.utils.RedisUtils;

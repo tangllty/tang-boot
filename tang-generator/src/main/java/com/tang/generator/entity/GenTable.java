@@ -2,7 +2,7 @@ package com.tang.generator.entity;
 
 import java.util.List;
 
-import com.tang.commons.core.base.entity.BaseEntity;
+import com.tang.commons.base.entity.BaseEntity;
 
 /**
  * 代码生成表 gen_table 实体类

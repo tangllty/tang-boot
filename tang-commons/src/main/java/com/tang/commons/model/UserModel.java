@@ -1,4 +1,4 @@
-package com.tang.commons.core.model;
+package com.tang.commons.model;
 
 import java.time.LocalDateTime;
 import java.util.Collection;

@@ -1,6 +1,6 @@
 package com.tang.generator.entity;
 
-import com.tang.commons.core.base.entity.BaseEntity;
+import com.tang.commons.base.entity.BaseEntity;
 
 /**
  * 代码字段生成表 gen_table_column 实体类

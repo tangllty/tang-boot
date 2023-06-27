@@ -2,7 +2,7 @@ package com.tang.generator.utils;
 
 import com.google.common.base.CaseFormat;
 import com.tang.commons.utils.SpringUtils;
-import com.tang.generator.core.autoconfigure.GeneratorProperties;
+import com.tang.generator.autoconfigure.GeneratorProperties;
 import com.tang.generator.entity.GenTable;
 
 /**

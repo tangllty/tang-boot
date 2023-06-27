@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.tang.commons.core.model.UserModel;
+import com.tang.commons.model.UserModel;
 import com.tang.commons.utils.SecurityUtils;
 import com.tang.system.entity.log.SysLogLogin;
 import com.tang.system.mapper.log.SysLogLoginMapper;

@@ -7,13 +7,13 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
 
 import com.tang.commons.constants.Status;
-import com.tang.commons.core.model.SysDeptModel;
-import com.tang.commons.core.model.SysUserModel;
-import com.tang.commons.core.model.UserModel;
 import com.tang.commons.exception.status.DeletedException;
 import com.tang.commons.exception.status.DisabledException;
 import com.tang.commons.exception.user.PasswordMismatchException;
 import com.tang.commons.exception.user.UserNotFoundException;
+import com.tang.commons.model.SysDeptModel;
+import com.tang.commons.model.SysUserModel;
+import com.tang.commons.model.UserModel;
 import com.tang.commons.utils.SecurityUtils;
 import com.tang.framework.web.service.TokenService;
 import com.tang.system.entity.SysUser;

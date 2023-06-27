@@ -11,8 +11,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.tang.commons.core.vo.MetaVo;
-import com.tang.commons.core.vo.RouteVo;
+import com.tang.commons.domain.vo.MetaVo;
+import com.tang.commons.domain.vo.RouteVo;
 import com.tang.commons.enumeration.MenuType;
 import com.tang.commons.utils.SecurityUtils;
 import com.tang.commons.utils.tree.TreeSelect;

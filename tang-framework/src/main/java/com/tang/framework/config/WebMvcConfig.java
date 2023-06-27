@@ -4,8 +4,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import com.tang.commons.autoconfigure.TangProperties;
 import com.tang.commons.constants.UploadsPrefix;
-import com.tang.commons.core.autoconfigure.TangProperties;
 
 /**
  * WebMvc 配置

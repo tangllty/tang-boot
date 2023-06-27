@@ -10,7 +10,7 @@ import org.apache.velocity.VelocityContext;
 
 import com.google.common.base.CaseFormat;
 import com.tang.commons.utils.SpringUtils;
-import com.tang.generator.core.autoconfigure.GeneratorProperties;
+import com.tang.generator.autoconfigure.GeneratorProperties;
 import com.tang.generator.entity.GenTable;
 import com.tang.generator.entity.GenTableColumn;
 

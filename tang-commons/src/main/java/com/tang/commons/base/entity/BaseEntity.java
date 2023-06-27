@@ -1,4 +1,4 @@
-package com.tang.commons.core.base.entity;
+package com.tang.commons.base.entity;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;

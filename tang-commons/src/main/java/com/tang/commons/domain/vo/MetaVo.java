@@ -1,4 +1,4 @@
-package com.tang.commons.core.vo;
+package com.tang.commons.domain.vo;
 
 /**
  * 路由显示信息

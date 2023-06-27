@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.tang.commons.core.model.LoginModel;
+import com.tang.commons.model.LoginModel;
 import com.tang.commons.utils.AjaxResult;
 import com.tang.commons.utils.SecurityUtils;
 import com.tang.framework.web.service.LoginService;

@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.tang.commons.constants.CachePrefix;
-import com.tang.commons.core.model.SysDictDataModel;
+import com.tang.commons.model.SysDictDataModel;
 
 /**
  * 字典工具类

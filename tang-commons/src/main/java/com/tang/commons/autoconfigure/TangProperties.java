@@ -1,4 +1,4 @@
-package com.tang.commons.core.autoconfigure;
+package com.tang.commons.autoconfigure;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;

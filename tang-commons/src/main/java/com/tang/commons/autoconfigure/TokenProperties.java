@@ -1,4 +1,4 @@
-package com.tang.commons.core.autoconfigure;
+package com.tang.commons.autoconfigure;
 
 import java.util.concurrent.TimeUnit;
 

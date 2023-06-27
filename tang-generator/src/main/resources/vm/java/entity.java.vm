@@ -2,7 +2,7 @@ package ${packageName}.entity;
 
 import java.time.LocalDateTime;
 
-import com.tang.commons.core.base.entity.BaseEntity;
+import com.tang.commons.base.entity.BaseEntity;
 
 /**
  * ${classComment}实体类 $tableName

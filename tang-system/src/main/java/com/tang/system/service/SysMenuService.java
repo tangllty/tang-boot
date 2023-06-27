@@ -3,7 +3,7 @@ package com.tang.system.service;
 import java.util.List;
 import java.util.Set;
 
-import com.tang.commons.core.vo.RouteVo;
+import com.tang.commons.domain.vo.RouteVo;
 import com.tang.commons.utils.tree.TreeSelect;
 import com.tang.system.entity.SysMenu;
 
