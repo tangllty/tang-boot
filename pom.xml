@@ -256,9 +256,9 @@
                     <resource>
                         <directory>src/main/resources</directory>
                         <filtering>true</filtering>
-                        <includes>
-                            <include>application-dev.yml</include>
-                        </includes>
+                        <excludes>
+                            <exclude>application-dev.yml</exclude>
+                        </excludes>
                     </resource>
                 </resources>
             </build>
