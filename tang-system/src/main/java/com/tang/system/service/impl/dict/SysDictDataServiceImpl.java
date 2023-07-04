@@ -52,7 +52,7 @@ public class SysDictDataServiceImpl implements SysDictDataService {
     public List<SysDictDataModel> selectDictDataListByDictType(String dictType) {
         var dictDataList = redisUtils.get(DICT_TYPE + dictType);
         if (dictDataList instanceof List<?> list) {
-            return list.stream().map(SysDictDataModel.class::cast).toList();
+            return list.stream().map(SysDictDataModel.class::cast).collect(Collectors.toList());
         }
         return Collections.emptyList();
     }
