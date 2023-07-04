@@ -238,7 +238,6 @@
                 <resources>
                     <resource>
                         <directory>src/main/resources</directory>
-                        <filtering>true</filtering>
                         <excludes>
                             <exclude>application-prod.yml</exclude>
                         </excludes>
@@ -255,7 +254,6 @@
                 <resources>
                     <resource>
                         <directory>src/main/resources</directory>
-                        <filtering>true</filtering>
                         <excludes>
                             <exclude>application-dev.yml</exclude>
                         </excludes>
