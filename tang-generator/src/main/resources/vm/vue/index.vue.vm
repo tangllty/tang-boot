@@ -140,6 +140,37 @@
           />
         </el-form-item>
 #end
+#if ($column.htmlType == 'textarea')
+        <el-form-item label="$column.columnComment" prop="$column.javaField">
+          <el-input
+            type="textarea"
+            v-model="${className}Form.$column.javaField"
+            placeholder="请输入$column.columnComment"
+          />
+        </el-form-item>
+#end
+#if ($column.htmlType == 'radio')
+        <el-form-item label="$column.columnComment" prop="$column.javaField">
+          <el-radio-group v-model="${className}Form.$column.javaField">
+            <el-radio
+              v-for="item in $column.dictType"
+              :key="item.value"
+              :label="item.value"
+            >{{ item.label }}</el-radio>
+          </el-radio-group>
+        </el-form-item>
+#end
+#if ($column.htmlType == 'checkbox')
+        <el-form-item label="$column.columnComment" prop="$column.javaField">
+          <el-checkbox-group v-model="${className}Form.$column.javaField">
+            <el-checkbox
+              v-for="item in $column.dictType"
+              :key="item.value"
+              :label="item.value"
+            >{{ item.label }}</el-checkbox>
+          </el-checkbox-group>
+        </el-form-item>
+#end
 #if ($column.htmlType == 'select')
         <el-form-item label="$column.columnComment" prop="$column.javaField">
           <el-select
@@ -155,15 +186,57 @@
           </el-select>
         </el-form-item>
 #end
-#if ($column.htmlType == 'radio')
+#if ($column.htmlType == 'date')
         <el-form-item label="$column.columnComment" prop="$column.javaField">
-          <el-radio-group v-model="${className}Form.$column.javaField">
-            <el-radio
-              v-for="item in $column.dictType"
-              :key="item.value"
-              :label="item.value"
-            >{{ item.label }}</el-radio>
-          </el-radio-group>
+          <el-date-picker
+            v-model="${className}Form.$column.javaField"
+            type="date"
+            placeholder="选择日期"
+            value-format="yyyy-MM-dd"
+            style="width: 100%;"
+          />
+        </el-form-item>
+#end
+#if ($column.htmlType == 'datetime')
+        <el-form-item label="$column.columnComment" prop="$column.javaField">
+          <el-date-picker
+            v-model="${className}Form.$column.javaField"
+            type="datetime"
+            placeholder="选择日期时间"
+            value-format="yyyy-MM-dd HH:mm:ss"
+            style="width: 100%;"
+          />
+        </el-form-item>
+#end
+#if ($column.htmlType == 'image')
+        <el-form-item label="$column.columnComment" prop="$column.javaField">
+          <el-upload
+            class="avatar-uploader"
+            action="/api/upload"
+            :show-file-list="false"
+            :on-success="handleAvatarSuccess"
+            :before-upload="beforeAvatarUpload"
+          >
+            <img
+              v-if="${className}Form.$column.javaField"
+              :src="`${className}Form.$column.javaField`"
+              class="avatar"
+            />
+            <i v-else class="el-icon-plus avatar-uploader-icon" />
+          </el-upload>
+        </el-form-item>
+#end
+#if ($column.htmlType == 'file')
+        <el-form-item label="$column.columnComment" prop="$column.javaField">
+          <el-upload
+            class="avatar-uploader"
+            action="/api/upload"
+            :show-file-list="false"
+            :on-success="handleAvatarSuccess"
+            :before-upload="beforeAvatarUpload"
+          >
+            <el-button size="small" type="primary">点击上传</el-button>
+          </el-upload>
         </el-form-item>
 #end
 #end
