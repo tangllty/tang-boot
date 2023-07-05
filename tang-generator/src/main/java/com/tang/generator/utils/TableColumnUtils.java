@@ -134,7 +134,7 @@ public class TableColumnUtils {
      * @return java类型
      */
     private static String getJavaType(String columnType) {
-        if (List.of(STRING_TYPE).contains(columnType)) {
+        if (List.of(STRING_TYPE).stream().anyMatch(columnType::startsWith)) {
             return "String";
         }
         if (List.of(NUMBER_TYPE).contains(columnType)) {
