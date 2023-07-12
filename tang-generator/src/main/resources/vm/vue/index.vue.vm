@@ -43,7 +43,7 @@
           <el-button
             type="primary"
             :icon="Plus"
-            v-hasPermission="'$moduleName:$permissionName:add'"
+            v-hasPermission="'$moduleName.replace("/", ":"):$permissionName:add'"
             @click="handleAdd"
           >新增</el-button>
           <el-button
@@ -57,7 +57,7 @@
             type="danger"
             :icon="Delete"
             :disabled="${primaryKey}s.length === 0"
-            v-hasPermission="'$moduleName:$permissionName:delete'"
+            v-hasPermission="'$moduleName.replace("/", ":"):$permissionName:delete'"
             @click="handleDeletes"
           >删除</el-button>
         </el-row>
@@ -89,7 +89,7 @@
               link
               :icon="Edit"
               size="small"
-              v-hasPermission="'$moduleName:$permissionName:edit'"
+              v-hasPermission="'$moduleName.replace("/", ":"):$permissionName:edit'"
               @click="handleEdit(scope.row)"
             >修改</el-button>
             <el-button
@@ -97,7 +97,7 @@
               link
               :icon="Delete"
               size="small"
-              v-hasPermission="'$moduleName:$permissionName:delete'"
+              v-hasPermission="'$moduleName.replace("/", ":"):$permissionName:delete'"
               @click="handleDelete(scope.row)"
             >删除</el-button>
           </template>
