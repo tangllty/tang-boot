@@ -38,7 +38,7 @@ public class TableUtils {
      * @return 类注释
      */
     private static String getTableComment(String tableComment) {
-        return tableComment.replace("表", "");
+        return tableComment.replaceFirst("表$", "");
     }
 
     /**
