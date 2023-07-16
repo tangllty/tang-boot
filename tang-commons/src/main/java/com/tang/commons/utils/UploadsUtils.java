@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Objects;
 
+import org.slf4j.Logger;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.tang.commons.autoconfigure.TangProperties;
@@ -21,6 +22,8 @@ public class UploadsUtils {
     private UploadsUtils() {
     }
 
+    private static final Logger LOGGER = LogUtils.getLogger();
+
     private static final TangProperties TANG_PROPERTIES = SpringUtils.getBean(TangProperties.class);
 
     /**
@@ -31,7 +34,7 @@ public class UploadsUtils {
     /**
      * 文件最大大小
      */
-    private static final long MAX_FILE_SIZE = 2L * 1024L * 1024L;
+    private static final long MAX_FILE_SIZE = 5L * 1024L * 1024L;
 
     /**
      * 获取文件上传路径
@@ -102,6 +105,7 @@ public class UploadsUtils {
         } catch (IllegalStateException | IOException e) {
             e.printStackTrace();
         }
+        LOGGER.info("上传文件成功, 文件路径: {}, 文件大小: {}", filePath, ByteUtils.getSize(file.getSize()));
         return filePath;
     }
 
