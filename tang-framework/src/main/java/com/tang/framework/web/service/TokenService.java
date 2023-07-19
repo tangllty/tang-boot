@@ -91,7 +91,7 @@ public class TokenService {
      * @return 令牌
      */
     public String createToken(@NonNull UserModel userModel) {
-        var token = IdUtils.getUUID();
+        var token = IdUtils.uuid(true);
         userModel.setToken(token);
         setUserAgent(userModel);
         set(userModel);
