@@ -14,10 +14,10 @@ import org.springframework.stereotype.Component;
 import com.tang.commons.autoconfigure.TokenProperties;
 import com.tang.commons.constants.CachePrefix;
 import com.tang.commons.model.UserModel;
-import com.tang.commons.utils.IdUtils;
 import com.tang.commons.utils.IpUtils;
 import com.tang.commons.utils.RedisUtils;
 import com.tang.commons.utils.ServletUtils;
+import com.tang.commons.utils.id.IdUtils;
 import com.tang.system.entity.SysUser;
 import com.tang.system.mapper.SysUserMapper;
 
@@ -91,7 +91,7 @@ public class TokenService {
      * @return 令牌
      */
     public String createToken(@NonNull UserModel userModel) {
-        var token = IdUtils.uuid(true);
+        var token = String.valueOf(IdUtils.snowflake());
         userModel.setToken(token);
         setUserAgent(userModel);
         set(userModel);
