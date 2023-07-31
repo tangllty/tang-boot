@@ -30,6 +30,14 @@ tang-boot 是基于 Spring Boot 3 的权限管理系统
    sh bin/package.sh && sh bin/start.sh
    ```
 
+## 贡献
+
+如果你有任何问题、建议或发现了 bug，请提交 issue 或提供 Pull Request 来帮助改进该项目。
+
+## 许可证
+
+Tang-Boot 使用 MIT 许可证。更多详情请查阅 [LICENSE](./LICENSE) 文件。
+
 ## 项目地址
 
 | 项目 | Gitee                                          | GitHub                                          |
@@ -41,6 +49,6 @@ tang-boot 是基于 Spring Boot 3 的权限管理系统
 
 - 微信
 
-  - ![WeChat](https://gitee.com/tangllty/tang-docs/raw/master/docs/guide/image/wechat.png)
+  - ![WeChat](https://gitee.com/tangllty/tang-docs/raw/master/docs/public/wechat.png)
 - Telegram
 - QQ

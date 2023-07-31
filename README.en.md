@@ -41,6 +41,6 @@ You can read the [documentation](https://tangllty.eu.org/) for more information
 
 - WeChat
 
-  - ![WeChat](https://github.com/tangllty/tang-docs/raw/master/docs/guide/image/wechat.png)
+  - ![WeChat](https://github.com/tangllty/tang-docs/raw/master/docs/public/wechat.png)
 - Telegram
 - QQ
