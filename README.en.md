@@ -30,6 +30,14 @@ You can read the [documentation](https://tangllty.eu.org/) for more information
    sh bin/package.sh && sh bin/start.sh
    ```
 
+## Contributing
+
+If you have any questions, suggestions, or find bugs, please submit an [Issues](https://github.com/tangllty/tang-boot/issues/new) or provide a [Pull Request](https://github.com/tangllty/tang-boot/pull/new) to help improve the project.
+
+## License
+
+tang-boot uses the MIT license. For more details, please refer to [LICENSE](https://github.com/tangllty/tang-boot/blob/master/LICENSE) files.
+
 ## Project Address
 
 | Project   | Gitee                                          | GitHub                                          |

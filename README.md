@@ -32,11 +32,11 @@ tang-boot 是基于 Spring Boot 3 的权限管理系统
 
 ## 贡献
 
-如果你有任何问题、建议或发现了 bug，请提交 issue 或提供 Pull Request 来帮助改进该项目。
+如果你有任何问题、建议或发现了 bug，请提交 [Issues](https://gitee.com/tangllty/tang-boot/issues/new) 或提供 [Pull Request](https://gitee.com/tangllty/tang-boot/pull/new) 来帮助改进该项目。
 
 ## 许可证
 
-Tang-Boot 使用 MIT 许可证。更多详情请查阅 [LICENSE](./LICENSE) 文件。
+tang-boot 使用 MIT 许可证。更多详情请查阅 [LICENSE](https://gitee.com/tangllty/tang-boot/blob/master/LICENSE) 文件。
 
 ## 项目地址
 
