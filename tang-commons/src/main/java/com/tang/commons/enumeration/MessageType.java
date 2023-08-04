@@ -1,5 +1,7 @@
 package com.tang.commons.enumeration;
 
+import java.util.Arrays;
+
 import com.fasterxml.jackson.annotation.JsonValue;
 
 /**
@@ -25,12 +27,10 @@ public enum MessageType {
     }
 
     public static MessageType getMessageType(String name) {
-        for (MessageType messageType : MessageType.values()) {
-            if (messageType.getName().equals(name)) {
-                return messageType;
-            }
-        }
-        return null;
+        return Arrays.stream(MessageType.values())
+            .filter(messageType -> messageType.getName().equals(name))
+            .findFirst()
+            .orElse(null);
     }
 
 }
