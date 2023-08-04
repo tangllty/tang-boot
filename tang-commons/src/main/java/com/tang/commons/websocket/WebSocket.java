@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Consumer;
 
 import org.slf4j.Logger;
@@ -36,12 +37,12 @@ public class WebSocket {
     /**
      * 会话池，用于存储用户 ID 与对应的会话对象
      */
-    private static final Map<String, Session> SESSION_POOL = new HashMap<>(16);
+    private static final Map<String, Session> SESSION_POOL = new ConcurrentHashMap<>(16);
 
     /**
      * 消息池，用于存储消息类型与对应的回调函数
      */
-    private static final Map<String, List<Consumer<Object>>> MESSAGES = new HashMap<>(16);
+    private static final Map<String, List<Consumer<String>>> MESSAGES = new HashMap<>(16);
 
     /**
      * WebSocket 连接建立时触发
@@ -51,6 +52,10 @@ public class WebSocket {
      */
     @OnOpen
     public void onOpen(@PathParam(value = "userId") String userId, Session session) {
+        if (SESSION_POOL.containsKey(userId)) {
+            LOGGER.error("WebSocket connection already exists for user: {}", userId);
+            return;
+        }
         SESSION_POOL.put(userId, session);
         LOGGER.info("WebSocket connection opened, total: {}", SESSION_POOL.size());
     }
@@ -116,6 +121,16 @@ public class WebSocket {
      * 向指定用户发送消息
      *
      * @param userId 用户 ID
+     * @param message 消息对象
+     */
+    public void sendMessage(Long userId, Message message) {
+        sendMessage(String.valueOf(userId), message);
+    }
+
+    /**
+     * 向指定用户发送消息
+     *
+     * @param userId 用户 ID
      * @param messageType 消息类型
      * @param message 消息内容
      */
@@ -152,7 +167,7 @@ public class WebSocket {
      * @param messageType 消息类型
      * @param callback 回调函数
      */
-    public void subscribe(MessageType messageType, Consumer<Object> callback) {
+    public void subscribe(MessageType messageType, Consumer<String> callback) {
         MESSAGES.computeIfAbsent(messageType.getName(), k -> new ArrayList<>()).add(callback);
     }
 
@@ -162,7 +177,7 @@ public class WebSocket {
      * @param messageType 消息类型
      * @param callback 回调函数
      */
-    public void unsubscribe(MessageType messageType, Consumer<Object> callback) {
+    public void unsubscribe(MessageType messageType, Consumer<String> callback) {
         if (!MESSAGES.containsKey(messageType.getName()) || !MESSAGES.get(messageType.getName()).contains(callback)) {
             return;
         }
