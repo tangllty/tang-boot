@@ -16,6 +16,7 @@ public enum MessageType {
         this.name = name;
     }
 
+    @JsonValue
     public String getName() {
         return name;
     }
