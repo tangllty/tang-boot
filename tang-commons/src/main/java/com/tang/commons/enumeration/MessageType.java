@@ -1,5 +1,7 @@
 package com.tang.commons.enumeration;
 
+import com.fasterxml.jackson.annotation.JsonValue;
+
 /**
  * 消息类型枚举类
  *
@@ -8,7 +10,8 @@ package com.tang.commons.enumeration;
 public enum MessageType {
 
     NOTICE("notice"),
-    MESSAGE("message");
+    MESSAGE("message"),
+    HEARTBEAT("heartbeat");
 
     private final String name;
 
