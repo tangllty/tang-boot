@@ -5,9 +5,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.function.Function;
+import java.util.function.Consumer;
 
-import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.springframework.stereotype.Component;
 
@@ -42,7 +41,7 @@ public class WebSocket {
     /**
      * 消息池，用于存储消息类型与对应的回调函数
      */
-    private static final Map<String, List<Function<Object, Void>>> MESSAGES = new HashMap<>(16);
+    private static final Map<String, List<Consumer<Object>>> MESSAGES = new HashMap<>(16);
 
     /**
      * WebSocket 连接建立时触发
@@ -69,7 +68,7 @@ public class WebSocket {
         LOGGER.info("WebSocket received message type: {}, data: {}", messageType, message.getData());
 
         if (MESSAGES.containsKey(messageType.getName())) {
-            MESSAGES.get(messageType.getName()).forEach(callback -> callback.apply(message.getData()));
+            MESSAGES.get(messageType.getName()).forEach(callback -> callback.accept(message.getData()));
         }
     }
 
@@ -153,7 +152,7 @@ public class WebSocket {
      * @param messageType 消息类型
      * @param callback 回调函数
      */
-    public void subscribe(MessageType messageType, Function<Object, Void> callback) {
+    public void subscribe(MessageType messageType, Consumer<Object> callback) {
         MESSAGES.computeIfAbsent(messageType.getName(), k -> new ArrayList<>()).add(callback);
     }
 
@@ -163,20 +162,12 @@ public class WebSocket {
      * @param messageType 消息类型
      * @param callback 回调函数
      */
-    public void unsubscribe(MessageType messageType, Function<Object, Void> callback) {
+    public void unsubscribe(MessageType messageType, Consumer<Object> callback) {
         if (!MESSAGES.containsKey(messageType.getName()) || !MESSAGES.get(messageType.getName()).contains(callback)) {
             return;
         }
 
         MESSAGES.get(messageType.getName()).remove(callback);
-    }
-
-    @PostConstruct
-    public void getNotice() {
-        subscribe(MessageType.NOTICE, data -> {
-            LOGGER.info("WebSocket notice: {}", data);
-            return null;
-        });
     }
 
 }
