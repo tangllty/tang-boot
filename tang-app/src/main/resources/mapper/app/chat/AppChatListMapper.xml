@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tang.app.mapper.AppChatListMapper">
+
+    <resultMap id="AppChatListMap" type="com.tang.app.entity.AppChatList">
+        <result property="chatListId" column="chat_list_id" />
+        <result property="userId" column="user_id" />
+        <result property="friendId" column="friend_id" />
+        <result property="username" column="username" />
+        <result property="nickname" column="nickname" />
+        <result property="avatar" column="avatar" />
+        <result property="stickFlag" column="stick_flag" />
+        <result property="displayFlag" column="display_flag" />
+        <result property="muteFlag" column="mute_flag" />
+        <result property="createBy" column="create_by" />
+        <result property="createTime" column="create_time" />
+        <result property="updateBy" column="update_by" />
+        <result property="updateTime" column="update_time" />
+        <result property="remark" column="remark" />
+    </resultMap>
+
+    <sql id="AppChatListVo">
+        select acl.chat_list_id, acl.user_id, acl.friend_id, u.username, u.nickname, u.avatar, acl.stick_flag, acl.display_flag, acl.mute_flag, acl.create_by, acl.create_time, acl.update_by, acl.update_time, acl.remark
+        from app_chat_list acl
+        left join sys_user u on acl.friend_id = u.user_id
+    </sql>
+
+    <select id="selectAppChatListList" resultMap="AppChatListMap">
+        <include refid="AppChatListVo" />
+        <where>
+            <if test="chatListId != null">
+                and acl.chat_list_id = #{chatListId}
+            </if>
+            <if test="userId != null">
+                and acl.user_id = #{userId}
+            </if>
+            <if test="friendId != null">
+                and acl.friend_id = #{friendId}
+            </if>
+            <if test="stickFlag != null and stickFlag != ''">
+                and acl.stick_flag = #{stickFlag}
+            </if>
+            <if test="displayFlag != null and displayFlag != ''">
+                and acl.display_flag = #{displayFlag}
+            </if>
+            <if test="muteFlag != null and muteFlag != ''">
+                and acl.mute_flag = #{muteFlag}
+            </if>
+            <if test="createBy != null and createBy != ''">
+                and acl.create_by = #{createBy}
+            </if>
+            <if test="createTime != null">
+                and acl.create_time = #{createTime}
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                and acl.update_by = #{updateBy}
+            </if>
+            <if test="updateTime != null">
+                and acl.update_time = #{updateTime}
+            </if>
+            <if test="remark != null and remark != ''">
+                and acl.remark = #{remark}
+            </if>
+        </where>
+    </select>
+
+    <select id="selectAppChatListListAllByUserId" resultMap="AppChatListMap">
+        <include refid="AppChatListVo" />
+        where acl.user_id = #{userId}
+    </select>
+
+    <select id="selectAppChatListByChatListId" resultMap="AppChatListMap">
+        <include refid="AppChatListVo" />
+        where acl.chat_list_id = #{chatListId}
+    </select>
+
+    <insert id="insertAppChatList" useGeneratedKeys="true" keyProperty="chatListId">
+        insert into app_chat_list (
+            <trim suffixOverrides=",">
+                <if test="chatListId != null">chat_list_id,</if>
+                <if test="userId != null">user_id,</if>
+                <if test="friendId != null">friend_id,</if>
+                <if test="stickFlag != null and stickFlag != ''">stick_flag,</if>
+                <if test="displayFlag != null and displayFlag != ''">display_flag,</if>
+                <if test="muteFlag != null and muteFlag != ''">mute_flag,</if>
+                <if test="createBy != null and createBy != ''">create_by,</if>
+                <if test="createTime != null">create_time,</if>
+                <if test="updateBy != null and updateBy != ''">update_by,</if>
+                <if test="updateTime != null">update_time,</if>
+                <if test="remark != null and remark != ''">remark,</if>
+            </trim>
+        ) values (
+            <trim suffixOverrides=",">
+                <if test="chatListId != null">#{chatListId},</if>
+                <if test="userId != null">#{userId},</if>
+                <if test="friendId != null">#{friendId},</if>
+                <if test="stickFlag != null and stickFlag != ''">#{stickFlag},</if>
+                <if test="displayFlag != null and displayFlag != ''">#{displayFlag},</if>
+                <if test="muteFlag != null and muteFlag != ''">#{muteFlag},</if>
+                <if test="createBy != null and createBy != ''">#{createBy},</if>
+                <if test="createTime != null">#{createTime},</if>
+                <if test="updateBy != null and updateBy != ''">#{updateBy},</if>
+                <if test="updateTime != null">#{updateTime},</if>
+                <if test="remark != null and remark != ''">#{remark},</if>
+            </trim>
+        )
+    </insert>
+
+    <update id="updateAppChatListByChatListId">
+        update app_chat_list
+        <set>
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="friendId != null">friend_id = #{friendId},</if>
+            <if test="stickFlag != null and stickFlag != ''">stick_flag = #{stickFlag},</if>
+            <if test="displayFlag != null and displayFlag != ''">display_flag = #{displayFlag},</if>
+            <if test="muteFlag != null and muteFlag != ''">mute_flag = #{muteFlag},</if>
+            <if test="createBy != null and createBy != ''">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null and updateBy != ''">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="remark != null and remark != ''">remark = #{remark},</if>
+        </set>
+        where chat_list_id = #{chatListId}
+    </update>
+
+    <delete id="deleteAppChatListByChatListId">
+        delete from app_chat_list where chat_list_id = #{chatListId}
+    </delete>
+
+    <delete id="deleteAppChatListByChatListIds">
+        delete from app_chat_list where chat_list_id in
+        <foreach item="chatListId" collection="array" open="(" separator="," close=")">
+            #{chatListId}
+        </foreach>
+    </delete>
+
+</mapper>

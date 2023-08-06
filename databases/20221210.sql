@@ -119,6 +119,7 @@ create table sys_menu (
 insert into sys_menu values (1, 0, '0', '系统管理', 'system',  '', '', '系统管理', 'D', '0', 1, '0', '0', 'admin', sysdate(), '', null, '系统管理目录');
 insert into sys_menu values (2, 0, '0', '系统监控', 'monitor', '', '', '系统监控', 'D', '0', 2, '0', '0', 'admin', sysdate(), '', null, '系统监控目录');
 insert into sys_menu values (3, 0, '0', '系统工具', 'tool',    '', '', '系统工具', 'D', '0', 3, '0', '0', 'admin', sysdate(), '', null, '系统工具目录');
+insert into sys_menu values (4, 0, '0', '猫猫APP', 'app',     '', '', '猫猫APP', 'D', '0', 4, '0', '0', 'admin', sysdate(), '', null, '猫猫APP目录');
 
 -- 菜单
 insert into sys_menu values (11, 1, '0,1', '用户管理', 'user',      'system/user/index',    'system:user:menu',    '用户管理', 'M', '0', 1, '0', '0', 'admin', sysdate(), '', null, '用户管理菜单');
@@ -131,6 +132,10 @@ insert into sys_menu values (17, 2, '0,2', '服务监控', 'server',    'monitor
 insert into sys_menu values (18, 3, '0,3', '代码生成', 'generator', 'tool/generator/index', 'tool:generator:menu', '代码生成', 'M', '0', 1, '0', '0', 'admin', sysdate(), '', null, '代码生成菜单');
 insert into sys_menu values (19, 1, '0,1', '日志管理', 'log',       '',                     '',                    '日志管理', 'D', '0', 6, '0', '0', 'admin', sysdate(), '', null, '日志管理目录');
 insert into sys_menu values (20, 19, '0,1,19', '登陆日志', 'login', 'system/log/login/index', 'system:log:login:menu', '登陆日志', 'M', '0', 1, '0', '0', 'admin', sysdate(), '', null, '登陆日志菜单');
+insert into sys_menu values (21, 4, '0,4', '猫猫聊天', 'chat',      '',                     '',                    '猫猫聊天', 'D', '0', 1, '0', '0', 'admin', sysdate(), '', null, '猫猫聊天菜单');
+insert into sys_menu values (22, 21, '0,4,21', '我的聊天', 'room',   'app/chat/room/index',    'app:chat:room:menu',    '我的聊天', 'M', '0', 1, '0', '0', 'admin', sysdate(), '', null, '我的聊天菜单');
+insert into sys_menu values (23, 21, '0,4,21', '好友申请', 'apply',  'app/chat/friend-apply/index',  'app:chat:friend-apply:menu',  '好友申请', 'M', '0', 2, '0', '0', 'admin', sysdate(), '', null, '好友申请菜单');
+insert into sys_menu values (24, 21, '0,4,21', '我的好友', 'friend', 'app/chat/friend/index',        'app:chat:friend:menu',        '我的好友', 'M', '0', 3, '0', '0', 'admin', sysdate(), '', null, '我的好友菜单');
 
 -- 用户管理按钮
 insert into sys_menu values (101, 11, '0,1,11', '用户查询', '', '', 'system:user:list',   '', 'B', '0', 1, '0', '0', 'admin', sysdate(), '', null, '用户查询按钮');
@@ -180,6 +185,32 @@ insert into sys_menu values (128, 18, '0,3,18', '代码生成导出', '', '', 't
 insert into sys_menu values (129, 20, '0,1,19,20', '登陆日志查询', '', '', 'system:log:login:list',   '', 'B', '0', 1, '0', '0', 'admin', sysdate(), '', null, '登陆日志查询按钮');
 insert into sys_menu values (130, 20, '0,1,19,20', '登陆日志删除', '', '', 'system:log:login:delete', '', 'B', '0', 2, '0', '0', 'admin', sysdate(), '', null, '登陆日志删除按钮');
 
+-- 我的聊天聊天列表按钮
+insert into sys_menu values (131, 22, '0,4,21,22', '聊天列表查询', '', '', 'app:chat:chat-list:list',   '', 'B', '0', 1, '0', '0', 'admin', sysdate(), '', null, '聊天列表查询按钮');
+insert into sys_menu values (132, 22, '0,4,21,22', '聊天列表添加', '', '', 'app:chat:chat-list:add',    '', 'B', '0', 2, '0', '0', 'admin', sysdate(), '', null, '聊天列表添加按钮');
+insert into sys_menu values (133, 22, '0,4,21,22', '聊天列表修改', '', '', 'app:chat:chat-list:edit',   '', 'B', '0', 3, '0', '0', 'admin', sysdate(), '', null, '聊天列表修改按钮');
+insert into sys_menu values (134, 22, '0,4,21,22', '聊天列表删除', '', '', 'app:chat:chat-list:delete', '', 'B', '0', 4, '0', '0', 'admin', sysdate(), '', null, '聊天列表删除按钮');
+
+-- 我的聊天聊天消息按钮
+insert into sys_menu values (135, 22, '0,4,21,22', '聊天消息查询', '', '', 'app:chat:message:list',   '', 'B', '0', 5, '0', '0', 'admin', sysdate(), '', null, '聊天消息查询按钮');
+insert into sys_menu values (136, 22, '0,4,21,22', '聊天消息添加', '', '', 'app:chat:message:add',    '', 'B', '0', 6, '0', '0', 'admin', sysdate(), '', null, '聊天消息添加按钮');
+insert into sys_menu values (137, 22, '0,4,21,22', '聊天消息修改', '', '', 'app:chat:message:edit',   '', 'B', '0', 7, '0', '0', 'admin', sysdate(), '', null, '聊天消息修改按钮');
+insert into sys_menu values (138, 22, '0,4,21,22', '聊天消息删除', '', '', 'app:chat:message:delete', '', 'B', '0', 8, '0', '0', 'admin', sysdate(), '', null, '聊天消息删除按钮');
+
+-- 用户好友申请按钮
+insert into sys_menu values (139, 23, '0,4,21,23', '好友申请查询', '', '', 'app:chat:friend-apply:list',   '', 'B', '0', 1, '0', '0', 'admin', sysdate(), '', null, '好友申请查询按钮');
+insert into sys_menu values (140, 23, '0,4,21,23', '好友申请添加', '', '', 'app:chat:friend-apply:add',    '', 'B', '0', 2, '0', '0', 'admin', sysdate(), '', null, '好友申请添加按钮');
+insert into sys_menu values (141, 23, '0,4,21,23', '好友申请修改', '', '', 'app:chat:friend-apply:edit',   '', 'B', '0', 3, '0', '0', 'admin', sysdate(), '', null, '好友申请修改按钮');
+insert into sys_menu values (142, 23, '0,4,21,23', '好友申请同意', '', '', 'app:chat:friend-apply:accept', '', 'B', '0', 4, '0', '0', 'admin', sysdate(), '', null, '好友申请同意按钮');
+insert into sys_menu values (143, 23, '0,4,21,23', '好友申请拒绝', '', '', 'app:chat:friend-apply:decline','', 'B', '0', 5, '0', '0', 'admin', sysdate(), '', null, '好友申请拒绝按钮');
+insert into sys_menu values (144, 23, '0,4,21,23', '好友申请删除', '', '', 'app:chat:friend-apply:delete', '', 'B', '0', 6, '0', '0', 'admin', sysdate(), '', null, '好友申请删除按钮');
+
+-- 用户好友按钮
+insert into sys_menu values (145, 24, '0,4,21,24', '好友查询', '', '', 'app:chat:friend:list',   '', 'B', '0', 1, '0', '0', 'admin', sysdate(), '', null, '好友查询按钮');
+insert into sys_menu values (146, 24, '0,4,21,24', '好友添加', '', '', 'app:chat:friend:add',    '', 'B', '0', 2, '0', '0', 'admin', sysdate(), '', null, '好友添加按钮');
+insert into sys_menu values (147, 24, '0,4,21,24', '好友修改', '', '', 'app:chat:friend:edit',   '', 'B', '0', 3, '0', '0', 'admin', sysdate(), '', null, '好友修改按钮');
+insert into sys_menu values (148, 24, '0,4,21,24', '好友删除', '', '', 'app:chat:friend:delete', '', 'B', '0', 4, '0', '0', 'admin', sysdate(), '', null, '好友删除按钮');
+
 
 -- -----------------------------
 -- 用户与角色关联表
@@ -207,10 +238,23 @@ create table sys_role_menu (
 ) engine = InnoDB comment = '角色与菜单关联表';
 
 insert into sys_role_menu values (2, 1);
+insert into sys_role_menu values (2, 2);
+insert into sys_role_menu values (2, 3);
+insert into sys_role_menu values (2, 4);
 insert into sys_role_menu values (2, 11);
 insert into sys_role_menu values (2, 12);
 insert into sys_role_menu values (2, 13);
 insert into sys_role_menu values (2, 14);
+insert into sys_role_menu values (2, 15);
+insert into sys_role_menu values (2, 16);
+insert into sys_role_menu values (2, 17);
+insert into sys_role_menu values (2, 18);
+insert into sys_role_menu values (2, 19);
+insert into sys_role_menu values (2, 20);
+insert into sys_role_menu values (2, 21);
+insert into sys_role_menu values (2, 22);
+insert into sys_role_menu values (2, 23);
+insert into sys_role_menu values (2, 24);
 insert into sys_role_menu values (2, 101);
 insert into sys_role_menu values (2, 102);
 insert into sys_role_menu values (2, 103);
@@ -241,11 +285,41 @@ insert into sys_role_menu values (2, 127);
 insert into sys_role_menu values (2, 128);
 insert into sys_role_menu values (2, 129);
 insert into sys_role_menu values (2, 130);
+insert into sys_role_menu values (2, 131);
+insert into sys_role_menu values (2, 132);
+insert into sys_role_menu values (2, 133);
+insert into sys_role_menu values (2, 134);
+insert into sys_role_menu values (2, 135);
+insert into sys_role_menu values (2, 136);
+insert into sys_role_menu values (2, 137);
+insert into sys_role_menu values (2, 138);
+insert into sys_role_menu values (2, 139);
+insert into sys_role_menu values (2, 140);
+insert into sys_role_menu values (2, 141);
+insert into sys_role_menu values (2, 142);
+insert into sys_role_menu values (2, 143);
+insert into sys_role_menu values (2, 144);
+insert into sys_role_menu values (2, 145);
+insert into sys_role_menu values (2, 146);
+insert into sys_role_menu values (2, 147);
+insert into sys_role_menu values (2, 148);
 insert into sys_role_menu values (3, 1);
+insert into sys_role_menu values (3, 2);
+insert into sys_role_menu values (3, 3);
+insert into sys_role_menu values (3, 4);
 insert into sys_role_menu values (3, 11);
 insert into sys_role_menu values (3, 12);
 insert into sys_role_menu values (3, 13);
 insert into sys_role_menu values (3, 14);
+insert into sys_role_menu values (3, 15);
+insert into sys_role_menu values (3, 16);
+insert into sys_role_menu values (3, 17);
+insert into sys_role_menu values (3, 18);
+insert into sys_role_menu values (3, 19);
+insert into sys_role_menu values (3, 20);
+insert into sys_role_menu values (3, 21);
+insert into sys_role_menu values (3, 22);
+insert into sys_role_menu values (3, 23);
 insert into sys_role_menu values (3, 101);
 insert into sys_role_menu values (3, 105);
 insert into sys_role_menu values (3, 109);
@@ -275,9 +349,11 @@ create table sys_dict_type (
     unique (dict_type)
 ) engine = InnoDB auto_increment = 100 comment = '字典类型表';
 
-insert into sys_dict_type values(1, '信息状态', 'sys_status',      '0', 'admin', sysdate(), '', null, '信息状态类型');
-insert into sys_dict_type values(2, '删除标志', 'sys_del_flag',    '0', 'admin', sysdate(), '', null, '删除标志类型');
-insert into sys_dict_type values(3, '用户性别', 'sys_user_gender', '0', 'admin', sysdate(), '', null, '用户性别类型');
+insert into sys_dict_type values (1, '信息状态', 'sys_status',      '0', 'admin', sysdate(), '', null, '信息状态类型');
+insert into sys_dict_type values (2, '删除标志', 'sys_del_flag',    '0', 'admin', sysdate(), '', null, '删除标志类型');
+insert into sys_dict_type values (3, '用户性别', 'sys_user_gender', '0', 'admin', sysdate(), '', null, '用户性别类型');
+insert into sys_dict_type values (4, '好友申请类型', 'app_friend_apply_type', '0', 'admin', sysdate(), '', null, '好友申请类型类型');
+insert into sys_dict_type values (5, '好友申请状态', 'app_friend_apply_status', '0', 'admin', sysdate(), '', null, '好友申请状态类型');
 
 
 -- -----------------------------
@@ -301,13 +377,19 @@ create table sys_dict_data (
     primary key (data_id)
 ) engine = InnoDB auto_increment = 100 comment = '字典数据表';
 
-insert into sys_dict_data values(1, 'sys_status',      '正常', '0', '', '', 1, '0', 'admin', sysdate(), '', null, '正常状态');
-insert into sys_dict_data values(2, 'sys_status',      '停用', '1', '', '', 2, '0', 'admin', sysdate(), '', null, '停用状态');
-insert into sys_dict_data values(3, 'sys_del_flag',    '正常', '0', '', '', 1, '0', 'admin', sysdate(), '', null, '正常状态');
-insert into sys_dict_data values(4, 'sys_del_flag',    '删除', '1', '', '', 2, '0', 'admin', sysdate(), '', null, '删除状态');
-insert into sys_dict_data values(5, 'sys_user_gender', '保密', '0', '', '', 1, '0', 'admin', sysdate(), '', null, '性别保密');
-insert into sys_dict_data values(6, 'sys_user_gender', '男',   '1', '', '', 2, '0', 'admin', sysdate(), '', null, '性别男');
-insert into sys_dict_data values(7, 'sys_user_gender', '女',   '2', '', '', 3, '0', 'admin', sysdate(), '', null, '性别女');
+insert into sys_dict_data values (1, 'sys_status', '正常', '0', '', '', 1, '0', 'admin', sysdate(), '', null, '正常状态');
+insert into sys_dict_data values (2, 'sys_status', '停用', '1', '', '', 2, '0', 'admin', sysdate(), '', null, '停用状态');
+insert into sys_dict_data values (3, 'sys_del_flag', '正常', '0', '', '', 1, '0', 'admin', sysdate(), '', null, '正常状态');
+insert into sys_dict_data values (4, 'sys_del_flag', '删除', '1', '', '', 2, '0', 'admin', sysdate(), '', null, '删除状态');
+insert into sys_dict_data values (5, 'sys_user_gender', '保密', '0', '', '', 1, '0', 'admin', sysdate(), '', null, '性别保密');
+insert into sys_dict_data values (6, 'sys_user_gender', '男',   '1', '', '', 2, '0', 'admin', sysdate(), '', null, '性别男');
+insert into sys_dict_data values (7, 'sys_user_gender', '女',   '2', '', '', 3, '0', 'admin', sysdate(), '', null, '性别女');
+insert into sys_dict_data values (8, 'app_friend_apply_type', '申请添加好友', '0', '', '', 1, '0', 'admin', sysdate(), '', null, '申请添加好友');
+insert into sys_dict_data values (9, 'app_friend_apply_type', '申请添加群组', '1', '', '', 2, '0', 'admin', sysdate(), '', null, '申请添加群组');
+insert into sys_dict_data values (10, 'app_friend_apply_status', '已申请',   '0', '', 'type',    1, '0', 'admin', sysdate(), '', null, '已申请');
+insert into sys_dict_data values (11, 'app_friend_apply_status', '已同意',   '1', '', 'success', 2, '0', 'admin', sysdate(), '', null, '已同意');
+insert into sys_dict_data values (12, 'app_friend_apply_status', '已拒绝',   '2', '', 'danger',  3, '0', 'admin', sysdate(), '', null, '已拒绝');
+
 
 
 -- -----------------------------
@@ -382,5 +464,95 @@ create table gen_table_column (
     remark          varchar(500)  default ''               comment '备注',
     primary key (column_id)
 ) engine = InnoDB auto_increment = 1 comment = '代码字段生成表';
+
+
+-- -----------------------------
+-- 用户好友表
+-- -----------------------------
+drop table if exists app_friend;
+create table app_friend (
+    user_friend_id  bigint(20)    not null auto_increment  comment '用户好友ID',
+    user_id         bigint(20)    default null             comment '用户ID',
+    friend_id       bigint(20)    default null             comment '好友ID',
+    unique_id       bigint(20)    default null             comment '唯一标识',
+    create_by       varchar(64)   default ''               comment '创建者',
+    create_time     datetime                               comment '创建时间',
+    update_by       varchar(64)   default ''               comment '更新者',
+    update_time     datetime                               comment '更新时间',
+    remark          varchar(500)  default ''               comment '备注',
+    primary key (user_friend_id)
+) engine = InnoDB auto_increment = 100 comment = '用户好友表';
+
+insert into app_friend values (100, 1, 2, 885332953918476288, 'admin', sysdate(), '', null, '糖糖');
+insert into app_friend values (101, 2, 1, 885332953918476288, 'admin', sysdate(), '', null, '');
+
+
+-- -----------------------------
+-- 用户好友申请表
+-- -----------------------------
+drop table if exists app_friend_apply;
+create table app_friend_apply (
+    apply_id        bigint(20)    not null auto_increment  comment '申请ID',
+    user_id         bigint(20)    default null             comment '用户ID',
+    friend_id       bigint(20)    default null             comment '好友ID',
+    requestor_id    bigint(20)    default null             comment '申请者ID',
+    unique_id       bigint(20)    default null             comment '唯一标识',
+    reason          varchar(128)  default ''               comment '申请理由',
+    apply_type      char(1)       default ''               comment '申请类型{0=申请添加好友, 1=申请添加群组}',
+    status          char(1)       default '0'              comment '申请状态{0=已申请, 1=已同意, 2=已拒绝}',
+    create_by       varchar(64)   default ''               comment '创建者',
+    create_time     datetime                               comment '创建时间',
+    update_by       varchar(64)   default ''               comment '更新者',
+    update_time     datetime                               comment '更新时间',
+    remark          varchar(500)  default ''               comment '备注',
+    primary key (apply_id)
+) engine = InnoDB auto_increment = 100 comment = '用户好友申请表';
+
+insert into app_friend_apply values (100, 1, 2, 1, 885332953918476288, 'Hi, 糖糖', '0', '1', 'admin', sysdate(), '', null, '');
+insert into app_friend_apply values (101, 2, 1, 1, 885332953918476288, 'Hi, 糖糖', '0', '1', 'admin', sysdate(), '', null, '');
+
+
+-- -----------------------------
+-- 聊天列表表
+-- -----------------------------
+drop table if exists app_chat_list;
+create table app_chat_list (
+    chat_list_id    bigint(20)    not null     comment '聊天列表ID',
+    user_id         bigint(20)    not null     comment '用户ID',
+    friend_id       bigint(20)    not null     comment '好友ID',
+    stick_flag      char(1)       default '0'  comment '置顶标记{0=否, 1=是}',
+    display_flag    char(1)       default '1'  comment '显示标记{0=否, 1=是}',
+    mute_flag       char(1)       default '0'  comment '免打扰标记{0=否, 1=是}',
+    create_by       varchar(64)   default ''   comment '创建者',
+    create_time     datetime                   comment '创建时间',
+    update_by       varchar(64)   default ''   comment '更新者',
+    update_time     datetime                   comment '更新时间',
+    remark          varchar(500)  default ''   comment '备注',
+    primary key (chat_list_id, user_id, friend_id)
+) engine = InnoDB auto_increment = 100 comment = '聊天列表表';
+
+insert into app_chat_list values (885332953918476288, 1, 2, '0', '1', '0', 'admin', sysdate(), '', null, '');
+insert into app_chat_list values (885332953918476288, 2, 1, '0', '1', '0', 'admin', sysdate(), '', null, '');
+
+
+-- -----------------------------
+-- 聊天消息表
+-- -----------------------------
+drop table if exists app_chat_message;
+create table app_chat_message (
+    message_id      bigint(20)    not null auto_increment  comment '消息ID',
+    chat_list_id    bigint(20)    default null             comment '聊天列表ID',
+    sender_id       bigint(20)    default null             comment '发送者ID',
+    content         varchar(500)  default ''               comment '聊天内容',
+    create_by       varchar(64)   default ''               comment '创建者',
+    create_time     datetime                               comment '创建时间',
+    update_by       varchar(64)   default ''               comment '更新者',
+    update_time     datetime                               comment '更新时间',
+    remark          varchar(500)  default ''               comment '备注',
+    primary key (message_id)
+) engine = InnoDB auto_increment = 100 comment = '聊天消息表';
+
+insert into app_chat_message values (100, 885332953918476288, 1, '你好吗？', 'admin', sysdate(), '', null, '');
+insert into app_chat_message values (101, 885332953918476288, 2, '也就那么回事', 'tang', sysdate(), '', null, '');
 
 commit;

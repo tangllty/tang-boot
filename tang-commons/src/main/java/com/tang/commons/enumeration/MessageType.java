@@ -13,7 +13,8 @@ public enum MessageType {
 
     NOTICE("notice"),
     MESSAGE("message"),
-    HEARTBEAT("heartbeat");
+    HEARTBEAT("heartbeat"),
+    CHAT_MESSAGE("chat_message");
 
     private final String name;
 

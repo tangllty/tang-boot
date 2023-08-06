@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tang.app.mapper.AppFriendApplyMapper">
+
+    <resultMap id="AppFriendApplyMap" type="com.tang.app.entity.AppFriendApply">
+        <result property="applyId" column="apply_id" />
+        <result property="userId" column="user_id" />
+        <result property="friendId" column="friend_id" />
+        <result property="requestorId" column="requestor_id" />
+        <result property="uniqueId" column="unique_id" />
+        <result property="username" column="username" />
+        <result property="nickname" column="nickname" />
+        <result property="reason" column="reason" />
+        <result property="applyType" column="apply_type" />
+        <result property="status" column="status" />
+        <result property="createBy" column="create_by" />
+        <result property="createTime" column="create_time" />
+        <result property="updateBy" column="update_by" />
+        <result property="updateTime" column="update_time" />
+        <result property="remark" column="remark" />
+    </resultMap>
+
+    <sql id="AppFriendApplyVo">
+        select afa.apply_id, afa.user_id, afa.friend_id, afa.requestor_id, afa.unique_id, u.username, u.nickname, afa.reason, afa.apply_type, afa.status, afa.create_by, afa.create_time, afa.update_by, afa.update_time, afa.remark
+        from app_friend_apply afa
+        left join sys_user u on afa.friend_id = u.user_id
+    </sql>
+
+    <select id="selectAppFriendApplyList" resultMap="AppFriendApplyMap">
+        <include refid="AppFriendApplyVo" />
+        <where>
+            <if test="applyId != null">
+                and afa.apply_id = #{applyId}
+            </if>
+            <if test="userId != null">
+                and afa.user_id = #{userId}
+            </if>
+            <if test="friendId != null">
+                and afa.friend_id = #{friendId}
+            </if>
+            <if test="requestorId != null">
+                and afa.requestor_id = #{requestorId}
+            </if>
+            <if test="uniqueId != null">
+                and afa.unique_id = #{uniqueId}
+            </if>
+            <if test="reason != null and reason != ''">
+                and afa.reason = #{reason}
+            </if>
+            <if test="applyType != null and applyType != ''">
+                and afa.apply_type = #{applyType}
+            </if>
+            <if test="status != null and status != ''">
+                and afa.status = #{status}
+            </if>
+            <if test="createBy != null and createBy != ''">
+                and afa.create_by = #{createBy}
+            </if>
+            <if test="createTime != null">
+                and afa.create_time = #{createTime}
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                and afa.update_by = #{updateBy}
+            </if>
+            <if test="updateTime != null">
+                and afa.update_time = #{updateTime}
+            </if>
+            <if test="remark != null and remark != ''">
+                and afa.remark = #{remark}
+            </if>
+        </where>
+        order by afa.create_time desc
+    </select>
+
+    <select id="selectAppFriendApplyByApplyId" resultMap="AppFriendApplyMap">
+        <include refid="AppFriendApplyVo" />
+        where afa.apply_id = #{applyId}
+    </select>
+
+    <insert id="insertAppFriendApply" useGeneratedKeys="true" keyProperty="applyId">
+        insert into app_friend_apply (
+            <trim suffixOverrides=",">
+                <if test="applyId != null">apply_id,</if>
+                <if test="userId != null">user_id,</if>
+                <if test="friendId != null">friend_id,</if>
+                <if test="requestorId != null">requestor_id,</if>
+                <if test="uniqueId != null">unique_id,</if>
+                <if test="reason != null and reason != ''">reason,</if>
+                <if test="applyType != null and applyType != ''">apply_type,</if>
+                <if test="status != null and status != ''">status,</if>
+                <if test="createBy != null and createBy != ''">create_by,</if>
+                <if test="createTime != null">create_time,</if>
+                <if test="updateBy != null and updateBy != ''">update_by,</if>
+                <if test="updateTime != null">update_time,</if>
+                <if test="remark != null and remark != ''">remark,</if>
+            </trim>
+        ) values (
+            <trim suffixOverrides=",">
+                <if test="applyId != null">#{applyId},</if>
+                <if test="userId != null">#{userId},</if>
+                <if test="friendId != null">#{friendId},</if>
+                <if test="requestorId != null">#{requestorId},</if>
+                <if test="uniqueId != null">#{uniqueId},</if>
+                <if test="reason != null and reason != ''">#{reason},</if>
+                <if test="applyType != null and applyType != ''">#{applyType},</if>
+                <if test="status != null and status != ''">#{status},</if>
+                <if test="createBy != null and createBy != ''">#{createBy},</if>
+                <if test="createTime != null">#{createTime},</if>
+                <if test="updateBy != null and updateBy != ''">#{updateBy},</if>
+                <if test="updateTime != null">#{updateTime},</if>
+                <if test="remark != null and remark != ''">#{remark},</if>
+            </trim>
+        )
+    </insert>
+
+    <update id="updateAppFriendApplyByApplyId">
+        update app_friend_apply
+        <set>
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="friendId != null">friend_id = #{friendId},</if>
+            <if test="requestorId != null">requestor_id = #{requestorId},</if>
+            <if test="uniqueId != null">unique_id = #{uniqueId},</if>
+            <if test="reason != null and reason != ''">reason = #{reason},</if>
+            <if test="applyType != null and applyType != ''">apply_type = #{applyType},</if>
+            <if test="status != null and status != ''">status = #{status},</if>
+            <if test="createBy != null and createBy != ''">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null and updateBy != ''">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="remark != null and remark != ''">remark = #{remark},</if>
+        </set>
+        where apply_id = #{applyId}
+    </update>
+
+    <update id="updateAppFriendApplyStatusByUniqueId">
+        update app_friend_apply set status = #{status} where unique_id = #{uniqueId}
+    </update>
+
+    <delete id="deleteAppFriendApplyByApplyId">
+        delete from app_friend_apply where unique_id in (
+            select t.unique_id from (
+                select unique_id from app_friend_apply where apply_id = #{applyId}
+            ) as t
+        )
+    </delete>
+
+    <delete id="deleteAppFriendApplyByApplyIds">
+        delete from app_friend_apply where unique_id in
+        <foreach item="applyId" collection="array" open="(" separator="," close=")">
+            select unique_id from app_friend_apply where apply_id = #{applyId}
+        </foreach>
+    </delete>
+
+</mapper>

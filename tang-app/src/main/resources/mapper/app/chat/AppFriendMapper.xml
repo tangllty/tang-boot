@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tang.app.mapper.AppFriendMapper">
+
+    <resultMap id="AppFriendMap" type="com.tang.app.entity.AppFriend">
+        <result property="userFriendId" column="user_friend_id" />
+        <result property="userId" column="user_id" />
+        <result property="friendId" column="friend_id" />
+        <result property="uniqueId" column="unique_id" />
+        <result property="nickName" column="nick_name" />
+        <result property="createBy" column="create_by" />
+        <result property="createTime" column="create_time" />
+        <result property="updateBy" column="update_by" />
+        <result property="updateTime" column="update_time" />
+        <result property="remark" column="remark" />
+    </resultMap>
+
+    <sql id="AppFriendVo">
+        select af.user_friend_id, af.user_id, af.friend_id, af.unique_id, u.username, u.nickname, af.create_by, af.create_time, af.update_by, af.update_time, af.remark
+        from app_friend af
+        left join sys_user u on af.friend_id = u.user_id
+    </sql>
+
+    <select id="selectAppFriendList" resultMap="AppFriendMap">
+        <include refid="AppFriendVo" />
+        <where>
+            <if test="userFriendId != null">
+                and af.user_friend_id = #{userFriendId}
+            </if>
+            <if test="userId != null">
+                and af.user_id = #{userId}
+            </if>
+            <if test="friendId != null">
+                and af.friend_id = #{friendId}
+            </if>
+            <if test="uniqueId != null and uniqueId != ''">
+                and af.unique_id = #{uniqueId}
+            </if>
+            <if test="createBy != null and createBy != ''">
+                and af.create_by = #{createBy}
+            </if>
+            <if test="createTime != null">
+                and af.create_time = #{createTime}
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                and af.update_by = #{updateBy}
+            </if>
+            <if test="updateTime != null">
+                and af.update_time = #{updateTime}
+            </if>
+            <if test="remark != null and remark != ''">
+                and af.remark = #{remark}
+            </if>
+        </where>
+    </select>
+
+    <select id="selectAppFriendByUserFriendId" resultMap="AppFriendMap">
+        <include refid="AppFriendVo" />
+        where af.user_friend_id = #{userFriendId}
+    </select>
+
+    <insert id="insertAppFriend" useGeneratedKeys="true" keyProperty="userFriendId">
+        insert into app_friend (
+            <trim suffixOverrides=",">
+                <if test="userFriendId != null">user_friend_id,</if>
+                <if test="userId != null">user_id,</if>
+                <if test="friendId != null">friend_id,</if>
+                <if test="uniqueId != null and uniqueId != ''">unique_id,</if>
+                <if test="createBy != null and createBy != ''">create_by,</if>
+                <if test="createTime != null">create_time,</if>
+                <if test="updateBy != null and updateBy != ''">update_by,</if>
+                <if test="updateTime != null">update_time,</if>
+                <if test="remark != null and remark != ''">remark,</if>
+            </trim>
+        ) values (
+            <trim suffixOverrides=",">
+                <if test="userFriendId != null">#{userFriendId},</if>
+                <if test="userId != null">#{userId},</if>
+                <if test="friendId != null">#{friendId},</if>
+                <if test="uniqueId != null and uniqueId != ''">#{uniqueId},</if>
+                <if test="createBy != null and createBy != ''">#{createBy},</if>
+                <if test="createTime != null">#{createTime},</if>
+                <if test="updateBy != null and updateBy != ''">#{updateBy},</if>
+                <if test="updateTime != null">#{updateTime},</if>
+                <if test="remark != null and remark != ''">#{remark},</if>
+            </trim>
+        )
+    </insert>
+
+    <update id="updateAppFriendByUserFriendId">
+        update app_friend
+        <set>
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="friendId != null">friend_id = #{friendId},</if>
+            <if test="uniqueId != null and uniqueId != ''">unique_id = #{uniqueId},</if>
+            <if test="createBy != null and createBy != ''">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null and updateBy != ''">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="remark != null and remark != ''">remark = #{remark},</if>
+        </set>
+        where user_friend_id = #{userFriendId}
+    </update>
+
+    <delete id="deleteAppFriendByUserFriendId">
+        delete from app_friend where user_friend_id = #{userFriendId}
+    </delete>
+
+    <delete id="deleteAppFriendByUserFriendIds">
+        delete from app_friend where user_friend_id in
+        <foreach item="userFriendId" collection="array" open="(" separator="," close=")">
+            #{userFriendId}
+        </foreach>
+    </delete>
+
+</mapper>

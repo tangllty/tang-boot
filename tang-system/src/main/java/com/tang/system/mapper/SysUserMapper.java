@@ -22,6 +22,15 @@ public interface SysUserMapper {
     List<SysUser> selectUserList(SysUser user);
 
     /**
+     * 模糊查询用户列表
+     *
+     * @param userId  用户ID
+     * @param keyword 关键字
+     * @return 用户列表
+     */
+    List<SysUser> selectUserListFuzzy(@Param("userId") Long userId, @Param("keyword") String keyword);
+
+    /**
      * 根据主键查询单条数据
      *
      * @param userId 主键

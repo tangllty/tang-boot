@@ -14,6 +14,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>tang-admin</module>
+        <module>tang-app</module>
         <module>tang-commons</module>
         <module>tang-framework</module>
         <module>tang-generator</module>
@@ -183,6 +184,12 @@
             <dependency>
                 <groupId>com.tang</groupId>
                 <artifactId>tang-admin</artifactId>
+                <version>${tang.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.tang</groupId>
+                <artifactId>tang-app</artifactId>
                 <version>${tang.version}</version>
             </dependency>
 

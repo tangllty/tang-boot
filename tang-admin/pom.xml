@@ -38,6 +38,11 @@
 
         <dependency>
             <groupId>com.tang</groupId>
+            <artifactId>tang-app</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.tang</groupId>
             <artifactId>tang-framework</artifactId>
         </dependency>
 
@@ -61,9 +66,17 @@
     <build>
         <plugins>
             <plugin>
+                <groupId>org.graalvm.buildtools</groupId>
+                <artifactId>native-maven-plugin</artifactId>
+                <version>0.9.20</version>
+                <configuration>
+                    <mainClass>com.tang.AdminApplication</mainClass>
+                </configuration>
+            </plugin>
+            <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>3.1.2</version>
+                <version>3.1.1</version>
                 <executions>
                     <execution>
                         <goals>

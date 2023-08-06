@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tang.app.mapper.AppChatMessageMapper">
+
+    <resultMap id="AppChatMessageMap" type="com.tang.app.entity.AppChatMessage">
+        <result property="messageId" column="message_id" />
+        <result property="chatListId" column="chat_list_id" />
+        <result property="senderId" column="sender_id" />
+        <result property="username" column="username" />
+        <result property="nickname" column="nickname" />
+        <result property="avatar" column="avatar" />
+        <result property="content" column="content" />
+        <result property="createBy" column="create_by" />
+        <result property="createTime" column="create_time" />
+        <result property="updateBy" column="update_by" />
+        <result property="updateTime" column="update_time" />
+        <result property="remark" column="remark" />
+    </resultMap>
+
+    <sql id="AppChatMessageVo">
+        select acm.message_id, acm.chat_list_id, acm.sender_id, u.username, u.nickname, u.avatar, acm.content, acm.create_by, acm.create_time, acm.update_by, acm.update_time, acm.remark
+        from app_chat_message acm
+        left join sys_user u on acm.sender_id = u.user_id
+    </sql>
+
+    <select id="selectAppChatMessageList" resultMap="AppChatMessageMap">
+        <include refid="AppChatMessageVo" />
+        <where>
+            <if test="messageId != null">
+                and acm.message_id = #{messageId}
+            </if>
+            <if test="chatListId != null">
+                and acm.chat_list_id = #{chatListId}
+            </if>
+            <if test="senderId != null">
+                and acm.sender_id = #{senderId}
+            </if>
+            <if test="content != null and content != ''">
+                and acm.content = #{content}
+            </if>
+            <if test="createBy != null and createBy != ''">
+                and acm.create_by = #{createBy}
+            </if>
+            <if test="createTime != null">
+                and acm.create_time = #{createTime}
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                and acm.update_by = #{updateBy}
+            </if>
+            <if test="updateTime != null">
+                and acm.update_time = #{updateTime}
+            </if>
+            <if test="remark != null and remark != ''">
+                and acm.remark = #{remark}
+            </if>
+        </where>
+    </select>
+
+    <select id="selectAppChatMessageByMessageId" resultMap="AppChatMessageMap">
+        <include refid="AppChatMessageVo" />
+        where acm.message_id = #{messageId}
+    </select>
+
+    <select id="selectLastMessage" resultMap="AppChatMessageMap">
+        <include refid="AppChatMessageVo" />
+        where acm.chat_list_id = #{chatListId}
+        order by acm.message_id desc
+        limit 1
+    </select>
+
+    <insert id="insertAppChatMessage" useGeneratedKeys="true" keyProperty="messageId">
+        insert into app_chat_message (
+            <trim suffixOverrides=",">
+                <if test="messageId != null">message_id,</if>
+                <if test="chatListId != null">chat_list_id,</if>
+                <if test="senderId != null">sender_id,</if>
+                <if test="content != null and content != ''">content,</if>
+                <if test="createBy != null and createBy != ''">create_by,</if>
+                <if test="createTime != null">create_time,</if>
+                <if test="updateBy != null and updateBy != ''">update_by,</if>
+                <if test="updateTime != null">update_time,</if>
+                <if test="remark != null and remark != ''">remark,</if>
+            </trim>
+        ) values (
+            <trim suffixOverrides=",">
+                <if test="messageId != null">#{messageId},</if>
+                <if test="chatListId != null">#{chatListId},</if>
+                <if test="senderId != null">#{senderId},</if>
+                <if test="content != null and content != ''">#{content},</if>
+                <if test="createBy != null and createBy != ''">#{createBy},</if>
+                <if test="createTime != null">#{createTime},</if>
+                <if test="updateBy != null and updateBy != ''">#{updateBy},</if>
+                <if test="updateTime != null">#{updateTime},</if>
+                <if test="remark != null and remark != ''">#{remark},</if>
+            </trim>
+        )
+    </insert>
+
+    <update id="updateAppChatMessageByMessageId">
+        update app_chat_message
+        <set>
+            <if test="chatListId != null">chat_list_id = #{chatListId},</if>
+            <if test="senderId != null">sender_id = #{senderId},</if>
+            <if test="content != null and content != ''">content = #{content},</if>
+            <if test="createBy != null and createBy != ''">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null and updateBy != ''">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="remark != null and remark != ''">remark = #{remark},</if>
+        </set>
+        where message_id = #{messageId}
+    </update>
+
+    <delete id="deleteAppChatMessageByMessageId">
+        delete from app_chat_message where message_id = #{messageId}
+    </delete>
+
+    <delete id="deleteAppChatMessageByMessageIds">
+        delete from app_chat_message where message_id in
+        <foreach item="messageId" collection="array" open="(" separator="," close=")">
+            #{messageId}
+        </foreach>
+    </delete>
+
+</mapper>

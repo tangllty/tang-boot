@@ -48,6 +48,18 @@ public class SysUserServiceImpl implements SysUserService {
     }
 
     /**
+     * 模糊查询用户列表
+     *
+     * @param keyword 关键字
+     * @return 用户列表
+     */
+    @Override
+    public List<SysUser> selectUserListFuzzy(String keyword) {
+        var userId = SecurityUtils.getUser().getUserId();
+        return userMapper.selectUserListFuzzy(userId, keyword);
+    }
+
+    /**
      * 通过主键查询单条数据
      *
      * @param userId 主键

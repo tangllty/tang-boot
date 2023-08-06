@@ -21,6 +21,14 @@ public interface SysUserService {
     List<SysUser> selectUserList(SysUser user);
 
     /**
+     * 模糊查询用户列表
+     *
+     * @param keyword 关键字
+     * @return 用户列表
+     */
+    List<SysUser> selectUserListFuzzy(String keyword);
+
+    /**
      * 通过主键查询单条数据
      *
      * @param userId 主键
