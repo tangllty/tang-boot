@@ -12,7 +12,9 @@ You can read the [documentation](https://tangllty.eu.org/) for more information
 * Customized multiple login authentication methods
 * Dynamic permissions menu
 * Code generator, one click to generate the basic front-end and back-end code
-* Instant messaging, sending and receiving friends and group messages anytime, anywhere, and transferring files to each other (v1.6.0)
+* Encapsulate WebSocket, support heartbeat detection, reconnection mechanism, custom message type push and subscription
+* Instant messaging, sending and receiving friends and group messages anytime, anywhere, and transferring files to each other
+* Friendly code structure and comments, easy to read and secondary development
 
 ## Environment Requirements
 
