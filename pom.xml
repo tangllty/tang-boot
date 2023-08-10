@@ -30,7 +30,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <spring-boot-dependencies.version>3.1.2</spring-boot-dependencies.version>
         <jjwt.version>0.11.5</jjwt.version>
-        <hutool.version>5.8.20</hutool.version>
+        <hutool.version>5.8.21</hutool.version>
         <jackson.version>2.15.2</jackson.version>
     </properties>
 
