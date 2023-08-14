@@ -1,6 +1,5 @@
 package com.tang.app.service.impl;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -64,19 +63,13 @@ public class AppFriendApplyServiceImpl implements AppFriendApplyService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public int insertAppFriendApply(AppFriendApply appFriendApply) {
-        var createBy = SecurityUtils.getUser().getUsername();
-        var createTime = LocalDateTime.now();
         var requestorId = SecurityUtils.getUser().getUserId();
         var uniqueId = IdUtils.snowflake();
-        appFriendApply.setCreateBy(createBy);
-        appFriendApply.setCreateTime(createTime);
         appFriendApply.setRequestorId(requestorId);
         appFriendApply.setUniqueId(uniqueId);
         int rows = appFriendApplyMapper.insertAppFriendApply(appFriendApply);
         if (rows > 0) {
             AppFriendApply otherAppFriendApply = new AppFriendApply();
-            otherAppFriendApply.setCreateBy(createBy);
-            otherAppFriendApply.setCreateTime(createTime);
             otherAppFriendApply.setRequestorId(requestorId);
             otherAppFriendApply.setUniqueId(uniqueId);
             otherAppFriendApply.setUserId(appFriendApply.getFriendId());

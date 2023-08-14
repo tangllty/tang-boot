@@ -1,6 +1,5 @@
 package com.tang.app.service.impl;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -11,7 +10,6 @@ import com.tang.app.service.AppChatMessageService;
 import com.tang.commons.domain.dto.ChatMessage;
 import com.tang.commons.domain.dto.Message;
 import com.tang.commons.enumeration.MessageType;
-import com.tang.commons.utils.SecurityUtils;
 import com.tang.commons.websocket.WebSocket;
 
 import jakarta.annotation.PostConstruct;
@@ -72,8 +70,6 @@ public class AppChatMessageServiceImpl implements AppChatMessageService {
      */
     @Override
     public int insertAppChatMessage(AppChatMessage appChatMessage) {
-        appChatMessage.setCreateBy(SecurityUtils.getUser().getUsername());
-        appChatMessage.setCreateTime(LocalDateTime.now());
         return appChatMessageMapper.insertAppChatMessage(appChatMessage);
     }
 
