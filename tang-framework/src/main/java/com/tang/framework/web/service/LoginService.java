@@ -1,5 +1,7 @@
 package com.tang.framework.web.service;
 
+import java.util.Collections;
+
 import org.slf4j.Logger;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -62,6 +64,14 @@ public class LoginService {
         authentication = authenticationManager.authenticate(authenticationToken);
 
         var userModel = (UserModel) authentication.getPrincipal();
+
+        // 认证成功后，重新设置认证信息
+        authenticationToken = switch (LoginType.getLoginType(userModel.getLoginType())) {
+            case USERNAME -> new UsernameAuthenticationToken(userModel, Collections.emptyList());
+            case EMAIL -> new EmailAuthenticationToken(userModel, Collections.emptyList());
+            default -> throw new IllegalLoginTypeException("Unexpected login type: " + userModel.getLoginType());
+        };
+        SecurityContextHolder.getContext().setAuthentication(authenticationToken);
 
         var token = tokenService.createToken(userModel);
 
