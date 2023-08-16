@@ -1,3 +1,8 @@
+# 项目配置
+tang:
+  # 演示模式
+  demo-mode: true
+
 # Spring 配置
 spring:
   # 数据源配置

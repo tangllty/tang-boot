@@ -6,6 +6,8 @@ tang:
   version: 1.6.0
   # 文件上传路径
   uploads: /home/tang/uploads/tang-boot
+  # 演示模式
+  demo-mode: false
 
 # 服务配置
 server:

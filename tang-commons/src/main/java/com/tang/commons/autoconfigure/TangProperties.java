@@ -29,6 +29,11 @@ public class TangProperties {
      */
     private String uploads;
 
+    /**
+     * 演示模式
+     */
+    private boolean demoMode;
+
 
     public String getName() {
         return name;
@@ -52,6 +57,14 @@ public class TangProperties {
 
     public void setUploads(String uploads) {
         this.uploads = uploads;
+    }
+
+    public boolean isDemoMode() {
+        return demoMode;
+    }
+
+    public void setDemoMode(boolean demoMode) {
+        this.demoMode = demoMode;
     }
 
 }
