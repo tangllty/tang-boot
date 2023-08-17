@@ -16,6 +16,11 @@ You can read the [documentation](https://tangllty.eu.org/) for more information
 * Instant messaging, sending and receiving friends and group messages anytime, anywhere, and transferring files to each other
 * Friendly code structure and comments, easy to read and secondary development
 
+## Project Preview
+
+* Online Preview: [http://123.60.177.48/](http://123.60.177.48/)
+* Account password: admin / 123456
+
 ## Environment Requirements
 
 * OpenJDK 17.0.7
