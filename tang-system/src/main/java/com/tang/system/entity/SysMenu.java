@@ -31,7 +31,7 @@ public class SysMenu extends BaseEntity {
      * 父菜单ID
      */
     @NotNull(message = "父菜单不能为空")
-    @Min(value = 1, message = "父菜单编号不能小于1")
+    @Min(value = 0, message = "父菜单编号不能小于0")
     @Max(value = Long.MAX_VALUE, message = "父菜单编号不能超过" + Long.MAX_VALUE)
     private Long parentId;
 
