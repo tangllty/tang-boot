@@ -103,8 +103,9 @@ public class UploadsUtils {
         try {
             file.transferTo(dest);
         } catch (IllegalStateException | IOException e) {
-            e.printStackTrace();
+            LOGGER.error("上传文件失败, 文件路径: {}, 文件大小: {}", filePath, ByteUtils.getSize(file.getSize()), e);
         }
+        filePath = filePath.replace("\\", "/");
         LOGGER.info("上传文件成功, 文件路径: {}, 文件大小: {}", filePath, ByteUtils.getSize(file.getSize()));
         return filePath;
     }
