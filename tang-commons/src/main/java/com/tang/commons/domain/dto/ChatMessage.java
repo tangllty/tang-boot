@@ -15,6 +15,8 @@ public class ChatMessage {
 
     private Long senderId;
 
+    private String avatar;
+
     private String content;
 
     public ChatMessage(String data) {
@@ -22,6 +24,7 @@ public class ChatMessage {
         this.chatListId = jsonObject.getLong("chatListId");
         this.userId = jsonObject.getLong("userId");
         this.senderId = jsonObject.getLong("senderId");
+        this.avatar = jsonObject.getString("avatar");
         this.content = jsonObject.getString("content");
     }
 
@@ -47,6 +50,14 @@ public class ChatMessage {
 
     public void setSenderId(Long senderId) {
         this.senderId = senderId;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 
     public String getContent() {
