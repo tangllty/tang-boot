@@ -71,7 +71,8 @@ public class AppChatMessageController {
     @PreAuthorize("@auth.hasPermission('app:chat:message:add')")
     @PostMapping
     public AjaxResult add(@RequestBody AppChatMessage appChatMessage) {
-        return AjaxResult.rows(appChatMessageService.insertAppChatMessage(appChatMessage));
+        int rows = appChatMessageService.insertAppChatMessage(appChatMessage);
+        return rows > 0 ? AjaxResult.success(appChatMessage) : AjaxResult.error();
     }
 
     /**

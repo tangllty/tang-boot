@@ -12,6 +12,7 @@ import com.tang.commons.domain.dto.ChatMessage;
 import com.tang.commons.domain.dto.Message;
 import com.tang.commons.enumeration.MessageType;
 import com.tang.commons.websocket.WebSocket;
+import com.tang.system.service.SysUserService;
 
 import jakarta.annotation.PostConstruct;
 
@@ -25,10 +26,13 @@ public class AppChatMessageServiceImpl implements AppChatMessageService {
 
     private final AppChatMessageMapper appChatMessageMapper;
 
+    private final SysUserService userService;
+
     private final WebSocket webSocket;
 
-    public AppChatMessageServiceImpl(AppChatMessageMapper appChatMessageMapper, WebSocket webSocket) {
+    public AppChatMessageServiceImpl(AppChatMessageMapper appChatMessageMapper, SysUserService userService, WebSocket webSocket) {
         this.appChatMessageMapper = appChatMessageMapper;
+        this.userService = userService;
         this.webSocket = webSocket;
     }
 
@@ -73,7 +77,11 @@ public class AppChatMessageServiceImpl implements AppChatMessageService {
      */
     @Override
     public int insertAppChatMessage(AppChatMessage appChatMessage) {
-        return appChatMessageMapper.insertAppChatMessage(appChatMessage);
+        var rows = appChatMessageMapper.insertAppChatMessage(appChatMessage);
+        if (rows > 0) {
+            appChatMessage.setAvatar(userService.selectUserByUserId(appChatMessage.getSenderId()).getAvatar());
+        }
+        return rows;
     }
 
     /**
