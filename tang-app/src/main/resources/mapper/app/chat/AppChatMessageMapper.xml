@@ -54,6 +54,7 @@
                 and acm.remark = #{remark}
             </if>
         </where>
+        order by acm.message_id desc
     </select>
 
     <select id="selectAppChatMessageByMessageId" resultMap="AppChatMessageMap">

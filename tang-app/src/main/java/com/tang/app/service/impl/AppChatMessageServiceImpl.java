@@ -1,5 +1,6 @@
 package com.tang.app.service.impl;
 
+import java.util.Comparator;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -48,7 +49,9 @@ public class AppChatMessageServiceImpl implements AppChatMessageService {
      */
     @Override
     public List<AppChatMessage> selectAppChatMessageList(AppChatMessage appChatMessage) {
-        return appChatMessageMapper.selectAppChatMessageList(appChatMessage);
+        var list = appChatMessageMapper.selectAppChatMessageList(appChatMessage);
+        list.sort(Comparator.comparing(AppChatMessage::getMessageId));
+        return list;
     }
 
     /**
