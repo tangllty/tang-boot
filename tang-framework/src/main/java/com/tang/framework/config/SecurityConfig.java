@@ -17,6 +17,7 @@ import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 
 import com.tang.framework.security.filter.JwtAuthenticationTokenFilter;
 
@@ -37,7 +38,7 @@ public class SecurityConfig {
             JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter, LogoutSuccessHandler logoutSuccessHandler) throws Exception {
         return httpSecurity
             // 禁用 CSRF
-            .csrf(csrf -> csrf.disable())
+            .csrf(csrf -> csrf.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()))
             // 启用 CORS
             .cors(withDefaults())
             // 设置 session 管理器为无状态
