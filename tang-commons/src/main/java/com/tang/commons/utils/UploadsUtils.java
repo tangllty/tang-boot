@@ -83,10 +83,7 @@ public class UploadsUtils {
      * @return 文件路径
      */
     private static String upload(MultipartFile file, String path) {
-        var fileName = file.getOriginalFilename();
-        if (Objects.isNull(fileName)) {
-            fileName = "unknown-file-name";
-        }
+        var fileName = getFileName(file);
         if (fileName.length() > MAX_FILE_NAME_LENGTH) {
             throw new MaxFileNameLengthException("上传失败, 文件名最大长度为: " + MAX_FILE_NAME_LENGTH);
         }
@@ -108,6 +105,26 @@ public class UploadsUtils {
         filePath = filePath.replace("\\", "/");
         LOGGER.info("上传文件成功, 文件路径: {}, 文件大小: {}", filePath, ByteUtils.getSize(file.getSize()));
         return filePath;
+    }
+
+    /**
+     * 获取文件名
+     *
+     * @param file 文件
+     * @return 文件名
+     */
+    public static String getFileName(MultipartFile file) {
+        var fileName = file.getOriginalFilename();
+        if (Objects.isNull(fileName)) {
+            fileName = "unknown-file-name";
+        }
+
+        // 从文件名中删除所有点和目录分隔符
+        fileName = fileName
+            .replaceAll("\\.", "")
+            .replaceAll("/", "")
+            .replaceAll("\\\\", "");
+        return fileName;
     }
 
 }
