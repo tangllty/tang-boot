@@ -92,6 +92,30 @@ public class AppChatListController {
     }
 
     /**
+     * 置顶聊天列表
+     *
+     * @param chatListId 聊天列表主键
+     * @return 影响行数
+     */
+    @PreAuthorize("@auth.hasPermission('app:chat:chat-list:edit')")
+    @PutMapping("/stick/{chatListId}")
+    public AjaxResult stick(@PathVariable Long chatListId) {
+        return AjaxResult.rows(appChatListService.stickByChatListId(chatListId));
+    }
+
+    /**
+     * 取消置顶聊天列表
+     *
+     * @param chatListId 聊天列表主键
+     * @return 影响行数
+     */
+    @PreAuthorize("@auth.hasPermission('app:chat:chat-list:edit')")
+    @PutMapping("/unstick/{chatListId}")
+    public AjaxResult unstick(@PathVariable Long chatListId) {
+        return AjaxResult.rows(appChatListService.unstickByChatListId(chatListId));
+    }
+
+    /**
      * 通过聊天列表主键删除聊天列表信息
      *
      * @param chatListId 聊天列表主键

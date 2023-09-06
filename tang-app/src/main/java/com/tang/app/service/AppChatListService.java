@@ -51,6 +51,22 @@ public interface AppChatListService {
     int updateAppChatListByChatListId(AppChatList appChatList);
 
     /**
+     * 置顶聊天列表
+     *
+     * @param chatListId 聊天列表主键
+     * @return 影响行数
+     */
+    int stickByChatListId(Long chatListId);
+
+    /**
+     * 取消置顶聊天列表
+     *
+     * @param chatListId 聊天列表主键
+     * @return 影响行数
+     */
+    int unstickByChatListId(Long chatListId);
+
+    /**
      * 通过聊天列表主键删除聊天列表信息
      *
      * @param chatListId 聊天列表主键

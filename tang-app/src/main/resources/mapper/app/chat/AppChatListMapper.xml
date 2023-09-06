@@ -67,6 +67,7 @@
     <select id="selectAppChatListListAllByUserId" resultMap="AppChatListMap">
         <include refid="AppChatListVo" />
         where acl.user_id = #{userId}
+        order by acl.stick_flag desc, acl.update_time desc
     </select>
 
     <select id="selectAppChatListByChatListId" resultMap="AppChatListMap">

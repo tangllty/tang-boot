@@ -5,6 +5,7 @@ import java.util.Objects;
 
 import org.springframework.stereotype.Service;
 
+import com.tang.app.constants.AppChatListStick;
 import com.tang.app.entity.AppChatList;
 import com.tang.app.mapper.AppChatListMapper;
 import com.tang.app.mapper.AppChatMessageMapper;
@@ -89,6 +90,34 @@ public class AppChatListServiceImpl implements AppChatListService {
      */
     @Override
     public int updateAppChatListByChatListId(AppChatList appChatList) {
+        return appChatListMapper.updateAppChatListByChatListId(appChatList);
+    }
+
+    /**
+     * 置顶聊天列表
+     *
+     * @param chatListId 聊天列表主键
+     * @return 影响行数
+     */
+    @Override
+    public int stickByChatListId(Long chatListId) {
+        var appChatList = new AppChatList();
+        appChatList.setChatListId(chatListId);
+        appChatList.setStickFlag(AppChatListStick.STICK);
+        return appChatListMapper.updateAppChatListByChatListId(appChatList);
+    }
+
+    /**
+     * 取消置顶聊天列表
+     *
+     * @param chatListId 聊天列表主键
+     * @return 影响行数
+     */
+    @Override
+    public int unstickByChatListId(Long chatListId) {
+        var appChatList = new AppChatList();
+        appChatList.setChatListId(chatListId);
+        appChatList.setStickFlag(AppChatListStick.UNSTICK);
         return appChatListMapper.updateAppChatListByChatListId(appChatList);
     }
 
