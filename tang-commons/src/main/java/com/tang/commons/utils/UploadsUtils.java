@@ -119,11 +119,8 @@ public class UploadsUtils {
             fileName = "unknown-file-name";
         }
 
-        // 从文件名中删除所有点和目录分隔符
-        fileName = fileName
-            .replaceAll("\\.", "")
-            .replaceAll("/", "")
-            .replaceAll("\\\\", "");
+        // 删除文件名中的所有点和目录分隔符
+        fileName = fileName.replace(".", "").replace("/", "").replace("\\", "");
         return fileName;
     }
 
