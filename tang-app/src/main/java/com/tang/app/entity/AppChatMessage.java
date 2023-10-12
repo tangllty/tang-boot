@@ -10,7 +10,7 @@ import com.tang.commons.base.entity.BaseEntity;
 public class AppChatMessage extends BaseEntity {
 
     @java.io.Serial
-    private static final long serialVersionUID = -1119467346890360549L;
+    private static final long serialVersionUID = -2343372416531013427L;
 
     /**
      * 消息ID
@@ -32,12 +32,24 @@ public class AppChatMessage extends BaseEntity {
      */
     private Long replyMessageId;
 
+    /**
+     * 回复消息
+     */
     private AppChatMessage replyMessage;
 
+    /**
+     * 发送者用户名
+     */
     private String username;
 
+    /**
+     * 发送者昵称
+     */
     private String nickname;
 
+    /**
+     * 发送者头像
+     */
     private String avatar;
 
     /**
