@@ -55,6 +55,9 @@ public class AppChatMessageServiceImpl implements AppChatMessageService {
     public List<AppChatMessage> selectAppChatMessageList(AppChatMessage appChatMessage) {
         var list = appChatMessageMapper.selectAppChatMessageList(appChatMessage);
         list.sort(Comparator.comparing(AppChatMessage::getMessageId));
+        list.forEach(message -> {
+            message.setReplyMessage(appChatMessageMapper.selectAppChatMessageByMessageId(message.getReplyMessageId()));
+        });
         return list;
     }
 

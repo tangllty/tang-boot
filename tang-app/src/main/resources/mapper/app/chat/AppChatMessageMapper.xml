@@ -6,6 +6,7 @@
         <result property="messageId" column="message_id" />
         <result property="chatListId" column="chat_list_id" />
         <result property="senderId" column="sender_id" />
+        <result property="replyMessageId" column="reply_message_id" />
         <result property="username" column="username" />
         <result property="nickname" column="nickname" />
         <result property="avatar" column="avatar" />
@@ -18,7 +19,7 @@
     </resultMap>
 
     <sql id="AppChatMessageVo">
-        select acm.message_id, acm.chat_list_id, acm.sender_id, u.username, u.nickname, u.avatar, acm.content, acm.create_by, acm.create_time, acm.update_by, acm.update_time, acm.remark
+        select acm.message_id, acm.chat_list_id, acm.sender_id, acm.reply_message_id, u.username, u.nickname, u.avatar, acm.content, acm.create_by, acm.create_time, acm.update_by, acm.update_time, acm.remark
         from app_chat_message acm
         left join sys_user u on acm.sender_id = u.user_id
     </sql>
@@ -34,6 +35,9 @@
             </if>
             <if test="senderId != null">
                 and acm.sender_id = #{senderId}
+            </if>
+            <if test="replyMessageId != null">
+                and acm.reply_message_id = #{replyMessageId}
             </if>
             <if test="content != null and content != ''">
                 and acm.content = #{content}
@@ -75,6 +79,7 @@
                 <if test="messageId != null">message_id,</if>
                 <if test="chatListId != null">chat_list_id,</if>
                 <if test="senderId != null">sender_id,</if>
+                <if test="replyMessageId != null">reply_message_id,</if>
                 <if test="content != null and content != ''">content,</if>
                 <if test="createBy != null and createBy != ''">create_by,</if>
                 <if test="createTime != null">create_time,</if>
@@ -87,6 +92,7 @@
                 <if test="messageId != null">#{messageId},</if>
                 <if test="chatListId != null">#{chatListId},</if>
                 <if test="senderId != null">#{senderId},</if>
+                <if test="replyMessageId != null">#{replyMessageId},</if>
                 <if test="content != null and content != ''">#{content},</if>
                 <if test="createBy != null and createBy != ''">#{createBy},</if>
                 <if test="createTime != null">#{createTime},</if>
@@ -102,6 +108,7 @@
         <set>
             <if test="chatListId != null">chat_list_id = #{chatListId},</if>
             <if test="senderId != null">sender_id = #{senderId},</if>
+            <if test="replyMessageId != null">reply_message_id = #{replyMessageId},</if>
             <if test="content != null and content != ''">content = #{content},</if>
             <if test="createBy != null and createBy != ''">create_by = #{createBy},</if>
             <if test="createTime != null">create_time = #{createTime},</if>

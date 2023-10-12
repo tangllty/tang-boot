@@ -540,19 +540,20 @@ insert into app_chat_list values (885332953918476288, 2, 1, '0', '1', '0', 'admi
 -- -----------------------------
 drop table if exists app_chat_message;
 create table app_chat_message (
-    message_id      bigint(20)    not null auto_increment  comment '消息ID',
-    chat_list_id    bigint(20)    default null             comment '聊天列表ID',
-    sender_id       bigint(20)    default null             comment '发送者ID',
-    content         varchar(500)  default ''               comment '聊天内容',
-    create_by       varchar(64)   default ''               comment '创建者',
-    create_time     datetime                               comment '创建时间',
-    update_by       varchar(64)   default ''               comment '更新者',
-    update_time     datetime                               comment '更新时间',
-    remark          varchar(500)  default ''               comment '备注',
+    message_id        bigint(20)    not null auto_increment  comment '消息ID',
+    chat_list_id      bigint(20)    default null             comment '聊天列表ID',
+    sender_id         bigint(20)    default null             comment '发送者ID',
+    reply_message_id  bigint(20)    default null             comment '回复消息ID',
+    content           varchar(500)  default ''               comment '聊天内容',
+    create_by         varchar(64)   default ''               comment '创建者',
+    create_time       datetime                               comment '创建时间',
+    update_by         varchar(64)   default ''               comment '更新者',
+    update_time       datetime                               comment '更新时间',
+    remark            varchar(500)  default ''               comment '备注',
     primary key (message_id)
 ) engine = InnoDB auto_increment = 100 comment = '聊天消息表';
 
-insert into app_chat_message values (100, 885332953918476288, 1, '你好吗？', 'admin', sysdate(), '', null, '');
-insert into app_chat_message values (101, 885332953918476288, 2, '也就那么回事', 'tang', sysdate(), '', null, '');
+insert into app_chat_message values (100, 885332953918476288, 1, null, '你好吗？', 'admin', sysdate(), '', null, '');
+insert into app_chat_message values (101, 885332953918476288, 2, 100,  '也就那么回事', 'tang', sysdate(), '', null, '');
 
 commit;

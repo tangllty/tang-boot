@@ -15,6 +15,8 @@ public class ChatMessage {
 
     private Long senderId;
 
+    private Long replyMessageId;
+
     private String avatar;
 
     private String content;
@@ -50,6 +52,14 @@ public class ChatMessage {
 
     public void setSenderId(Long senderId) {
         this.senderId = senderId;
+    }
+
+    public Long getReplyMessageId() {
+        return replyMessageId;
+    }
+
+    public void setReplyMessageId(Long replyMessageId) {
+        this.replyMessageId = replyMessageId;
     }
 
     public String getAvatar() {

@@ -27,6 +27,13 @@ public class AppChatMessage extends BaseEntity {
      */
     private Long senderId;
 
+    /**
+     * 回复消息ID
+     */
+    private Long replyMessageId;
+
+    private AppChatMessage replyMessage;
+
     private String username;
 
     private String nickname;
@@ -61,6 +68,22 @@ public class AppChatMessage extends BaseEntity {
 
     public void setSenderId(Long senderId) {
         this.senderId = senderId;
+    }
+
+    public Long getReplyMessageId() {
+        return replyMessageId;
+    }
+
+    public void setReplyMessageId(Long replyMessageId) {
+        this.replyMessageId = replyMessageId;
+    }
+
+    public AppChatMessage getReplyMessage() {
+        return replyMessage;
+    }
+
+    public void setReplyMessage(AppChatMessage replyMessage) {
+        this.replyMessage = replyMessage;
     }
 
     public String getUsername() {
