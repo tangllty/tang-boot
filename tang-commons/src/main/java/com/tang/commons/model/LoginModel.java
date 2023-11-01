@@ -33,7 +33,7 @@ public class LoginModel implements Serializable {
     /**
      * 密码
      */
-    @Length(min = 4, max = 32, message = "密码长度应在 4 到 32 之间")
+    @Length(min = 4, max = 64, message = "密码长度应在 4 到 64 之间")
     private String password;
 
     /**
