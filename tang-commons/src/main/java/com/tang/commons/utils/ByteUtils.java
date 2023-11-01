@@ -29,4 +29,27 @@ public class ByteUtils {
         return formatter.format(size / Math.pow(1024, digitGroups)) + " " + sizeUnits.get(digitGroups);
     }
 
+    /**
+     * 字节数组转十六进制字符串
+     *
+     * @param bytes 字节数组
+     * @return 十六进制字符串
+     */
+    public static String byteToHex(byte[] bytes) {
+        // 每个字节用两个字符表示，所以字符串的长度是数组长度的两倍
+        final var hexChars = new char[bytes.length * 2];
+        final var hexDigits = new char[] {
+            '0', '1', '2', '3', '4', '5', '6', '7',
+            '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'
+        };
+        var index = 0;
+        for (var b : bytes) {
+            // 将字节的高位四个比特转换为相应的十六进制字符
+            hexChars[index++] = hexDigits[(b >> 4) & 0xF];
+            // 将字节的低位四个比特转换为相应的十六进制字符
+            hexChars[index++] = hexDigits[b & 0xF];
+        }
+        return new String(hexChars);
+    }
+
 }
