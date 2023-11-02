@@ -25,4 +25,9 @@ public class CachePrefix {
      */
     public static final String DICT_TYPE = SYSTEM + "dict_type:";
 
+    /**
+     * 验证码缓存前缀
+     */
+    public static final String CAPTCHA = SYSTEM + "captcha:";
+
 }

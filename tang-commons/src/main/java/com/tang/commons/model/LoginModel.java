@@ -15,7 +15,7 @@ import jakarta.validation.constraints.NotBlank;
 public class LoginModel implements Serializable {
 
     @java.io.Serial
-    private static final long serialVersionUID = -5428882047565357006L;
+    private static final long serialVersionUID = -5942371013228306925L;
 
     /**
      * 用户名
@@ -41,6 +41,11 @@ public class LoginModel implements Serializable {
      */
     @NotBlank(message = "登陆方式不能为空")
     private String loginType;
+
+    /**
+     * 验证码
+     */
+    private transient CaptchaModel captcha;
 
 
     public String getUsername() {
@@ -73,6 +78,14 @@ public class LoginModel implements Serializable {
 
     public void setLoginType(String loginType) {
         this.loginType = loginType;
+    }
+
+    public CaptchaModel getCaptcha() {
+        return captcha;
+    }
+
+    public void setCaptcha(CaptchaModel captcha) {
+        this.captcha = captcha;
     }
 
 }
