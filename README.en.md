@@ -47,11 +47,11 @@ tang-boot uses the MIT license. For more details, please refer to [LICENSE](http
 
 ## Project Address
 
-| Project       | Gitee                                             | GitHub                                             |
-| ------------- | ------------------------------------------------- | -------------------------------------------------- |
-| Back End      | [tang-boot](https://gitee.com/tangllty/tang-boot) | [tang-boot](https://github.com/tangllty/tang-boot) |
-| Front End     | [tang-vue](https://gitee.com/tangllty/tang-vue)   | [tang-vue](https://github.com/tangllty/tang-vue)   |
-| Documentation | [tang-docs](https://gitee.com/tangllty/tang-docs) | [tang-docs](https://github.com/tangllty/tang-docs) |
+| Project       | Gitee                                          | GitHub                                          | GitCode                                                 |
+| ------------- | ---------------------------------------------- | ----------------------------------------------- | ------------------------------------------------------- |
+| Back End      | [tang-boot](https://gitee.com/tangllty/tang-boot) | [tang-boot](https://github.com/tangllty/tang-boot) | [tang-boot](https://gitcode.net/weixin_45456454/tang-boot) |
+| Front End     | [tang-vue](https://gitee.com/tangllty/tang-vue)   | [tang-vue](https://github.com/tangllty/tang-vue)   | [tang-vue](https://gitcode.net/weixin_45456454/tang-vue)   |
+| Documentation | [tang-docs](https://gitee.com/tangllty/tang-docs) | [tang-docs](https://github.com/tangllty/tang-docs) | [tang-docs](https://gitcode.net/weixin_45456454/tang-docs) |
 
 ## Discussion Group
 

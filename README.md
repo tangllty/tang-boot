@@ -47,11 +47,11 @@ tang-boot 使用 MIT 许可证。更多详情请查阅 [LICENSE](https://gitee.c
 
 ## 项目地址
 
-| 项目 | Gitee                                             | GitHub                                             |
-| --- |---------------------------------------------------|----------------------------------------------------|
-| 后端 | [tang-boot](https://gitee.com/tangllty/tang-boot) | [tang-boot](https://github.com/tangllty/tang-boot) |
-| 前端 | [tang-vue](https://gitee.com/tangllty/tang-vue)   | [tang-vue](https://github.com/tangllty/tang-vue)   |
-| 文档 | [tang-docs](https://gitee.com/tangllty/tang-docs) | [tang-docs](https://github.com/tangllty/tang-docs) |
+| 项目 | Gitee                                          | GitHub                                          | GitCode                                                 |
+| ---- | ---------------------------------------------- | ----------------------------------------------- | ------------------------------------------------------- |
+| 后端 | [tang-boot](https://gitee.com/tangllty/tang-boot) | [tang-boot](https://github.com/tangllty/tang-boot) | [tang-boot](https://gitcode.net/weixin_45456454/tang-boot) |
+| 前端 | [tang-vue](https://gitee.com/tangllty/tang-vue)   | [tang-vue](https://github.com/tangllty/tang-vue)   | [tang-vue](https://gitcode.net/weixin_45456454/tang-vue)   |
+| 文档 | [tang-docs](https://gitee.com/tangllty/tang-docs) | [tang-docs](https://github.com/tangllty/tang-docs) | [tang-docs](https://gitcode.net/weixin_45456454/tang-docs) |
 
 ## 交流群
 
