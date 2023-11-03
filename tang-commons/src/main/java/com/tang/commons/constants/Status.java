@@ -11,6 +11,11 @@ public class Status {
     }
 
     /**
+     * 正常
+     */
+    public static final String NORMAL = "0";
+
+    /**
      * 已停用
      */
     public static final String DISABLED = "1";

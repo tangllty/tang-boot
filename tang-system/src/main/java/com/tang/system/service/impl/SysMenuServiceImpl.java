@@ -11,6 +11,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.tang.commons.constants.Status;
 import com.tang.commons.domain.vo.MetaVo;
 import com.tang.commons.domain.vo.RouteVo;
 import com.tang.commons.enumeration.MenuType;
@@ -128,7 +129,9 @@ public class SysMenuServiceImpl implements SysMenuService {
     public List<RouteVo> selectMenuListTreeByUserId(Long userId) {
         List<SysMenu> menuList;
         if (SecurityUtils.isAdmin()) {
-            menuList = menuMapper.selectMenuList(null);
+            var menu = new SysMenu();
+            menu.setStatus(Status.NORMAL);
+            menuList = menuMapper.selectMenuList(menu);
         } else {
             menuList = menuMapper.selectMenuListByUserId(userId);
         }

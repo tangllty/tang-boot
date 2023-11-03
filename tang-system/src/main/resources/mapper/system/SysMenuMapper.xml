@@ -55,6 +55,8 @@
         <include refid="SysMenuVo" />
             left join sys_user_role ur on rm.role_id = ur.role_id
         where ur.user_id = #{userId}
+            and m.del_flag = '0'
+            and m.status = '0'
     </select>
 
     <select id="selectMenuListByRoleId" resultMap="SysMenuMap">
