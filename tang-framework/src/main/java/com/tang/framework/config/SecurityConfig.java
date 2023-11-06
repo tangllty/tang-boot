@@ -51,6 +51,7 @@ public class SecurityConfig {
                 .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()
                 .requestMatchers("/websocket/**").permitAll()
                 .requestMatchers("/uploads/**").permitAll()
+                .requestMatchers("/captcha/**").permitAll()
                 .anyRequest().authenticated()
             )
             .logout(logout -> logout.logoutUrl("/logout").logoutSuccessHandler(logoutSuccessHandler))
