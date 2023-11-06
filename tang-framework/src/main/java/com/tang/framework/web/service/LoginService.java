@@ -10,6 +10,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
+import com.tang.commons.autoconfigure.TangProperties;
 import com.tang.commons.constants.CachePrefix;
 import com.tang.commons.enumeration.LoginType;
 import com.tang.commons.exception.CaptchaException;
@@ -18,6 +19,7 @@ import com.tang.commons.model.LoginModel;
 import com.tang.commons.model.UserModel;
 import com.tang.commons.utils.LogUtils;
 import com.tang.commons.utils.RedisUtils;
+import com.tang.commons.utils.StringUtils;
 import com.tang.framework.security.authentication.email.EmailAuthenticationToken;
 import com.tang.framework.security.authentication.username.UsernameAuthenticationToken;
 import com.tang.system.service.log.SysLogLoginService;
@@ -40,12 +42,15 @@ public class LoginService {
 
     private final RedisUtils redisUtils;
 
-    public LoginService(AuthenticationManager authenticationManager, TokenService tokenService,
-                        SysLogLoginService logLoginService, RedisUtils redisUtils) {
+    private final TangProperties tangProperties;
+
+    public LoginService(AuthenticationManager authenticationManager, TokenService tokenService, SysLogLoginService logLoginService,
+            RedisUtils redisUtils, TangProperties tangProperties) {
         this.authenticationManager = authenticationManager;
         this.tokenService = tokenService;
         this.logLoginService = logLoginService;
         this.redisUtils = redisUtils;
+        this.tangProperties = tangProperties;
     }
 
     /**
@@ -83,6 +88,19 @@ public class LoginService {
 
         var userModel = (UserModel) authentication.getPrincipal();
 
+        var message = "登陆成功";
+
+        if (tangProperties.isSingleLogin()) {
+            var userIdCacheKey = CachePrefix.LOGIN_USER_ID + userModel.getUser().getUserId();
+            var userIdCacheValue = redisUtils.get(userIdCacheKey);
+            if (Objects.nonNull(userIdCacheValue)) {
+                var userCache = (UserModel) redisUtils.get(String.valueOf(userIdCacheValue));
+                message = StringUtils.format("登录成功，您的账号已在{}使用{}登录，已将其下线", userCache.getLocation(), userCache.getBrowser());
+                redisUtils.delete(String.valueOf(userIdCacheValue));
+                redisUtils.delete(userIdCacheKey);
+            }
+        }
+
         // 认证成功后，重新设置认证信息
         authenticationToken = switch (LoginType.getLoginType(userModel.getLoginType())) {
             case USERNAME -> new UsernameAuthenticationToken(userModel, Collections.emptyList());
@@ -93,7 +111,7 @@ public class LoginService {
 
         var token = tokenService.createToken(userModel);
 
-        logLoginService.recordLoginInfo(userModel.getUser().getUserId(), userModel, account, loginModel.getLoginType(), true, "登陆成功");
+        logLoginService.recordLoginInfo(userModel.getUser().getUserId(), userModel, account, loginModel.getLoginType(), true, message);
         LOGGER.info("用户使用 {} 方式登陆成功，登陆账号：{}", loginModel.getLoginType(), account);
 
         return token;

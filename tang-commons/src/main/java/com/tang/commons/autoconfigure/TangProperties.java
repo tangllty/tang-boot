@@ -34,6 +34,11 @@ public class TangProperties {
      */
     private boolean demoMode;
 
+    /**
+     * 单用户登陆
+     */
+    private boolean singleLogin;
+
 
     public String getName() {
         return name;
@@ -65,6 +70,14 @@ public class TangProperties {
 
     public void setDemoMode(boolean demoMode) {
         this.demoMode = demoMode;
+    }
+
+    public boolean isSingleLogin() {
+        return singleLogin;
+    }
+
+    public void setSingleLogin(boolean singleLogin) {
+        this.singleLogin = singleLogin;
     }
 
 }

@@ -11,6 +11,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 
+import com.tang.commons.autoconfigure.TangProperties;
 import com.tang.commons.autoconfigure.TokenProperties;
 import com.tang.commons.constants.CachePrefix;
 import com.tang.commons.model.UserModel;
@@ -46,10 +47,13 @@ public class TokenService {
 
     private final SysUserMapper userMapper;
 
-    public TokenService(RedisUtils redisUtils, TokenProperties tokenProperties, SysUserMapper userMapper) {
+    private final TangProperties tangProperties;
+
+    public TokenService(RedisUtils redisUtils, TokenProperties tokenProperties, SysUserMapper userMapper, TangProperties tangProperties) {
         this.redisUtils = redisUtils;
         this.tokenProperties = tokenProperties;
         this.userMapper = userMapper;
+        this.tangProperties = tangProperties;
     }
 
     /**
@@ -130,6 +134,10 @@ public class TokenService {
         // 缓存登陆信息
         var userKey = getTokenKey(userModel.getToken());
         redisUtils.set(userKey, userModel, tokenProperties.getExpireTime(), tokenProperties.getTimeUnit());
+        if (tangProperties.isSingleLogin()) {
+            var userIdKey = CachePrefix.LOGIN_USER_ID + userModel.getUser().getUserId();
+            redisUtils.set(userIdKey, userKey, tokenProperties.getExpireTime(), tokenProperties.getTimeUnit());
+        }
     }
 
     /**

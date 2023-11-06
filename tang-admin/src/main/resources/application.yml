@@ -8,6 +8,8 @@ tang:
   uploads: /home/tang/uploads/tang-boot
   # 演示模式
   demo-mode: false
+  # 单用户登录
+  single-login: false
 
 # 服务配置
 server:
