@@ -37,7 +37,7 @@ public class ByteUtils {
      */
     public static String byteToHex(byte[] bytes) {
         // 每个字节用两个字符表示，所以字符串的长度是数组长度的两倍
-        final var hexChars = new char[bytes.length * 2];
+        final var hexChars = new char[bytes.length << 1];
         final var hexDigits = new char[] {
             '0', '1', '2', '3', '4', '5', '6', '7',
             '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'
