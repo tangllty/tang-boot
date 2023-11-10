@@ -29,6 +29,11 @@
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid-spring-boot-3-starter</artifactId>
+        </dependency>
+
         <!-- Mysql 驱动 -->
         <dependency>
             <groupId>com.mysql</groupId>
