@@ -66,5 +66,5 @@ jobs:
           cd /root/tang-boot/
           mv tang-admin/target/tang-admin-*.jar ./
           rm -rf tang-admin/
-          kill -9 $(ps -ef |grep tang-admin-* | grep -v grep | awk '{print $2}')
+          kill -9 $(ps -ef | grep tang-admin-* | grep -v grep | awk '{print $2}')
           nohup java -Dlogging.config=classpath:logback.xml -jar tang-admin-*.jar > /dev/null 2>&1 &
