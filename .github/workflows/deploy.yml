@@ -43,7 +43,9 @@ jobs:
           if [ ! -d 'jars' ]; then
             mkdir jars
           fi
-          for file in tang-admin-*.jar; do mv '$file' 'jars/${file%-*.jar}-$(date +%Y%m%d%H%M%S).jar'; done
+          for file in $(ls tang-admin-*.jar); do
+            mv $file jars/$file-$(date +%Y%m%d%H%M%S).jar
+          done
 
     - name: Deploy to server
       uses: appleboy/scp-action@master
