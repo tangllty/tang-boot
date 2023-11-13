@@ -2,6 +2,8 @@
 tang:
   # 演示模式
   demo-mode: true
+  # 文件上传路径
+  uploads: /root/uploads/tang-boot
 
 # Spring 配置
 spring:
