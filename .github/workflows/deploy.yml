@@ -57,13 +57,15 @@ jobs:
         source: 'tang-admin/target/tang-admin-*.jar'
         target: /root/tang-boot/
 
-    #- name: Run JAR file
-    #  uses: appleboy/ssh-action@master
-    #  with:
-    #    host: ${{ secrets.SERVER_HOST }}
-    #    username: ${{ secrets.SERVER_USERNAME }}
-    #    password: ${{ secrets.SERVER_PASSWORD }}
-    #    script: |
-    #      cd /root/tang-boot/
-    #      kill -9 $(ps -ef |grep tang-admin-* | grep -v grep | awk '{print $2}')
-    #      nohup java -Dlogging.config=classpath:logback.xml -jar tang-admin-*.jar > /dev/null 2>&1 &
+    - name: Run JAR file
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.SERVER_HOST }}
+        username: ${{ secrets.SERVER_USERNAME }}
+        password: ${{ secrets.SERVER_PASSWORD }}
+        script: |
+          cd /root/tang-boot/
+          mv tang-admin/target/tang-admin-*.jar ./
+          rm -rf tang-admin/
+          kill -9 $(ps -ef |grep tang-admin-* | grep -v grep | awk '{print $2}')
+          nohup java -Dlogging.config=classpath:logback.xml -jar tang-admin-*.jar > /dev/null 2>&1 &
