@@ -3,7 +3,7 @@ tang:
   # 项目名称
   name: 糖猫猫后台管理系统
   # 项目版本
-  version: 1.6.1
+  version: 1.6.2
   # 文件上传路径
   uploads: /home/tang/uploads/tang-boot
   # 演示模式
