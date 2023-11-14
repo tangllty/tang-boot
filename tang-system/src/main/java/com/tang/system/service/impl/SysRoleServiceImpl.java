@@ -12,6 +12,7 @@ import com.tang.system.entity.SysMenu;
 import com.tang.system.entity.SysRole;
 import com.tang.system.mapper.SysMenuMapper;
 import com.tang.system.mapper.SysRoleMapper;
+import com.tang.system.mapper.dict.SysDictTypeMapper;
 import com.tang.system.service.SysRoleService;
 
 /**
@@ -26,9 +27,12 @@ public class SysRoleServiceImpl implements SysRoleService {
 
     private final SysMenuMapper menuMapper;
 
-    public SysRoleServiceImpl(SysRoleMapper roleMapper, SysMenuMapper menuMapper) {
+    private final SysDictTypeMapper dictTypeMapper;
+
+    public SysRoleServiceImpl(SysRoleMapper roleMapper, SysMenuMapper menuMapper, SysDictTypeMapper dictTypeMapper) {
         this.roleMapper = roleMapper;
         this.menuMapper = menuMapper;
+        this.dictTypeMapper = dictTypeMapper;
     }
 
     /**
@@ -52,8 +56,10 @@ public class SysRoleServiceImpl implements SysRoleService {
     public SysRole selectRoleByRoleId(Long roleId) {
         var role = roleMapper.selectRoleByRoleId(roleId);
         var menuList = menuMapper.selectMenuListByRoleId(roleId);
+        var dictIds = dictTypeMapper.selectDictIdsByRoleId(roleId);
         var menuIds = menuList.stream().map(SysMenu::getMenuId).toList();
         role.setMenuIds(menuIds);
+        role.setDictIds(dictIds);
         return role;
     }
 
@@ -103,8 +109,12 @@ public class SysRoleServiceImpl implements SysRoleService {
     public int insertRole(SysRole role) {
         var rows = roleMapper.insertRole(role);
         var menuIds = role.getMenuIds();
+        var dictIds = role.getDictIds();
         if (!menuIds.isEmpty()) {
             menuMapper.insertRoleMenu(role.getRoleId(), menuIds);
+        }
+        if (!dictIds.isEmpty()) {
+            dictTypeMapper.insertRoleDict(role.getRoleId(), dictIds);
         }
         return rows;
     }

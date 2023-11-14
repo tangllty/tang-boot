@@ -332,6 +332,17 @@ insert into sys_role_menu values (3, 129);
 
 
 -- -----------------------------
+-- 角色与字典关联表
+-- -----------------------------
+drop table if exists sys_role_dict;
+create table sys_role_dict (
+    role_id  bigint(20)  not null  comment '角色ID',
+    dict_id  varchar(64) not null  comment '字典ID',
+    primary key(role_id, dict_id)
+) engine = InnoDB comment = '角色与字典关联表';
+
+
+-- -----------------------------
 -- 字典类型表
 -- -----------------------------
 drop table if exists sys_dict_type;

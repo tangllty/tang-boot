@@ -1,8 +1,11 @@
 package com.tang.system.service.impl.dict;
 
 import java.time.Duration;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
@@ -12,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.tang.commons.model.SysDictDataModel;
 import com.tang.commons.utils.LogUtils;
 import com.tang.commons.utils.RedisUtils;
+import com.tang.commons.utils.tree.DictTreeSelect;
 import com.tang.system.entity.dict.SysDictData;
 import com.tang.system.entity.dict.SysDictType;
 import com.tang.system.mapper.dict.SysDictDataMapper;
@@ -75,6 +79,29 @@ public class SysDictTypeServiceImpl implements SysDictTypeService {
     }
 
     /**
+     * 获取字典树下拉选项
+     *
+     * @param dictType 字典类型对象
+     * @return 字典树下拉选项
+     */
+    @Override
+    public List<DictTreeSelect> selectDictTree(SysDictType dictType) {
+        var dictTypeList = dictTypeMapper.selectDictTypeList(dictType);
+        var dictDataList = dictDataMapper.selectDictDataList(null);
+        var list = new ArrayList<DictTreeSelect>();
+        dictTypeList.forEach(type -> {
+            var treeSelect = new DictTreeSelect(String.valueOf(type.getTypeId()), type.getTypeName());
+            var children = dictDataList.stream()
+                .filter(data -> data.getDictType().equals(type.getDictType()))
+                .map(data -> new DictTreeSelect(type.getTypeId() + "-" + data.getDataId(), data.getDataValue()))
+                .toList();
+            treeSelect.setChildren(children);
+            list.add(treeSelect);
+        });
+        return list;
+    }
+
+    /**
      * 通过主键查询单条数据
      *
      * @param typeId 字典类型主键
@@ -83,6 +110,42 @@ public class SysDictTypeServiceImpl implements SysDictTypeService {
     @Override
     public SysDictType selectDictTypeByTypeId(Long typeId) {
         return dictTypeMapper.selectDictTypeByTypeId(typeId);
+    }
+
+    /**
+     * 根据用户主键获取权限集合
+     *
+     * @param userId 用户主键
+     * @return 权限集合
+     */
+    public Map<String, Set<String>> getPermissionsByUserId(Long userId) {
+        var dictPermissionList =  dictTypeMapper.selectDictPermissionListByUserId(userId);
+        var dictTypeIds = dictPermissionList.stream()
+            .filter(dictPermission -> !dictPermission.contains("-"))
+            .map(Long::valueOf)
+            .collect(Collectors.toList());
+        var dictDataList = dictPermissionList.stream()
+            .filter(dictPermission -> dictPermission.contains("-"))
+            .map(dictPermission -> dictPermission.split("-")[1])
+            .toList();
+
+        // TODO Caused by: org.apache.ibatis.binding.BindingException: Parameter '__frch_typeId_0' not found. Available parameters are [arg0, collection, list]
+        // var dictTypeList = dictTypeMapper.selectDictTypeListByIds(dictTypeIds);
+        var dictTypeList = dictTypeIds.stream()
+            .map(dictTypeId -> dictTypeMapper.selectDictTypeByTypeId(dictTypeId).getDictType())
+            .collect(Collectors.toList());
+
+        return dictTypeList.stream()
+            .map(dictType -> {
+                var dataList = dictDataService.selectDictDataListByDictType(dictType);
+                var permissionList = dataList.stream()
+                    .filter(dictData -> dictDataList.contains(String.valueOf(dictData.getDataId())))
+                    .map(SysDictDataModel::getDataValue)
+                    .collect(Collectors.toSet());
+                return Map.of(dictType, permissionList);
+            })
+            .flatMap(map -> map.entrySet().stream())
+            .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
     }
 
     /**

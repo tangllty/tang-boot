@@ -39,6 +39,22 @@
         where dt.type_id = #{typeId}
     </select>
 
+    <select id="selectDictIdsByRoleId" resultType="String">
+        select dict_id from sys_role_dict where role_id = #{roleId}
+    </select>
+
+    <select id="selectDictPermissionListByUserId" resultType="String">
+        select dict_id from sys_role_dict where role_id in
+        (select role_id from sys_user_role where user_id = #{userId})
+    </select>
+
+    <select id="selectDictTypeListByIds" resultType="String">
+        select dict_type from sys_dict_type where type_id in
+        <foreach item="typeId" collection="list" open="(" separator="," close=")">
+            #{typeId}
+        </foreach>
+    </select>
+
     <insert id="insertDictType" useGeneratedKeys="true" keyProperty="typeId">
         insert into sys_dict_type (
             <if test="typeId != null and typeId != 0">type_id,</if>
@@ -57,6 +73,13 @@
             <if test="remark != null and remark != ''">#{remark},</if>
             sysdate()
         )
+    </insert>
+
+    <insert id="insertRoleDict">
+        insert into sys_role_dict (role_id, dict_id) values
+        <foreach item="dictId" index="index" collection="dictIds" separator=",">
+            (#{roleId},#{dictId})
+        </foreach>
     </insert>
 
     <update id="updateDictTypeByTypeId">

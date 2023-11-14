@@ -1,5 +1,6 @@
 package com.tang.commons.utils;
 
+import java.util.Map;
 import java.util.Set;
 
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -65,12 +66,31 @@ public class SecurityUtils {
     }
 
     /**
+     * 获取字典权限信息
+     *
+     * @return 字典权限信息
+     */
+    public static Map<String, Set<String>> getDictPermissions() {
+        return getUserModel().getDictPermissions();
+    }
+
+    /**
      * 判断是否为管理员
      *
      * @return 结果
      */
     public static boolean isAdmin() {
         return getRoles().contains(ADMIN_ROLE_KEY) && getPermissions().contains(ALL_PERMISSIONS);
+    }
+
+    /**
+     * 判断是否登陆
+     *
+     * @return 结果
+     */
+    public static boolean isAuthenticated() {
+        return SecurityContextHolder.getContext().getAuthentication() != null
+            && SecurityContextHolder.getContext().getAuthentication().isAuthenticated();
     }
 
     /**

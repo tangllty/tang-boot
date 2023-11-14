@@ -48,6 +48,18 @@ public class SysDictTypeController {
     }
 
     /**
+     * 获取字典树下拉选项
+     *
+     * @param dictType 字典类型对象
+     * @return 字典树下拉选项
+     */
+    @GetMapping("/dict-tree")
+    public AjaxResult selectDictTree(SysDictType dictType) {
+        var list = dictTypeService.selectDictTree(dictType);
+        return AjaxResult.success(list);
+    }
+
+    /**
      * 通过主键查询单条数据
      *
      * @param typeId 字典类型主键

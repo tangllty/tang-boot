@@ -3,6 +3,7 @@ package com.tang.commons.model;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Map;
 import java.util.Set;
 
 import org.springframework.security.core.GrantedAuthority;
@@ -23,7 +24,7 @@ import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 public class UserModel implements UserDetails {
 
     @java.io.Serial
-    private static final long serialVersionUID = 1700642694582927208L;
+    private static final long serialVersionUID = 3779217866194828044L;
 
     /**
      * ip
@@ -110,6 +111,11 @@ public class UserModel implements UserDetails {
      * 权限集合
      */
     private Set<String> permissions;
+
+    /**
+     * 字典权限集合
+     */
+    private Map<String, Set<String>> dictPermissions;
 
     /**
      * 用户信息
@@ -243,6 +249,14 @@ public class UserModel implements UserDetails {
 
     public void setPermissions(Set<String> permissions) {
         this.permissions = permissions;
+    }
+
+    public Map<String, Set<String>> getDictPermissions() {
+        return dictPermissions;
+    }
+
+    public void setDictPermissions(Map<String, Set<String>> dictPermissions) {
+        this.dictPermissions = dictPermissions;
     }
 
     public SysUserModel getUser() {

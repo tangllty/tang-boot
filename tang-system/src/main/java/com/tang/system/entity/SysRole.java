@@ -14,7 +14,7 @@ import com.tang.commons.base.entity.BaseEntity;
 public class SysRole extends BaseEntity {
 
     @java.io.Serial
-    private static final long serialVersionUID = -1878026743787136232L;
+    private static final long serialVersionUID = -754828687631446522L;
 
     /**
      * 角色ID
@@ -57,6 +57,11 @@ public class SysRole extends BaseEntity {
      * 菜单权限
      */
     private List<Long> menuIds;
+
+    /**
+     * 字典权限
+     */
+    private List<String> dictIds;
 
 
     public Long getRoleId() {
@@ -121,6 +126,14 @@ public class SysRole extends BaseEntity {
 
     public void setMenuIds(List<Long> menuIds) {
         this.menuIds = menuIds;
+    }
+
+    public List<String> getDictIds() {
+        return dictIds;
+    }
+
+    public void setDictIds(List<String> dictIds) {
+        this.dictIds = dictIds;
     }
 
 }

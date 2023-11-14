@@ -19,6 +19,7 @@ import com.tang.framework.web.service.TokenService;
 import com.tang.system.entity.SysUser;
 import com.tang.system.service.SysMenuService;
 import com.tang.system.service.SysRoleService;
+import com.tang.system.service.dict.SysDictTypeService;
 import com.tang.system.service.log.SysLogLoginService;
 
 /**
@@ -37,11 +38,15 @@ public class AuthenticationService implements UserModelProvider {
 
     private final TokenService tokenService;
 
-    public AuthenticationService(SysRoleService roleService, SysMenuService menuService, SysLogLoginService logLoginService, TokenService tokenService) {
+    private final SysDictTypeService dictTypeService;
+
+    public AuthenticationService(SysRoleService roleService, SysMenuService menuService, SysLogLoginService logLoginService,
+            TokenService tokenService, SysDictTypeService dictTypeService) {
         this.roleService = roleService;
         this.menuService = menuService;
         this.logLoginService = logLoginService;
         this.tokenService = tokenService;
+        this.dictTypeService = dictTypeService;
     }
 
     /**
@@ -86,11 +91,14 @@ public class AuthenticationService implements UserModelProvider {
         if (roles.contains(SecurityUtils.ADMIN_ROLE_KEY)) {
             permissions = Set.of(SecurityUtils.ALL_PERMISSIONS);
         }
+        // 字典权限集合
+        var dictPermissions = dictTypeService.getPermissionsByUserId(user.getUserId());
         // 将信息放进登陆用户模型
         userModel.setLoginType(loginType);
         userModel.setUser(sysUserModel);
         userModel.setRoles(roles);
         userModel.setPermissions(permissions);
+        userModel.setDictPermissions(dictPermissions);
         return userModel;
     }
 
