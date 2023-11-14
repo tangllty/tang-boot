@@ -38,7 +38,11 @@ jobs:
         username: ${{ secrets.SERVER_USERNAME }}
         password: ${{ secrets.SERVER_PASSWORD }}
         script: |
-          cd /root/tang-boot/
+          cd /root
+          if [ -d 'tang-boot' ]; then
+            mkdir tang-boot
+          fi
+          cd tang-boot/
           if [ ! -d 'jars' ]; then
             mkdir jars
           fi
