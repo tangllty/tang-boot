@@ -93,7 +93,7 @@ public class SysDictTypeServiceImpl implements SysDictTypeService {
             var treeSelect = new DictTreeSelect(String.valueOf(type.getTypeId()), type.getTypeName());
             var children = dictDataList.stream()
                 .filter(data -> data.getDictType().equals(type.getDictType()))
-                .map(data -> new DictTreeSelect(type.getTypeId() + "-" + data.getDataId(), data.getDataValue()))
+                .map(data -> new DictTreeSelect(type.getTypeId() + "-" + data.getDataId(), data.getDataLabel()))
                 .toList();
             treeSelect.setChildren(children);
             list.add(treeSelect);
