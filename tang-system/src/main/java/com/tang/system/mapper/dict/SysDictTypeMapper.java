@@ -93,4 +93,12 @@ public interface SysDictTypeMapper {
      */
     int deleteDictTypeByTypeIds(Long[] typeIds);
 
+    /**
+     * 通过角色主键删除角色字典关联信息
+     *
+     * @param roleId 角色主键
+     * @return 影响行数
+     */
+    int deleteRoleDictByRoleId(Long roleId);
+
 }

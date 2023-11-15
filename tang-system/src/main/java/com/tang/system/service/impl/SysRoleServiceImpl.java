@@ -132,6 +132,7 @@ public class SysRoleServiceImpl implements SysRoleService {
         var menuIds = role.getMenuIds();
         var dictIds = role.getDictIds();
         menuMapper.deleteRoleMenuByRoleId(roleId);
+        dictTypeMapper.deleteRoleDictByRoleId(roleId);
         if (!menuIds.isEmpty()) {
             menuMapper.insertRoleMenu(roleId, menuIds);
         }

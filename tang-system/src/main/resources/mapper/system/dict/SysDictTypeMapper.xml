@@ -106,4 +106,8 @@
         </foreach>
     </delete>
 
+    <delete id="deleteRoleDictByRoleId">
+        delete from sys_role_dict where role_id = #{roleId}
+    </delete>
+
 </mapper>
