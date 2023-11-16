@@ -6,8 +6,11 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Objects;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.cache.CacheKey;
 import org.apache.ibatis.executor.Executor;
 import org.apache.ibatis.mapping.BoundSql;
@@ -27,6 +30,7 @@ import com.tang.commons.utils.SecurityUtils;
 import com.tang.commons.utils.SpringUtils;
 
 import static com.tang.commons.constants.CachePrefix.DICT_TYPE;
+import static com.tang.commons.utils.StringUtils.format;
 
 /**
  * 字典数据权限拦截器
@@ -57,18 +61,12 @@ public class DictPermissionInterceptor implements Interceptor {
         var executor = (Executor) invocation.getTarget();
         var cacheKey = args.length == 4 ? executor.createCacheKey(mappedStatement, parameter, rowBounds, mappedStatement.getBoundSql(parameter)) : (CacheKey) args[4];
         var boundSql = args.length == 4 ? mappedStatement.getBoundSql(parameter) : (BoundSql) args[5];
-
-        var sql = new StringBuilder();
-
-        if (boundSql.getSql().contains(LIMIT)) {
-            sql.append(boundSql.getSql(), 0, boundSql.getSql().indexOf(LIMIT));
-        } else {
-            sql.append(boundSql.getSql());
-        }
+        var originalSql = boundSql.getSql();
 
         var roleDictDataMap = SecurityUtils.getDictPermissions();
 
         var fields = new LinkedHashMap<Field, DictPermission>();
+        var tableName = findTableName(originalSql);
 
         if (mappedStatement.getId().endsWith("_COUNT")) {
             fields.putAll(getFields(parameter.getClass()));
@@ -76,19 +74,39 @@ public class DictPermissionInterceptor implements Interceptor {
             fields.putAll(getFields(mappedStatement.getResultMaps().get(0).getType()));
         }
 
+        var extraSql = new StringBuilder();
         fields.forEach((field, dictPermission) -> {
             var dictDataList = selectDictDataListByDictType(dictPermission.name());
-            sql.append(" and u.").append(field.getName()).append(" in (");
+            var alias = findTableAlias(originalSql, tableName);
+            extraSql.append(format(" and {}.", alias))
+                .append(field.getName()).append(" in (");
             var roleDictDataList = roleDictDataMap.get(dictPermission.name());
-            sql.append(dictDataList.stream()
-                .filter(dictData -> roleDictDataList.contains(String.valueOf(dictData.getDataId())))
-                .map(dictData -> "'" + dictData.getDataValue() + "'")
+            extraSql.append(dictDataList.stream()
+                .filter(dictData -> roleDictDataList.contains(dictData.getDataValue()))
+                .map(dictData -> format("'{}'", dictData.getDataValue()))
                 .collect(Collectors.joining(",")));
-            sql.append(") ");
+            extraSql.append(") ");
         });
 
-        if (boundSql.getSql().contains(LIMIT)) {
-            sql.append(boundSql.getSql(), boundSql.getSql().indexOf(LIMIT), boundSql.getSql().length());
+        var keywordList = List.of("group by", "having", "order by", "limit");
+        var indexKeyword = keywordList.stream()
+            .filter(keyword -> StringUtils.containsIgnoreCase(originalSql, keyword))
+            .findFirst()
+            .orElse(null);
+        var sql = new StringBuilder();
+        if (Objects.nonNull(indexKeyword)) {
+            sql.append(originalSql, 0, originalSql.indexOf(indexKeyword))
+                .append(extraSql)
+                .append(originalSql, originalSql.indexOf(indexKeyword), originalSql.length());
+        } else {
+            if (originalSql.contains("SELECT count(0) FROM (")) {
+                sql.append(originalSql, 0, originalSql.lastIndexOf(")"))
+                    .append(extraSql)
+                    .append(originalSql, originalSql.lastIndexOf(")"), originalSql.length());
+            } else {
+                sql.append(originalSql)
+                    .append(extraSql);
+            }
         }
 
         boundSql = new BoundSql(mappedStatement.getConfiguration(), sql.toString(), boundSql.getParameterMappings(), boundSql.getParameterObject());
@@ -119,6 +137,24 @@ public class DictPermissionInterceptor implements Interceptor {
         return fields.stream()
             .filter(field -> field.isAnnotationPresent(DictPermission.class))
             .collect(Collectors.toMap(field -> field, field -> AnnotationUtils.getAnnotation(field, DictPermission.class), (k1, k2) -> k1, LinkedHashMap::new));
+    }
+
+    private static String findTableName(String sql) {
+        final var pattern = Pattern.compile("(?i)\\bfrom\\b\\s+(\\w+)");
+        final var matcher = pattern.matcher(sql);
+        if (!matcher.find()) {
+            return StringUtils.EMPTY;
+        }
+        return matcher.group(1);
+    }
+
+    private static String findTableAlias(String sql, String tableName) {
+        final var pattern = Pattern.compile("(?i)\\b" + tableName + "\\b\\s+(\\w+)");
+        final var matcher = pattern.matcher(sql);
+        if (!matcher.find()) {
+            return StringUtils.EMPTY;
+        }
+        return matcher.group(1);
     }
 
 }
