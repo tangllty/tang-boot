@@ -109,9 +109,10 @@ public class DictPermissionInterceptor implements Interceptor {
             .orElse(null);
         var sql = new StringBuilder();
         if (Objects.nonNull(indexKeyword)) {
-            sql.append(originalSql, 0, originalSql.indexOf(indexKeyword))
+            var keywordIndex = StringUtils.indexOfIgnoreCase(originalSql, indexKeyword);
+            sql.append(originalSql, 0, keywordIndex)
                 .append(extraSql)
-                .append(originalSql, originalSql.indexOf(indexKeyword), originalSql.length());
+                .append(originalSql, keywordIndex, originalSql.length());
         } else {
             if (originalSql.contains("SELECT count(0) FROM (")) {
                 sql.append(originalSql, 0, originalSql.lastIndexOf(")"))
