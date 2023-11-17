@@ -18,8 +18,12 @@ You can read the [documentation](https://tangllty.eu.org/) for more information
 
 ## Project Preview
 
-* Online Preview: [http://123.60.177.48/](http://123.60.177.48/)
+* Online Preview: [http://116.196.102.213/](http://116.196.102.213/)
 * Account password: admin / 123456
+
+### Server Sponsorship
+
+* [@RyanHo97](https://github.com/RyanHo97/)
 
 ## Environment Requirements
 
