@@ -47,7 +47,7 @@ public class SecurityConfig {
             // 设置未登陆过滤器
             .exceptionHandling(handling -> handling.authenticationEntryPoint(authenticationEntryPoint))
             .authorizeHttpRequests(authorize -> authorize
-                .requestMatchers("/login").permitAll()
+                .requestMatchers("/login", "/third-party/oauth/**").permitAll()
                 .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()
                 .requestMatchers("/websocket/**").permitAll()
                 .requestMatchers("/uploads/**").permitAll()
@@ -60,8 +60,9 @@ public class SecurityConfig {
     }
 
     @Bean
-    public AuthenticationManager authenticationManager(AuthenticationProvider usernameAuthenticationProvider, AuthenticationProvider emailAuthenticationProvider) {
-        var providers = List.of(usernameAuthenticationProvider, emailAuthenticationProvider);
+    public AuthenticationManager authenticationManager(AuthenticationProvider usernameAuthenticationProvider, AuthenticationProvider emailAuthenticationProvider,
+            AuthenticationProvider gitHubAuthenticationProvider) {
+        var providers = List.of(usernameAuthenticationProvider, emailAuthenticationProvider, gitHubAuthenticationProvider);
         return new ProviderManager(providers);
     }
 

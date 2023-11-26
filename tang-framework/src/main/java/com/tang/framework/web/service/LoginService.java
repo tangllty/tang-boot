@@ -21,6 +21,7 @@ import com.tang.commons.utils.LogUtils;
 import com.tang.commons.utils.RedisUtils;
 import com.tang.commons.utils.StringUtils;
 import com.tang.framework.security.authentication.email.EmailAuthenticationToken;
+import com.tang.framework.security.authentication.github.GitHubAuthenticationToken;
 import com.tang.framework.security.authentication.username.UsernameAuthenticationToken;
 import com.tang.system.service.log.SysLogLoginService;
 
@@ -63,15 +64,7 @@ public class LoginService {
      * @see com.tang.framework.security.authentication.email.EmailAuthenticationProvider#authenticate(Authentication)
      */
     public String login(LoginModel loginModel) {
-        var captcha = redisUtils.get(CachePrefix.CAPTCHA + loginModel.getCaptcha().getId());
-
-        if (Objects.isNull(captcha)) {
-            throw new CaptchaException("验证码已过期");
-        }
-
-        if (!captcha.equals(loginModel.getCaptcha().getText())) {
-            throw new CaptchaException("验证码错误");
-        }
+        verifyCaptcha(loginModel);
 
         Authentication authentication;
         AbstractAuthenticationToken authenticationToken;
@@ -79,6 +72,7 @@ public class LoginService {
         authenticationToken = switch (LoginType.getLoginType(loginModel.getLoginType())) {
             case USERNAME -> new UsernameAuthenticationToken(loginModel.getUsername(), loginModel.getPassword());
             case EMAIL -> new EmailAuthenticationToken(loginModel.getEmail(), loginModel.getPassword());
+            case GITHUB -> new GitHubAuthenticationToken(loginModel.getCode());
             default -> throw new IllegalLoginTypeException("Unexpected login type: " + loginModel.getLoginType());
         };
 
@@ -115,6 +109,27 @@ public class LoginService {
         LOGGER.info("用户使用 {} 方式登陆成功，登陆账号：{}", loginModel.getLoginType(), account);
 
         return token;
+    }
+
+    /**
+     * 验证码校验
+     *
+     * @param loginModel 登陆用户信息
+     */
+    public void verifyCaptcha(LoginModel loginModel) {
+        if (!loginModel.getCaptchaEnable()) {
+            return;
+        }
+
+        var captcha = redisUtils.get(CachePrefix.CAPTCHA + loginModel.getCaptcha().getId());
+
+        if (Objects.isNull(captcha)) {
+            throw new CaptchaException("验证码已过期");
+        }
+
+        if (!captcha.equals(loginModel.getCaptcha().getText())) {
+            throw new CaptchaException("验证码错误");
+        }
     }
 
 }

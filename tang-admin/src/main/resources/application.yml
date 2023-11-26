@@ -78,3 +78,11 @@ token:
   time-unit: hours
   # 令牌有效期
   expire-time: 2
+
+# 第三方登录
+oauth:
+  github:
+    # 客户端ID
+    client-id: xxxxxxxxxxxxxxxxxxxx
+    # 客户端密钥
+    client-secret: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx

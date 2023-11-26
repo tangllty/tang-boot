@@ -20,6 +20,11 @@ public enum LoginType {
     EMAIL("email", "邮箱密码"),
 
     /**
+     * GitHub 授权码
+     */
+    GITHUB("github", "GitHub 授权码"),
+
+    /**
      * 未知
      */
     UNKNOWN("", "未知");

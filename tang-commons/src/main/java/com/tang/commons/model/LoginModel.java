@@ -15,7 +15,7 @@ import jakarta.validation.constraints.NotBlank;
 public class LoginModel implements Serializable {
 
     @java.io.Serial
-    private static final long serialVersionUID = -5942371013228306925L;
+    private static final long serialVersionUID = 364320618765413665L;
 
     /**
      * 用户名
@@ -37,10 +37,20 @@ public class LoginModel implements Serializable {
     private String password;
 
     /**
+     * GitHub 授权码
+     */
+    private String code;
+
+    /**
      * 登陆方式
      */
     @NotBlank(message = "登陆方式不能为空")
     private String loginType;
+
+    /**
+     * 验证码开关
+     */
+    private boolean captchaEnable = true;
 
     /**
      * 验证码
@@ -72,12 +82,28 @@ public class LoginModel implements Serializable {
         this.password = password;
     }
 
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
     public String getLoginType() {
         return loginType;
     }
 
     public void setLoginType(String loginType) {
         this.loginType = loginType;
+    }
+
+    public boolean getCaptchaEnable() {
+        return captchaEnable;
+    }
+
+    public void setCaptchaEnable(boolean captchaEnable) {
+        this.captchaEnable = captchaEnable;
     }
 
     public CaptchaModel getCaptcha() {
