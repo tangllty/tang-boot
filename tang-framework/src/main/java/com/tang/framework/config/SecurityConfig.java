@@ -32,6 +32,12 @@ import static org.springframework.security.config.Customizer.withDefaults;
 @EnableMethodSecurity
 public class SecurityConfig {
 
+    private final List<AuthenticationProvider> providers;
+
+    public SecurityConfig(List<AuthenticationProvider> providers) {
+        this.providers = providers;
+    }
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity, AuthenticationEntryPoint authenticationEntryPoint,
             JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter, LogoutSuccessHandler logoutSuccessHandler) throws Exception {
@@ -60,9 +66,7 @@ public class SecurityConfig {
     }
 
     @Bean
-    public AuthenticationManager authenticationManager(AuthenticationProvider usernameAuthenticationProvider, AuthenticationProvider emailAuthenticationProvider,
-            AuthenticationProvider gitHubAuthenticationProvider) {
-        var providers = List.of(usernameAuthenticationProvider, emailAuthenticationProvider, gitHubAuthenticationProvider);
+    public AuthenticationManager authenticationManager() {
         return new ProviderManager(providers);
     }
 
