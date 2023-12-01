@@ -1,5 +1,9 @@
 # tang-boot
 
+[![CodeQL](https://github.com/tangllty/tang-boot/actions/workflows/codeql.yml/badge.svg)](https://github.com/tangllty/tang-boot/actions/workflows/codeql.yml)
+[![Java CI with Maven](https://github.com/tangllty/tang-boot/actions/workflows/maven.yml/badge.svg)](https://github.com/tangllty/tang-boot/actions/workflows/maven.yml)
+[![Build and Deploy](https://github.com/tangllty/tang-boot/actions/workflows/deploy.yml/badge.svg)](https://github.com/tangllty/tang-boot/actions/workflows/deploy.yml)
+
 **简体中文** | [**English**](./README.en.md)
 
 ## 项目简介
