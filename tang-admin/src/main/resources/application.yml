@@ -79,7 +79,7 @@ token:
   # 令牌有效期
   expire-time: 2
 
-# 第三方登录
+# 第三方登录配置
 oauth:
   github:
     # 客户端ID
