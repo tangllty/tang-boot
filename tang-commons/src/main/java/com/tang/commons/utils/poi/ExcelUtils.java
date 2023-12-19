@@ -1,6 +1,7 @@
 package com.tang.commons.utils.poi;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -136,6 +137,82 @@ public class ExcelUtils {
     }
 
     /**
+     * 导出 Excel 模板(默认 10 行)
+     *
+     * @param <T>      类型
+     * @param response 响应
+     * @param clazz    类
+     * @param list     数据
+     */
+    public static <T> void exportTemplate(HttpServletResponse response, Class<T> clazz, List<T> list) {
+        exportTemplate(response, clazz, list, 10);
+    }
+
+    /**
+     * 导出 Excel 模板
+     *
+     * @param <T>      类型
+     * @param response 响应
+     * @param clazz    类
+     * @param list     数据
+     * @param rowNum   行数
+     */
+    public static <T> void exportTemplate(HttpServletResponse response, Class<T> clazz, List<T> list, int rowNum) {
+        if (Objects.isNull(list) || !list.isEmpty()) {
+            list = new ArrayList<>();
+        }
+
+        for (int i = 0; i < rowNum; i++) {
+            try {
+                list.add(clazz.getDeclaredConstructor().newInstance());
+            } catch (InstantiationException | InvocationTargetException | IllegalAccessException | NoSuchMethodException e) {
+                LOGGER.error("创建对象异常", e);
+            }
+        }
+
+        export(response, clazz, list);
+    }
+
+    /**
+     * 导出 Excel 模板(默认 10 行)
+     *
+     * @param <T>      类型
+     * @param response 响应
+     * @param clazz    类
+     * @param map      数据
+     */
+    public static <T> void exportTemplate(HttpServletResponse response, Class<T> clazz, Map<String, List<T>> map) {
+        exportTemplate(response, clazz, map, 10);
+    }
+
+    /**
+     * 导出 Excel 模板
+     *
+     * @param <T>      类型
+     * @param response 响应
+     * @param clazz    类
+     * @param map      数据
+     * @param rowNum   行数
+     */
+    public static <T> void exportTemplate(HttpServletResponse response, Class<T> clazz, Map<String, List<T>> map, int rowNum) {
+        map.values().forEach(list -> {
+            if (Objects.isNull(list) || !list.isEmpty()) {
+                list = new ArrayList<>();
+            }
+
+            for (int i = 0; i < rowNum; i++) {
+                try {
+                    list.add(clazz.getDeclaredConstructor().newInstance());
+                } catch (InstantiationException | InvocationTargetException | IllegalAccessException | NoSuchMethodException e) {
+                    LOGGER.error("创建对象异常", e);
+                }
+            }
+        });
+
+        export(response, clazz, map);
+    }
+
+    /**
      * 导出 Excel
      *
      * @param response 响应
@@ -143,6 +220,10 @@ public class ExcelUtils {
      * @param list     数据
      */
     public static <T> void export(HttpServletResponse response, Class<T> clazz, List<T> list) {
+        if (Objects.isNull(list)) {
+            list = new ArrayList<>();
+        }
+
         var maxRowNum = 65535;
         var sheetNum = (list.size() + maxRowNum) / maxRowNum;
         var map = new LinkedHashMap<String, List<T>>(sheetNum);
@@ -163,6 +244,12 @@ public class ExcelUtils {
      * @param map      数据(key sheet name, value data, 使用 LinkedHashMap 保证顺序)
      */
     public static <T> void export(HttpServletResponse response, Class<T> clazz, Map<String, List<T>> map) {
+        map.values().forEach(list -> {
+            if (Objects.isNull(list)) {
+                list = new ArrayList<>();
+            }
+        });
+
         var workbook = new XSSFWorkbook();
 
         var fields = getFields(clazz);
