@@ -83,14 +83,16 @@ public class ExcelUtils {
                 var cellNumIndex = new AtomicInteger();
                 fields.forEach((field, excel) -> {
                     var cell = row.getCell(cellNumIndex.getAndIncrement());
-                    if (excel.type() != Type.EXPORT) {
-                        try {
-                            ReflectionUtils.makeAccessible(field);
-                            var setMethod = clazz.getMethod("set" + CaseFormat.LOWER_CAMEL.to(CaseFormat.UPPER_CAMEL, field.getName()), field.getType());
-                            ReflectionUtils.invokeMethod(setMethod, obj, getCellValue(field, cell, excel));
-                        } catch (ReflectiveOperationException e) {
-                            LOGGER.error("设置值异常", e);
-                        }
+                    if (excel.type() == Type.EXPORT) {
+                        return;
+                    }
+
+                    try {
+                        ReflectionUtils.makeAccessible(field);
+                        var setMethod = clazz.getMethod("set" + CaseFormat.LOWER_CAMEL.to(CaseFormat.UPPER_CAMEL, field.getName()), field.getType());
+                        ReflectionUtils.invokeMethod(setMethod, obj, getCellValue(field, cell, excel));
+                    } catch (ReflectiveOperationException e) {
+                        LOGGER.error("设置值异常", e);
                     }
                 });
                 list.add(obj);
@@ -210,25 +212,32 @@ public class ExcelUtils {
             switch (excel.cellType()) {
                 case STRING -> {
                     var dictType = excel.dictType();
-                    if (StringUtils.isNotBlank(dictType)) {
-                        var dictDataList = DictUtils.getDictDataList(dictType);
-                        var validationHelper = new XSSFDataValidationHelper(cell.getSheet());
-                        var validationConstraint = validationHelper.createExplicitListConstraint(dictDataList.stream().map(SysDictDataModel::getDataLabel).toList().toArray(new String[0]));
-                        var cellRangeAddressList = new CellRangeAddressList(cell.getRowIndex(), cell.getRowIndex(), cell.getColumnIndex(), cell.getColumnIndex());
-                        var validation = validationHelper.createValidation(validationConstraint, cellRangeAddressList);
-                        cell.setCellValue(DictUtils.getDictLabel(dictType, stringValue));
-                        cell.getSheet().addValidationData(validation);
-                    } else {
+                    if (StringUtils.isBlank(dictType)) {
                         cell.setCellValue(stringValue);
+                        return;
                     }
+
+                    var dictDataList = DictUtils.getDictDataList(dictType);
+                    var validationHelper = new XSSFDataValidationHelper(cell.getSheet());
+                    var validationConstraint = validationHelper.createExplicitListConstraint(dictDataList.stream().map(SysDictDataModel::getDataLabel).toList().toArray(new String[0]));
+                    var cellRangeAddressList = new CellRangeAddressList(cell.getRowIndex(), cell.getRowIndex(), cell.getColumnIndex(), cell.getColumnIndex());
+                    var validation = validationHelper.createValidation(validationConstraint, cellRangeAddressList);
+                    cell.setCellValue(DictUtils.getDictLabel(dictType, stringValue));
+                    cell.getSheet().addValidationData(validation);
                 }
-                case NUMBER -> cell.setCellValue(Double.parseDouble(stringValue));
-                case DATE -> {
-                    if (StringUtils.isNotBlank(stringValue)) {
-                        var formatter = DateTimeFormatter.ofPattern(excel.dateFormat());
-                        var formattedDate = formatter.format(LocalDateTime.parse(stringValue));
-                        cell.setCellValue(formattedDate);
+                case NUMBER -> {
+                    if (StringUtils.isBlank(stringValue)) {
+                        return;
                     }
+                    cell.setCellValue(Double.parseDouble(stringValue));
+                }
+                case DATE -> {
+                    if (StringUtils.isBlank(stringValue)) {
+                        return;
+                    }
+                    var formatter = DateTimeFormatter.ofPattern(excel.dateFormat());
+                    var formattedDate = formatter.format(LocalDateTime.parse(stringValue));
+                    cell.setCellValue(formattedDate);
                 }
                 default -> throw new IllegalArgumentException("不支持的单元格类型: " + excel.cellType());
             }
