@@ -23,9 +23,7 @@ public class SqlUtils {
      * 检查字符，防止注入绕过
      */
     public static String escapeOrderBySql(String value) {
-        if (StringUtils.isNotBlank(value) && !isValidOrderBySql(value)) {
-            throw new UtilsException("查询失败, 参数不符合规范");
-        }
+        Assert.isTrue(StringUtils.isNotBlank(value) && !isValidOrderBySql(value), new UtilsException("查询失败, 参数不符合规范"));
         return value;
     }
 

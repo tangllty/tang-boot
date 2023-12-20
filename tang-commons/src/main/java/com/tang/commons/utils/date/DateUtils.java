@@ -7,6 +7,8 @@ import java.time.format.TextStyle;
 import java.time.temporal.ChronoUnit;
 import java.util.Locale;
 
+import com.tang.commons.utils.Assert;
+
 /**
  * 日期工具类
  *
@@ -41,9 +43,7 @@ public class DateUtils {
         var monday = now.with(DayOfWeek.MONDAY).truncatedTo(ChronoUnit.DAYS);
         var sunday = monday.plusDays(6);
 
-        if (localDateTime.toLocalDate().isAfter(now.toLocalDate())) {
-            throw new IllegalArgumentException("Chat time cannot be later than now");
-        }
+        Assert.isTrue(localDateTime.toLocalDate().isAfter(now.toLocalDate()), new IllegalArgumentException("Chat time cannot be later than now"));
 
         var pattern = new StringBuilder();
 

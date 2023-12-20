@@ -14,6 +14,7 @@ import com.tang.commons.exception.user.UserNotFoundException;
 import com.tang.commons.model.SysDeptModel;
 import com.tang.commons.model.SysUserModel;
 import com.tang.commons.model.UserModel;
+import com.tang.commons.utils.Assert;
 import com.tang.commons.utils.SecurityUtils;
 import com.tang.framework.web.service.TokenService;
 import com.tang.system.entity.SysUser;
@@ -59,18 +60,10 @@ public class AuthenticationService implements UserModelProvider {
      */
     public UserModel createUserModel(SysUser user, String password, String account, String loginType) {
         try {
-            if (Objects.isNull(user)) {
-                throw new UserNotFoundException("用户不存在");
-            }
-            if (!SecurityUtils.matchesPassword(password, user.getPassword())) {
-                throw new PasswordMismatchException("密码错误");
-            }
-            if (user.getStatus().equals(Status.DISABLED)) {
-                throw new DisabledException("账号已停用");
-            }
-            if (user.getDelFlag().equals(Status.DELETED)) {
-                throw new DeletedException("账号已删除");
-            }
+            Assert.isNull(user, new UserNotFoundException("用户不存在"));
+            Assert.isFalse(SecurityUtils.matchesPassword(password, user.getPassword()), new PasswordMismatchException("密码错误"));
+            Assert.isTrue(user.getStatus().equals(Status.DISABLED), new DisabledException("账号已停用"));
+            Assert.isTrue(user.getDelFlag().equals(Status.DELETED),new DeletedException("账号已删除"));
         } catch (RuntimeException e) {
             logLoginService.recordLoginInfo(Objects.isNull(user) ? null : user.getUserId(), tokenService.getUserAgent(), account, loginType, false, e.getMessage());
             throw e;

@@ -84,12 +84,10 @@ public class UploadsUtils {
      */
     private static String upload(MultipartFile file, String path) {
         var fileName = getFileName(file);
-        if (fileName.length() > MAX_FILE_NAME_LENGTH) {
-            throw new MaxFileNameLengthException("上传失败, 文件名最大长度为: " + MAX_FILE_NAME_LENGTH);
-        }
-        if (file.getSize() > MAX_FILE_SIZE) {
-            throw new MaxFileSizeException("上传失败, 文件最大大小为: " + ByteUtils.getSize(MAX_FILE_SIZE));
-        }
+
+        Assert.isTrue(fileName.length() > MAX_FILE_NAME_LENGTH, new MaxFileNameLengthException("上传失败, 文件名最大长度为: " + MAX_FILE_NAME_LENGTH));
+        Assert.isTrue(file.getSize() > MAX_FILE_SIZE, new MaxFileSizeException("上传失败, 文件最大大小为: " + ByteUtils.getSize(MAX_FILE_SIZE)));
+
         fileName = System.currentTimeMillis() + "_" + fileName;
         var destDir = new File(path);
         if (!destDir.exists()) {
@@ -97,11 +95,13 @@ public class UploadsUtils {
         }
         var filePath = destDir + File.separator + fileName;
         var dest = new File(filePath);
+
         try {
             file.transferTo(dest);
         } catch (IllegalStateException | IOException e) {
             LOGGER.error("上传文件失败, 文件路径: {}, 文件大小: {}", filePath, ByteUtils.getSize(file.getSize()), e);
         }
+
         filePath = filePath.replace("\\", "/");
         if (LOGGER.isInfoEnabled()) {
             LOGGER.info("上传文件成功, 文件路径: {}, 文件大小: {}", filePath, ByteUtils.getSize(file.getSize()));

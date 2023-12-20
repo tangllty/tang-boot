@@ -36,6 +36,7 @@ import com.tang.commons.constants.FileType;
 import com.tang.commons.exception.file.FileNotExistException;
 import com.tang.commons.exception.file.FileTypeMismatchException;
 import com.tang.commons.model.SysDictDataModel;
+import com.tang.commons.utils.Assert;
 import com.tang.commons.utils.DictUtils;
 import com.tang.commons.utils.LogUtils;
 
@@ -61,15 +62,19 @@ public class ExcelUtils {
      * @return 数据
      */
     public static <T> List<T> importExcel(Class<T> clazz, MultipartFile file) {
-        if (Objects.isNull(file)) {
+        Assert.isNull(file, () -> {
             LOGGER.error("导入失败, 文件为空");
-            throw new FileNotExistException("导入失败, 文件为空");
-        }
+            return new FileNotExistException("导入失败, 文件为空");
+        });
         var fileName = file.getOriginalFilename();
-        if (Objects.isNull(fileName) || !fileName.endsWith(FileType.EXCEL_2007)) {
+        Assert.isNull(fileName, () -> {
+            LOGGER.error("导入失败, 文件名为空");
+            return new FileNotExistException("导入失败, 文件名为空");
+        });
+        Assert.isFalse(fileName.endsWith(FileType.EXCEL_2007), () -> {
             LOGGER.error("导入失败, 只支持 Excel 2007 及以上版本");
-            throw new FileTypeMismatchException("导入失败, 只支持 Excel 2007 及以上版本");
-        }
+            return new FileTypeMismatchException("导入失败, 只支持 Excel 2007 及以上版本");
+        });
 
         var list = new ArrayList<T>();
         var fields = getFields(clazz);

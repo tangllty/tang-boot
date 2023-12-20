@@ -1,5 +1,7 @@
 package com.tang.commons.utils.id;
 
+import com.tang.commons.utils.Assert;
+
 /**
  * 雪花算法
  *
@@ -84,12 +86,9 @@ public class Snowflake {
      * @param machineId    机器标识
      */
     public Snowflake(long dataCenterId, long machineId) {
-        if (dataCenterId > MAX_DATA_CENTER_NUM || dataCenterId < 0) {
-            throw new IllegalArgumentException("Data center ID can't be greater than MAX_DATA_CENTER_NUM or less than 0");
-        }
-        if (machineId > MAX_MACHINE_NUM || machineId < 0) {
-            throw new IllegalArgumentException("Machine ID can't be greater than MAX_MACHINE_NUM or less than 0");
-        }
+        Assert.isTrue(dataCenterId > MAX_DATA_CENTER_NUM || dataCenterId < 0, new IllegalArgumentException("Data center ID can't be greater than MAX_DATA_CENTER_NUM or less than 0"));
+        Assert.isTrue(machineId > MAX_MACHINE_NUM || machineId < 0, new IllegalArgumentException("Machine ID can't be greater than MAX_MACHINE_NUM or less than 0"));
+
         this.dataCenterId = dataCenterId;
         this.machineId = machineId;
     }
@@ -101,10 +100,8 @@ public class Snowflake {
      */
     public synchronized long nextId() {
         long currentTimestamp = getTimestamp();
-        if (currentTimestamp < lastTimestamp) {
-            // 如果当前时间小于上一次ID生成的时间戳，说明系统时钟回退过，抛出非法异常
-            throw new IllegalArgumentException("Clock moved backwards. Refusing to generate id");
-        }
+        // 如果当前时间小于上一次ID生成的时间戳，说明系统时钟回退过，抛出非法异常
+        Assert.isTrue(currentTimestamp < lastTimestamp, new IllegalArgumentException("Clock moved backwards. Refusing to generate id"));
 
         // 如果是同一时间生成的，则进行毫秒内序列
         if (currentTimestamp == lastTimestamp) {

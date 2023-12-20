@@ -1,7 +1,6 @@
 package com.tang.system.service.impl;
 
 import java.util.List;
-import java.util.Objects;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
@@ -12,6 +11,7 @@ import com.tang.commons.exception.user.EmailNotUniqueException;
 import com.tang.commons.exception.user.PasswordMismatchException;
 import com.tang.commons.exception.user.UserNotFoundException;
 import com.tang.commons.exception.user.UsernameNotUniqueException;
+import com.tang.commons.utils.Assert;
 import com.tang.commons.utils.SecurityUtils;
 import com.tang.system.entity.SysRole;
 import com.tang.system.entity.SysUser;
@@ -106,13 +106,12 @@ public class SysUserServiceImpl implements SysUserService {
     @Transactional(rollbackFor = Exception.class)
     public int insertUser(SysUser user) {
         var username = user.getUsername();
-        if (StringUtils.isNotEmpty(username) && Objects.nonNull(selectUserByUsername(username))) {
-            throw new UsernameNotUniqueException("新增失败, 用户名已存在: " + username);
-        }
+        Assert.isTrue(StringUtils.isBlank(username), new UsernameNotUniqueException("新增失败, 用户名不能为空"));
+        Assert.nonNull(selectUserByUsername(username), new UsernameNotUniqueException("新增失败, 用户名已存在: " + username));
+
         var email = user.getEmail();
-        if (StringUtils.isNotEmpty(email) && Objects.nonNull(selectUserByEmail(email))) {
-            throw new EmailNotUniqueException("新增失败, 邮箱已存在: " + email);
-        }
+        Assert.isTrue(StringUtils.isBlank(email), new EmailNotUniqueException("新增失败, 邮箱不能为空"));
+        Assert.nonNull(selectUserByEmail(email), new EmailNotUniqueException("新增失败, 邮箱已存在: " + email));
 
         user.setPassword(SecurityUtils.encryptPassword(user.getPassword()));
         var rows = userMapper.insertUser(user);
@@ -157,18 +156,10 @@ public class SysUserServiceImpl implements SysUserService {
     public int updatePasswordByUserId(PasswordVo passwordVo) {
         var user = userMapper.selectUserByUserId(passwordVo.getUserId());
 
-        if (Objects.isNull(user)) {
-            throw new UserNotFoundException("用户不存在");
-        }
-        if (!SecurityUtils.matchesPassword(passwordVo.getOldPassword(), user.getPassword())) {
-            throw new PasswordMismatchException("旧密码错误");
-        }
-        if (passwordVo.getNewPassword().equals(passwordVo.getOldPassword())) {
-            throw new PasswordMismatchException("新密码不能与旧密码相同");
-        }
-        if (!passwordVo.getNewPassword().equals(passwordVo.getConfirmPassword())) {
-            throw new PasswordMismatchException("两次输入密码不一致");
-        }
+        Assert.isNull(user, new UserNotFoundException("用户不存在"));
+        Assert.isFalse(SecurityUtils.matchesPassword(passwordVo.getOldPassword(), user.getPassword()), new PasswordMismatchException("旧密码错误"));
+        Assert.isTrue(passwordVo.getNewPassword().equals(passwordVo.getOldPassword()), new PasswordMismatchException("新密码不能与旧密码相同"));
+        Assert.isFalse(passwordVo.getNewPassword().equals(passwordVo.getConfirmPassword()), new PasswordMismatchException("两次输入密码不一致"));
 
         user.setPassword(SecurityUtils.encryptPassword(passwordVo.getNewPassword()));
         return userMapper.updateUserByUserId(user);

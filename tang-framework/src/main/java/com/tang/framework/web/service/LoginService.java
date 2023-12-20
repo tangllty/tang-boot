@@ -17,6 +17,7 @@ import com.tang.commons.exception.CaptchaException;
 import com.tang.commons.exception.user.IllegalLoginTypeException;
 import com.tang.commons.model.LoginModel;
 import com.tang.commons.model.UserModel;
+import com.tang.commons.utils.Assert;
 import com.tang.commons.utils.LogUtils;
 import com.tang.commons.utils.RedisUtils;
 import com.tang.commons.utils.StringUtils;
@@ -123,13 +124,8 @@ public class LoginService {
 
         var captcha = redisUtils.get(CachePrefix.CAPTCHA + loginModel.getCaptcha().getId());
 
-        if (Objects.isNull(captcha)) {
-            throw new CaptchaException("验证码已过期");
-        }
-
-        if (!captcha.equals(loginModel.getCaptcha().getText())) {
-            throw new CaptchaException("验证码错误");
-        }
+        Assert.isNull(captcha, new CaptchaException("验证码已过期"));
+        Assert.isFalse(captcha.equals(loginModel.getCaptcha().getText()), new CaptchaException("验证码错误"));
     }
 
 }
