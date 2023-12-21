@@ -268,28 +268,28 @@ const { $dictTypeVar } = proxy.$dict($dictTypeParams)
 #end
 
 const state = reactive({
-  // 遮罩层
-  loading: false,
-  // 选中数据
+  /** 遮罩层 */
+  loading: false as boolean,
+  /** 选中数据 */
   $primaryKey: 0 as number,
-  // 选中数据数组
+  /** 选中数据数组 */
   ${primaryKey}s: [] as number[],
-  // 总条数
-  total: 0,
-  // ${classComment}数据
+  /** 总条数 */
+  total: 0 as number,
+  /** ${classComment}数据 */
   ${className}List: [] as ${ClassName}[],
-  // 查询参数
+  /** 查询参数 */
   queryParams: {
     pageNum: 1,
     pageSize: 10
   } as ${ClassName}Query,
-  // ${classComment}对话框
+  /** ${classComment}对话框 */
   ${className}Dialog: {
     title: '',
     type: '',
     visible: false
   } as Dialog,
-  // ${classComment}表单
+  /** ${classComment}表单 */
   ${className}Form: {} as ${ClassName}Form
 })
 
@@ -307,13 +307,17 @@ const ${className}RuleFormRef = ref<FormInstance>()
 const ${className}QueryFormRef = ref<FormInstance>()
 const ${className}Rules = reactive<FormRules>({
 #foreach ($column in $columnList)
+#if ($column.javaField != $primaryKey)
   $column.javaField: [
     { required: true, message: '${column.columnComment}不能为空', trigger: 'blur' },
   ],
 #end
+#end
 })
 
-// 查询${classComment}列表
+/**
+ * 查询${classComment}列表
+ */
 const handleList = async () => {
   state.loading = true
   const res: any = await list${ClassName}(state.queryParams)
@@ -322,7 +326,9 @@ const handleList = async () => {
   state.loading = false
 }
 
-// 添加${classComment}信息
+/**
+ * 添加${classComment}信息
+ */
 const handleAdd = () => {
   state.${className}Form = {} as ${ClassName}Form
 
@@ -333,8 +339,12 @@ const handleAdd = () => {
   }
 }
 
-// 修改${classComment}信息
-const handleEdit = async (row: any) => {
+/**
+ * 修改${classComment}信息
+ *
+ * @param row ${classComment}信息
+ */
+const handleEdit = async (row: $ClassName) => {
   let $primaryKey = state.$primaryKey
   if (row.$primaryKey) {
     $primaryKey = row.$primaryKey
@@ -350,69 +360,87 @@ const handleEdit = async (row: any) => {
 }
 
 #set($dollar = '$')
-// 删除${classComment}信息
-const handleDelete = async (row: any) => {
+/**
+ * 删除${classComment}信息
+ *
+ * @param row ${classComment}信息
+ */
+const handleDelete = async (row: $ClassName) => {
   try {
     await proxy.$confirm('确认删除"' + row.$primaryKey + '"${classComment}信息吗？', '提示', {
       type: 'warning'
     })
     await delete${ClassName}(row.$primaryKey)
-    proxy.${dollar}message.success("删除${classComment}信息成功")
+    proxy.${dollar}message.success('删除${classComment}信息成功')
     await handleList()
   } catch (error) {
     console.log(error)
   }
 }
 
-// 批量删除${classComment}信息
+/**
+ * 批量删除${classComment}信息
+ */
 const handleDeletes = async () => {
   try {
     await proxy.$confirm('确认删除"' + state.${primaryKey}s + '"${classComment}信息吗？', '提示', {
       type: 'warning'
     })
     await delete${ClassName}s(state.${primaryKey}s)
-    proxy.${dollar}message.success("删除${classComment}信息成功")
+    proxy.${dollar}message.success('删除${classComment}信息成功')
     await handleList()
   } catch (error) {
     console.log(error)
   }
 }
 
-// 重置表单
+/**
+ * 重置表单
+ */
 const resetQuery = async () => {
   ${className}QueryFormRef.value?.resetFields()
   await handleList()
 }
 
-// 关闭对话框
+/**
+ * 关闭${classComment}对话框
+ */
 const close${ClassName}Dialog = () => {
   state.${className}Dialog.visible = false
   ${className}RuleFormRef.value?.clearValidate()
   ${className}RuleFormRef.value?.resetFields()
 }
 
-// 多选框
-const handleSelectionChange = (selection: any) => {
-  state.${primaryKey}s = selection.map((item: any) => item.$primaryKey)
+/**
+ * 选中数据
+ *
+ * @param selection 选中数据
+ */
+const handleSelectionChange = (selection: ${ClassName}[]) => {
+  state.${primaryKey}s = selection.map((item: $ClassName) => item.$primaryKey)
   if (selection.length === 1) {
     state.$primaryKey = ${primaryKey}s.value[0]
   }
 }
 
-// 提交表单
+/**
+ * 提交表单
+ *
+ * @param formEl 表单实例
+ */
 const submitForm = async (formEl: FormInstance | undefined) => {
   if (!formEl) return
   try {
     await formEl.validate()
       if (${className}Dialog.value.type == 'add') {
         await add${ClassName}(state.${className}Form)
-        proxy.${dollar}message.success("添加${classComment}信息成功")
+        proxy.${dollar}message.success('添加${classComment}信息成功')
         close${ClassName}Dialog()
         await handleList()
       }
       if (${className}Dialog.value.type == 'edit') {
         await edit${ClassName}(state.${className}Form)
-        proxy.${dollar}message.success("修改${classComment}信息成功")
+        proxy.${dollar}message.success('修改${classComment}信息成功')
         close${ClassName}Dialog()
         await handleList()
       }

@@ -1,4 +1,6 @@
-// ${classComment}对象
+/**
+ * ${classComment}对象
+ */
 export interface $ClassName {
 #foreach($column in $columnList)
 #if ($column.javaType == 'Integer')
@@ -10,13 +12,15 @@ export interface $ClassName {
 #if ($column.javaType == 'String')
   $column.javaField: string
 #end
-#if ($column.javaType == 'Date')
+#if ($column.javaType == 'LocalDateTime')
   $column.javaField: Date
 #end
 #end
 }
 
-// ${classComment}表单对象
+/**
+ * ${classComment}表单对象
+ */
 export interface ${ClassName}Form {
 #foreach($column in $columnList)
 #if ($column.javaType == 'Integer')
@@ -28,13 +32,15 @@ export interface ${ClassName}Form {
 #if ($column.javaType == 'String')
   $column.javaField: string
 #end
-#if ($column.javaType == 'Date')
+#if ($column.javaType == 'LocalDateTime')
   $column.javaField: Date
 #end
 #end
 }
 
-// ${classComment}查询参数
+/**
+ * ${classComment}查询参数
+ */
 export interface ${ClassName}Query extends PageQuery {
 #foreach($column in $columnList)
 #if ($column.javaType == 'Integer')
@@ -46,7 +52,7 @@ export interface ${ClassName}Query extends PageQuery {
 #if ($column.javaType == 'String')
   $column.javaField: string
 #end
-#if ($column.javaType == 'Date')
+#if ($column.javaType == 'LocalDateTime')
   $column.javaField: Date
 #end
 #end
