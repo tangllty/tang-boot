@@ -1,8 +1,8 @@
 package com.tang.generator.utils;
 
 import java.io.StringWriter;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.apache.commons.lang3.StringUtils;
@@ -148,13 +148,11 @@ public class VelocityUtils {
      * @return 字典集合
      */
     private static List<String> getDictTypeList(GenTable table) {
-        var dictTypeList = new ArrayList<String>();
-        for (GenTableColumn tableColumn : table.getTableColumnList()) {
-            if (StringUtils.isNotBlank(tableColumn.getDictType())) {
-                dictTypeList.add(tableColumn.getDictType());
-            }
-        }
-        return dictTypeList;
+        return table.getTableColumnList().stream()
+            .map(GenTableColumn::getDictType)
+            .filter(StringUtils::isNotBlank)
+            .distinct()
+            .collect(Collectors.toList());
     }
 
     /**
