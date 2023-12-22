@@ -10,7 +10,7 @@ import com.tang.commons.base.entity.BaseEntity;
 public class GenTableColumn extends BaseEntity {
 
     @java.io.Serial
-    private static final long serialVersionUID = 2148893922489984601L;
+    private static final long serialVersionUID = 3026775149324258963L;
 
     /**
      * 编号
@@ -38,12 +38,17 @@ public class GenTableColumn extends BaseEntity {
     private String columnType;
 
     /**
-     * JAVA类型
+     * JAVA 类型
      */
     private String javaType;
 
     /**
-     * JAVA属性
+     * TS 类型
+     */
+    private String tsType;
+
+    /**
+     * JAVA 属性
      */
     private String javaField;
 
@@ -149,6 +154,14 @@ public class GenTableColumn extends BaseEntity {
 
     public void setJavaType(String javaType) {
         this.javaType = javaType;
+    }
+
+    public String getTsType() {
+        return tsType;
+    }
+
+    public void setTsType(String tsType) {
+        this.tsType = tsType;
     }
 
     public String getJavaField() {

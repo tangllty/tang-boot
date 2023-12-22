@@ -52,6 +52,7 @@ public class TableColumnUtils {
      */
     public static void initTableColumn(GenTableColumn tableColumn) {
         tableColumn.setJavaType(getJavaType(tableColumn.getColumnType()));
+        tableColumn.setTsType(getTsType(tableColumn.getColumnType()));
         tableColumn.setJavaField(CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL,  tableColumn.getColumnName()));
         tableColumn.setIsList("1");
         tableColumn.setIsInsert(getIsInsert(tableColumn.getJavaField()));
@@ -81,27 +82,27 @@ public class TableColumnUtils {
     }
 
     /**
-     * 获取HTML类型
+     * 获取 HTML 类型
      *
      * @param columnName 字段名称
-     * @return HTML类型
+     * @return HTML 类型
      */
     private static String getHtmlType(String columnName) {
-        var htmlSelect = "type";
-        var htmlRadio = "status";
-        var htmlDate = "time";
+        var htmlSelect = List.of("type");
+        var htmlRadio = List.of("status");
+        var htmlDate = List.of("time", "date");
 
         var htmlType = "input";
-        // 如果包含type返回select
-        if (columnName.contains(htmlSelect)) {
-            htmlType = "select";
-        }
-        // 如果包含status返回radio
-        if (columnName.contains(htmlRadio)) {
+        // 如果包含 htmlRadio 返回 radio
+        if (htmlRadio.stream().anyMatch(columnName::contains)) {
             htmlType = "radio";
         }
-        // 如果包含time返回date
-        if (columnName.contains(htmlDate)) {
+        // 如果包含 htmlSelect 返回 select
+        if (htmlSelect.stream().anyMatch(columnName::contains)) {
+            htmlType = "select";
+        }
+        // 如果包含 htmlDate 返回 date
+        if (htmlDate.stream().anyMatch(columnName::contains)) {
             htmlType = "date";
         }
         return htmlType;
@@ -120,7 +121,7 @@ public class TableColumnUtils {
     /**
      * 获取是否允许插入
      *
-     * @param javaField java字段
+     * @param javaField java 字段
      * @return 是否允许插入
      */
     private static String getIsInsert(String javaField) {
@@ -128,10 +129,10 @@ public class TableColumnUtils {
     }
 
     /**
-     * 获取java类型
+     * 获取 java 类型
      *
      * @param columnType 字段类型
-     * @return java类型
+     * @return java 类型
      */
     private static String getJavaType(String columnType) {
         if (List.of(STRING_TYPE).stream().anyMatch(columnType::startsWith)) {
@@ -142,6 +143,25 @@ public class TableColumnUtils {
         }
         if (List.of(DATE_TYPE).contains(columnType)) {
             return "LocalDateTime";
+        }
+        return "";
+    }
+
+    /**
+     * 获取 typescript 类型
+     *
+     * @param columnType 字段类型
+     * @return typescript 类型
+     */
+    public static String getTsType(String columnType) {
+        if (List.of(STRING_TYPE).stream().anyMatch(columnType::startsWith)) {
+            return "string";
+        }
+        if (List.of(NUMBER_TYPE).contains(columnType)) {
+            return "number";
+        }
+        if (List.of(DATE_TYPE).contains(columnType)) {
+            return "Date";
         }
         return "";
     }

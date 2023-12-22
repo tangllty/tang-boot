@@ -3,18 +3,7 @@
  */
 export interface $ClassName {
 #foreach($column in $columnList)
-#if ($column.javaType == 'Integer')
-  $column.javaField: number
-#end
-#if ($column.javaType == 'Long')
-  $column.javaField: number
-#end
-#if ($column.javaType == 'String')
-  $column.javaField: string
-#end
-#if ($column.javaType == 'LocalDateTime')
-  $column.javaField: Date
-#end
+  $column.javaField: $column.tsType
 #end
 }
 
@@ -23,18 +12,7 @@ export interface $ClassName {
  */
 export interface ${ClassName}Form {
 #foreach($column in $columnList)
-#if ($column.javaType == 'Integer')
-  $column.javaField: number
-#end
-#if ($column.javaType == 'Long')
-  $column.javaField: number
-#end
-#if ($column.javaType == 'String')
-  $column.javaField: string
-#end
-#if ($column.javaType == 'LocalDateTime')
-  $column.javaField: Date
-#end
+  $column.javaField: $column.tsType
 #end
 }
 
@@ -43,17 +21,6 @@ export interface ${ClassName}Form {
  */
 export interface ${ClassName}Query extends PageQuery {
 #foreach($column in $columnList)
-#if ($column.javaType == 'Integer')
-  $column.javaField: number
-#end
-#if ($column.javaType == 'Long')
-  $column.javaField: number
-#end
-#if ($column.javaType == 'String')
-  $column.javaField: string
-#end
-#if ($column.javaType == 'LocalDateTime')
-  $column.javaField: Date
-#end
+  $column.javaField: $column.tsType
 #end
 }

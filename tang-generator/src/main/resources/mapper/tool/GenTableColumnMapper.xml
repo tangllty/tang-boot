@@ -9,6 +9,7 @@
         <result property="columnComment" column="column_comment" />
         <result property="columnType" column="column_type" />
         <result property="javaType" column="java_type" />
+        <result property="tsType" column="ts_type" />
         <result property="javaField" column="java_field" />
         <result property="isPk" column="is_pk" />
         <result property="isIncrement" column="is_increment" />
@@ -28,7 +29,7 @@
     </resultMap>
 
     <sql id="GenTableColumnVo">
-        select gtc.column_id, gtc.table_id, gtc.column_name, gtc.column_comment, gtc.column_type, gtc.java_type, gtc.java_field, gtc.is_pk, gtc.is_increment, gtc.is_list, gtc.is_insert, gtc.is_edit, gtc.is_required, gtc.query_type, gtc.html_type, gtc.dict_type, gtc.sort, gtc.create_by, gtc.create_time, gtc.update_by, gtc.update_time, gtc.remark
+        select gtc.column_id, gtc.table_id, gtc.column_name, gtc.column_comment, gtc.column_type, gtc.java_type, gtc.ts_type, gtc.java_field, gtc.is_pk, gtc.is_increment, gtc.is_list, gtc.is_insert, gtc.is_edit, gtc.is_required, gtc.query_type, gtc.html_type, gtc.dict_type, gtc.sort, gtc.create_by, gtc.create_time, gtc.update_by, gtc.update_time, gtc.remark
         from gen_table_column gtc
     </sql>
 
@@ -64,6 +65,7 @@
             <if test="columnComment != null and columnComment != ''">column_comment,</if>
             <if test="columnType != null and columnType != ''">column_type,</if>
             <if test="javaType != null and javaType != ''">java_type,</if>
+            <if test="tsType != null and tsType != ''">ts_type,</if>
             <if test="javaField != null and javaField != ''">java_field,</if>
             <if test="isPk != null and isPk != ''">is_pk,</if>
             <if test="isIncrement != null and isIncrement != ''">is_increment,</if>
@@ -85,6 +87,7 @@
             <if test="columnComment != null and columnComment != ''">#{columnComment},</if>
             <if test="columnType != null and columnType != ''">#{columnType},</if>
             <if test="javaType != null and javaType != ''">#{javaType},</if>
+            <if test="tsType != null and tsType != ''">#{tsType},</if>
             <if test="javaField != null and javaField != ''">#{javaField},</if>
             <if test="isPk != null and isPk != ''">#{isPk},</if>
             <if test="isIncrement != null and isIncrement != ''">#{isIncrement},</if>
@@ -110,6 +113,7 @@
             <if test="columnComment != null and columnComment != ''">column_comment = #{columnComment},</if>
             <if test="columnType != null and columnType != ''">column_type = #{columnType},</if>
             <if test="javaType != null and javaType != ''">java_type = #{javaType},</if>
+            <if test="tsType != null and tsType != ''">ts_type = #{tsType},</if>
             <if test="javaField != null and javaField != ''">java_field = #{javaField},</if>
             <if test="isPk != null and isPk != ''">is_pk = #{isPk},</if>
             <if test="isIncrement != null and isIncrement != ''">is_increment = #{isIncrement},</if>
