@@ -34,6 +34,7 @@
                 and gt.table_comment like concat('%', #{tableComment}, '%')
             </if>
         </where>
+        order by gt.create_time desc
     </select>
 
     <select id="selectDatabaseTableList" resultMap="GenTableMap">
@@ -46,7 +47,7 @@
             and lower(table_name) like lower(concat('%', #{tableName}, '%'))
         </if>
         <if test="tableComment != null and tableComment != ''">
-            and gt.table_comment like concat('%', #{tableComment}, '%')
+            and table_comment like concat('%', #{tableComment}, '%')
         </if>
         order by create_time desc
 	</select>
