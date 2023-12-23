@@ -139,7 +139,7 @@ public class GenTableController {
      */
     @PreAuthorize("@auth.hasPermission('tool:generator:list')")
     @GetMapping("/preview/{tableId}")
-    public AjaxResult importTable(@PathVariable Long tableId) {
+    public AjaxResult previewCode(@PathVariable Long tableId) {
         return AjaxResult.success(tableService.previewCode(tableId));
     }
 
