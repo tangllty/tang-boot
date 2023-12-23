@@ -13,6 +13,9 @@ export interface $ClassName {
 export interface ${ClassName}Form {
 #foreach($column in $columnList)
   $column.javaField: $column.tsType
+#if ($column.htmlType == 'checkbox')
+  ${column.javaField}List: ${column.tsType}[]
+#end
 #end
 }
 

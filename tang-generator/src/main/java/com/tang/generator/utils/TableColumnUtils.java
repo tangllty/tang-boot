@@ -26,9 +26,14 @@ public class TableColumnUtils {
     private static final String[] NUMBER_TYPE = {"tinyint", "smallint", "int", "bigint", "float", "double", "decimal"};
 
     /**
+     * 数据库日期类型
+     */
+    private static final String[] DATE_TYPE = {"date"};
+
+    /**
      * 数据库时间类型
      */
-    private static final String[] DATE_TYPE = {"date", "time", "datetime", "timestamp"};
+    private static final String[] TIME_TYPE = {"datetime"};
 
     /**
      * 父类字段
@@ -90,7 +95,8 @@ public class TableColumnUtils {
     private static String getHtmlType(String columnName) {
         var htmlSelect = List.of("type");
         var htmlRadio = List.of("status");
-        var htmlDate = List.of("time", "date");
+        var htmlDate = List.of("date");
+        var htmlTime = List.of("time");
 
         var htmlType = "input";
         // 如果包含 htmlRadio 返回 radio
@@ -104,6 +110,10 @@ public class TableColumnUtils {
         // 如果包含 htmlDate 返回 date
         if (htmlDate.stream().anyMatch(columnName::contains)) {
             htmlType = "date";
+        }
+        // 如果包含 htmlTime 返回 datetime
+        if (htmlTime.stream().anyMatch(columnName::contains)) {
+            htmlType = "datetime";
         }
         return htmlType;
     }
@@ -142,6 +152,9 @@ public class TableColumnUtils {
             return "Long";
         }
         if (List.of(DATE_TYPE).contains(columnType)) {
+            return "LocalDate";
+        }
+        if (List.of(TIME_TYPE).contains(columnType)) {
             return "LocalDateTime";
         }
         return "";
@@ -160,7 +173,7 @@ public class TableColumnUtils {
         if (List.of(NUMBER_TYPE).contains(columnType)) {
             return "number";
         }
-        if (List.of(DATE_TYPE).contains(columnType)) {
+        if (List.of(DATE_TYPE).contains(columnType) || List.of(TIME_TYPE).contains(columnType)) {
             return "Date";
         }
         return "";

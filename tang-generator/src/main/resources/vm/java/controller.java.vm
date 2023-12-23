@@ -54,7 +54,15 @@ public class ${ClassName}Controller {
     @PreAuthorize("@auth.hasPermission('$moduleName.replace("/", ":"):$permissionName:list')")
     @GetMapping("/{$primaryKey}")
     public AjaxResult select${ClassName}By${PrimaryKey}(@PathVariable Long $primaryKey) {
-        return AjaxResult.success(${className}Service.select${ClassName}By${PrimaryKey}($primaryKey));
+        var $className = ${className}Service.select${ClassName}By${PrimaryKey}($primaryKey);
+#foreach ($column in $columnList)
+#set($javaField = $column.javaField)
+#set($JavaField = $column.javaField.substring(0, 1).toUpperCase() + ${column.javaField.substring(1)})
+#if ($column.htmlType == 'checkbox')
+        ${className}.${javaField}To${JavaField}List();
+#end
+#end
+        return AjaxResult.success($className);
     }
 
     /**
@@ -66,6 +74,13 @@ public class ${ClassName}Controller {
     @PreAuthorize("@auth.hasPermission('$moduleName.replace("/", ":"):$permissionName:add')")
     @PostMapping
     public AjaxResult add(@RequestBody $ClassName $className) {
+#foreach ($column in $columnList)
+#set($javaField = $column.javaField)
+#set($JavaField = $column.javaField.substring(0, 1).toUpperCase() + ${column.javaField.substring(1)})
+#if ($column.htmlType == 'checkbox')
+        ${className}.${javaField}ListTo${JavaField}();
+#end
+#end
         return AjaxResult.rows(${className}Service.insert${ClassName}($className));
     }
 
@@ -78,6 +93,13 @@ public class ${ClassName}Controller {
     @PreAuthorize("@auth.hasPermission('$moduleName.replace("/", ":"):$permissionName:edit')")
     @PutMapping
     public AjaxResult edit(@RequestBody $ClassName $className) {
+#foreach ($column in $columnList)
+#set($javaField = $column.javaField)
+#set($JavaField = $column.javaField.substring(0, 1).toUpperCase() + ${column.javaField.substring(1)})
+#if ($column.htmlType == 'checkbox')
+        ${className}.${javaField}ListTo${JavaField}();
+#end
+#end
         return AjaxResult.rows(${className}Service.update${ClassName}By${PrimaryKey}($className));
     }
 
