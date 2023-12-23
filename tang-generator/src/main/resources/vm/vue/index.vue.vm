@@ -8,12 +8,66 @@
         inline
       >
 #foreach ($column in $columnList)
-#if ($column.javaType == 'String')
+#if ($column.htmlType == 'input')
         <el-form-item label="$column.columnComment" prop="$column.javaField">
           <el-input
             v-model="queryParams.$column.javaField"
             placeholder="请输入$column.columnComment"
             @keyup.enter="handleList"
+            clearable
+          />
+        </el-form-item>
+#elseif ($column.htmlType == 'number')
+        <el-form-item label="$column.columnComment" prop="$column.javaField">
+          <el-input
+            v-model="queryParams.$column.javaField"
+            type="number"
+            placeholder="请输入$column.columnComment"
+            @keyup.enter="handleList"
+            clearable
+          />
+        </el-form-item>
+#elseif ($column.htmlType == 'radio' || $column.htmlType == 'select')
+        <el-form-item label="$column.columnComment" prop="$column.javaField">
+          <el-select
+            v-model="queryParams.$column.javaField"
+            placeholder="请选择$column.columnComment"
+            @change="handleList"
+            clearable
+          >
+            <el-option
+              v-for="item in $column.dictType"
+              :key="item.dataId"
+              :value="item.dataValue"
+              :label="item.dataLabel"
+            />
+          </el-select>
+        </el-form-item>
+#elseif ($column.htmlType == 'checkbox')
+        <el-form-item label="$column.columnComment" prop="${column.javaField}List">
+          <el-select
+            v-model="queryParams.${column.javaField}List"
+            placeholder="请选择$column.columnComment"
+            @change="handleList"
+            multiple
+            clearable
+          >
+            <el-option
+              v-for="item in $column.dictType"
+              :key="item.dataId"
+              :value="item.dataValue"
+              :label="item.dataLabel"
+            />
+          </el-select>
+        </el-form-item>
+#elseif ($column.htmlType == 'date')
+        <el-form-item label="$column.columnComment" prop="$column.javaField">
+          <el-date-picker
+            v-model="queryParams.$column.javaField"
+            type="date"
+            placeholder="选择${column.columnComment}日期"
+            value-format="YYYY-MM-DD"
+            @change="handleList"
             clearable
           />
         </el-form-item>
@@ -157,6 +211,13 @@
 #if ($column.htmlType == 'input')
         <el-form-item label="$column.columnComment" prop="$column.javaField">
           <el-input
+            v-model="${className}Form.$column.javaField"
+            placeholder="请输入$column.columnComment"
+          />
+        </el-form-item>
+#elseif ($column.htmlType == 'number')
+        <el-form-item label="$column.columnComment" prop="$column.javaField">
+          <el-input-number
             v-model="${className}Form.$column.javaField"
             placeholder="请输入$column.columnComment"
           />
