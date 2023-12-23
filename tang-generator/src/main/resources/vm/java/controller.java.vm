@@ -41,6 +41,13 @@ public class ${ClassName}Controller {
     @GetMapping("/list")
     public TableDataResult list($ClassName $className){
         PageUtils.startPage();
+#foreach ($column in $columnList)
+#set($javaField = $column.javaField)
+#set($JavaField = $column.javaField.substring(0, 1).toUpperCase() + ${column.javaField.substring(1)})
+#if ($column.htmlType == 'checkbox')
+        ${className}.${javaField}ListTo${JavaField}();
+#end
+#end
         var list = ${className}Service.select${ClassName}List($className);
         return PageUtils.getDataTable(list);
     }
