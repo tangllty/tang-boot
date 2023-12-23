@@ -151,9 +151,9 @@
           <el-radio-group v-model="${className}Form.$column.javaField">
             <el-radio
               v-for="item in $column.dictType"
-              :key="item.value"
-              :label="item.value"
-            >{{ item.label }}</el-radio>
+              :key="item.dataId"
+              :label="item.dataValue"
+            >{{ item.dataLabel }}</el-radio>
           </el-radio-group>
         </el-form-item>
 #end
@@ -162,9 +162,9 @@
           <el-checkbox-group v-model="${className}Form.$column.javaField">
             <el-checkbox
               v-for="item in $column.dictType"
-              :key="item.value"
-              :label="item.value"
-            >{{ item.label }}</el-checkbox>
+              :key="item.dataId"
+              :label="item.dataValue"
+            >{{ item.dataLabel }}</el-checkbox>
           </el-checkbox-group>
         </el-form-item>
 #end
@@ -176,9 +176,9 @@
           >
             <el-option
               v-for="item in $column.dictType"
-              :key="item.value"
-              :label="item.label"
-              :value="item.value"
+              :key="item.dataId"
+              :value="item.dataValue"
+              :label="item.dataLabel"
             />
           </el-select>
         </el-form-item>
@@ -188,9 +188,8 @@
           <el-date-picker
             v-model="${className}Form.$column.javaField"
             type="date"
-            placeholder="选择日期"
-            value-format="yyyy-MM-dd"
-            style="width: 100%;"
+            placeholder="选择${column.columnComment}日期"
+            value-format="YYYY-MM-DD"
           />
         </el-form-item>
 #end
@@ -199,9 +198,8 @@
           <el-date-picker
             v-model="${className}Form.$column.javaField"
             type="datetime"
-            placeholder="选择日期时间"
-            value-format="yyyy-MM-dd HH:mm:ss"
-            style="width: 100%;"
+            placeholder="选择${column.columnComment}日期时间"
+            value-format="YYYY-MM-DD HH:mm:ss"
           />
         </el-form-item>
 #end
