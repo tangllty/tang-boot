@@ -465,7 +465,7 @@ create table gen_table_column (
     is_insert       char(1)       default '0'              comment '是否为插入字段{0=否, 1=是}',
     is_edit         char(1)       default '0'              comment '是否编辑字段{0=否, 1=是}',
     is_required     char(1)       default '0'              comment '是否必填{0=否, 1=是}',
-    query_type      varchar(128)  default 'equal'          comment '查询方式{equal=等于, fuzzy=模糊}',
+    query_type      varchar(128)  default 'equal'          comment '查询方式{equal=等于, fuzzy=模糊, findInSet=包含}',
     html_type       varchar(128)  default ''               comment '显示类型',
     dict_type       varchar(128)  default ''               comment '字典类型',
     sort            int(4)        default 0                comment '显示顺序',

@@ -83,7 +83,7 @@ public class GenTableColumn extends BaseEntity {
     private String isRequired;
 
     /**
-     * 查询方式{equal=等于, fuzzy=模糊}
+     * 查询方式{equal=等于, fuzzy=模糊, findInSet=包含}
      */
     private String queryType;
 

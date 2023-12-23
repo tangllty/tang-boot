@@ -27,6 +27,11 @@
                 and ${tableAlias}.$column.columnName like concat('%', #{$column.javaField}, '%')
             </if>
 #end
+#if($column.queryType == "in")
+            <if test="$column.javaField != null#if($column.javaType == 'String') and $column.javaField != ''#end">
+                and find_in_set(#{$column.javaField}, ${tableAlias}.$column.columnName)
+            </if>
+#end
 #end
         </where>
     </select>
