@@ -168,6 +168,32 @@ public class GenTableController {
     }
 
     /**
+     * 执行 SQL
+     *
+     * @param tableName 表名称
+     * @return 结果
+     */
+    @PreAuthorize("@auth.hasPermission('tool:generator:execute')")
+    @GetMapping("/execute/{tableName}")
+    public AjaxResult execute(@PathVariable String tableName) {
+        int rows = tableService.executes(new String[] {tableName});
+        return AjaxResult.success(rows);
+    }
+
+    /**
+     * 批量执行 SQL
+     *
+     * @param tableNames 表名称集合
+     * @return 结果
+     */
+    @PreAuthorize("@auth.hasPermission('tool:generator:execute')")
+    @GetMapping("/executes")
+    public AjaxResult executes(String[] tableNames) {
+        int rows = tableService.executes(tableNames);
+        return AjaxResult.success(rows);
+    }
+
+    /**
      * 生成zip文件
      */
     private void responseCode(HttpServletResponse response, byte[] data) throws IOException {

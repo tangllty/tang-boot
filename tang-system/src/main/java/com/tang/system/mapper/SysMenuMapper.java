@@ -54,12 +54,25 @@ public interface SysMenuMapper {
     List<SysMenu> selectMenuListByRoleId(Long roleId);
 
     /**
+     * 根据父菜单ID查询菜单数量
+     */
+    int selectCountMenuByParentId(Long parentId);
+
+    /**
      * 新增菜单
      *
      * @param menu 菜单对象
      * @return 影响行数
      */
     int insertMenu(SysMenu menu);
+
+    /**
+     * 批量新增菜单
+     *
+     * @param menuList 菜单列表
+     * @return 影响行数
+     */
+    int insertMenus(List<SysMenu> menuList);
 
     /**
      * 新增角色菜单关联信息

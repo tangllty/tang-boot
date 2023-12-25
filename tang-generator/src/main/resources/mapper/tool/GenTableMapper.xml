@@ -12,6 +12,7 @@
         <result property="businessName" column="business_name" />
         <result property="classComment" column="class_comment" />
         <result property="author" column="author" />
+        <result property="parentMenuId" column="parent_menu_id" />
         <result property="createBy" column="create_by" />
         <result property="createTime" column="create_time" />
         <result property="updateBy" column="update_by" />
@@ -20,7 +21,7 @@
     </resultMap>
 
     <sql id="GenTableVo">
-        select gt.table_id, gt.table_name, gt.table_comment, gt.class_name, gt.package_name, gt.module_name, gt.business_name, gt.class_comment, gt.author, gt.create_by, gt.create_time, gt.update_by, gt.update_time, gt.remark
+        select gt.table_id, gt.table_name, gt.table_comment, gt.class_name, gt.package_name, gt.module_name, gt.business_name, gt.class_comment, gt.author, gt.parent_menu_id, gt.create_by, gt.create_time, gt.update_by, gt.update_time, gt.remark
         from gen_table gt
     </sql>
 
@@ -82,6 +83,7 @@
             <if test="businessName != null and businessName != ''">business_name,</if>
             <if test="classComment != null and classComment != ''">class_comment,</if>
             <if test="author != null and author != ''">author,</if>
+            <if test="parentMenuId != null">parent_menu_id,</if>
             <if test="createBy != null and createBy != ''">create_by,</if>
             <if test="remark != null and remark != ''">remark,</if>
             create_time
@@ -95,6 +97,7 @@
             <if test="businessName != null and businessName != ''">#{businessName},</if>
             <if test="classComment != null and classComment != ''">#{classComment},</if>
             <if test="author != null and author != ''">#{author},</if>
+            <if test="parentMenuId != null">#{parentMenuId},</if>
             <if test="createBy != null and createBy != ''">#{createBy},</if>
             <if test="remark != null and remark != ''">#{remark},</if>
             sysdate()
@@ -112,6 +115,7 @@
             <if test="businessName != null and businessName != ''">business_name = #{businessName},</if>
             <if test="classComment != null and classComment != ''">class_comment = #{classComment},</if>
             <if test="author != null and author != ''">author = #{author},</if>
+            <if test="parentMenuId != null">parent_menu_id = #{parentMenuId},</if>
             <if test="updateBy != null and updateBy != ''">update_by = #{updateBy},</if>
             <if test="remark != null and remark != ''">remark = #{remark},</if>
             update_time = sysdate()

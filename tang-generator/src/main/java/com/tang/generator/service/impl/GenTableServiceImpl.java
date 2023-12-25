@@ -4,6 +4,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,6 +18,8 @@ import org.apache.velocity.app.Velocity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.tang.commons.enumeration.MenuType;
+import com.tang.commons.utils.StringUtils;
 import com.tang.generator.entity.GenTable;
 import com.tang.generator.mapper.GenTableColumnMapper;
 import com.tang.generator.mapper.GenTableMapper;
@@ -25,6 +28,8 @@ import com.tang.generator.utils.TableColumnUtils;
 import com.tang.generator.utils.TableUtils;
 import com.tang.generator.utils.VelocityInitializer;
 import com.tang.generator.utils.VelocityUtils;
+import com.tang.system.entity.SysMenu;
+import com.tang.system.mapper.SysMenuMapper;
 
 /**
  * 代码生成表 GenTable 表服务实现类
@@ -38,9 +43,12 @@ public class GenTableServiceImpl implements GenTableService {
 
     private final GenTableColumnMapper tableColumnMapper;
 
-    public GenTableServiceImpl(GenTableMapper tableMapper, GenTableColumnMapper tableColumnMapper) {
+    private final SysMenuMapper menuMapper;
+
+    public GenTableServiceImpl(GenTableMapper tableMapper, GenTableColumnMapper tableColumnMapper, SysMenuMapper menuMapper) {
         this.tableMapper = tableMapper;
         this.tableColumnMapper = tableColumnMapper;
+        this.menuMapper = menuMapper;
     }
 
     /**
@@ -226,6 +234,80 @@ public class GenTableServiceImpl implements GenTableService {
                 }
             }
         });
+    }
+
+    /**
+     * 执行 SQL
+     *
+     * @param tableNames 表名称集合
+     * @return 结果
+     */
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public int executes(String[] tableNames) {
+        var rows = 0;
+        for (String tableName: tableNames) {
+            rows += execute(tableName);
+        }
+        return rows;
+    }
+
+    /**
+     * 执行 SQL
+     *
+     * @param tableName 表名称
+     * @return 结果
+     */
+    private int execute(String tableName) {
+        var table = tableMapper.selectTableByTableName(tableName);
+        table.setTableColumnList(tableColumnMapper.selectTableColumnListByTableId(table.getTableId()));
+
+        var menu = new SysMenu();
+        menu.setParentId(table.getParentMenuId());
+        menu.setMenuName(table.getClassComment());
+        menu.setPath(table.getBusinessName());
+        menu.setComponent(StringUtils.format("{}/{}/index", table.getModuleName(), table.getBusinessName()));
+        menu.setPermission(StringUtils.format("{}:{}:menu", table.getModuleName().replace("/", ":"), table.getBusinessName()));
+        menu.setIcon(table.getClassComment());
+        menu.setMenuType(MenuType.MENU.getName());
+        var menuCount = menuMapper.selectCountMenuByParentId(table.getParentMenuId());
+        menu.setSort(++menuCount);
+        menu.setCreateBy(table.getAuthor());
+        menu.setRemark(table.getClassComment() + "菜单");
+        var parentMenu = menuMapper.selectMenuByMenuId(table.getParentMenuId());
+        setAncestors(menu, parentMenu);
+        var rows = menuMapper.insertMenu(menu);
+
+        var buttonMap = Map.of("list", "查询", "add", "新增", "edit", "修改", "remove", "删除");
+        var parentButtonMenu = menuMapper.selectMenuByMenuId(menu.getMenuId());
+        var buttonMenuList = new ArrayList<SysMenu>();
+        buttonMap.forEach((key, value) -> {
+            var buttonMenu = new SysMenu();
+            buttonMenu.setParentId(menu.getMenuId());
+            buttonMenu.setMenuName(table.getClassComment() + value);
+            buttonMenu.setPermission(StringUtils.format("{}:{}:{}", table.getModuleName().replace("/", ":"), table.getBusinessName(), key));
+            buttonMenu.setMenuType(MenuType.BUTTON.getName());
+            buttonMenu.setCreateBy(table.getAuthor());
+            buttonMenu.setRemark(table.getClassComment() + value + "按钮");
+            setAncestors(buttonMenu, parentButtonMenu);
+            buttonMenuList.add(buttonMenu);
+        });
+        rows += menuMapper.insertMenus(buttonMenuList);
+        return rows;
+    }
+
+    /**
+     * 设置祖级列表
+     *
+     * @param menu       菜单对象
+     * @param parentMenu 父菜单对象
+     */
+    private void setAncestors(SysMenu menu, SysMenu parentMenu) {
+        var ancestors = "0";
+        if (menu.getParentId() != 0) {
+            ancestors = parentMenu.getAncestors() + "," + parentMenu.getMenuId();
+        }
+        menu.setAncestors(ancestors);
     }
 
 }

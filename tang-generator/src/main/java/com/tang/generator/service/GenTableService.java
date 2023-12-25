@@ -92,4 +92,12 @@ public interface GenTableService {
      */
     byte[] downloadCodes(String[] tableNames);
 
+    /**
+     * 执行 SQL
+     *
+     * @param tableNames 表名称集合
+     * @return 结果
+     */
+    int executes(String[] tableNames);
+
 }

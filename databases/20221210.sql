@@ -175,40 +175,42 @@ insert into sys_menu values (122, 16, '0,2,16', '在线用户删除', '', '', 'm
 insert into sys_menu values (123, 17, '0,2,17', '服务监控查询', '', '', 'monitor:server:list',   '', 'B', '0', 1, '0', '0', 'admin', sysdate(), '', null, '服务监控查询按钮');
 
 -- 代码生成按钮
-insert into sys_menu values (124, 18, '0,3,18', '代码生成查询', '', '', 'tool:generator:list',   '', 'B', '0', 1, '0', '0', 'admin', sysdate(), '', null, '代码生成查询按钮');
-insert into sys_menu values (125, 18, '0,3,18', '代码生成修改', '', '', 'tool:generator:edit',   '', 'B', '0', 2, '0', '0', 'admin', sysdate(), '', null, '代码生成修改按钮');
-insert into sys_menu values (126, 18, '0,3,18', '代码生成删除', '', '', 'tool:generator:delete', '', 'B', '0', 3, '0', '0', 'admin', sysdate(), '', null, '代码生成删除按钮');
-insert into sys_menu values (127, 18, '0,3,18', '代码生成导入', '', '', 'tool:generator:import', '', 'B', '0', 4, '0', '0', 'admin', sysdate(), '', null, '代码生成导入按钮');
-insert into sys_menu values (128, 18, '0,3,18', '代码生成导出', '', '', 'tool:generator:export', '', 'B', '0', 5, '0', '0', 'admin', sysdate(), '', null, '代码生成导出按钮');
+insert into sys_menu values (124, 18, '0,3,18', '代码生成查询', '', '', 'tool:generator:list',    '', 'B', '0', 1, '0', '0', 'admin', sysdate(), '', null, '代码生成查询按钮');
+insert into sys_menu values (125, 18, '0,3,18', '代码生成修改', '', '', 'tool:generator:edit',    '', 'B', '0', 2, '0', '0', 'admin', sysdate(), '', null, '代码生成修改按钮');
+insert into sys_menu values (126, 18, '0,3,18', '代码生成删除', '', '', 'tool:generator:delete',  '', 'B', '0', 3, '0', '0', 'admin', sysdate(), '', null, '代码生成删除按钮');
+insert into sys_menu values (127, 18, '0,3,18', '代码生成导入', '', '', 'tool:generator:import',  '', 'B', '0', 4, '0', '0', 'admin', sysdate(), '', null, '代码生成导入按钮');
+insert into sys_menu values (128, 18, '0,3,18', '代码生成导出', '', '', 'tool:generator:export',  '', 'B', '0', 5, '0', '0', 'admin', sysdate(), '', null, '代码生成导出按钮');
+insert into sys_menu values (129, 18, '0,3,18', '代码生成执行', '', '', 'tool:generator:execute', '', 'B', '0', 5, '0', '0', 'admin', sysdate(), '', null, '代码生成执行按钮');
+
 
 -- 登陆日志按钮
-insert into sys_menu values (129, 20, '0,1,19,20', '登陆日志查询', '', '', 'system:log:login:list',   '', 'B', '0', 1, '0', '0', 'admin', sysdate(), '', null, '登陆日志查询按钮');
-insert into sys_menu values (130, 20, '0,1,19,20', '登陆日志删除', '', '', 'system:log:login:delete', '', 'B', '0', 2, '0', '0', 'admin', sysdate(), '', null, '登陆日志删除按钮');
+insert into sys_menu values (130, 20, '0,1,19,20', '登陆日志查询', '', '', 'system:log:login:list',   '', 'B', '0', 1, '0', '0', 'admin', sysdate(), '', null, '登陆日志查询按钮');
+insert into sys_menu values (131, 20, '0,1,19,20', '登陆日志删除', '', '', 'system:log:login:delete', '', 'B', '0', 2, '0', '0', 'admin', sysdate(), '', null, '登陆日志删除按钮');
 
 -- 我的聊天聊天列表按钮
-insert into sys_menu values (131, 22, '0,4,21,22', '聊天列表查询', '', '', 'app:chat:chat-list:list',   '', 'B', '0', 1, '0', '0', 'admin', sysdate(), '', null, '聊天列表查询按钮');
-insert into sys_menu values (132, 22, '0,4,21,22', '聊天列表添加', '', '', 'app:chat:chat-list:add',    '', 'B', '0', 2, '0', '0', 'admin', sysdate(), '', null, '聊天列表添加按钮');
-insert into sys_menu values (133, 22, '0,4,21,22', '聊天列表修改', '', '', 'app:chat:chat-list:edit',   '', 'B', '0', 3, '0', '0', 'admin', sysdate(), '', null, '聊天列表修改按钮');
-insert into sys_menu values (134, 22, '0,4,21,22', '聊天列表删除', '', '', 'app:chat:chat-list:delete', '', 'B', '0', 4, '0', '0', 'admin', sysdate(), '', null, '聊天列表删除按钮');
+insert into sys_menu values (132, 22, '0,4,21,22', '聊天列表查询', '', '', 'app:chat:chat-list:list',   '', 'B', '0', 1, '0', '0', 'admin', sysdate(), '', null, '聊天列表查询按钮');
+insert into sys_menu values (133, 22, '0,4,21,22', '聊天列表添加', '', '', 'app:chat:chat-list:add',    '', 'B', '0', 2, '0', '0', 'admin', sysdate(), '', null, '聊天列表添加按钮');
+insert into sys_menu values (134, 22, '0,4,21,22', '聊天列表修改', '', '', 'app:chat:chat-list:edit',   '', 'B', '0', 3, '0', '0', 'admin', sysdate(), '', null, '聊天列表修改按钮');
+insert into sys_menu values (135, 22, '0,4,21,22', '聊天列表删除', '', '', 'app:chat:chat-list:delete', '', 'B', '0', 4, '0', '0', 'admin', sysdate(), '', null, '聊天列表删除按钮');
 
 -- 我的聊天聊天消息按钮
-insert into sys_menu values (135, 22, '0,4,21,22', '聊天消息查询', '', '', 'app:chat:message:list',   '', 'B', '0', 5, '0', '0', 'admin', sysdate(), '', null, '聊天消息查询按钮');
-insert into sys_menu values (136, 22, '0,4,21,22', '聊天消息添加', '', '', 'app:chat:message:add',    '', 'B', '0', 6, '0', '0', 'admin', sysdate(), '', null, '聊天消息添加按钮');
-insert into sys_menu values (137, 22, '0,4,21,22', '聊天消息修改', '', '', 'app:chat:message:edit',   '', 'B', '0', 7, '0', '0', 'admin', sysdate(), '', null, '聊天消息修改按钮');
-insert into sys_menu values (138, 22, '0,4,21,22', '聊天消息删除', '', '', 'app:chat:message:delete', '', 'B', '0', 8, '0', '0', 'admin', sysdate(), '', null, '聊天消息删除按钮');
+insert into sys_menu values (136, 22, '0,4,21,22', '聊天消息查询', '', '', 'app:chat:message:list',   '', 'B', '0', 5, '0', '0', 'admin', sysdate(), '', null, '聊天消息查询按钮');
+insert into sys_menu values (137, 22, '0,4,21,22', '聊天消息添加', '', '', 'app:chat:message:add',    '', 'B', '0', 6, '0', '0', 'admin', sysdate(), '', null, '聊天消息添加按钮');
+insert into sys_menu values (138, 22, '0,4,21,22', '聊天消息修改', '', '', 'app:chat:message:edit',   '', 'B', '0', 7, '0', '0', 'admin', sysdate(), '', null, '聊天消息修改按钮');
+insert into sys_menu values (139, 22, '0,4,21,22', '聊天消息删除', '', '', 'app:chat:message:delete', '', 'B', '0', 8, '0', '0', 'admin', sysdate(), '', null, '聊天消息删除按钮');
 
 -- 用户好友申请按钮
-insert into sys_menu values (139, 23, '0,4,21,23', '好友申请查询', '', '', 'app:chat:friend-apply:list',   '', 'B', '0', 1, '0', '0', 'admin', sysdate(), '', null, '好友申请查询按钮');
-insert into sys_menu values (140, 23, '0,4,21,23', '好友申请添加', '', '', 'app:chat:friend-apply:add',    '', 'B', '0', 2, '0', '0', 'admin', sysdate(), '', null, '好友申请添加按钮');
-insert into sys_menu values (141, 23, '0,4,21,23', '好友申请修改', '', '', 'app:chat:friend-apply:edit',   '', 'B', '0', 3, '0', '0', 'admin', sysdate(), '', null, '好友申请修改按钮');
-insert into sys_menu values (142, 23, '0,4,21,23', '好友申请同意', '', '', 'app:chat:friend-apply:accept', '', 'B', '0', 4, '0', '0', 'admin', sysdate(), '', null, '好友申请同意按钮');
-insert into sys_menu values (143, 23, '0,4,21,23', '好友申请拒绝', '', '', 'app:chat:friend-apply:decline','', 'B', '0', 5, '0', '0', 'admin', sysdate(), '', null, '好友申请拒绝按钮');
-insert into sys_menu values (144, 23, '0,4,21,23', '好友申请删除', '', '', 'app:chat:friend-apply:delete', '', 'B', '0', 6, '0', '0', 'admin', sysdate(), '', null, '好友申请删除按钮');
+insert into sys_menu values (140, 23, '0,4,21,23', '好友申请查询', '', '', 'app:chat:friend-apply:list',   '', 'B', '0', 1, '0', '0', 'admin', sysdate(), '', null, '好友申请查询按钮');
+insert into sys_menu values (141, 23, '0,4,21,23', '好友申请添加', '', '', 'app:chat:friend-apply:add',    '', 'B', '0', 2, '0', '0', 'admin', sysdate(), '', null, '好友申请添加按钮');
+insert into sys_menu values (142, 23, '0,4,21,23', '好友申请修改', '', '', 'app:chat:friend-apply:edit',   '', 'B', '0', 3, '0', '0', 'admin', sysdate(), '', null, '好友申请修改按钮');
+insert into sys_menu values (143, 23, '0,4,21,23', '好友申请同意', '', '', 'app:chat:friend-apply:accept', '', 'B', '0', 4, '0', '0', 'admin', sysdate(), '', null, '好友申请同意按钮');
+insert into sys_menu values (144, 23, '0,4,21,23', '好友申请拒绝', '', '', 'app:chat:friend-apply:decline','', 'B', '0', 5, '0', '0', 'admin', sysdate(), '', null, '好友申请拒绝按钮');
+insert into sys_menu values (145, 23, '0,4,21,23', '好友申请删除', '', '', 'app:chat:friend-apply:delete', '', 'B', '0', 6, '0', '0', 'admin', sysdate(), '', null, '好友申请删除按钮');
 
 -- 用户好友按钮
-insert into sys_menu values (145, 24, '0,4,21,24', '好友查询', '', '', 'app:chat:friend:list',   '', 'B', '0', 1, '0', '0', 'admin', sysdate(), '', null, '好友查询按钮');
-insert into sys_menu values (146, 24, '0,4,21,24', '好友添加', '', '', 'app:chat:friend:add',    '', 'B', '0', 2, '0', '0', 'admin', sysdate(), '', null, '好友添加按钮');
-insert into sys_menu values (147, 24, '0,4,21,24', '好友修改', '', '', 'app:chat:friend:edit',   '', 'B', '0', 3, '0', '0', 'admin', sysdate(), '', null, '好友修改按钮');
+insert into sys_menu values (146, 24, '0,4,21,24', '好友查询', '', '', 'app:chat:friend:list',   '', 'B', '0', 1, '0', '0', 'admin', sysdate(), '', null, '好友查询按钮');
+insert into sys_menu values (147, 24, '0,4,21,24', '好友添加', '', '', 'app:chat:friend:add',    '', 'B', '0', 2, '0', '0', 'admin', sysdate(), '', null, '好友添加按钮');
+insert into sys_menu values (148, 24, '0,4,21,24', '好友修改', '', '', 'app:chat:friend:edit',   '', 'B', '0', 3, '0', '0', 'admin', sysdate(), '', null, '好友修改按钮');
 insert into sys_menu values (148, 24, '0,4,21,24', '好友删除', '', '', 'app:chat:friend:delete', '', 'B', '0', 4, '0', '0', 'admin', sysdate(), '', null, '好友删除按钮');
 
 
@@ -303,6 +305,7 @@ insert into sys_role_menu values (2, 145);
 insert into sys_role_menu values (2, 146);
 insert into sys_role_menu values (2, 147);
 insert into sys_role_menu values (2, 148);
+insert into sys_role_menu values (2, 149);
 insert into sys_role_menu values (3, 1);
 insert into sys_role_menu values (3, 2);
 insert into sys_role_menu values (3, 3);
@@ -328,7 +331,7 @@ insert into sys_role_menu values (3, 117);
 insert into sys_role_menu values (3, 121);
 insert into sys_role_menu values (3, 123);
 insert into sys_role_menu values (3, 124);
-insert into sys_role_menu values (3, 129);
+insert into sys_role_menu values (3, 130);
 
 
 -- -----------------------------
@@ -437,6 +440,7 @@ create table gen_table (
     business_name    varchar(32)                            comment '业务名',
     class_comment    varchar(64)                            comment '类注释',
     author           varchar(64)                            comment '作者',
+    parent_menu_id   bigint(20)    default null             comment '父菜单ID',
     create_by        varchar(64)   default ''               comment '创建者',
     create_time      datetime                               comment '创建时间',
     update_by        varchar(64)   default ''               comment '更新者',

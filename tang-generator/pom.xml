@@ -27,6 +27,11 @@
             <artifactId>tang-commons</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>com.tang</groupId>
+            <artifactId>tang-system</artifactId>
+        </dependency>
+
     </dependencies>
 
 </project>
