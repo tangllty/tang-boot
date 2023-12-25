@@ -38,6 +38,14 @@
         <if test="status != null and status != ''">
             and m.status = #{status}
         </if>
+        <if test="menuType != null and menuType != ''">
+            <if test="menuType == 'D'.toString()">
+                and m.menu_type = 'D'
+            </if>
+            <if test="menuType == 'M'.toString()">
+                and m.menu_type in ('D', 'M')
+            </if>
+        </if>
         order by m.sort
     </select>
 
@@ -62,6 +70,9 @@
     <select id="selectMenuListByRoleId" resultMap="SysMenuMap">
         <include refid="SysMenuVo" />
         where rm.role_id = #{roleId}
+    </select>
+    <select id="selectCountMenuByParentId" resultType="java.lang.Integer">
+        select count(1) from sys_menu where parent_id = #{parentId}
     </select>
 
     <insert id="insertMenu" keyProperty="menuId" useGeneratedKeys="true">
@@ -98,6 +109,13 @@
             <if test="remark != null and remark != ''">#{remark},</if>
             sysdate()
         )
+    </insert>
+
+    <insert id="insertMenus">
+        insert into sys_menu (parent_id, ancestors, menu_name, permission, menu_type, sort, create_by, create_time, remark) values
+        <foreach item="menu" index="index" collection="menuList" separator=",">
+            (#{menu.parentId}, #{menu.ancestors}, #{menu.menuName}, #{menu.permission}, #{menu.menuType}, ${index + 1}, #{menu.createBy}, sysdate(), #{menu.remark})
+        </foreach>
     </insert>
 
     <insert id="insertRoleMenu">
