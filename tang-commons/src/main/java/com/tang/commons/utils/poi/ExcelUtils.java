@@ -147,6 +147,17 @@ public class ExcelUtils {
      * @param <T>      类型
      * @param response 响应
      * @param clazz    类
+     */
+    public static <T> void exportTemplate(HttpServletResponse response, Class<T> clazz) {
+        exportTemplate(response, clazz, new ArrayList<>(16), 10);
+    }
+
+    /**
+     * 导出 Excel 模板(默认 10 行)
+     *
+     * @param <T>      类型
+     * @param response 响应
+     * @param clazz    类
      * @param list     数据
      */
     public static <T> void exportTemplate(HttpServletResponse response, Class<T> clazz, List<T> list) {
