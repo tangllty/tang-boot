@@ -1,6 +1,7 @@
 package com.tang.system.controller;
 
 import java.util.Arrays;
+
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -170,6 +171,17 @@ public class SysUserController {
     public void export(HttpServletResponse response, SysUser user) {
         var list = userService.selectUserList(user);
         ExcelUtils.export(response, SysUser.class, list);
+    }
+
+    /**
+     * 导出用户信息模板
+     *
+     * @param response 响应对象
+     */
+    @PreAuthorize("@auth.hasPermission('system:user:export')")
+    @GetMapping("/export-template")
+    public void exportTemplate(HttpServletResponse response) {
+        ExcelUtils.exportTemplate(response, SysUser.class);
     }
 
 }
