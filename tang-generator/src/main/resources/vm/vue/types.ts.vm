@@ -24,6 +24,10 @@ export interface ${ClassName}Form {
  */
 export interface ${ClassName}Query extends PageQuery {
 #foreach($column in $columnList)
+#if ($column.htmlType == 'checkbox')
+  ${column.javaField}List: ${column.tsType}[]
+#else
   $column.javaField: $column.tsType
+#end
 #end
 }
