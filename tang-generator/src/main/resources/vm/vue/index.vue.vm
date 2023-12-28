@@ -412,8 +412,6 @@ const handleList = async () => {
  * 添加${classComment}信息
  */
 const handleAdd = () => {
-  state.${className}Form = {} as ${ClassName}Form
-
   state.${className}Dialog = {
     title: '新增${classComment}信息',
     type: 'add',
@@ -491,6 +489,7 @@ const close${ClassName}Dialog = () => {
   state.${className}Dialog.visible = false
   ${className}RuleFormRef.value?.clearValidate()
   ${className}RuleFormRef.value?.resetFields()
+  state.${className}Form = {} as ${ClassName}Form
 }
 
 /**
