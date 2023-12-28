@@ -173,17 +173,19 @@ public class SysMenuServiceImpl implements SysMenuService {
             if (menuType.equals(MenuType.DIRECTORY.getName())) {
                 route.setName(menu.getPath());
                 route.setPath(menu.getPath());
-                if (menu.getParentId() == 0) {
-                    route.setPath("/" + menu.getPath());
-                    route.setComponent("Layout");
-                }
+                route.setType(MenuType.DIRECTORY);
                 if (CollectionUtils.isNotEmpty(children)) {
                     setRedirect(originalMenuList, menu, route);
                 }
             }
             if (menuType.equals(MenuType.MENU.getName())) {
                 route.setPath(menu.getPath());
+                route.setType(MenuType.MENU);
                 route.setComponent(menu.getComponent());
+            }
+            if (menu.getParentId() == 0L) {
+                route.setPath("/" + menu.getPath());
+                route.setRoot(Boolean.TRUE);
             }
             meta.setTitle(menu.getMenuName());
             meta.setIcon(menu.getIcon());

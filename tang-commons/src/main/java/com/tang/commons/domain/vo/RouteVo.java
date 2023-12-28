@@ -2,6 +2,8 @@ package com.tang.commons.domain.vo;
 
 import java.util.List;
 
+import com.tang.commons.enumeration.MenuType;
+
 /**
  * 路由配置信息
  *
@@ -18,6 +20,16 @@ public class RouteVo {
      * 路由路径
      */
     private String path;
+
+    /**
+     * 菜单类型
+     */
+    private MenuType type;
+
+    /**
+     * 根路由
+     */
+    private Boolean root;
 
     /**
      * 路由组件
@@ -54,6 +66,22 @@ public class RouteVo {
 
     public void setPath(String path) {
         this.path = path;
+    }
+
+    public MenuType getType() {
+        return type;
+    }
+
+    public void setType(MenuType type) {
+        this.type = type;
+    }
+
+    public Boolean getRoot() {
+        return root;
+    }
+
+    public void setRoot(Boolean root) {
+        this.root = root;
     }
 
     public String getComponent() {
