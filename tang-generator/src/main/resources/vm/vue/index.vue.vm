@@ -338,9 +338,10 @@ import { getProxy } from '@/utils/getCurrentInstance'
 import { list$ClassName, get$ClassName, add$ClassName, edit$ClassName, delete$ClassName, delete${ClassName}s } from '@/api/$moduleName/$businessName'
 import { $ClassName, ${ClassName}Form, ${ClassName}Query } from '@/api/$moduleName/$businessName/types'
 
+#set($dollar = '$')
 const proxy = getProxy()
 #if ($hasDictType)
-const { $dictTypeVar } = proxy.$dict($dictTypeParams)
+const { $dictTypeVar } = proxy.${dollar}dict($dictTypeParams)
 #end
 
 const state = reactive({
@@ -439,7 +440,6 @@ const handleEdit = async (row: $ClassName) => {
   }
 }
 
-#set($dollar = '$')
 /**
  * 删除${classComment}信息
  *
@@ -447,7 +447,7 @@ const handleEdit = async (row: $ClassName) => {
  */
 const handleDelete = async (row: $ClassName) => {
   try {
-    await proxy.$confirm('确认删除"' + row.$primaryKey + '"${classComment}信息吗？', '提示', {
+    await proxy.${dollar}confirm('确认删除"' + row.$primaryKey + '"${classComment}信息吗？', '提示', {
       type: 'warning'
     })
     await delete${ClassName}(row.$primaryKey)
@@ -463,7 +463,7 @@ const handleDelete = async (row: $ClassName) => {
  */
 const handleDeletes = async () => {
   try {
-    await proxy.$confirm('确认删除"' + state.${primaryKey}s + '"${classComment}信息吗？', '提示', {
+    await proxy.${dollar}confirm('确认删除"' + state.${primaryKey}s + '"${classComment}信息吗？', '提示', {
       type: 'warning'
     })
     await delete${ClassName}s(state.${primaryKey}s)
@@ -478,7 +478,7 @@ const handleDeletes = async () => {
  * 重置表单
  */
 const resetQuery = async () => {
-  proxy.$resetForm(${className}QueryFormRef.value)
+  proxy.${dollar}resetForm(${className}QueryFormRef.value)
   await handleList()
 }
 
@@ -487,7 +487,7 @@ const resetQuery = async () => {
  */
 const close${ClassName}Dialog = () => {
   state.${className}Dialog.visible = false
-  proxy.$resetForm(${className}RuleFormRef.value)
+  proxy.${dollar}resetForm(${className}RuleFormRef.value)
   state.${className}Form = {} as ${ClassName}Form
 }
 
