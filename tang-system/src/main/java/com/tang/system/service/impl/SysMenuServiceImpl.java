@@ -262,18 +262,16 @@ public class SysMenuServiceImpl implements SysMenuService {
     public int updateMenuByMenuId(SysMenu menu) {
         var newMenu = menuMapper.selectMenuByMenuId(menu.getParentId());
         var oldMenu = menuMapper.selectMenuByMenuId(menu.getMenuId());
-        if (Objects.nonNull(newMenu) && Objects.nonNull(oldMenu)) {
-            var newAncestors = newMenu.getAncestors() + "," + newMenu.getMenuId();
-            var oldAncestors = oldMenu.getAncestors();
-            menu.setAncestors(newAncestors);
-            var menuId = menu.getMenuId();
-            var childrenList = menuMapper.selectMenuChildrenByMenuId(menuId);
-            if (!childrenList.isEmpty()) {
-                childrenList.forEach(children -> {
-                    children.setAncestors(children.getAncestors().replaceFirst(oldAncestors, newAncestors));
-                    menuMapper.updateMenuChildren(children);
-                });
-            }
+        var newAncestors = Objects.nonNull(newMenu) ? newMenu.getAncestors() + "," + newMenu.getMenuId() : "0";
+        var oldAncestors = oldMenu.getAncestors();
+        menu.setAncestors(newAncestors);
+        var menuId = menu.getMenuId();
+        var childrenList = menuMapper.selectMenuChildrenByMenuId(menuId);
+        if (!childrenList.isEmpty()) {
+            childrenList.forEach(children -> {
+                children.setAncestors(children.getAncestors().replaceFirst(oldAncestors, newAncestors));
+                menuMapper.updateMenuChildren(children);
+            });
         }
         return menuMapper.updateMenuByMenuId(menu);
     }
