@@ -478,7 +478,7 @@ const handleDeletes = async () => {
  * 重置表单
  */
 const resetQuery = async () => {
-  ${className}QueryFormRef.value?.resetFields()
+  proxy.$resetForm(${className}QueryFormRef.value)
   await handleList()
 }
 
@@ -487,8 +487,7 @@ const resetQuery = async () => {
  */
 const close${ClassName}Dialog = () => {
   state.${className}Dialog.visible = false
-  ${className}RuleFormRef.value?.clearValidate()
-  ${className}RuleFormRef.value?.resetFields()
+  proxy.$resetForm(${className}RuleFormRef.value)
   state.${className}Form = {} as ${ClassName}Form
 }
 
