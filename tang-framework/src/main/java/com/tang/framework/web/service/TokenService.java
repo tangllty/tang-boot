@@ -204,7 +204,7 @@ public class TokenService {
      */
     private String createToken(Map<String, Object> claims) {
         return Jwts.builder()
-            .setClaims(claims)
+            .claims(claims)
             .signWith(getSecretKey())
             .compact();
     }
