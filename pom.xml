@@ -157,7 +157,7 @@
             <dependency>
                 <groupId>com.github.oshi</groupId>
                 <artifactId>oshi-core</artifactId>
-                <version>5.6.1</version>
+                <version>6.4.10</version>
             </dependency>
 
             <!-- https://mvnrepository.com/artifact/org.lionsoul/ip2region -->
