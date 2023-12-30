@@ -31,7 +31,7 @@
         <spring-boot-dependencies.version>3.2.1</spring-boot-dependencies.version>
         <jjwt.version>0.11.5</jjwt.version>
         <hutool.version>5.8.21</hutool.version>
-        <jackson.version>2.15.3</jackson.version>
+        <jackson.version>2.16.1</jackson.version>
     </properties>
 
     <dependencyManagement>
