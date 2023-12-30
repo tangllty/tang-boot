@@ -216,11 +216,11 @@ public class TokenService {
      * @return 数据声明
      */
     public Claims parseToken(String token) {
-        return Jwts.parserBuilder()
-            .setSigningKey(getSecretKey())
+        return Jwts.parser()
+            .verifyWith(getSecretKey())
             .build()
-            .parseClaimsJws(token)
-            .getBody();
+            .parseSignedClaims(token)
+            .getPayload();
     }
 
     /**
