@@ -1,7 +1,6 @@
 #!/bin/sh
 
-VERSION=$(sed -n 's/.*<tang.version>\(.*\)<\/tang.version>.*/\1/p' pom.xml)
-APPLICATION=tang-admin-${VERSION}.jar
+APPLICATION="tang-admin-*.jar"
 PID=$(ps -ef | grep $APPLICATION | grep -v grep | awk '{print $2}')
 
 if [ -n "$PID" ]; then
