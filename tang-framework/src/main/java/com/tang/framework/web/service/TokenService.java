@@ -203,9 +203,6 @@ public class TokenService {
      * @return 令牌
      */
     private String createToken(Map<String, Object> claims) {
-        System.out.println(claims);
-        System.out.println(getSecretKey());
-        System.out.println(Jwts.builder().claims(claims).signWith(getSecretKey()).compact());
         return Jwts.builder()
             .claims(claims)
             .signWith(getSecretKey())
