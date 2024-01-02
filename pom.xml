@@ -9,7 +9,7 @@
 
     <name>tang-boot</name>
     <url>https://gitee.com/tangllty/tang-boot</url>
-    <description>糖猫猫后台管理系统</description>
+    <description>糖猫猫权限管理系统</description>
 
     <packaging>pom</packaging>
     <modules>
