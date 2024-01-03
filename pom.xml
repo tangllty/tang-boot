@@ -16,6 +16,7 @@
         <module>tang-admin</module>
         <module>tang-app</module>
         <module>tang-commons</module>
+        <module>tang-extension</module>
         <module>tang-framework</module>
         <module>tang-monitor</module>
         <module>tang-system</module>
@@ -50,6 +51,13 @@
                 <groupId>org.mybatis.spring.boot</groupId>
                 <artifactId>mybatis-spring-boot-starter</artifactId>
                 <version>3.0.3</version>
+            </dependency>
+
+            <!-- https://mvnrepository.com/artifact/com.baomidou/mybatis-plus-boot-starter -->
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-boot-starter</artifactId>
+                <version>3.5.5</version>
             </dependency>
 
             <!-- https://mvnrepository.com/artifact/com.alibaba/druid-spring-boot-3-starter -->
@@ -195,6 +203,12 @@
             <dependency>
                 <groupId>com.tang</groupId>
                 <artifactId>tang-commons</artifactId>
+                <version>${tang.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.tang</groupId>
+                <artifactId>tang-mybatis-plus</artifactId>
                 <version>${tang.version}</version>
             </dependency>
 
