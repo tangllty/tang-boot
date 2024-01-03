@@ -5,31 +5,26 @@
 
     <parent>
         <groupId>com.tang</groupId>
-        <artifactId>tang-parent</artifactId>
+        <artifactId>tang-tool</artifactId>
         <version>1.6.3</version>
     </parent>
 
-    <artifactId>tang-generator</artifactId>
+    <artifactId>tang-swagger</artifactId>
 
     <description>
-        tang-generator 代码生成
+        tang-swagger 接口文档
     </description>
 
     <dependencies>
 
         <dependency>
-            <groupId>org.apache.velocity</groupId>
-            <artifactId>velocity-engine-core</artifactId>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
         </dependency>
 
         <dependency>
             <groupId>com.tang</groupId>
             <artifactId>tang-commons</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.tang</groupId>
-            <artifactId>tang-system</artifactId>
         </dependency>
 
     </dependencies>

@@ -17,10 +17,9 @@
         <module>tang-app</module>
         <module>tang-commons</module>
         <module>tang-framework</module>
-        <module>tang-generator</module>
         <module>tang-monitor</module>
-        <module>tang-swagger</module>
         <module>tang-system</module>
+        <module>tang-tool</module>
     </modules>
 
     <properties>
