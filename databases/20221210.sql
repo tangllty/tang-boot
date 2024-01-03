@@ -130,12 +130,13 @@ insert into sys_menu values (15, 1, '0,1', '字典管理', 'dict',      'system/
 insert into sys_menu values (16, 2, '0,2', '在线用户', 'online',    'monitor/online/index', 'monitor:online:menu', '在线用户', 'M', '0', 1, '0', '0', 'admin', sysdate(), '', null, '在线用户菜单');
 insert into sys_menu values (17, 2, '0,2', '服务监控', 'server',    'monitor/server/index', 'monitor:server:menu', '服务监控', 'M', '0', 2, '0', '0', 'admin', sysdate(), '', null, '服务监控菜单');
 insert into sys_menu values (18, 3, '0,3', '代码生成', 'generator', 'tool/generator/index', 'tool:generator:menu', '代码生成', 'M', '0', 1, '0', '0', 'admin', sysdate(), '', null, '代码生成菜单');
-insert into sys_menu values (19, 1, '0,1', '日志管理', 'log',       '',                     '',                    '日志管理', 'D', '0', 6, '0', '0', 'admin', sysdate(), '', null, '日志管理目录');
-insert into sys_menu values (20, 19, '0,1,19', '登陆日志', 'login', 'system/log/login/index', 'system:log:login:menu', '登陆日志', 'M', '0', 1, '0', '0', 'admin', sysdate(), '', null, '登陆日志菜单');
-insert into sys_menu values (21, 4, '0,4', '猫猫聊天', 'chat',      '',                     '',                    '猫猫聊天', 'D', '0', 1, '0', '0', 'admin', sysdate(), '', null, '猫猫聊天菜单');
-insert into sys_menu values (22, 21, '0,4,21', '我的聊天', 'room',   'app/chat/room/index',    'app:chat:room:menu',    '我的聊天', 'M', '0', 1, '0', '0', 'admin', sysdate(), '', null, '我的聊天菜单');
-insert into sys_menu values (23, 21, '0,4,21', '好友申请', 'apply',  'app/chat/friend-apply/index',  'app:chat:friend-apply:menu',  '好友申请', 'M', '0', 2, '0', '0', 'admin', sysdate(), '', null, '好友申请菜单');
-insert into sys_menu values (24, 21, '0,4,21', '我的好友', 'friend', 'app/chat/friend/index',        'app:chat:friend:menu',        '我的好友', 'M', '0', 3, '0', '0', 'admin', sysdate(), '', null, '我的好友菜单');
+insert into sys_menu values (19, 3, '0,3', '系统接口', 'swagger',   'tool/swagger/index',   'tool:swagger:menu',   '系统接口', 'M', '0', 2, '0', '0', 'admin', sysdate(), '', null, '系统接口菜单');
+insert into sys_menu values (20, 1, '0,1', '日志管理', 'log',       '',                     '',                    '日志管理', 'D', '0', 6, '0', '0', 'admin', sysdate(), '', null, '日志管理目录');
+insert into sys_menu values (21, 19, '0,1,19', '登陆日志', 'login', 'system/log/login/index', 'system:log:login:menu', '登陆日志', 'M', '0', 1, '0', '0', 'admin', sysdate(), '', null, '登陆日志菜单');
+insert into sys_menu values (22, 4, '0,4', '猫猫聊天', 'chat',      '',                     '',                    '猫猫聊天', 'D', '0', 1, '0', '0', 'admin', sysdate(), '', null, '猫猫聊天菜单');
+insert into sys_menu values (23, 21, '0,4,21', '我的聊天', 'room',   'app/chat/room/index',    'app:chat:room:menu',    '我的聊天', 'M', '0', 1, '0', '0', 'admin', sysdate(), '', null, '我的聊天菜单');
+insert into sys_menu values (24, 21, '0,4,21', '好友申请', 'apply',  'app/chat/friend-apply/index',  'app:chat:friend-apply:menu',  '好友申请', 'M', '0', 2, '0', '0', 'admin', sysdate(), '', null, '好友申请菜单');
+insert into sys_menu values (25, 21, '0,4,21', '我的好友', 'friend', 'app/chat/friend/index',        'app:chat:friend:menu',        '我的好友', 'M', '0', 3, '0', '0', 'admin', sysdate(), '', null, '我的好友菜单');
 
 -- 用户管理按钮
 insert into sys_menu values (101, 11, '0,1,11', '用户查询', '', '', 'system:user:list',   '', 'B', '0', 1, '0', '0', 'admin', sysdate(), '', null, '用户查询按钮');
@@ -257,6 +258,7 @@ insert into sys_role_menu values (2, 21);
 insert into sys_role_menu values (2, 22);
 insert into sys_role_menu values (2, 23);
 insert into sys_role_menu values (2, 24);
+insert into sys_role_menu values (2, 25);
 insert into sys_role_menu values (2, 101);
 insert into sys_role_menu values (2, 102);
 insert into sys_role_menu values (2, 103);

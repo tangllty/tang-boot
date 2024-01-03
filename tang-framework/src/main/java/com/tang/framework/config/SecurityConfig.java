@@ -54,12 +54,13 @@ public class SecurityConfig {
             .exceptionHandling(handling -> handling.authenticationEntryPoint(authenticationEntryPoint))
             .authorizeHttpRequests(authorize -> authorize
                 .requestMatchers("/login", "/third-party/oauth/**").permitAll()
-                .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()
+                .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html", "/api-docs").permitAll()
                 .requestMatchers("/websocket/**").permitAll()
                 .requestMatchers("/uploads/**").permitAll()
                 .requestMatchers("/captcha/**").permitAll()
                 .anyRequest().authenticated()
             )
+            .headers(headers -> headers.frameOptions(options -> options.disable()))
             .logout(logout -> logout.logoutUrl("/logout").logoutSuccessHandler(logoutSuccessHandler))
             .addFilterBefore(jwtAuthenticationTokenFilter, UsernamePasswordAuthenticationFilter.class)
             .build();

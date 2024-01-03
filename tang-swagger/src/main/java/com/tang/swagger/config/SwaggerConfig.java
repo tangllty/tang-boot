@@ -28,8 +28,8 @@ public class SwaggerConfig {
     public OpenAPI openApi() {
         return new OpenAPI()
             .info(new Info()
-                .title("糖猫猫后台管理系统")
-                .description("糖猫猫后台管理系统")
+                .title("糖猫猫权限管理系统")
+                .description("糖猫猫后权限管理系统")
                 .version("v" + tangProperties.getVersion())
             .license(new License()
                 .name("MIT")
