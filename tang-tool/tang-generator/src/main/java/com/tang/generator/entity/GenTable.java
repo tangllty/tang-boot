@@ -12,7 +12,7 @@ import com.tang.commons.base.entity.BaseEntity;
 public class GenTable extends BaseEntity {
 
     @java.io.Serial
-    private static final long serialVersionUID = -3015638165843009126L;
+    private static final long serialVersionUID = -7146254752512658365L;
 
     /**
      * 编号
@@ -63,6 +63,11 @@ public class GenTable extends BaseEntity {
      * 父菜单ID
      */
     private Long parentMenuId;
+
+    /**
+     * ORM 类型
+     */
+    private String ormType;
 
     /**
      * 表字段列表
@@ -148,6 +153,14 @@ public class GenTable extends BaseEntity {
 
     public void setParentMenuId(Long parentMenuId) {
         this.parentMenuId = parentMenuId;
+    }
+
+    public String getOrmType() {
+        return ormType;
+    }
+
+    public void setOrmType(String ormType) {
+        this.ormType = ormType;
     }
 
     public List<GenTableColumn> getTableColumnList() {

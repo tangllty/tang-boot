@@ -1,6 +1,7 @@
 package com.tang.generator.utils;
 
 import java.io.StringWriter;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -9,10 +10,12 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.velocity.VelocityContext;
 
 import com.google.common.base.CaseFormat;
+import com.google.common.collect.ImmutableList;
 import com.tang.commons.utils.SpringUtils;
 import com.tang.generator.autoconfigure.GeneratorProperties;
 import com.tang.generator.entity.GenTable;
 import com.tang.generator.entity.GenTableColumn;
+import com.tang.generator.enumeration.OrmType;
 
 import static com.tang.commons.utils.StringUtils.format;
 
@@ -56,6 +59,16 @@ public class VelocityUtils {
 
     private static final String VM_JAVA_CONTROLLER = "vm/java/controller.java.vm";
 
+    private static final String VM_JAVA_MYBATIS_PLUS_ENTITY = "vm/mybatisplus/java/entity.java.vm";
+
+    private static final String VM_JAVA_MYBATIS_PLUS_MAPPER = "vm/mybatisplus/java/mapper.java.vm";
+
+    private static final String VM_JAVA_MYBATIS_PLUS_SERVICE = "vm/mybatisplus/java/service.java.vm";
+
+    private static final String VM_JAVA_MYBATIS_PLUS_SERVICE_IMPL = "vm/mybatisplus/java/serviceImpl.java.vm";
+
+    private static final String VM_JAVA_MYBATIS_PLUS_CONTROLLER = "vm/mybatisplus/java/controller.java.vm";
+
     private static final String VM_KOTLIN_ENTITY = "vm/kotlin/entity.kt.vm";
 
     private static final String VM_KOTLIN_MAPPER = "vm/kotlin/mapper.kt.vm";
@@ -67,6 +80,8 @@ public class VelocityUtils {
     private static final String VM_KOTLIN_CONTROLLER = "vm/kotlin/controller.kt.vm";
 
     private static final String VM_XML_MAPPER = "vm/xml/mapper.xml.vm";
+
+    private static final String VM_XML_MYBATIS_PLUS_MAPPER = "vm/mybatisplus/xml/mapper.xml.vm";
 
     private static final String VM_VUE_INDEX = "vm/vue/index.vue.vm";
 
@@ -210,12 +225,28 @@ public class VelocityUtils {
     /**
      * 获取模板信息
      *
+     * @param ormType ORM 类型
      * @return 模板列表
      */
-    public static List<String> getTemplateList() {
-        return List.of(VM_JAVA_ENTITY, VM_JAVA_MAPPER, VM_JAVA_SERVICE, VM_JAVA_SERVICE_IMPL, VM_JAVA_CONTROLLER,
-            // VM_KOTLIN_ENTITY, VM_KOTLIN_MAPPER, VM_KOTLIN_SERVICE, VM_KOTLIN_SERVICE_IMPL, VM_KOTLIN_CONTROLLER,
-            VM_XML_MAPPER, VM_VUE_INDEX, VM_VUE_INDEX_TS, VM_VUE_TYPES, VM_SQL_MENU);
+    public static List<String> getTemplateList(String ormType) {
+        var templateList = List.of(VM_VUE_INDEX, VM_VUE_INDEX_TS, VM_VUE_TYPES, VM_SQL_MENU);
+        var ormTypeEnum = OrmType.getOrmType(ormType);
+        var javaTemplateList = getJavaTemplateList(ormTypeEnum);
+        return ImmutableList.<String>builder().addAll(javaTemplateList).addAll(templateList).build();
+    }
+
+    /**
+     * 获取 Java 模板信息
+     *
+     * @param ormType ORM 类型
+     * @return Java 模板列表
+     */
+    private static List<String> getJavaTemplateList(OrmType ormType) {
+        return switch (ormType) {
+            case MYBATIS -> List.of(VM_JAVA_ENTITY, VM_JAVA_MAPPER, VM_JAVA_SERVICE, VM_JAVA_SERVICE_IMPL, VM_JAVA_CONTROLLER, VM_XML_MAPPER);
+            case MYBATIS_PLUS -> List.of(VM_JAVA_MYBATIS_PLUS_ENTITY, VM_JAVA_MYBATIS_PLUS_MAPPER, VM_JAVA_MYBATIS_PLUS_SERVICE, VM_JAVA_MYBATIS_PLUS_SERVICE_IMPL, VM_JAVA_MYBATIS_PLUS_CONTROLLER, VM_XML_MYBATIS_PLUS_MAPPER);
+            default -> Collections.emptyList();
+        };
     }
 
     /**
@@ -245,22 +276,22 @@ public class VelocityUtils {
         var apiPath = format("{}/api/{}", VUE_PATH, moduleName);
 
         fileName = switch (template) {
-            case VM_JAVA_ENTITY -> format("{}/entity/{}.java", javaPath, className);
-            case VM_JAVA_MAPPER -> format("{}/mapper/{}Mapper.java", javaPath, className);
-            case VM_JAVA_SERVICE -> format("{}/service/{}Service.java", javaPath, className);
-            case VM_JAVA_SERVICE_IMPL -> format("{}/service/impl/{}ServiceImpl.java", javaPath, className);
-            case VM_JAVA_CONTROLLER -> format("{}/controller/{}Controller.java", javaPath, className);
+            case VM_JAVA_ENTITY, VM_JAVA_MYBATIS_PLUS_ENTITY -> format("{}/entity/{}.java", javaPath, className);
+            case VM_JAVA_MAPPER, VM_JAVA_MYBATIS_PLUS_MAPPER -> format("{}/mapper/{}Mapper.java", javaPath, className);
+            case VM_JAVA_SERVICE, VM_JAVA_MYBATIS_PLUS_SERVICE -> format("{}/service/{}Service.java", javaPath, className);
+            case VM_JAVA_SERVICE_IMPL, VM_JAVA_MYBATIS_PLUS_SERVICE_IMPL -> format("{}/service/impl/{}ServiceImpl.java", javaPath, className);
+            case VM_JAVA_CONTROLLER, VM_JAVA_MYBATIS_PLUS_CONTROLLER -> format("{}/controller/{}Controller.java", javaPath, className);
             case VM_KOTLIN_ENTITY -> format("{}/entity/{}.kt", kotlinPath, className);
             case VM_KOTLIN_MAPPER -> format("{}/mapper/{}Mapper.kt", kotlinPath, className);
             case VM_KOTLIN_SERVICE -> format("{}/service/{}Service.kt", kotlinPath, className);
             case VM_KOTLIN_SERVICE_IMPL -> format("{}/service/impl/{}ServiceImpl.kt", kotlinPath, className);
             case VM_KOTLIN_CONTROLLER -> format("{}/controller/{}Controller.kt", kotlinPath, className);
-            case VM_XML_MAPPER -> format("{}/{}Mapper.xml", mybatisPath, className);
+            case VM_XML_MAPPER, VM_XML_MYBATIS_PLUS_MAPPER -> format("{}/{}Mapper.xml", mybatisPath, className);
             case VM_VUE_INDEX -> format("{}/{}/index.vue", vuePath, businessName);
             case VM_VUE_INDEX_TS -> format("{}/{}/index.ts", apiPath, businessName);
             case VM_VUE_TYPES -> format("{}/{}/types.ts", apiPath, businessName);
             case VM_SQL_MENU -> "menu.sql";
-            default -> "";
+            default -> template + "_" + System.currentTimeMillis();
         };
         return fileName;
     }

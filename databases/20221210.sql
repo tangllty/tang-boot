@@ -443,6 +443,7 @@ create table gen_table (
     class_comment    varchar(64)                            comment '类注释',
     author           varchar(64)                            comment '作者',
     parent_menu_id   bigint(20)    default null             comment '父菜单ID',
+    orm_type         varchar(32)   default 'MyBatis'        comment 'ORM 类型',
     create_by        varchar(64)   default ''               comment '创建者',
     create_time      datetime                               comment '创建时间',
     update_by        varchar(64)   default ''               comment '更新者',
