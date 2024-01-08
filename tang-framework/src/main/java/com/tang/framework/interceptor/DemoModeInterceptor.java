@@ -13,6 +13,8 @@ import com.tang.commons.utils.SpringUtils;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
+import static com.tang.commons.utils.StringUtils.format;
+
 /**
  * 演示模式拦截器
  *
@@ -25,10 +27,14 @@ public class DemoModeInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         if (tangProperties.isDemoMode() && notAllowModify(request.getRequestURI(), request.getMethod())) {
-            var ajaxResult = AjaxResult.error("演示模式已开启，不允许修改数据。您可以在 GitHub(https://github.com/tangllty) 或 Gitee(https://gitee.com/tangllty) 下载或克隆源码进行操作。<br />" +
-                "Demo mode is enabled, It is not allowed to modify data. You can download or clone the source code for operation on GitHub (https://github.com/tangllty) or Gitee (https://gitee.com/tangllty).");
+            final var aElement = "<a class=\"el-link el-link--primary is-underline\" href=\"{}\" target=\"_blank\">{}</a>";
+            final var github = format(aElement, "https://github.com/tangllty", "GitHub");
+            final var gitee = format(aElement, "https://gitee.com/tangllty", "Gitee");
+            final var chineseMessage = format("演示模式已开启，不允许修改数据。您可以在 {} 或 {} 下载或克隆源码进行操作。", github, gitee);
+            final var englishMessage = format("Demo mode is enabled, It is not allowed to modify data. You can download or clone the source code for operation on {} or {}.", github, gitee);
+            final var demoModeMessage = format("{}<br />{}", chineseMessage, englishMessage);
+            var ajaxResult = AjaxResult.error(demoModeMessage);
             ServletUtils.renderString(response, JSON.toJSONString(ajaxResult));
-
             return false;
         }
 
