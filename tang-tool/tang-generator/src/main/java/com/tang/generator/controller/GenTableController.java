@@ -174,7 +174,7 @@ public class GenTableController {
      * @return 结果
      */
     @PreAuthorize("@auth.hasPermission('tool:generator:execute')")
-    @GetMapping("/execute/{tableName}")
+    @PutMapping("/execute/{tableName}")
     public AjaxResult execute(@PathVariable String tableName) {
         int rows = tableService.executes(new String[] {tableName});
         return AjaxResult.success(rows);
@@ -187,7 +187,7 @@ public class GenTableController {
      * @return 结果
      */
     @PreAuthorize("@auth.hasPermission('tool:generator:execute')")
-    @GetMapping("/executes")
+    @PutMapping("/executes")
     public AjaxResult executes(String[] tableNames) {
         int rows = tableService.executes(tableNames);
         return AjaxResult.success(rows);
