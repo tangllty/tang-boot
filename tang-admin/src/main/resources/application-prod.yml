@@ -1,7 +1,7 @@
 # 项目配置
 tang:
   # 演示模式
-  demo-mode: false
+  demo-mode: true
   # 文件上传路径
   uploads: /root/uploads/tang-boot
 
