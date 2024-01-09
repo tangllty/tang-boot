@@ -34,7 +34,7 @@ You can read the [documentation](https://tangllty.eu.org/) for more information
 * OpenJDK 17.0.7
 * Apache Maven 3.8.7
 * MySQL 8.2.0
-* Redis 7.0.11
+* Redis 7.2.3
 
 ## Project Startup
 

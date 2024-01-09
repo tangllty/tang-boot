@@ -1,4 +1,4 @@
-FROM redis:7.0.11
+FROM redis:7.2.3
 # author
 LABEL authors="Tang"
 
