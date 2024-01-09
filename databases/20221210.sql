@@ -212,7 +212,7 @@ insert into sys_menu values (145, 23, '0,4,21,23', '好友申请删除', '', '',
 insert into sys_menu values (146, 24, '0,4,21,24', '好友查询', '', '', 'app:chat:friend:list',   '', 'B', '0', 1, '0', '0', 'admin', sysdate(), '', null, '好友查询按钮');
 insert into sys_menu values (147, 24, '0,4,21,24', '好友添加', '', '', 'app:chat:friend:add',    '', 'B', '0', 2, '0', '0', 'admin', sysdate(), '', null, '好友添加按钮');
 insert into sys_menu values (148, 24, '0,4,21,24', '好友修改', '', '', 'app:chat:friend:edit',   '', 'B', '0', 3, '0', '0', 'admin', sysdate(), '', null, '好友修改按钮');
-insert into sys_menu values (148, 24, '0,4,21,24', '好友删除', '', '', 'app:chat:friend:delete', '', 'B', '0', 4, '0', '0', 'admin', sysdate(), '', null, '好友删除按钮');
+insert into sys_menu values (149, 24, '0,4,21,24', '好友删除', '', '', 'app:chat:friend:delete', '', 'B', '0', 4, '0', '0', 'admin', sysdate(), '', null, '好友删除按钮');
 
 
 -- -----------------------------
