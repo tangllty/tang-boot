@@ -33,7 +33,7 @@ tang-boot 是基于 Spring Boot 3 的权限管理系统
 
 * OpenJDK 17.0.7
 * Apache Maven 3.8.7
-* MySQL 8.0.33
+* MySQL 8.2.0
 * Redis 7.0.11
 
 ## 项目启动
