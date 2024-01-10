@@ -72,7 +72,7 @@ public class SysLogLoginServiceImpl implements SysLogLoginService {
         var userId = SecurityUtils.getUser().getUserId();
         var now = LocalDate.now();
         var monday = now.with(DayOfWeek.MONDAY);
-        var sunday = monday.plusDays(6);
+        var nextMonday = monday.plusDays(7);
         var startDate = monday;
         var list = sysLogLoginMapper.selectUserVisit(userId, startDate);
         var listGrouped = list.stream()
@@ -81,7 +81,7 @@ public class SysLogLoginServiceImpl implements SysLogLoginService {
                 return LocalDate.of(loginTime.getYear(), loginTime.getMonth(), loginTime.getDayOfMonth());
             }));
         var userVisitList = new ArrayList<Long>();
-        while (startDate.isBefore(sunday)) {
+        while (startDate.isBefore(nextMonday)) {
             var count = listGrouped.get(startDate);
             if (count != null) {
                 userVisitList.add(count.stream().count());
