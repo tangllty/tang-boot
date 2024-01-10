@@ -79,6 +79,8 @@ public class AuthenticationService implements UserModelProvider {
         sysUserModel.setRoleIds(roleService.getRoleIdsByUserId(user.getUserId()));
         // 角色集合
         var roles = roleService.getRolesByUserId(user.getUserId());
+        // 角色名称集合
+        var roleNames = roleService.getRoleNamesByUserId(user.getUserId());
         // 权限集合
         var permissions = menuService.getPermissionsByUserId(user.getUserId());
         if (roles.contains(SecurityUtils.ADMIN_ROLE_KEY)) {
@@ -90,6 +92,7 @@ public class AuthenticationService implements UserModelProvider {
         userModel.setLoginType(loginType);
         userModel.setUser(sysUserModel);
         userModel.setRoles(roles);
+        userModel.setRoleNames(roleNames);
         userModel.setPermissions(permissions);
         userModel.setDictPermissions(dictPermissions);
         return userModel;

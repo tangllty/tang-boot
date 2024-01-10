@@ -88,6 +88,18 @@ public class SysRoleServiceImpl implements SysRoleService {
     }
 
     /**
+     * 根据用户主键获取角色名称集合
+     *
+     * @param userId 用户主键
+     * @return 角色名称集合
+     */
+    @Override
+    public Set<String> getRoleNamesByUserId(Long userId) {
+        var roleList = roleMapper.selectRoleListByUserId(userId);
+        return roleList.stream().map(SysRole::getRoleName).collect(Collectors.toSet());
+    }
+
+    /**
      * 获取角色下拉框数据
      *
      * @return 角色下拉框数据

@@ -56,8 +56,14 @@ public class LoginController {
     public AjaxResult getInfo() {
         var user = SecurityUtils.getUser();
         var roles = SecurityUtils.getRoles();
+        var roleNames = SecurityUtils.getRoleNames();
         var permissions = SecurityUtils.getPermissions();
-        return AjaxResult.success(Map.of("user", user, "roles", roles, "permissions", permissions));
+        return AjaxResult.success(Map.of(
+            "user", user,
+            "roles", roles,
+            "roleNames", roleNames,
+            "permissions", permissions
+        ));
     }
 
     /**

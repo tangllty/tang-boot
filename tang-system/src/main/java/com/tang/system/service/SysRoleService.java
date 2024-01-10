@@ -46,6 +46,14 @@ public interface SysRoleService {
     List<Long> getRoleIdsByUserId(Long userId);
 
     /**
+     * 根据用户主键获取角色名称集合
+     *
+     * @param userId 用户主键
+     * @return 角色名称集合
+     */
+    Set<String> getRoleNamesByUserId(Long userId);
+
+    /**
      * 获取角色下拉框数据
      *
      * @return 角色下拉框数据

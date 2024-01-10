@@ -24,7 +24,7 @@ import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 public class UserModel implements UserDetails {
 
     @java.io.Serial
-    private static final long serialVersionUID = 3779217866194828044L;
+    private static final long serialVersionUID = -3913810642358608639L;
 
     /**
      * ip
@@ -106,6 +106,11 @@ public class UserModel implements UserDetails {
      * 角色集合
      */
     private Set<String> roles;
+
+    /**
+     * 角色名称集合
+     */
+    private Set<String> roleNames;
 
     /**
      * 权限集合
@@ -241,6 +246,14 @@ public class UserModel implements UserDetails {
 
     public void setRoles(Set<String> roles) {
         this.roles = roles;
+    }
+
+    public Set<String> getRoleNames() {
+        return roleNames;
+    }
+
+    public void setRoleNames(Set<String> roleNames) {
+        this.roleNames = roleNames;
     }
 
     public Set<String> getPermissions() {

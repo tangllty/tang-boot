@@ -57,6 +57,15 @@ public class SecurityUtils {
     }
 
     /**
+     * 获取角色名称信息
+     *
+     * @return 角色名称信息
+     */
+    public static Set<String> getRoleNames() {
+        return getUserModel().getRoleNames();
+    }
+
+    /**
      * 获取权限信息
      *
      * @return 权限信息
