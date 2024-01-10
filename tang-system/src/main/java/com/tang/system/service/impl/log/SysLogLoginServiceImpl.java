@@ -1,6 +1,10 @@
 package com.tang.system.service.impl.log;
 
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
@@ -56,6 +60,37 @@ public class SysLogLoginServiceImpl implements SysLogLoginService {
     @Override
     public SysLogLogin selectSysLogLoginByLoginId(Long loginId) {
         return sysLogLoginMapper.selectSysLogLoginByLoginId(loginId);
+    }
+
+    /*
+     * 查询用户访问量
+     *
+     * @return 用户访问量
+     */
+    @Override
+    public List<Long> selectUserVisit() {
+        var userId = SecurityUtils.getUser().getUserId();
+        var now = LocalDate.now();
+        var monday = now.with(DayOfWeek.MONDAY);
+        var sunday = monday.plusDays(6);
+        var startDate = monday;
+        var list = sysLogLoginMapper.selectUserVisit(userId, startDate);
+        var listGrouped = list.stream()
+            .collect(Collectors.groupingBy(logLogin -> {
+                var loginTime = logLogin.getLoginTime();
+                return LocalDate.of(loginTime.getYear(), loginTime.getMonth(), loginTime.getDayOfMonth());
+            }));
+        var userVisitList = new ArrayList<Long>();
+        while (startDate.isBefore(sunday)) {
+            var count = listGrouped.get(startDate);
+            if (count != null) {
+                userVisitList.add(count.stream().count());
+            } else {
+                userVisitList.add(0L);
+            }
+            startDate = startDate.plusDays(1);
+        }
+        return userVisitList;
     }
 
     /**

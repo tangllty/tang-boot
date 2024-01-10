@@ -36,6 +36,13 @@ public interface SysLogLoginService {
      */
     SysLogLogin selectSysLogLoginByLoginId(Long loginId);
 
+    /*
+     * 查询用户访问量
+     *
+     * @return 用户访问量
+     */
+    List<Long> selectUserVisit();
+
     /**
      * 新增登陆日志信息
      *

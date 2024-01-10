@@ -1,6 +1,9 @@
 package com.tang.system.mapper.log;
 
+import java.time.LocalDate;
 import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
 
 import com.tang.system.entity.log.SysLogLogin;
 
@@ -34,6 +37,14 @@ public interface SysLogLoginMapper {
      * @return 登陆日志信息
      */
     SysLogLogin selectSysLogLoginByLoginId(Long loginId);
+
+    /*
+     * 查询用户访问量
+     *
+     * @startTime 开始时间
+     * @return 用户访问量
+     */
+    List<SysLogLogin> selectUserVisit(@Param("userId") Long userId, @Param("startDate") LocalDate startDate);
 
     /**
      * 新增登陆日志信息
