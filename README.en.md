@@ -13,8 +13,11 @@ tang-boot is a permission management system based on Spring Boot 3
 You can read the [documentation](https://tangllty.eu.org/) for more information
 
 * Using Spring Boot 3 + Spring Security + MyBatis + Redis + Jwt
+* Support Java and Kotlin, etc.
+* Support MyBatis and MyBatis-Plus, etc.
 * Customized multiple login authentication methods
 * Dynamic permissions menu
+* Dynamic dictionary data permissions
 * Code generator, one click to generate the basic front-end and back-end code
 * Encapsulate WebSocket, support heartbeat detection, reconnection mechanism, custom message type push and subscription
 * Instant messaging, sending and receiving friends and group messages anytime, anywhere, and transferring files to each other

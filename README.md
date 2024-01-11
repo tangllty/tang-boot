@@ -13,8 +13,11 @@ tang-boot 是基于 Spring Boot 3 的权限管理系统
 您可以阅读[文档](https://tangllty.eu.org/)获取更多信息
 
 * 采用 Spring Boot 3 + Spring Security + MyBatis + Redis + Jwt
+* 支持 Java 和 Kotlin 等 
+* 支持 MyBatis 和 MyBatis-Plus 等
 * 自定义多种登录认证方式
 * 动态权限菜单
+* 动态字典数据权限
 * 代码生成器，一键生成前后端基本代码
 * 封装 WebSocket，支持心跳检测，重连机制，自定义消息类型推送与订阅
 * 即时通信，随时随地收发好友和群消息，文件互传
