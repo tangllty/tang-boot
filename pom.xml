@@ -208,6 +208,12 @@
 
             <dependency>
                 <groupId>com.tang</groupId>
+                <artifactId>tang-kotlin</artifactId>
+                <version>${tang.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.tang</groupId>
                 <artifactId>tang-mybatis-plus</artifactId>
                 <version>${tang.version}</version>
             </dependency>
