@@ -26,6 +26,7 @@
     <properties>
         <tang.version>1.6.3</tang.version>
         <java.version>17</java.version>
+        <kotlin.version>1.9.21</kotlin.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <spring-boot-dependencies.version>3.2.1</spring-boot-dependencies.version>
@@ -208,12 +209,6 @@
 
             <dependency>
                 <groupId>com.tang</groupId>
-                <artifactId>tang-kotlin</artifactId>
-                <version>${tang.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>com.tang</groupId>
                 <artifactId>tang-mybatis-plus</artifactId>
                 <version>${tang.version}</version>
             </dependency>
@@ -315,6 +310,40 @@
                     <nonFilteredFileExtension>xdb</nonFilteredFileExtension>
                 </nonFilteredFileExtensions>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.jetbrains.kotlin</groupId>
+                <artifactId>kotlin-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>compile</id>
+                        <phase>process-sources</phase>
+                        <goals>
+                            <goal>compile</goal>
+                        </goals>
+                        <configuration>
+                            <sourceDirs>
+                                <source>src/main/java</source>
+                                <source>src/main/kotlin</source>
+                            </sourceDirs>
+                        </configuration>
+                    </execution>
+                </executions>
+                <configuration>
+                    <args>
+                        <arg>-Xjsr305=strict</arg>
+                    </args>
+                    <compilerPlugins>
+                        <plugin>spring</plugin>
+                    </compilerPlugins>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.jetbrains.kotlin</groupId>
+                        <artifactId>kotlin-maven-allopen</artifactId>
+                        <version>${kotlin.version}</version>
+                    </dependency>
+                </dependencies>
             </plugin>
         </plugins>
     </build>

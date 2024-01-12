@@ -17,7 +17,6 @@
 
     <packaging>pom</packaging>
     <modules>
-        <module>tang-kotlin</module>
         <module>tang-mybatis-plus</module>
     </modules>
 
