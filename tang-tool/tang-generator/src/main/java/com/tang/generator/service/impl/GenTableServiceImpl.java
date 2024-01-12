@@ -174,7 +174,7 @@ public class GenTableServiceImpl implements GenTableService {
         table.setTableColumnList(tableColumnMapper.selectTableColumnListByTableId(tableId));
         VelocityInitializer.initVelocity();
         var context = VelocityUtils.prepareContext(table);
-        var templateList = VelocityUtils.getTemplateList(table.getOrmType());
+        var templateList = VelocityUtils.getTemplateList(table.getLanguageType(), table.getOrmType());
         templateList.forEach(template -> {
             var stringWriter = new StringWriter();
             var tpl = Velocity.getTemplate(template, StandardCharsets.UTF_8.name());
@@ -212,7 +212,7 @@ public class GenTableServiceImpl implements GenTableService {
         table.setTableColumnList(tableColumnMapper.selectTableColumnListByTableId(table.getTableId()));
         VelocityInitializer.initVelocity();
         var context = VelocityUtils.prepareContext(table);
-        var templateList = VelocityUtils.getTemplateList(table.getOrmType());
+        var templateList = VelocityUtils.getTemplateList(table.getLanguageType(), table.getOrmType());
         templateList.forEach(template -> {
             var stringWriter = new StringWriter();
             var tpl = Velocity.getTemplate(template, StandardCharsets.UTF_8.name());

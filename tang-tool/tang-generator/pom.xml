@@ -24,7 +24,7 @@
 
         <dependency>
             <groupId>com.tang</groupId>
-            <artifactId>tang-commons</artifactId>
+            <artifactId>tang-kotlin</artifactId>
         </dependency>
 
         <dependency>
