@@ -8,7 +8,7 @@
 
 ## 项目简介
 
-tang-boot 是基于 Spring Boot 3 的权限管理系统
+tang-boot 是基于 Spring Boot 3 的权限管理系统，使用 Java 和 Kotlin 编写
 
 您可以阅读[文档](https://tangllty.eu.org/)获取更多信息
 

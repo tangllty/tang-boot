@@ -8,7 +8,7 @@
 
 ## Project Description
 
-tang-boot is a permission management system based on Spring Boot 3
+tang-boot is a permission management system based on Spring Boot 3, written in Java and Kotlin
 
 You can read the [documentation](https://tangllty.eu.org/) for more information
 
