@@ -12,6 +12,7 @@ enum class OrmType(val value: String) {
     MYBATIS_PLUS("MyBatis-Plus");
 
     companion object {
+        @JvmStatic
         fun getOrmType(value: String): OrmType? {
             return entries.find { it.value == value }
         }

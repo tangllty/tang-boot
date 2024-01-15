@@ -211,8 +211,8 @@ public class VelocityUtils {
      */
     public static List<String> getTemplateList(String languageType, String ormType) {
         var templateList = List.of(VM_VUE_INDEX, VM_VUE_INDEX_TS, VM_VUE_TYPES, VM_SQL_MENU);
-        var languageTypeEnum = LanguageType.Companion.getLanguageType(languageType);
-        var ormTypeEnum = OrmType.Companion.getOrmType(ormType);
+        var languageTypeEnum = LanguageType.getLanguageType(languageType);
+        var ormTypeEnum = OrmType.getOrmType(ormType);
         if (Objects.isNull(languageTypeEnum) || Objects.isNull(ormTypeEnum)) {
             return templateList;
         }

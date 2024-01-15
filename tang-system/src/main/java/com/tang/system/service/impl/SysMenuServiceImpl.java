@@ -135,7 +135,7 @@ public class SysMenuServiceImpl implements SysMenuService {
         } else {
             menuList = menuMapper.selectMenuListByUserId(userId);
         }
-        menuList.removeIf(menu -> MenuType.BUTTON.getName().equals(menu.getMenuType()));
+        menuList.removeIf(menu -> MenuType.BUTTON.getValue().equals(menu.getMenuType()));
         var list = menuList.stream()
             .filter(m -> m.getParentId() == 0)
             .map(m -> {
@@ -170,7 +170,7 @@ public class SysMenuServiceImpl implements SysMenuService {
             var route = new RouteVo();
             var meta = new MetaVo();
             var menuType = menu.getMenuType();
-            if (menuType.equals(MenuType.DIRECTORY.getName())) {
+            if (menuType.equals(MenuType.DIRECTORY.getValue())) {
                 route.setName(menu.getPath());
                 route.setPath(menu.getPath());
                 route.setType(MenuType.DIRECTORY);
@@ -178,7 +178,7 @@ public class SysMenuServiceImpl implements SysMenuService {
                     setRedirect(originalMenuList, menu, route);
                 }
             }
-            if (menuType.equals(MenuType.MENU.getName())) {
+            if (menuType.equals(MenuType.MENU.getValue())) {
                 route.setPath(menu.getPath());
                 route.setType(MenuType.MENU);
                 route.setComponent(menu.getComponent());

@@ -32,7 +32,7 @@ public class ThirdPartyLoginController {
     public AjaxResult oauthRedirect(String code) throws URISyntaxException, IOException, InterruptedException {
         var loginModel = new LoginModel();
         loginModel.setCode(code);
-        loginModel.setLoginType(LoginType.GITHUB.getName());
+        loginModel.setLoginType(LoginType.GITHUB.getValue());
         loginModel.setCaptchaEnable(false);
         var token = loginService.login(loginModel);
         return AjaxResult.success(Map.of("token", token));

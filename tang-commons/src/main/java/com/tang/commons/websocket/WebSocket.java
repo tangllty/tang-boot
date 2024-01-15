@@ -72,8 +72,8 @@ public class WebSocket {
         var messageType = message.getMessageType();
         LOGGER.info("WebSocket received message type: {}, data: {}", messageType, message.getData());
 
-        if (MESSAGES.containsKey(messageType.getName())) {
-            MESSAGES.get(messageType.getName()).forEach(callback -> callback.accept(message.getData()));
+        if (MESSAGES.containsKey(messageType.getValue())) {
+            MESSAGES.get(messageType.getValue()).forEach(callback -> callback.accept(message.getData()));
         }
     }
 
@@ -168,7 +168,7 @@ public class WebSocket {
      * @param callback 回调函数
      */
     public void subscribe(MessageType messageType, Consumer<String> callback) {
-        MESSAGES.computeIfAbsent(messageType.getName(), k -> new ArrayList<>()).add(callback);
+        MESSAGES.computeIfAbsent(messageType.getValue(), k -> new ArrayList<>()).add(callback);
     }
 
     /**
@@ -178,11 +178,11 @@ public class WebSocket {
      * @param callback 回调函数
      */
     public void unsubscribe(MessageType messageType, Consumer<String> callback) {
-        if (!MESSAGES.containsKey(messageType.getName()) || !MESSAGES.get(messageType.getName()).contains(callback)) {
+        if (!MESSAGES.containsKey(messageType.getValue()) || !MESSAGES.get(messageType.getValue()).contains(callback)) {
             return;
         }
 
-        MESSAGES.get(messageType.getName()).remove(callback);
+        MESSAGES.get(messageType.getValue()).remove(callback);
     }
 
 }

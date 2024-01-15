@@ -269,7 +269,7 @@ public class GenTableServiceImpl implements GenTableService {
         menu.setComponent(StringUtils.format("{}/{}/index", table.getModuleName(), table.getBusinessName()));
         menu.setPermission(StringUtils.format("{}:{}:menu", table.getModuleName().replace("/", ":"), table.getBusinessName()));
         menu.setIcon(table.getClassComment());
-        menu.setMenuType(MenuType.MENU.getName());
+        menu.setMenuType(MenuType.MENU.getValue());
         var menuCount = menuMapper.selectCountMenuByParentId(table.getParentMenuId());
         menu.setSort(++menuCount);
         menu.setCreateBy(table.getAuthor());
@@ -286,7 +286,7 @@ public class GenTableServiceImpl implements GenTableService {
             buttonMenu.setParentId(menu.getMenuId());
             buttonMenu.setMenuName(table.getClassComment() + value);
             buttonMenu.setPermission(StringUtils.format("{}:{}:{}", table.getModuleName().replace("/", ":"), table.getBusinessName(), key));
-            buttonMenu.setMenuType(MenuType.BUTTON.getName());
+            buttonMenu.setMenuType(MenuType.BUTTON.getValue());
             buttonMenu.setCreateBy(table.getAuthor());
             buttonMenu.setRemark(table.getClassComment() + value + "按钮");
             setAncestors(buttonMenu, parentButtonMenu);
