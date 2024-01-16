@@ -121,8 +121,8 @@ public class UploadsUtils {
             fileName = "unknown-file-name";
         }
 
-        // 删除文件名中的所有点和目录分隔符
-        fileName = fileName.replace(".", "").replace("/", "").replace("\\", "");
+        // 删除目录分隔符和特殊字符
+        fileName = fileName.replaceAll("[\\\\/:*?\"<>|]", "");
         return fileName;
     }
 
