@@ -12,6 +12,7 @@ import com.tang.app.mapper.AppChatMessageMapper;
 import com.tang.app.service.AppChatListService;
 import com.tang.commons.utils.SecurityUtils;
 import com.tang.commons.utils.date.DateUtils;
+import com.tang.system.mapper.SysUserMapper;
 
 /**
  * 聊天列业务逻辑层接口实现
@@ -25,9 +26,12 @@ public class AppChatListServiceImpl implements AppChatListService {
 
     private final AppChatMessageMapper appChatMessageMapper;
 
-    public AppChatListServiceImpl(AppChatListMapper appChatListMapper, AppChatMessageMapper appChatMessageMapper) {
+    private final SysUserMapper userMapper;
+
+    public AppChatListServiceImpl(AppChatListMapper appChatListMapper, AppChatMessageMapper appChatMessageMapper, SysUserMapper userMapper) {
         this.appChatListMapper = appChatListMapper;
         this.appChatMessageMapper = appChatMessageMapper;
+        this.userMapper = userMapper;
     }
 
     /**
@@ -53,6 +57,7 @@ public class AppChatListServiceImpl implements AppChatListService {
         list.forEach(item -> {
             var lastMessage = appChatMessageMapper.selectLastMessage(item.getChatListId(), item.getFriendId());
             if (Objects.nonNull(lastMessage)) {
+                item.setAvatar(userMapper.selectUserByUserId(item.getFriendId()).getAvatar());
                 item.setMessage(lastMessage.getContent());
                 item.setTime(DateUtils.getChatTime(lastMessage.getCreateTime()));
             }
