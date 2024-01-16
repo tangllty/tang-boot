@@ -85,7 +85,7 @@ public class LoginService {
 
         var message = "登陆成功";
 
-        if (tangProperties.isSingleLogin()) {
+        if (tangProperties.getSingleLogin()) {
             var userIdCacheKey = CachePrefix.LOGIN_USER_ID + userModel.getUser().getUserId();
             var userIdCacheValue = redisUtils.get(userIdCacheKey);
             if (Objects.nonNull(userIdCacheValue)) {

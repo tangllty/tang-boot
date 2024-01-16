@@ -2,6 +2,7 @@ package com.tang.framework.interceptor;
 
 import java.util.List;
 
+import org.springframework.lang.NonNull;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 import com.alibaba.fastjson2.JSON;
@@ -25,8 +26,8 @@ public class DemoModeInterceptor implements HandlerInterceptor {
     private final TangProperties tangProperties = SpringUtils.getBean(TangProperties.class);
 
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        if (tangProperties.isDemoMode() && notAllowModify(request.getRequestURI(), request.getMethod())) {
+    public boolean preHandle(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull Object handler) throws Exception {
+        if (tangProperties.getDemoMode() && notAllowModify(request.getRequestURI(), request.getMethod())) {
             final var aElement = "<a class=\"el-link el-link--primary is-underline\" href=\"{}\" target=\"_blank\">{}</a>";
             final var github = format(aElement, "https://github.com/tangllty", "GitHub");
             final var gitee = format(aElement, "https://gitee.com/tangllty", "Gitee");

@@ -134,7 +134,7 @@ public class TokenService {
         // 缓存登陆信息
         var userKey = getTokenKey(userModel.getToken());
         redisUtils.set(userKey, userModel, tokenProperties.getExpireTime(), tokenProperties.getTimeUnit());
-        if (tangProperties.isSingleLogin()) {
+        if (tangProperties.getSingleLogin()) {
             var userIdKey = CachePrefix.LOGIN_USER_ID + userModel.getUser().getUserId();
             redisUtils.set(userIdKey, userKey, tokenProperties.getExpireTime(), tokenProperties.getTimeUnit());
         }
