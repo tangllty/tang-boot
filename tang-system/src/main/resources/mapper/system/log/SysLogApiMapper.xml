@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tang.system.mapper.SysLogApiMapper">
+
+    <resultMap id="SysLogApiMap" type="com.tang.system.entity.SysLogApi">
+        <result property="apiId" column="api_id" />
+        <result property="userId" column="user_id" />
+        <result property="className" column="class_name" />
+        <result property="methodName" column="method_name" />
+        <result property="requestUri" column="request_uri" />
+        <result property="requestType" column="request_type" />
+        <result property="requestParam" column="request_param" />
+        <result property="responseBody" column="response_body" />
+        <result property="loginType" column="login_type" />
+        <result property="ip" column="ip" />
+        <result property="location" column="location" />
+        <result property="startTime" column="start_time" />
+        <result property="endTime" column="end_time" />
+        <result property="costTime" column="cost_time" />
+        <result property="statusCode" column="status_code" />
+        <result property="message" column="message" />
+        <result property="createBy" column="create_by" />
+        <result property="createTime" column="create_time" />
+        <result property="updateBy" column="update_by" />
+        <result property="updateTime" column="update_time" />
+        <result property="remark" column="remark" />
+    </resultMap>
+
+    <sql id="SysLogApiVo">
+        select sla.api_id, sla.user_id, sla.class_name, sla.method_name, sla.request_uri, sla.request_type, sla.request_param, sla.response_body, sla.login_type, sla.ip, sla.location, sla.start_time, sla.end_time, sla.cost_time, sla.status_code, sla.message, sla.create_by, sla.create_time, sla.update_by, sla.update_time, sla.remark
+        from sys_log_api sla
+    </sql>
+
+    <select id="selectSysLogApiList" resultMap="SysLogApiMap">
+        <include refid="SysLogApiVo" />
+        <where>
+            <if test="apiId != null">
+                and sla.api_id = #{apiId}
+            </if>
+            <if test="userId != null">
+                and sla.user_id = #{userId}
+            </if>
+            <if test="className != null and className != ''">
+                and sla.class_name = #{className}
+            </if>
+            <if test="methodName != null and methodName != ''">
+                and sla.method_name = #{methodName}
+            </if>
+            <if test="requestUri != null and requestUri != ''">
+                and sla.request_uri = #{requestUri}
+            </if>
+            <if test="requestType != null and requestType != ''">
+                and sla.request_type = #{requestType}
+            </if>
+            <if test="requestParam != null and requestParam != ''">
+                and sla.request_param = #{requestParam}
+            </if>
+            <if test="responseBody != null and responseBody != ''">
+                and sla.response_body = #{responseBody}
+            </if>
+            <if test="loginType != null and loginType != ''">
+                and sla.login_type = #{loginType}
+            </if>
+            <if test="ip != null and ip != ''">
+                and sla.ip = #{ip}
+            </if>
+            <if test="location != null and location != ''">
+                and sla.location = #{location}
+            </if>
+            <if test="startTime != null">
+                and sla.start_time = #{startTime}
+            </if>
+            <if test="endTime != null">
+                and sla.end_time = #{endTime}
+            </if>
+            <if test="costTime != null">
+                and sla.cost_time = #{costTime}
+            </if>
+            <if test="statusCode != null and statusCode != ''">
+                and sla.status_code = #{statusCode}
+            </if>
+            <if test="message != null and message != ''">
+                and sla.message = #{message}
+            </if>
+            <if test="createBy != null and createBy != ''">
+                and sla.create_by = #{createBy}
+            </if>
+            <if test="createTime != null">
+                and sla.create_time = #{createTime}
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                and sla.update_by = #{updateBy}
+            </if>
+            <if test="updateTime != null">
+                and sla.update_time = #{updateTime}
+            </if>
+            <if test="remark != null and remark != ''">
+                and sla.remark = #{remark}
+            </if>
+        </where>
+        order by sla.api_id desc
+    </select>
+
+    <select id="selectSysLogApiByApiId" resultMap="SysLogApiMap">
+        <include refid="SysLogApiVo" />
+        where sla.api_id = #{apiId}
+    </select>
+
+    <insert id="insertSysLogApi" useGeneratedKeys="true" keyProperty="apiId">
+        insert into sys_log_api (
+        <trim suffixOverrides=",">
+            <if test="apiId != null">api_id,</if>
+            <if test="userId != null">user_id,</if>
+            <if test="className != null and className != ''">class_name,</if>
+            <if test="methodName != null and methodName != ''">method_name,</if>
+            <if test="requestUri != null and requestUri != ''">request_uri,</if>
+            <if test="requestType != null and requestType != ''">request_type,</if>
+            <if test="requestParam != null and requestParam != ''">request_param,</if>
+            <if test="responseBody != null and responseBody != ''">response_body,</if>
+            <if test="loginType != null and loginType != ''">login_type,</if>
+            <if test="ip != null and ip != ''">ip,</if>
+            <if test="location != null and location != ''">location,</if>
+            <if test="startTime != null">start_time,</if>
+            <if test="endTime != null">end_time,</if>
+            <if test="costTime != null">cost_time,</if>
+            <if test="statusCode != null and statusCode != ''">status_code,</if>
+            <if test="message != null and message != ''">message,</if>
+            <if test="createBy != null and createBy != ''">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null and updateBy != ''">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="remark != null and remark != ''">remark,</if>
+        </trim>
+        ) values (
+        <trim suffixOverrides=",">
+            <if test="apiId != null">#{apiId},</if>
+            <if test="userId != null">#{userId},</if>
+            <if test="className != null and className != ''">#{className},</if>
+            <if test="methodName != null and methodName != ''">#{methodName},</if>
+            <if test="requestUri != null and requestUri != ''">#{requestUri},</if>
+            <if test="requestType != null and requestType != ''">#{requestType},</if>
+            <if test="requestParam != null and requestParam != ''">#{requestParam},</if>
+            <if test="responseBody != null and responseBody != ''">#{responseBody},</if>
+            <if test="loginType != null and loginType != ''">#{loginType},</if>
+            <if test="ip != null and ip != ''">#{ip},</if>
+            <if test="location != null and location != ''">#{location},</if>
+            <if test="startTime != null">#{startTime},</if>
+            <if test="endTime != null">#{endTime},</if>
+            <if test="costTime != null">#{costTime},</if>
+            <if test="statusCode != null and statusCode != ''">#{statusCode},</if>
+            <if test="message != null and message != ''">#{message},</if>
+            <if test="createBy != null and createBy != ''">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null and updateBy != ''">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="remark != null and remark != ''">#{remark},</if>
+        </trim>
+        )
+    </insert>
+
+    <update id="updateSysLogApiByApiId">
+        update sys_log_api
+        <set>
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="className != null and className != ''">class_name = #{className},</if>
+            <if test="methodName != null and methodName != ''">method_name = #{methodName},</if>
+            <if test="requestUri != null and requestUri != ''">request_uri = #{requestUri},</if>
+            <if test="requestType != null and requestType != ''">request_type = #{requestType},</if>
+            <if test="requestParam != null and requestParam != ''">request_param = #{requestParam},</if>
+            <if test="responseBody != null and responseBody != ''">response_body = #{responseBody},</if>
+            <if test="loginType != null and loginType != ''">login_type = #{loginType},</if>
+            <if test="ip != null and ip != ''">ip = #{ip},</if>
+            <if test="location != null and location != ''">location = #{location},</if>
+            <if test="startTime != null">start_time = #{startTime},</if>
+            <if test="endTime != null">end_time = #{endTime},</if>
+            <if test="costTime != null">cost_time = #{costTime},</if>
+            <if test="statusCode != null and statusCode != ''">status_code = #{statusCode},</if>
+            <if test="message != null and message != ''">message = #{message},</if>
+            <if test="createBy != null and createBy != ''">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null and updateBy != ''">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="remark != null and remark != ''">remark = #{remark},</if>
+        </set>
+        where api_id = #{apiId}
+    </update>
+
+    <delete id="deleteSysLogApiByApiId">
+        delete from sys_log_api where api_id = #{apiId}
+    </delete>
+
+    <delete id="deleteSysLogApiByApiIds">
+        delete from sys_log_api where api_id in
+        <foreach item="apiId" collection="array" open="(" separator="," close=")">
+            #{apiId}
+        </foreach>
+    </delete>
+
+</mapper>

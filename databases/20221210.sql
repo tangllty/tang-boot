@@ -133,10 +133,11 @@ insert into sys_menu values (18, 3, '0,3', '代码生成', 'generator', 'tool/ge
 insert into sys_menu values (19, 3, '0,3', '系统接口', 'swagger',   'tool/swagger/index',   'tool:swagger:menu',   '系统接口', 'M', '0', 2, '0', '0', 'admin', sysdate(), '', null, '系统接口菜单');
 insert into sys_menu values (20, 1, '0,1', '日志管理', 'log',       '',                     '',                    '日志管理', 'D', '0', 6, '0', '0', 'admin', sysdate(), '', null, '日志管理目录');
 insert into sys_menu values (21, 20, '0,1,20', '登陆日志', 'login', 'system/log/login/index', 'system:log:login:menu', '登陆日志', 'M', '0', 1, '0', '0', 'admin', sysdate(), '', null, '登陆日志菜单');
-insert into sys_menu values (22, 4, '0,4', '猫猫聊天', 'chat',      '',                     '',                    '猫猫聊天', 'D', '0', 1, '0', '0', 'admin', sysdate(), '', null, '猫猫聊天菜单');
-insert into sys_menu values (23, 22, '0,4,22', '我的聊天', 'room',   'app/chat/room/index',    'app:chat:room:menu',    '我的聊天', 'M', '0', 1, '0', '0', 'admin', sysdate(), '', null, '我的聊天菜单');
-insert into sys_menu values (24, 22, '0,4,22', '好友申请', 'apply',  'app/chat/friend-apply/index',  'app:chat:friend-apply:menu',  '好友申请', 'M', '0', 2, '0', '0', 'admin', sysdate(), '', null, '好友申请菜单');
-insert into sys_menu values (25, 22, '0,4,22', '我的好友', 'friend', 'app/chat/friend/index',        'app:chat:friend:menu',        '我的好友', 'M', '0', 3, '0', '0', 'admin', sysdate(), '', null, '我的好友菜单');
+insert into sys_menu values (22, 20, '0,1,20', '接口日志', 'api',    'system/log/api/index',  'system:log:api:menu',   '接口日志', 'M', '0', 2, '0', '0', 'admin', sysdate(), '', null, '接口日志菜单');
+insert into sys_menu values (23, 4, '0,4', '猫猫聊天', 'chat',      '',                     '',                    '猫猫聊天', 'D', '0', 1, '0', '0', 'admin', sysdate(), '', null, '猫猫聊天菜单');
+insert into sys_menu values (24, 23, '0,4,23', '我的聊天', 'room',   'app/chat/room/index',    'app:chat:room:menu',    '我的聊天', 'M', '0', 1, '0', '0', 'admin', sysdate(), '', null, '我的聊天菜单');
+insert into sys_menu values (25, 23, '0,4,23', '好友申请', 'apply',  'app/chat/friend-apply/index',  'app:chat:friend-apply:menu',  '好友申请', 'M', '0', 2, '0', '0', 'admin', sysdate(), '', null, '好友申请菜单');
+insert into sys_menu values (26, 23, '0,4,23', '我的好友', 'friend', 'app/chat/friend/index',        'app:chat:friend:menu',        '我的好友', 'M', '0', 3, '0', '0', 'admin', sysdate(), '', null, '我的好友菜单');
 
 -- 用户管理按钮
 insert into sys_menu values (101, 11, '0,1,11', '用户查询', '', '', 'system:user:list',   '', 'B', '0', 1, '0', '0', 'admin', sysdate(), '', null, '用户查询按钮');
@@ -183,36 +184,39 @@ insert into sys_menu values (127, 18, '0,3,18', '代码生成导入', '', '', 't
 insert into sys_menu values (128, 18, '0,3,18', '代码生成导出', '', '', 'tool:generator:export',  '', 'B', '0', 5, '0', '0', 'admin', sysdate(), '', null, '代码生成导出按钮');
 insert into sys_menu values (129, 18, '0,3,18', '代码生成执行', '', '', 'tool:generator:execute', '', 'B', '0', 5, '0', '0', 'admin', sysdate(), '', null, '代码生成执行按钮');
 
-
 -- 登陆日志按钮
 insert into sys_menu values (130, 21, '0,1,20,21', '登陆日志查询', '', '', 'system:log:login:list',   '', 'B', '0', 1, '0', '0', 'admin', sysdate(), '', null, '登陆日志查询按钮');
 insert into sys_menu values (131, 21, '0,1,20,21', '登陆日志删除', '', '', 'system:log:login:delete', '', 'B', '0', 2, '0', '0', 'admin', sysdate(), '', null, '登陆日志删除按钮');
 
+-- 接口日志按钮
+insert into sys_menu values (132, 22, '0,1,20,22', '接口日志查询', '', '', 'system:log:api:list',   '', 'B', '0', 1, '0', '0', 'admin', sysdate(), '', null, '接口日志查询按钮');
+insert into sys_menu values (133, 22, '0,1,20,22', '接口日志删除', '', '', 'system:log:api:delete', '', 'B', '0', 2, '0', '0', 'admin', sysdate(), '', null, '接口日志删除按钮');
+
 -- 我的聊天聊天列表按钮
-insert into sys_menu values (132, 23, '0,4,22,23', '聊天列表查询', '', '', 'app:chat:chat-list:list',   '', 'B', '0', 1, '0', '0', 'admin', sysdate(), '', null, '聊天列表查询按钮');
-insert into sys_menu values (133, 23, '0,4,22,23', '聊天列表添加', '', '', 'app:chat:chat-list:add',    '', 'B', '0', 2, '0', '0', 'admin', sysdate(), '', null, '聊天列表添加按钮');
-insert into sys_menu values (134, 23, '0,4,22,23', '聊天列表修改', '', '', 'app:chat:chat-list:edit',   '', 'B', '0', 3, '0', '0', 'admin', sysdate(), '', null, '聊天列表修改按钮');
-insert into sys_menu values (135, 23, '0,4,22,23', '聊天列表删除', '', '', 'app:chat:chat-list:delete', '', 'B', '0', 4, '0', '0', 'admin', sysdate(), '', null, '聊天列表删除按钮');
+insert into sys_menu values (134, 24, '0,4,23,24', '聊天列表查询', '', '', 'app:chat:chat-list:list',   '', 'B', '0', 1, '0', '0', 'admin', sysdate(), '', null, '聊天列表查询按钮');
+insert into sys_menu values (135, 24, '0,4,23,24', '聊天列表添加', '', '', 'app:chat:chat-list:add',    '', 'B', '0', 2, '0', '0', 'admin', sysdate(), '', null, '聊天列表添加按钮');
+insert into sys_menu values (136, 24, '0,4,23,24', '聊天列表修改', '', '', 'app:chat:chat-list:edit',   '', 'B', '0', 3, '0', '0', 'admin', sysdate(), '', null, '聊天列表修改按钮');
+insert into sys_menu values (137, 24, '0,4,23,24', '聊天列表删除', '', '', 'app:chat:chat-list:delete', '', 'B', '0', 4, '0', '0', 'admin', sysdate(), '', null, '聊天列表删除按钮');
 
 -- 我的聊天聊天消息按钮
-insert into sys_menu values (136, 23, '0,4,22,23', '聊天消息查询', '', '', 'app:chat:message:list',   '', 'B', '0', 5, '0', '0', 'admin', sysdate(), '', null, '聊天消息查询按钮');
-insert into sys_menu values (137, 23, '0,4,22,23', '聊天消息添加', '', '', 'app:chat:message:add',    '', 'B', '0', 6, '0', '0', 'admin', sysdate(), '', null, '聊天消息添加按钮');
-insert into sys_menu values (138, 23, '0,4,22,23', '聊天消息修改', '', '', 'app:chat:message:edit',   '', 'B', '0', 7, '0', '0', 'admin', sysdate(), '', null, '聊天消息修改按钮');
-insert into sys_menu values (139, 23, '0,4,22,23', '聊天消息删除', '', '', 'app:chat:message:delete', '', 'B', '0', 8, '0', '0', 'admin', sysdate(), '', null, '聊天消息删除按钮');
+insert into sys_menu values (138, 24, '0,4,23,24', '聊天消息查询', '', '', 'app:chat:message:list',   '', 'B', '0', 5, '0', '0', 'admin', sysdate(), '', null, '聊天消息查询按钮');
+insert into sys_menu values (139, 24, '0,4,23,24', '聊天消息添加', '', '', 'app:chat:message:add',    '', 'B', '0', 6, '0', '0', 'admin', sysdate(), '', null, '聊天消息添加按钮');
+insert into sys_menu values (140, 24, '0,4,23,24', '聊天消息修改', '', '', 'app:chat:message:edit',   '', 'B', '0', 7, '0', '0', 'admin', sysdate(), '', null, '聊天消息修改按钮');
+insert into sys_menu values (141, 24, '0,4,23,24', '聊天消息删除', '', '', 'app:chat:message:delete', '', 'B', '0', 8, '0', '0', 'admin', sysdate(), '', null, '聊天消息删除按钮');
 
 -- 用户好友申请按钮
-insert into sys_menu values (140, 24, '0,4,22,24', '好友申请查询', '', '', 'app:chat:friend-apply:list',   '', 'B', '0', 1, '0', '0', 'admin', sysdate(), '', null, '好友申请查询按钮');
-insert into sys_menu values (141, 24, '0,4,22,24', '好友申请添加', '', '', 'app:chat:friend-apply:add',    '', 'B', '0', 2, '0', '0', 'admin', sysdate(), '', null, '好友申请添加按钮');
-insert into sys_menu values (142, 24, '0,4,22,24', '好友申请修改', '', '', 'app:chat:friend-apply:edit',   '', 'B', '0', 3, '0', '0', 'admin', sysdate(), '', null, '好友申请修改按钮');
-insert into sys_menu values (143, 24, '0,4,22,24', '好友申请同意', '', '', 'app:chat:friend-apply:accept', '', 'B', '0', 4, '0', '0', 'admin', sysdate(), '', null, '好友申请同意按钮');
-insert into sys_menu values (144, 24, '0,4,22,24', '好友申请拒绝', '', '', 'app:chat:friend-apply:decline','', 'B', '0', 5, '0', '0', 'admin', sysdate(), '', null, '好友申请拒绝按钮');
-insert into sys_menu values (145, 24, '0,4,22,24', '好友申请删除', '', '', 'app:chat:friend-apply:delete', '', 'B', '0', 6, '0', '0', 'admin', sysdate(), '', null, '好友申请删除按钮');
+insert into sys_menu values (142, 25, '0,4,23,25', '好友申请查询', '', '', 'app:chat:friend-apply:list',   '', 'B', '0', 1, '0', '0', 'admin', sysdate(), '', null, '好友申请查询按钮');
+insert into sys_menu values (143, 25, '0,4,23,25', '好友申请添加', '', '', 'app:chat:friend-apply:add',    '', 'B', '0', 2, '0', '0', 'admin', sysdate(), '', null, '好友申请添加按钮');
+insert into sys_menu values (144, 25, '0,4,23,25', '好友申请修改', '', '', 'app:chat:friend-apply:edit',   '', 'B', '0', 3, '0', '0', 'admin', sysdate(), '', null, '好友申请修改按钮');
+insert into sys_menu values (145, 25, '0,4,23,25', '好友申请同意', '', '', 'app:chat:friend-apply:accept', '', 'B', '0', 4, '0', '0', 'admin', sysdate(), '', null, '好友申请同意按钮');
+insert into sys_menu values (146, 25, '0,4,23,25', '好友申请拒绝', '', '', 'app:chat:friend-apply:decline','', 'B', '0', 5, '0', '0', 'admin', sysdate(), '', null, '好友申请拒绝按钮');
+insert into sys_menu values (147, 25, '0,4,23,25', '好友申请删除', '', '', 'app:chat:friend-apply:delete', '', 'B', '0', 6, '0', '0', 'admin', sysdate(), '', null, '好友申请删除按钮');
 
 -- 用户好友按钮
-insert into sys_menu values (146, 25, '0,4,22,25', '好友查询', '', '', 'app:chat:friend:list',   '', 'B', '0', 1, '0', '0', 'admin', sysdate(), '', null, '好友查询按钮');
-insert into sys_menu values (147, 25, '0,4,22,25', '好友添加', '', '', 'app:chat:friend:add',    '', 'B', '0', 2, '0', '0', 'admin', sysdate(), '', null, '好友添加按钮');
-insert into sys_menu values (148, 25, '0,4,22,25', '好友修改', '', '', 'app:chat:friend:edit',   '', 'B', '0', 3, '0', '0', 'admin', sysdate(), '', null, '好友修改按钮');
-insert into sys_menu values (149, 25, '0,4,22,25', '好友删除', '', '', 'app:chat:friend:delete', '', 'B', '0', 4, '0', '0', 'admin', sysdate(), '', null, '好友删除按钮');
+insert into sys_menu values (148, 26, '0,4,23,26', '好友查询', '', '', 'app:chat:friend:list',   '', 'B', '0', 1, '0', '0', 'admin', sysdate(), '', null, '好友查询按钮');
+insert into sys_menu values (149, 26, '0,4,23,26', '好友添加', '', '', 'app:chat:friend:add',    '', 'B', '0', 2, '0', '0', 'admin', sysdate(), '', null, '好友添加按钮');
+insert into sys_menu values (150, 26, '0,4,23,26', '好友修改', '', '', 'app:chat:friend:edit',   '', 'B', '0', 3, '0', '0', 'admin', sysdate(), '', null, '好友修改按钮');
+insert into sys_menu values (151, 26, '0,4,23,26', '好友删除', '', '', 'app:chat:friend:delete', '', 'B', '0', 4, '0', '0', 'admin', sysdate(), '', null, '好友删除按钮');
 
 
 -- -----------------------------
@@ -255,10 +259,10 @@ insert into sys_role_menu values (2, 18);
 insert into sys_role_menu values (2, 19);
 insert into sys_role_menu values (2, 20);
 insert into sys_role_menu values (2, 21);
-insert into sys_role_menu values (2, 22);
 insert into sys_role_menu values (2, 23);
 insert into sys_role_menu values (2, 24);
 insert into sys_role_menu values (2, 25);
+insert into sys_role_menu values (2, 26);
 insert into sys_role_menu values (2, 101);
 insert into sys_role_menu values (2, 102);
 insert into sys_role_menu values (2, 103);
@@ -308,6 +312,8 @@ insert into sys_role_menu values (2, 146);
 insert into sys_role_menu values (2, 147);
 insert into sys_role_menu values (2, 148);
 insert into sys_role_menu values (2, 149);
+insert into sys_role_menu values (2, 150);
+insert into sys_role_menu values (2, 151);
 insert into sys_role_menu values (3, 1);
 insert into sys_role_menu values (3, 2);
 insert into sys_role_menu values (3, 3);
@@ -323,8 +329,8 @@ insert into sys_role_menu values (3, 18);
 insert into sys_role_menu values (3, 19);
 insert into sys_role_menu values (3, 20);
 insert into sys_role_menu values (3, 21);
-insert into sys_role_menu values (3, 22);
 insert into sys_role_menu values (3, 23);
+insert into sys_role_menu values (3, 24);
 insert into sys_role_menu values (3, 101);
 insert into sys_role_menu values (3, 105);
 insert into sys_role_menu values (3, 109);
@@ -334,6 +340,7 @@ insert into sys_role_menu values (3, 121);
 insert into sys_role_menu values (3, 123);
 insert into sys_role_menu values (3, 124);
 insert into sys_role_menu values (3, 130);
+insert into sys_role_menu values (3, 132);
 
 
 -- -----------------------------
@@ -407,7 +414,6 @@ insert into sys_dict_data values (11, 'app_friend_apply_status', '已同意',   
 insert into sys_dict_data values (12, 'app_friend_apply_status', '已拒绝',   '2', '', 'danger',  3, '0', 'admin', sysdate(), '', null, '已拒绝');
 
 
-
 -- -----------------------------
 -- 登陆日志表
 -- -----------------------------
@@ -426,6 +432,36 @@ create table sys_log_login (
     message       varchar(128)  default ''               comment '返回消息',
     primary key (login_id)
 ) engine = InnoDB auto_increment = 100 comment = '登陆日志表';
+
+
+-- -----------------------------
+-- 接口日志表
+-- -----------------------------
+drop table if exists sys_log_api;
+create table sys_log_api (
+    api_id         bigint(20)     not null auto_increment  comment '日志ID',
+    user_id        bigint(20)     default  null            comment '用户ID',
+    class_name     varchar(128)   default ''               comment '类名称',
+    method_name    varchar(128)   default ''               comment '方法名称',
+    request_uri    varchar(255)   default ''               comment '请求URI',
+    request_type   varchar(32)    default ''               comment '请求类型',
+    request_param  varchar(2000)  default ''               comment '请求体',
+    response_body  text                                    comment '响应体',
+    login_type     varchar(32)    default ''               comment '登陆类型',
+    ip             varchar(64)    default ''               comment '登录IP地址',
+    location       varchar(64)    default ''               comment '登录地点',
+    start_time     datetime                                comment '开始时间',
+    end_time       datetime                                comment '结束时间',
+    cost_time      bigint(20)     default 0                comment '耗时',
+    status_code    varchar(32)    default ''               comment '状态码',
+    message        varchar(128)   default ''               comment '消息',
+    create_by      varchar(64)    default ''               comment '创建者',
+    create_time    datetime                                comment '创建时间',
+    update_by      varchar(64)    default ''               comment '更新者',
+    update_time    datetime                                comment '更新时间',
+    remark         varchar(500)   default ''               comment '备注',
+    primary key (api_id)
+) engine = InnoDB auto_increment = 100 comment = '接口日志表';
 
 
 -- -----------------------------
