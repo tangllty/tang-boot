@@ -44,7 +44,7 @@ public class AutoFillInterceptor implements Interceptor {
             case INSERT -> {
                 var clazz = invocationObject.getClass();
                 if (hasMethod(clazz, SET_CREATE_BY)) {
-                    clazz.getMethod(SET_CREATE_BY, String.class).invoke(invocationObject, Objects.isNull(SecurityUtils.getUserModel()) ? null : SecurityUtils.getUser().getUsername());
+                    clazz.getMethod(SET_CREATE_BY, String.class).invoke(invocationObject, SecurityUtils.isAuthenticated() ? SecurityUtils.getUser().getUsername() : null);
                 }
                 if (hasMethod(clazz, SET_CREATE_TIME)) {
                     clazz.getMethod(SET_CREATE_TIME, LocalDateTime.class).invoke(invocationObject, LocalDateTime.now());
