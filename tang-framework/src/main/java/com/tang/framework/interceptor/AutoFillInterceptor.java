@@ -4,6 +4,7 @@ import java.lang.reflect.Method;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Objects;
 
 import org.apache.ibatis.executor.Executor;
 import org.apache.ibatis.mapping.MappedStatement;
@@ -43,7 +44,7 @@ public class AutoFillInterceptor implements Interceptor {
             case INSERT -> {
                 var clazz = invocationObject.getClass();
                 if (hasMethod(clazz, SET_CREATE_BY)) {
-                    clazz.getMethod(SET_CREATE_BY, String.class).invoke(invocationObject, SecurityUtils.getUser().getUsername());
+                    clazz.getMethod(SET_CREATE_BY, String.class).invoke(invocationObject, Objects.isNull(SecurityUtils.getUserModel()) ? null : SecurityUtils.getUser().getUsername());
                 }
                 if (hasMethod(clazz, SET_CREATE_TIME)) {
                     clazz.getMethod(SET_CREATE_TIME, LocalDateTime.class).invoke(invocationObject, LocalDateTime.now());
