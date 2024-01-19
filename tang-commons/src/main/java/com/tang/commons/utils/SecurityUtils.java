@@ -3,6 +3,8 @@ package com.tang.commons.utils;
 import java.util.Map;
 import java.util.Set;
 
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
@@ -30,12 +32,36 @@ public class SecurityUtils {
     public static final String ALL_PERMISSIONS = "*:*:*";
 
     /**
+     * 获取 SecurityContext
+     */
+    private static SecurityContext getSecurityContext() {
+        return SecurityContextHolder.getContext();
+    }
+
+    /**
+     * 获取 Authentication
+     */
+    private static Authentication getAuthentication() {
+        return getSecurityContext().getAuthentication();
+    }
+
+    /**
+     * 获取 Principal
+     */
+    private static Object getPrincipal() {
+        return getAuthentication().getPrincipal();
+    }
+
+    /**
      * 获取登陆用户信息
      *
      * @return 登陆用户信息
      */
     public static UserModel getUserModel() {
-        return (UserModel) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (!isAuthenticated()) {
+            throw new SecurityException("用户未登录");
+        }
+        return (UserModel) getPrincipal();
     }
 
     /**
@@ -98,8 +124,10 @@ public class SecurityUtils {
      * @return 结果
      */
     public static boolean isAuthenticated() {
-        return SecurityContextHolder.getContext().getAuthentication() != null
-            && SecurityContextHolder.getContext().getAuthentication().isAuthenticated();
+        return getAuthentication() != null
+            && getAuthentication().isAuthenticated()
+            && !"anonymousUser".equals(getPrincipal())
+            && getPrincipal() instanceof UserModel;
     }
 
     /**
