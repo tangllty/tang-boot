@@ -54,7 +54,7 @@ public class DemoModeInterceptor implements HandlerInterceptor {
             "/system/log/login/list", "/monitor/online/list", "/monitor/server", "/tool/generator/list", "/tool/generator/table/list",
             "/tool/generator/downloads", "/app/chat/chat-list/list-all", "/app/chat/message/list", "/app/chat/friend-apply/list",
             "/app/chat/friend-apply/list-fuzzy", "/app/chat/friend/list", "/captcha", "/profile/login-log", "/index/user-visit",
-            "/index/get-wechat-gitee", "/index/get-wechat-github"
+            "/index/get-wechat-gitee", "/index/get-wechat-github", "/system/log/api/list"
         );
         final var postWhiteList = List.of("/login", "/app/chat/message");
         final var putWhiteList = List.of();
