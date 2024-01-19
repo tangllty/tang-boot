@@ -42,13 +42,11 @@ class ControllerAspect {
         var response: Any? = null
         message = try {
             response = proceedingJoinPoint.proceed()
-            if (response is AjaxResult) {
-                response["msg"]
+            when (response) {
+                is AjaxResult -> response["msg"].toString()
+                is TableDataResult -> response.msg.toString()
+                else -> "成功"
             }
-            if (response is TableDataResult) {
-                response.msg
-            }
-            "成功"
         } catch (e: Exception) {
             LogUtils.error("请求失败", e)
             throwable = e
