@@ -6,6 +6,10 @@ import java.util.List;
 import org.hibernate.validator.constraints.Length;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import com.tang.commons.annotation.poi.Excel;
 import com.tang.commons.annotation.poi.Excel.CellType;
 import com.tang.commons.annotation.poi.Excel.Type;
@@ -109,6 +113,8 @@ public class SysUser extends BaseEntity {
      * 最后登录时间
      */
     @Excel(name = "最后登录时间", cellType = CellType.DATE)
+    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
+    @JsonSerialize(using = LocalDateTimeSerializer.class)
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime loginDate;
 
