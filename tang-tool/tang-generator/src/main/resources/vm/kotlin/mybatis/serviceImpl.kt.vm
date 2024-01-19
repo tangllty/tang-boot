@@ -12,7 +12,7 @@ import ${packageName}.service.${ClassName}Service;
  * @author $author
  */
 @Service
-open class ${ClassName}ServiceImpl(private val ${className}Mapper: ${ClassName}Mapper): ${ClassName}Service
+open class ${ClassName}ServiceImpl(private val ${className}Mapper: ${ClassName}Mapper): ${ClassName}Service {
 
     /**
      * 查询${classComment}列表
@@ -70,7 +70,7 @@ open class ${ClassName}ServiceImpl(private val ${className}Mapper: ${ClassName}M
      * @param ${primaryKey}s ${classComment}主键数组
      * @return 影响行数
      */
-    override fun delete${ClassName}By${PrimaryKey}s(${primaryKey}s: LongArray): Int {
+    override fun delete${ClassName}By${PrimaryKey}s(${primaryKey}s: Array<Long>): Int {
         return ${className}Mapper.delete${ClassName}By${PrimaryKey}s(${primaryKey}s)
     }
 

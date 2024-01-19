@@ -15,7 +15,7 @@ interface ${ClassName}Mapper {
      * @param $className ${classComment}对象
      * @return ${classComment}列表
      */
-    fun select${ClassName}List($ClassName $className): List<$ClassName>
+    fun select${ClassName}List($className: $ClassName): List<$ClassName>
 
     /**
      * 通过${classComment}主键查询${classComment}信息
@@ -23,7 +23,7 @@ interface ${ClassName}Mapper {
      * @param $primaryKey ${classComment}主键
      * @return ${classComment}信息
      */
-    fun select${ClassName}By${PrimaryKey}(Long $primaryKey): $ClassName
+    fun select${ClassName}By${PrimaryKey}($primaryKey: Long): $ClassName
 
     /**
      * 新增${classComment}信息
@@ -31,7 +31,7 @@ interface ${ClassName}Mapper {
      * @param $className ${classComment}信息
      * @return 影响行数
      */
-    fun insert${ClassName}($ClassName $className): Int
+    fun insert${ClassName}($className: $ClassName): Int
 
     /**
      * 通过${classComment}主键修改${classComment}信息
@@ -39,7 +39,7 @@ interface ${ClassName}Mapper {
      * @param $className ${classComment}信息
      * @return 影响行数
      */
-    fun update${ClassName}By${PrimaryKey}($ClassName $className): Int
+    fun update${ClassName}By${PrimaryKey}($className: $ClassName): Int
 
     /**
      * 通过${classComment}主键删除${classComment}信息
@@ -47,7 +47,7 @@ interface ${ClassName}Mapper {
      * @param $primaryKey ${classComment}主键
      * @return 影响行数
      */
-    fun delete${ClassName}By${PrimaryKey}(Long $primaryKey): Int
+    fun delete${ClassName}By${PrimaryKey}($primaryKey: Long): Int
 
     /**
      * 通过${classComment}主键数组批量删除${classComment}信息
@@ -55,6 +55,6 @@ interface ${ClassName}Mapper {
      * @param ${primaryKey}s ${classComment}主键数组
      * @return 影响行数
      */
-    fun delete${ClassName}By${PrimaryKey}s(Long[] ${primaryKey}s): Int
+    fun delete${ClassName}By${PrimaryKey}s(${primaryKey}s: Array<Long>): Int
 
 }

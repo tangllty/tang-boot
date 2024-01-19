@@ -512,18 +512,18 @@ const submitForm = async (formEl: FormInstance | undefined) => {
   if (!formEl) return
   try {
     await formEl.validate()
-      if (${className}Dialog.value.type == 'add') {
-        await add${ClassName}(state.${className}Form)
-        proxy.${dollar}message.success('添加${classComment}信息成功')
-        close${ClassName}Dialog()
-        await handleList()
-      }
-      if (${className}Dialog.value.type == 'edit') {
-        await edit${ClassName}(state.${className}Form)
-        proxy.${dollar}message.success('修改${classComment}信息成功')
-        close${ClassName}Dialog()
-        await handleList()
-      }
+    if (${className}Dialog.value.type == 'add') {
+      await add${ClassName}(state.${className}Form)
+      proxy.${dollar}message.success('添加${classComment}信息成功')
+      close${ClassName}Dialog()
+      await handleList()
+    }
+    if (${className}Dialog.value.type == 'edit') {
+      await edit${ClassName}(state.${className}Form)
+      proxy.${dollar}message.success('修改${classComment}信息成功')
+      close${ClassName}Dialog()
+      await handleList()
+    }
   } catch (error) {
     console.log('error submit!', error)
   }

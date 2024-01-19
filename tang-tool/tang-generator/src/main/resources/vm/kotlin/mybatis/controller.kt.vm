@@ -74,7 +74,7 @@ open class ${ClassName}Controller(private val ${className}Service: ${ClassName}S
      */
     @PreAuthorize("@auth.hasPermission('$moduleName.replace("/", ":"):$permissionName:add')")
     @PostMapping
-    open fun insert${ClassName}(@RequestBody $ClassName $className): AjaxResult {
+    open fun insert${ClassName}(@RequestBody $className: $ClassName): AjaxResult {
 #foreach ($column in $columnList)
 #set($javaField = $column.javaField)
 #set($JavaField = $column.javaField.substring(0, 1).toUpperCase() + ${column.javaField.substring(1)})
@@ -93,7 +93,7 @@ open class ${ClassName}Controller(private val ${className}Service: ${ClassName}S
      */
     @PreAuthorize("@auth.hasPermission('$moduleName.replace("/", ":"):$permissionName:edit')")
     @PutMapping
-    open fun update${ClassName}By${PrimaryKey}(@RequestBody $ClassName $className): AjaxResult {
+    open fun update${ClassName}By${PrimaryKey}(@RequestBody $className: $ClassName): AjaxResult {
 #foreach ($column in $columnList)
 #set($javaField = $column.javaField)
 #set($JavaField = $column.javaField.substring(0, 1).toUpperCase() + ${column.javaField.substring(1)})
