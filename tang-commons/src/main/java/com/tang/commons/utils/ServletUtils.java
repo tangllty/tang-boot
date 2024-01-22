@@ -3,6 +3,9 @@ package com.tang.commons.utils;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
+import org.slf4j.Logger;
+import org.springframework.lang.Nullable;
+import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -21,6 +24,17 @@ import jakarta.servlet.http.HttpSession;
 public class ServletUtils {
 
     private ServletUtils() {
+    }
+
+    private static final Logger LOGGER = LogUtils.getLogger();
+
+    /**
+     * 设置 {@link RequestAttributes}
+     *
+     * @param attributes {@link RequestAttributes}
+     */
+    public static void setRequestAttributes(@Nullable RequestAttributes attributes, boolean inheritable) {
+        RequestContextHolder.setRequestAttributes(attributes, inheritable);
     }
 
     /**
@@ -79,7 +93,7 @@ public class ServletUtils {
             response.setCharacterEncoding(StandardCharsets.UTF_8.name());
             response.getWriter().print(string);
         } catch (IOException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         }
     }
 
