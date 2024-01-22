@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component
 
 import com.tang.commons.utils.AjaxResult
 import com.tang.commons.utils.LogUtils
+import com.tang.commons.utils.SecurityUtils
 import com.tang.commons.utils.ServletUtils
 import com.tang.commons.utils.SpringUtils
 import com.tang.commons.utils.page.TableDataResult
@@ -49,7 +50,9 @@ class ControllerAspect {
 
         val requestURI = ServletUtils.getRequest().requestURI
         val method = ServletUtils.getRequest().method
-        sysLogApiService.insertSysLogApi(proceedingJoinPoint, requestURI, method, response, startTimestamp, endTimestamp, throwable, message)
+        val authenticated = SecurityUtils.isAuthenticated()
+        val userModel = SecurityUtils.getUserModel()
+        sysLogApiService.insertSysLogApi(proceedingJoinPoint, requestURI, method, authenticated, userModel, response, startTimestamp, endTimestamp, throwable, message)
 
         if (throwable != null) {
             throw throwable

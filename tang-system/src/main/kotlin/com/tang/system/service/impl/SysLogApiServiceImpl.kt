@@ -1,13 +1,14 @@
-package com.tang.system.service.impl;
+package com.tang.system.service.impl
 
 import java.time.LocalDateTime
 import java.time.ZoneOffset
+import java.util.Objects
 
 import org.aspectj.lang.ProceedingJoinPoint
 import org.springframework.scheduling.annotation.Async
 import org.springframework.stereotype.Service
 
-import com.tang.commons.utils.SecurityUtils
+import com.tang.commons.model.UserModel
 import com.tang.system.entity.SysLogApi
 import com.tang.system.mapper.SysLogApiMapper
 import com.tang.system.service.SysLogApiService
@@ -56,6 +57,8 @@ open class SysLogApiServiceImpl(private val sysLogApiMapper: SysLogApiMapper): S
      * @param proceedingJoinPoint 切点
      * @param requestURI 请求地址
      * @param method 请求方式
+     * @param authenticated 是否认证
+     * @param userModel 用户信息
      * @param response 响应结果
      * @param startTimestamp 开始时间
      * @param endTimestamp 结束时间
@@ -63,8 +66,9 @@ open class SysLogApiServiceImpl(private val sysLogApiMapper: SysLogApiMapper): S
      * @param message 消息
      */
     @Async
-    override fun insertSysLogApi(proceedingJoinPoint: ProceedingJoinPoint, requestURI: String?, method: String?, response: Any?,
-        startTimestamp: LocalDateTime, endTimestamp: LocalDateTime, throwable: Throwable?, message: String) {
+    override fun insertSysLogApi(proceedingJoinPoint: ProceedingJoinPoint, requestURI: String?, method: String?,
+        authenticated: Boolean, userModel: UserModel, response: Any?, startTimestamp: LocalDateTime, endTimestamp: LocalDateTime,
+        throwable: Throwable?, message: String) {
         val signature = proceedingJoinPoint.signature
         val className = proceedingJoinPoint.target.javaClass.name
         val methodName = signature.name
@@ -72,20 +76,20 @@ open class SysLogApiServiceImpl(private val sysLogApiMapper: SysLogApiMapper): S
         val between = endTimestamp.toInstant(ZoneOffset.UTC).toEpochMilli() - startTimestamp.toInstant(ZoneOffset.UTC).toEpochMilli()
 
         val sysLogApi = SysLogApi()
-        sysLogApi.userId = if (SecurityUtils.isAuthenticated()) SecurityUtils.getUser().userId else null
+        sysLogApi.userId = if (authenticated) userModel.user.userId else null
         sysLogApi.className = className
         sysLogApi.methodName = methodName
         sysLogApi.requestUri = requestURI
         sysLogApi.requestType = method
         sysLogApi.requestParam = requestParams
         sysLogApi.responseBody = response?.toString()
-        sysLogApi.loginType = if (SecurityUtils.isAuthenticated()) SecurityUtils.getUserModel().loginType else null
-        sysLogApi.ip = if (SecurityUtils.isAuthenticated()) SecurityUtils.getUserModel().ip else null
-        sysLogApi.location = if (SecurityUtils.isAuthenticated()) SecurityUtils.getUserModel().location else null
+        sysLogApi.loginType = if (authenticated) userModel.loginType else null
+        sysLogApi.ip = if (authenticated) userModel.ip else null
+        sysLogApi.location = if (authenticated) userModel.location else null
         sysLogApi.startTime = startTimestamp
         sysLogApi.endTime = endTimestamp
         sysLogApi.costTime = between
-        sysLogApi.statusCode = if (throwable == null) "200" else "500"
+        sysLogApi.statusCode = if (Objects.isNull(throwable)) "200" else "500"
         sysLogApi.message = message
         sysLogApiMapper.insertSysLogApi(sysLogApi)
     }
