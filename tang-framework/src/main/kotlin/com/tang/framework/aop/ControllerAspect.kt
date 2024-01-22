@@ -50,9 +50,8 @@ class ControllerAspect {
 
         val requestURI = ServletUtils.getRequest().requestURI
         val method = ServletUtils.getRequest().method
-        val authenticated = SecurityUtils.isAuthenticated()
-        val userModel = SecurityUtils.getUserModel()
-        sysLogApiService.insertSysLogApi(proceedingJoinPoint, requestURI, method, authenticated, userModel, response, startTimestamp, endTimestamp, throwable, message)
+        val userModel = if (SecurityUtils.isAuthenticated()) SecurityUtils.getUserModel() else null
+        sysLogApiService.insertSysLogApi(proceedingJoinPoint, requestURI, method, userModel, response, startTimestamp, endTimestamp, throwable, message)
 
         if (throwable != null) {
             throw throwable

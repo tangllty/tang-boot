@@ -57,7 +57,6 @@ open class SysLogApiServiceImpl(private val sysLogApiMapper: SysLogApiMapper): S
      * @param proceedingJoinPoint 切点
      * @param requestURI 请求地址
      * @param method 请求方式
-     * @param authenticated 是否认证
      * @param userModel 用户信息
      * @param response 响应结果
      * @param startTimestamp 开始时间
@@ -67,7 +66,7 @@ open class SysLogApiServiceImpl(private val sysLogApiMapper: SysLogApiMapper): S
      */
     @Async
     override fun insertSysLogApi(proceedingJoinPoint: ProceedingJoinPoint, requestURI: String?, method: String?,
-        authenticated: Boolean, userModel: UserModel, response: Any?, startTimestamp: LocalDateTime, endTimestamp: LocalDateTime,
+        userModel: UserModel?, response: Any?, startTimestamp: LocalDateTime, endTimestamp: LocalDateTime,
         throwable: Throwable?, message: String) {
         val signature = proceedingJoinPoint.signature
         val className = proceedingJoinPoint.target.javaClass.name
@@ -76,16 +75,16 @@ open class SysLogApiServiceImpl(private val sysLogApiMapper: SysLogApiMapper): S
         val between = endTimestamp.toInstant(ZoneOffset.UTC).toEpochMilli() - startTimestamp.toInstant(ZoneOffset.UTC).toEpochMilli()
 
         val sysLogApi = SysLogApi()
-        sysLogApi.userId = if (authenticated) userModel.user.userId else null
+        sysLogApi.userId = userModel?.user?.userId
         sysLogApi.className = className
         sysLogApi.methodName = methodName
         sysLogApi.requestUri = requestURI
         sysLogApi.requestType = method
         sysLogApi.requestParam = requestParams
         sysLogApi.responseBody = response?.toString()
-        sysLogApi.loginType = if (authenticated) userModel.loginType else null
-        sysLogApi.ip = if (authenticated) userModel.ip else null
-        sysLogApi.location = if (authenticated) userModel.location else null
+        sysLogApi.loginType = userModel?.loginType
+        sysLogApi.ip = userModel?.ip
+        sysLogApi.location = userModel?.location
         sysLogApi.startTime = startTimestamp
         sysLogApi.endTime = endTimestamp
         sysLogApi.costTime = between
