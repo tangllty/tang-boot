@@ -1,6 +1,6 @@
-package com.tang.system.mapper;
+package com.tang.system.mapper
 
-import com.tang.system.entity.SysLogApi;
+import com.tang.system.entity.SysLogApi
 
 /**
  * 接口日志数据访问层
