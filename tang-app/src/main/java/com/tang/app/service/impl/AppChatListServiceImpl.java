@@ -11,7 +11,7 @@ import com.tang.app.mapper.AppChatListMapper;
 import com.tang.app.mapper.AppChatMessageMapper;
 import com.tang.app.service.AppChatListService;
 import com.tang.commons.utils.SecurityUtils;
-import com.tang.commons.utils.date.DateUtils;
+import com.tang.commons.utils.time.DateUtils;
 import com.tang.system.mapper.SysUserMapper;
 
 /**

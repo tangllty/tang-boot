@@ -1,4 +1,4 @@
-package com.tang.commons.utils.date;
+package com.tang.commons.utils.time;
 
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
