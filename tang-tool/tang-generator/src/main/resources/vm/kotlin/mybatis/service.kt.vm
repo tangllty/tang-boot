@@ -1,6 +1,6 @@
-package ${packageName}.service;
+package ${packageName}.service
 
-import ${packageName}.entity.$ClassName;
+import ${packageName}.entity.$ClassName
 
 /**
  * ${classComment}业务逻辑层接口

@@ -1,6 +1,6 @@
-package ${packageName}.mapper;
+package ${packageName}.mapper
 
-import ${packageName}.entity.$ClassName;
+import ${packageName}.entity.$ClassName
 
 /**
  * ${classComment}数据访问层

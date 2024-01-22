@@ -1,20 +1,20 @@
-package ${packageName}.controller;
+package ${packageName}.controller
 
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.access.prepost.PreAuthorize
+import org.springframework.web.bind.annotation.DeleteMapping
+import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PathVariable
+import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.PutMapping
+import org.springframework.web.bind.annotation.RequestBody
+import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RestController
 
-import com.tang.commons.utils.AjaxResult;
-import com.tang.commons.utils.page.PageUtils;
-import com.tang.commons.utils.page.TableDataResult;
-import ${packageName}.entity.$ClassName;
-import ${packageName}.service.${ClassName}Service;
+import com.tang.commons.utils.AjaxResult
+import com.tang.commons.utils.page.PageUtils
+import com.tang.commons.utils.page.TableDataResult
+import ${packageName}.entity.$ClassName
+import ${packageName}.service.${ClassName}Service
 
 /**
  * ${classComment}逻辑控制层
@@ -39,7 +39,7 @@ open class ${ClassName}Controller(private val ${className}Service: ${ClassName}S
 #set($javaField = $column.javaField)
 #set($JavaField = $column.javaField.substring(0, 1).toUpperCase() + ${column.javaField.substring(1)})
 #if ($column.htmlType == 'checkbox')
-        ${className}.${javaField}ListTo${JavaField}();
+        ${className}.${javaField}ListTo${JavaField}()
 #end
 #end
         val list = ${className}Service.select${ClassName}List($className)
@@ -60,7 +60,7 @@ open class ${ClassName}Controller(private val ${className}Service: ${ClassName}S
 #set($javaField = $column.javaField)
 #set($JavaField = $column.javaField.substring(0, 1).toUpperCase() + ${column.javaField.substring(1)})
 #if ($column.htmlType == 'checkbox')
-        ${className}.${javaField}To${JavaField}List();
+        ${className}.${javaField}To${JavaField}List()
 #end
 #end
         return AjaxResult.success($className)
@@ -79,7 +79,7 @@ open class ${ClassName}Controller(private val ${className}Service: ${ClassName}S
 #set($javaField = $column.javaField)
 #set($JavaField = $column.javaField.substring(0, 1).toUpperCase() + ${column.javaField.substring(1)})
 #if ($column.htmlType == 'checkbox')
-        ${className}.${javaField}ListTo${JavaField}();
+        ${className}.${javaField}ListTo${JavaField}()
 #end
 #end
         return AjaxResult.rows(${className}Service.insert${ClassName}($className))
@@ -98,7 +98,7 @@ open class ${ClassName}Controller(private val ${className}Service: ${ClassName}S
 #set($javaField = $column.javaField)
 #set($JavaField = $column.javaField.substring(0, 1).toUpperCase() + ${column.javaField.substring(1)})
 #if ($column.htmlType == 'checkbox')
-        ${className}.${javaField}ListTo${JavaField}();
+        ${className}.${javaField}ListTo${JavaField}()
 #end
 #end
         return AjaxResult.rows(${className}Service.update${ClassName}By${PrimaryKey}($className))

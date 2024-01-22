@@ -1,10 +1,10 @@
-package ${packageName}.service.impl;
+package ${packageName}.service.impl
 
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Service
 
-import ${packageName}.entity.$ClassName;
-import ${packageName}.mapper.${ClassName}Mapper;
-import ${packageName}.service.${ClassName}Service;
+import ${packageName}.entity.$ClassName
+import ${packageName}.mapper.${ClassName}Mapper
+import ${packageName}.service.${ClassName}Service
 
 /**
  * ${classComment}业务逻辑层接口实现
