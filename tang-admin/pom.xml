@@ -73,7 +73,7 @@
             <plugin>
                 <groupId>org.graalvm.buildtools</groupId>
                 <artifactId>native-maven-plugin</artifactId>
-                <version>0.9.20</version>
+                <version>0.9.28</version>
                 <configuration>
                     <mainClass>com.tang.AdminApplication</mainClass>
                 </configuration>
