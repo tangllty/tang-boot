@@ -168,8 +168,8 @@ insert into sys_menu values (56, 54, '0,4,54', '好友申请', 'apply', 'app/cha
 insert into sys_menu values (57, 54, '0,4,54', '我的好友', 'friend', 'app/chat/friend/index', 'app:chat:friend:menu', '我的好友', 'M', '0', 1, '0', '0', 'admin', sysdate(), '', null, '我的好友目录');
 insert into sys_menu values (33, 31, '0,1,10,31', '登陆日志查询', '', '', 'system:log:login:list', '', 'B', '0', 1, '0', '0', 'admin', sysdate(), '', null, '登陆日志查询按钮');
 insert into sys_menu values (34, 31, '0,1,10,31', '登陆日志删除', '', '', 'system:log:login:delete', '', 'B', '0', 1, '0', '0', 'admin', sysdate(), '', null, '登陆日志删除按钮');
-insert into sys_menu values (35, 32, '0,1,10,32', '数据列表', 'data', 'system/log/api/data/index', 'system:log:api:data:menu', '接口日志查询', 'M', '0', 1, '0', '0', 'admin', sysdate(), '', null, '接口日志查询菜单');
-insert into sys_menu values (36, 32, '0,1,10,32', '分析列表', 'analysis', 'system/log/api/analysis/index', 'system:log:api:analysis:menu', '接口日志分析', 'M', '0', 1, '0', '0', 'admin', sysdate(), '', null, '接口日志分析菜单');
+insert into sys_menu values (35, 32, '0,1,10,32', '数据列表', 'data', 'system/log/api/data/index', 'system:log:api:data:menu', '数据列表', 'M', '0', 1, '0', '0', 'admin', sysdate(), '', null, '接口日志查询菜单');
+insert into sys_menu values (36, 32, '0,1,10,32', '分析列表', 'analysis', 'system/log/api/analysis/index', 'system:log:api:analysis:menu', '分析列表', 'M', '0', 1, '0', '0', 'admin', sysdate(), '', null, '接口日志分析菜单');
 insert into sys_menu values (58, 55, '0,4,54,55', '聊天列表查询', '', '', 'app:chat:chat-list:list', '', 'B', '0', 1, '0', '0', 'admin', sysdate(), '', null, '聊天列表查询按钮');
 insert into sys_menu values (59, 55, '0,4,54,55', '聊天列表新增', '', '', 'app:chat:chat-list:add', '', 'B', '0', 1, '0', '0', 'admin', sysdate(), '', null, '聊天列表新增按钮');
 insert into sys_menu values (60, 55, '0,4,54,55', '聊天列表修改', '', '', 'app:chat:chat-list:edit', '', 'B', '0', 1, '0', '0', 'admin', sysdate(), '', null, '聊天列表修改按钮');
