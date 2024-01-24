@@ -68,6 +68,7 @@ open class SysLogApiServiceImpl(private val sysLogApiMapper: SysLogApiMapper): S
      * @param proceedingJoinPoint 切点
      * @param requestURI 请求地址
      * @param method 请求方式
+     * @param query 请求参数
      * @param userModel 用户信息
      * @param response 响应结果
      * @param startTimestamp 开始时间
@@ -76,7 +77,7 @@ open class SysLogApiServiceImpl(private val sysLogApiMapper: SysLogApiMapper): S
      * @param message 消息
      */
     @Async
-    override fun insertSysLogApi(proceedingJoinPoint: ProceedingJoinPoint, requestURI: String?, method: String?,
+    override fun insertSysLogApi(proceedingJoinPoint: ProceedingJoinPoint, requestURI: String?, method: String?, query: String?,
         userModel: UserModel?, response: Any?, startTimestamp: LocalDateTime, endTimestamp: LocalDateTime,
         throwable: Throwable?, message: String) {
         val signature = proceedingJoinPoint.signature
@@ -92,6 +93,7 @@ open class SysLogApiServiceImpl(private val sysLogApiMapper: SysLogApiMapper): S
         sysLogApi.requestUri = requestURI
         sysLogApi.requestType = method
         sysLogApi.requestParam = requestParams
+        sysLogApi.requestQuery = query
         sysLogApi.responseBody = response?.toString()
         sysLogApi.loginType = userModel?.loginType
         sysLogApi.ip = userModel?.ip

@@ -10,6 +10,7 @@
         <result property="requestUri" column="request_uri" />
         <result property="requestType" column="request_type" />
         <result property="requestParam" column="request_param" />
+        <result property="requestQuery" column="request_query" />
         <result property="responseBody" column="response_body" />
         <result property="loginType" column="login_type" />
         <result property="ip" column="ip" />
@@ -39,7 +40,7 @@
     </resultMap>
 
     <sql id="SysLogApiVo">
-        select sla.api_id, sla.user_id, sla.class_name, sla.method_name, sla.request_uri, sla.request_type, sla.request_param, sla.response_body, sla.login_type, sla.ip, sla.location, sla.start_time, sla.end_time, sla.cost_time, sla.status_code, sla.message, sla.create_by, sla.create_time, sla.update_by, sla.update_time, sla.remark
+        select sla.api_id, sla.user_id, sla.class_name, sla.method_name, sla.request_uri, sla.request_type, sla.request_param, sla.request_query, sla.response_body, sla.login_type, sla.ip, sla.location, sla.start_time, sla.end_time, sla.cost_time, sla.status_code, sla.message, sla.create_by, sla.create_time, sla.update_by, sla.update_time, sla.remark
         from sys_log_api sla
     </sql>
 
@@ -51,7 +52,6 @@
             min(sla.cost_time) as min_time,
             max(sla.cost_time) as max_time
         from sys_log_api sla
-        group by sla.class_name, sla.method_name,sla.request_uri, sla.request_type
     </sql>
 
     <select id="selectSysLogApiList" resultMap="SysLogApiMap">
@@ -77,6 +77,9 @@
             </if>
             <if test="requestParam != null and requestParam != ''">
                 and sla.request_param = #{requestParam}
+            </if>
+            <if test="requestQuery != null and requestQuery != ''">
+                and sla.request_query = #{requestQuery}
             </if>
             <if test="responseBody != null and responseBody != ''">
                 and sla.response_body = #{responseBody}
@@ -126,6 +129,21 @@
 
     <select id="selectSysLogApiListAnalysis" resultMap="SysLogApiAnalysisMap">
         <include refid="SysLogApiAnalysisVo" />
+        <where>
+            <if test="className != null and className != ''">
+                and sla.class_name = #{className}
+            </if>
+            <if test="methodName != null and methodName != ''">
+                and sla.method_name = #{methodName}
+            </if>
+            <if test="requestUri != null and requestUri != ''">
+                and sla.request_uri = #{requestUri}
+            </if>
+            <if test="requestType != null and requestType != ''">
+                and sla.request_type = #{requestType}
+            </if>
+        </where>
+        group by sla.class_name, sla.method_name,sla.request_uri, sla.request_type
     </select>
 
     <select id="selectSysLogApiByApiId" resultMap="SysLogApiMap">
@@ -143,6 +161,7 @@
             <if test="requestUri != null and requestUri != ''">request_uri,</if>
             <if test="requestType != null and requestType != ''">request_type,</if>
             <if test="requestParam != null and requestParam != ''">request_param,</if>
+            <if test="requestQuery != null and requestQuery != ''">request_query,</if>
             <if test="responseBody != null and responseBody != ''">response_body,</if>
             <if test="loginType != null and loginType != ''">login_type,</if>
             <if test="ip != null and ip != ''">ip,</if>
@@ -167,6 +186,7 @@
             <if test="requestUri != null and requestUri != ''">#{requestUri},</if>
             <if test="requestType != null and requestType != ''">#{requestType},</if>
             <if test="requestParam != null and requestParam != ''">#{requestParam},</if>
+            <if test="requestQuery != null and requestQuery != ''">#{requestQuery},</if>
             <if test="responseBody != null and responseBody != ''">#{responseBody},</if>
             <if test="loginType != null and loginType != ''">#{loginType},</if>
             <if test="ip != null and ip != ''">#{ip},</if>
@@ -194,6 +214,7 @@
             <if test="requestUri != null and requestUri != ''">request_uri = #{requestUri},</if>
             <if test="requestType != null and requestType != ''">request_type = #{requestType},</if>
             <if test="requestParam != null and requestParam != ''">request_param = #{requestParam},</if>
+            <if test="requestQuery != null and requestQuery != ''">request_query = #{requestQuery},</if>
             <if test="responseBody != null and responseBody != ''">response_body = #{responseBody},</if>
             <if test="loginType != null and loginType != ''">login_type = #{loginType},</if>
             <if test="ip != null and ip != ''">ip = #{ip},</if>

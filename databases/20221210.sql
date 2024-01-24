@@ -438,6 +438,7 @@ create table sys_log_api (
     request_uri    varchar(255)   default ''               comment '请求URI',
     request_type   varchar(32)    default ''               comment '请求类型',
     request_param  varchar(2000)  default ''               comment '请求体',
+    request_query  varchar(2000)  default ''               comment '请求参数',
     response_body  text                                    comment '响应体',
     login_type     varchar(32)    default ''               comment '登陆类型',
     ip             varchar(64)    default ''               comment '登录IP地址',

@@ -56,6 +56,11 @@ class SysLogApi: BaseEntity() {
     var requestParam: String? = null
 
     /**
+     * 请求参数
+     */
+    var requestQuery: String? = null
+
+    /**
      * 响应体
      */
     var responseBody: String? = null

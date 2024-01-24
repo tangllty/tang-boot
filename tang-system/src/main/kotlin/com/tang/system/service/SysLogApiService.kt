@@ -53,6 +53,7 @@ interface SysLogApiService {
      * @param proceedingJoinPoint 切点
      * @param requestURI 请求地址
      * @param method 请求方式
+     * @param query 请求参数
      * @param userModel 用户信息
      * @param response 响应结果
      * @param startTimestamp 开始时间
@@ -60,7 +61,7 @@ interface SysLogApiService {
      * @param throwable 异常信息
      * @param message 消息
      */
-    fun insertSysLogApi(proceedingJoinPoint: ProceedingJoinPoint, requestURI: String?, method: String?,
+    fun insertSysLogApi(proceedingJoinPoint: ProceedingJoinPoint, requestURI: String?, method: String?, query: String?,
         userModel: UserModel?, response: Any?, startTimestamp: LocalDateTime, endTimestamp: LocalDateTime,
         throwable: Throwable?, message: String)
 
