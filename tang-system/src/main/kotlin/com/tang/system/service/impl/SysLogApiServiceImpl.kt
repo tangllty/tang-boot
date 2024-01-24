@@ -35,8 +35,8 @@ open class SysLogApiServiceImpl(private val sysLogApiMapper: SysLogApiMapper): S
     /**
      * 分析接口日志列表
      *
-     * @param sysLogApi 接口日志对象
-     * @return 接口日志列表
+     * @param sysLogApiAnalysis 分析接口日志
+     * @return 分析接口日志列表
      */
     override fun selectSysLogApiListAnalysis(sysLogApiAnalysis: SysLogApiAnalysis): List<SysLogApiAnalysis> {
         return sysLogApiMapper.selectSysLogApiListAnalysis(sysLogApiAnalysis)

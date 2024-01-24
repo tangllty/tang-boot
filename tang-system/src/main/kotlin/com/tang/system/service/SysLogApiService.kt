@@ -26,10 +26,10 @@ interface SysLogApiService {
     /**
      * 分析接口日志列表
      *
-     * @param sysLogApi 接口日志对象
-     * @return 接口日志列表
+     * @param sysLogApiAnalysis 分析接口日志
+     * @return 分析接口日志列表
      */
-    fun selectSysLogApiListAnalysis(sysLogApi: SysLogApiAnalysis): List<SysLogApiAnalysis>
+    fun selectSysLogApiListAnalysis(sysLogApiAnalysis: SysLogApiAnalysis): List<SysLogApiAnalysis>
 
     /**
      * 通过接口日志主键查询接口日志信息
