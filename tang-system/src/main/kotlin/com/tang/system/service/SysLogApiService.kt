@@ -5,6 +5,7 @@ import java.time.LocalDateTime
 import org.aspectj.lang.ProceedingJoinPoint
 
 import com.tang.commons.model.UserModel
+import com.tang.system.domain.vo.SysLogApiAnalysis
 import com.tang.system.entity.SysLogApi
 
 /**
@@ -21,6 +22,14 @@ interface SysLogApiService {
      * @return 接口日志列表
      */
     fun selectSysLogApiList(sysLogApi: SysLogApi): List<SysLogApi>
+
+    /**
+     * 分析接口日志列表
+     *
+     * @param sysLogApi 接口日志对象
+     * @return 接口日志列表
+     */
+    fun selectSysLogApiListAnalysis(sysLogApi: SysLogApiAnalysis): List<SysLogApiAnalysis>
 
     /**
      * 通过接口日志主键查询接口日志信息

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController
 import com.tang.commons.utils.AjaxResult
 import com.tang.commons.utils.page.PageUtils
 import com.tang.commons.utils.page.TableDataResult
+import com.tang.system.domain.vo.SysLogApiAnalysis
 import com.tang.system.entity.SysLogApi
 import com.tang.system.service.SysLogApiService
 
@@ -31,11 +32,25 @@ open class SysLogApiController(private val sysLogApiService: SysLogApiService) {
      * @param sysLogApi 接口日志对象
      * @return 接口日志列表
      */
-    @PreAuthorize("@auth.hasPermission('system:system:list')")
+    @PreAuthorize("@auth.hasPermission('system:log:api:list')")
     @GetMapping("/list")
     open fun list(sysLogApi: SysLogApi): TableDataResult {
         PageUtils.startPage()
         val list = sysLogApiService.selectSysLogApiList(sysLogApi)
+        return PageUtils.getDataTable(list)
+    }
+
+    /**
+     * 分析接口日志列表
+     *
+     * @param sysLogApi 接口日志对象
+     * @return 接口日志列表
+     */
+    @PreAuthorize("@auth.hasPermission('system:log:api:list')")
+    @GetMapping("/list-analysis")
+    open fun listAnalysis(sysLogApiAnalysis: SysLogApiAnalysis): TableDataResult {
+        PageUtils.startPage()
+        val list = sysLogApiService.selectSysLogApiListAnalysis(sysLogApiAnalysis)
         return PageUtils.getDataTable(list)
     }
 
@@ -45,7 +60,7 @@ open class SysLogApiController(private val sysLogApiService: SysLogApiService) {
      * @param apiId 接口日志主键
      * @return 接口日志信息
      */
-    @PreAuthorize("@auth.hasPermission('system:system:list')")
+    @PreAuthorize("@auth.hasPermission('system:log:api:list')")
     @GetMapping("/{apiId}")
     open fun selectSysLogApiByApiId(@PathVariable apiId: Long): AjaxResult {
         val sysLogApi = sysLogApiService.selectSysLogApiByApiId(apiId)
@@ -58,7 +73,7 @@ open class SysLogApiController(private val sysLogApiService: SysLogApiService) {
      * @param sysLogApi 接口日志信息
      * @return 影响行数
      */
-    @PreAuthorize("@auth.hasPermission('system:system:add')")
+    @PreAuthorize("@auth.hasPermission('system:log:api:add')")
     @PostMapping
     open fun insertSysLogApi(@RequestBody sysLogApi: SysLogApi): AjaxResult {
         return AjaxResult.rows(sysLogApiService.insertSysLogApi(sysLogApi))
@@ -70,7 +85,7 @@ open class SysLogApiController(private val sysLogApiService: SysLogApiService) {
      * @param sysLogApi 接口日志信息
      * @return 影响行数
      */
-    @PreAuthorize("@auth.hasPermission('system:system:edit')")
+    @PreAuthorize("@auth.hasPermission('system:log:api:edit')")
     @PutMapping
     open fun updateSysLogApiByApiId(@RequestBody sysLogApi: SysLogApi): AjaxResult {
         return AjaxResult.rows(sysLogApiService.updateSysLogApiByApiId(sysLogApi))
@@ -82,7 +97,7 @@ open class SysLogApiController(private val sysLogApiService: SysLogApiService) {
      * @param apiId 接口日志主键
      * @return 影响行数
      */
-    @PreAuthorize("@auth.hasPermission('system:system:delete')")
+    @PreAuthorize("@auth.hasPermission('system:log:api:delete')")
     @DeleteMapping("/{apiId}")
     open fun deleteSysLogApiByApiId(@PathVariable apiId: Long): AjaxResult {
         return AjaxResult.rows(sysLogApiService.deleteSysLogApiByApiId(apiId))
@@ -94,7 +109,7 @@ open class SysLogApiController(private val sysLogApiService: SysLogApiService) {
      * @param apiIds 接口日志主键数组
      * @return 影响行数
      */
-    @PreAuthorize("@auth.hasPermission('system:system:delete')")
+    @PreAuthorize("@auth.hasPermission('system:log:api:delete')")
     @DeleteMapping
     open fun deleteSysLogApiByApiIds(@RequestBody apiIds: Array<Long>): AjaxResult {
         return AjaxResult.rows(sysLogApiService.deleteSysLogApiByApiIds(apiIds))

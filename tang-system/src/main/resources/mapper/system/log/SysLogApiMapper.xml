@@ -26,9 +26,32 @@
         <result property="remark" column="remark" />
     </resultMap>
 
+    <resultMap id="SysLogApiAnalysisMap" type="com.tang.system.domain.vo.SysLogApiAnalysis">
+        <result property="className" column="class_name" />
+        <result property="methodName" column="method_name" />
+        <result property="requestUri" column="request_uri" />
+        <result property="requestType" column="request_type" />
+        <result property="count" column="count" />
+        <result property="totalTime" column="total_time" />
+        <result property="averageTime" column="average_time" />
+        <result property="minTime" column="min_time" />
+        <result property="maxTime" column="max_time" />
+    </resultMap>
+
     <sql id="SysLogApiVo">
         select sla.api_id, sla.user_id, sla.class_name, sla.method_name, sla.request_uri, sla.request_type, sla.request_param, sla.response_body, sla.login_type, sla.ip, sla.location, sla.start_time, sla.end_time, sla.cost_time, sla.status_code, sla.message, sla.create_by, sla.create_time, sla.update_by, sla.update_time, sla.remark
         from sys_log_api sla
+    </sql>
+
+    <sql id="SysLogApiAnalysisVo">
+        select sla.class_name, sla.method_name, sla.request_uri, sla.request_type,
+            count(1) as `count`,
+            sum(sla.cost_time) as total_time,
+            avg(sla.cost_time) as average_time,
+            min(sla.cost_time) as min_time,
+            max(sla.cost_time) as max_time
+        from sys_log_api sla
+        group by sla.class_name, sla.method_name,sla.request_uri, sla.request_type
     </sql>
 
     <select id="selectSysLogApiList" resultMap="SysLogApiMap">
@@ -99,6 +122,10 @@
             </if>
         </where>
         order by sla.api_id desc
+    </select>
+
+    <select id="selectSysLogApiListAnalysis" resultMap="SysLogApiAnalysisMap">
+        <include refid="SysLogApiAnalysisVo" />
     </select>
 
     <select id="selectSysLogApiByApiId" resultMap="SysLogApiMap">

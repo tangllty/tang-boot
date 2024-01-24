@@ -9,6 +9,7 @@ import org.springframework.scheduling.annotation.Async
 import org.springframework.stereotype.Service
 
 import com.tang.commons.model.UserModel
+import com.tang.system.domain.vo.SysLogApiAnalysis
 import com.tang.system.entity.SysLogApi
 import com.tang.system.mapper.SysLogApiMapper
 import com.tang.system.service.SysLogApiService
@@ -29,6 +30,16 @@ open class SysLogApiServiceImpl(private val sysLogApiMapper: SysLogApiMapper): S
      */
     override fun selectSysLogApiList(sysLogApi: SysLogApi): List<SysLogApi> {
         return sysLogApiMapper.selectSysLogApiList(sysLogApi)
+    }
+
+    /**
+     * 分析接口日志列表
+     *
+     * @param sysLogApi 接口日志对象
+     * @return 接口日志列表
+     */
+    override fun selectSysLogApiListAnalysis(sysLogApiAnalysis: SysLogApiAnalysis): List<SysLogApiAnalysis> {
+        return sysLogApiMapper.selectSysLogApiListAnalysis(sysLogApiAnalysis)
     }
 
     /**
