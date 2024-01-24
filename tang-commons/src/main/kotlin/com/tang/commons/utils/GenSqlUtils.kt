@@ -20,17 +20,17 @@ object GenSqlUtils {
     private fun generateMenu(): StringBuilder {
         val sql = StringBuilder()
         // 目录模板
-        val directoryTemplate = "insert into sys_menu values ({}, {}, '{}', '{}', '{}',  '', '', '{}', 'D', '0', 1, '0', '0', 'admin', sysdate(), '', null, '{}');"
+        val directoryTemplate = "insert into sys_menu values ({}, {}, '{}', '{}', '{}',  '', '', '{}', 'D', '0', {}, '0', '0', 'admin', sysdate(), '', null, '{}');"
         // 菜单模板
-        val menuTemplate = "insert into sys_menu values ({}, {}, '{}', '{}', '{}', '{}', '{}', '{}', 'M', '0', 1, '0', '0', 'admin', sysdate(), '', null, '{}');"
+        val menuTemplate = "insert into sys_menu values ({}, {}, '{}', '{}', '{}', '{}', '{}', '{}', 'M', '0', {}, '0', '0', 'admin', sysdate(), '', null, '{}');"
         // 按钮模板
-        val buttonTemplate = "insert into sys_menu values ({}, {}, '{}', '{}', '', '', '{}', '', 'B', '0', 1, '0', '0', 'admin', sysdate(), '', null, '{}');"
+        val buttonTemplate = "insert into sys_menu values ({}, {}, '{}', '{}', '', '', '{}', '', 'B', '0', {}, '0', '0', 'admin', sysdate(), '', null, '{}');"
         val menuList = generateMenuList()
         menuList.forEach {
             when (it.menuType) {
-                "D" -> sql.append(format(directoryTemplate, it.menuId, it.parentId, it.ancestors, it.menuName, it.path, it.icon, it.remark))
-                "M" -> sql.append(format(menuTemplate, it.menuId, it.parentId, it.ancestors, it.menuName, it.path, it.component, it.permission, it.icon, it.remark))
-                "B" -> sql.append(format(buttonTemplate, it.menuId, it.parentId, it.ancestors, it.menuName, it.permission, it.remark))
+                "D" -> sql.append(format(directoryTemplate, it.menuId, it.parentId, it.ancestors, it.menuName, it.path, it.icon, it.sort, it.remark))
+                "M" -> sql.append(format(menuTemplate, it.menuId, it.parentId, it.ancestors, it.menuName, it.path, it.component, it.permission, it.icon, it.sort, it.remark))
+                "B" -> sql.append(format(buttonTemplate, it.menuId, it.parentId, it.ancestors, it.menuName, it.permission, it.sort, it.remark))
                 else -> throw IllegalArgumentException("Invalid menu type: ${it.menuType}")
             }
             sql.append("\n")
@@ -87,11 +87,11 @@ object GenSqlUtils {
                         Menu("登陆日志删除", "system:log:login:delete", "登陆日志删除按钮"),
                     )),
                     Menu("接口日志", "api", "接口日志", "接口日志菜单", arrayListOf(
-                        Menu("数据列表", "data", "system/log/api/data/index", "system:log:api:data:menu", "接口日志查询", "接口日志查询菜单", arrayListOf(
+                        Menu("数据列表", "data", "system/log/api/data/index", "system:log:api:data:menu", "数据列表", "接口日志查询菜单", arrayListOf(
                             Menu("接口日志查询", "system:log:api:data:list", "接口日志查询按钮"),
                             Menu("接口日志删除", "system:log:api:data:delete", "接口日志删除按钮"),
                         )),
-                        Menu("分析列表", "analysis", "system/log/api/analysis/index", "system:log:api:analysis:menu", "接口日志分析", "接口日志分析菜单", arrayListOf(
+                        Menu("分析列表", "analysis", "system/log/api/analysis/index", "system:log:api:analysis:menu", "分析列表", "接口日志分析菜单", arrayListOf(
                             Menu("接口日志分析", "system:log:api:analysis:list", "接口日志分析按钮"),
                         )),
                     )),
@@ -173,11 +173,12 @@ object GenSqlUtils {
     private var menuId = 0L
 
     private fun generateMenuId(menuTree: List<Menu>, parentMenu: Menu) {
-        menuTree.forEach {
+        menuTree.forEachIndexed { index, it ->
             ++menuId
             it.menuId = menuId
             it.parentId = parentMenu.menuId
             it.ancestors = if (parentMenu.menuId == 0L) "0" else "${parentMenu.ancestors},${parentMenu.menuId}"
+            it.sort = index + 1
         }
 
         menuTree
