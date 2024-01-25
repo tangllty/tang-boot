@@ -121,7 +121,7 @@ object GenSqlUtils {
             )),
             Menu("猫猫APP", "app", "猫猫APP", "猫猫APP目录", arrayListOf(
                 Menu("猫猫聊天", "chat", "猫猫聊天", "猫猫聊天目录", arrayListOf(
-                    Menu("我的聊天", "room", "app/chat/room/index", "app:chat:room:menu", "猫猫聊天", "猫猫聊天目录", arrayListOf(
+                    Menu("我的聊天", "room", "app/chat/room/index", "app:chat:room:menu", "我的聊天", "猫猫聊天目录", arrayListOf(
                         Menu("聊天列表查询", "app:chat:chat-list:list", "聊天列表查询按钮"),
                         Menu("聊天列表新增", "app:chat:chat-list:add", "聊天列表新增按钮"),
                         Menu("聊天列表修改", "app:chat:chat-list:edit", "聊天列表修改按钮"),

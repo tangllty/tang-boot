@@ -163,7 +163,7 @@ insert into sys_menu values (50, 45, '0,3,45', '代码生成导入', '', '', 'to
 insert into sys_menu values (51, 45, '0,3,45', '代码生成导出', '', '', 'tool:generator:export', '', 'B', '0', 5, '0', '0', 'admin', sysdate(), '', null, '代码生成导出按钮');
 insert into sys_menu values (52, 45, '0,3,45', '代码生成执行', '', '', 'tool:generator:execute', '', 'B', '0', 6, '0', '0', 'admin', sysdate(), '', null, '代码生成执行按钮');
 insert into sys_menu values (53, 46, '0,3,46', '系统接口查询', '', '', 'tool:swagger:list', '', 'B', '0', 1, '0', '0', 'admin', sysdate(), '', null, '系统接口查询按钮');
-insert into sys_menu values (55, 54, '0,4,54', '我的聊天', 'room', 'app/chat/room/index', 'app:chat:room:menu', '猫猫聊天', 'M', '0', 1, '0', '0', 'admin', sysdate(), '', null, '猫猫聊天目录');
+insert into sys_menu values (55, 54, '0,4,54', '我的聊天', 'room', 'app/chat/room/index', 'app:chat:room:menu', '我的聊天', 'M', '0', 1, '0', '0', 'admin', sysdate(), '', null, '猫猫聊天目录');
 insert into sys_menu values (56, 54, '0,4,54', '好友申请', 'apply', 'app/chat/friend-apply/index', 'app:chat:friend-apply:menu', '好友申请', 'M', '0', 2, '0', '0', 'admin', sysdate(), '', null, '好友申请目录');
 insert into sys_menu values (57, 54, '0,4,54', '我的好友', 'friend', 'app/chat/friend/index', 'app:chat:friend:menu', '我的好友', 'M', '0', 3, '0', '0', 'admin', sysdate(), '', null, '我的好友目录');
 insert into sys_menu values (33, 31, '0,1,10,31', '登陆日志查询', '', '', 'system:log:login:list', '', 'B', '0', 1, '0', '0', 'admin', sysdate(), '', null, '登陆日志查询按钮');
