@@ -2,6 +2,9 @@ package com.tang.commons.utils;
 
 import java.text.DecimalFormat;
 import java.util.List;
+import java.util.Objects;
+
+import com.tang.commons.enumeration.SizeUnit;
 
 /**
  * 字节工具类
@@ -50,6 +53,29 @@ public class ByteUtils {
             hexChars[index++] = hexDigits[b & 0xF];
         }
         return new String(hexChars);
+    }
+
+    /**
+     * 文件单位转换
+     *
+     * @param size       大小
+     * @param inputUnit  输入单位
+     * @param outputUnit 输出单位
+     * @return 转换后的大小
+     */
+    public static double convert(double size, SizeUnit inputUnit, SizeUnit outputUnit) {
+        if (size == 0) {
+            return size;
+        }
+
+        if (Objects.isNull(inputUnit) || Objects.isNull(outputUnit)) {
+            return size;
+        }
+
+        var inputUnitValue = inputUnit.getValue();
+        var outputUnitValue = outputUnit.getValue();
+
+        return size * inputUnitValue / outputUnitValue;
     }
 
 }
