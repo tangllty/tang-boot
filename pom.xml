@@ -17,6 +17,7 @@
         <module>tang-app</module>
         <module>tang-commons</module>
         <module>tang-extension</module>
+        <module>tang-file</module>
         <module>tang-framework</module>
         <module>tang-monitor</module>
         <module>tang-system</module>
@@ -210,6 +211,12 @@
             <dependency>
                 <groupId>com.tang</groupId>
                 <artifactId>tang-mybatis-plus</artifactId>
+                <version>${tang.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.tang</groupId>
+                <artifactId>tang-file</artifactId>
                 <version>${tang.version}</version>
             </dependency>
 

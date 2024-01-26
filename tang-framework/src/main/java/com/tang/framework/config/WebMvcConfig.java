@@ -5,7 +5,7 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import com.tang.commons.autoconfigure.TangProperties;
+import com.tang.commons.autoconfigure.FileProperties;
 import com.tang.commons.constants.UploadsPrefix;
 import com.tang.framework.interceptor.DemoModeInterceptor;
 
@@ -17,15 +17,15 @@ import com.tang.framework.interceptor.DemoModeInterceptor;
 @Configuration
 public class WebMvcConfig implements WebMvcConfigurer {
 
-    private final TangProperties tangProperties;
+    private final FileProperties fileProperties;
 
-    public WebMvcConfig(TangProperties tangProperties) {
-        this.tangProperties = tangProperties;
+    public WebMvcConfig(FileProperties fileProperties) {
+        this.fileProperties = fileProperties;
     }
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler(UploadsPrefix.UPLOADS + "/**").addResourceLocations("file:" + tangProperties.getUploads() + "/");
+        registry.addResourceHandler(UploadsPrefix.UPLOADS + "/**").addResourceLocations("file:" + fileProperties.getUploads() + "/");
     }
 
     @Override

@@ -48,6 +48,11 @@
 
         <dependency>
             <groupId>com.tang</groupId>
+            <artifactId>tang-file</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.tang</groupId>
             <artifactId>tang-framework</artifactId>
         </dependency>
 

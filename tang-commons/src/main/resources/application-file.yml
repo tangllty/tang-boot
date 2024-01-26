@@ -1,0 +1,10 @@
+# 文件配置
+file:
+  # 文件上传路径
+  uploads: /home/tang/uploads/tang-boot
+  # 文件大小限制
+  max-size: 10
+  # 文件大小单位
+  size-unit: MB
+  # 文件类型限制
+  allowed-types: jpg,jpeg,png,gif,doc,docx,xls,xlsx,pdf,zip,rar,7z,txt

@@ -27,11 +27,6 @@ class TangProperties {
     var version: String? = null
 
     /**
-     * 文件上传路径
-     */
-    var uploads: String? = null
-
-    /**
      * 演示模式
      */
     var demoMode = false
