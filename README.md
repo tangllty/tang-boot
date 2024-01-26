@@ -71,3 +71,5 @@ tang-boot 使用 MIT 许可证。更多详情请查阅 [LICENSE](https://gitee.c
   - ![WeChat](https://gitee.com/tangllty/tang-docs/raw/master/docs/public/wechat.png)
 - Telegram
 - QQ
+
+  - ![QQ](https://gitee.com/tangllty/tang-docs/raw/master/docs/public/qq.png)
