@@ -334,6 +334,7 @@
                                 <source>src/main/java</source>
                                 <source>src/main/kotlin</source>
                             </sourceDirs>
+                            <jvmTarget>${java.version}</jvmTarget>
                         </configuration>
                     </execution>
                 </executions>
