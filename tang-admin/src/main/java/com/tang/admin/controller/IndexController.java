@@ -45,37 +45,16 @@ public class IndexController {
     }
 
     /**
-     * 获取微信二维码(Gitee)
+     * 获取微信二维码
      *
      * @param response 响应
      * @throws IOException          IO异常
      * @throws InterruptedException 中断异常
      * @throws URISyntaxException   URI异常
      */
-    @GetMapping("/get-wechat-gitee")
-    public void getWechatGitee(HttpServletResponse response) throws IOException, InterruptedException, URISyntaxException {
+    @GetMapping("/get-wechat")
+    public void getWeChat(HttpServletResponse response) throws IOException, InterruptedException, URISyntaxException {
         var url = "https://gitee.com/tangllty/tang-docs/raw/master/docs/public/wechat.png";
-        var requestResult = HttpRequest.newBuilder()
-            .uri(new URI(url))
-            .GET()
-            .build();
-
-        var responseResult = httpClient.send(requestResult, HttpResponse.BodyHandlers.ofByteArray());
-        response.setContentType("image/png");
-        response.getOutputStream().write(responseResult.body());
-    }
-
-    /**
-     * 获取微信二维码(Github)
-     *
-     * @param response 响应
-     * @throws IOException          IO异常
-     * @throws InterruptedException 中断异常
-     * @throws URISyntaxException   URI异常
-     */
-    @GetMapping("/get-wechat-github")
-    public void getWechatGithub(HttpServletResponse response) throws IOException, InterruptedException, URISyntaxException {
-        var url = "https://raw.githubusercontent.com/tangllty/tang-docs/master/docs/public/wechat.png";
         var requestResult = HttpRequest.newBuilder()
             .uri(new URI(url))
             .GET()
