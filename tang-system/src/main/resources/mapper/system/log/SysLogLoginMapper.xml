@@ -53,8 +53,7 @@
 
     <select id="selectUserVisit" resultMap="SysLogLoginMap">
         <include refid="SysLogLoginVo" />
-        where ll.user_id = #{userId}
-            and ll.login_time &gt;= #{startDate}
+        where ll.login_time &gt;= #{startDate}
     </select>
 
     <insert id="insertSysLogLogin" useGeneratedKeys="true" keyProperty="loginId">

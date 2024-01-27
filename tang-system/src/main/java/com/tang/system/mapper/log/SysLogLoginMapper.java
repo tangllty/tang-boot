@@ -44,7 +44,7 @@ public interface SysLogLoginMapper {
      * @startTime 开始时间
      * @return 用户访问量
      */
-    List<SysLogLogin> selectUserVisit(@Param("userId") Long userId, @Param("startDate") LocalDate startDate);
+    List<SysLogLogin> selectUserVisit(@Param("startDate") LocalDate startDate);
 
     /**
      * 新增登陆日志信息
