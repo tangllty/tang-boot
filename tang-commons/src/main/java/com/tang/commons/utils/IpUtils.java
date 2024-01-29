@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Objects;
 
 import org.lionsoul.ip2region.xdb.Searcher;
+import org.slf4j.Logger;
 import org.springframework.core.io.ClassPathResource;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -17,6 +18,8 @@ public class IpUtils {
 
     private IpUtils() {
     }
+
+    private static final Logger LOGGER = LogUtils.getLogger();
 
     /**
      * 获取客户端IP
@@ -33,7 +36,7 @@ public class IpUtils {
         }
         var ipAddr = headers.stream()
             .map(request::getHeader)
-            .filter(ip -> Objects.nonNull(ip) && ip.length() != 0 && !unknown.equalsIgnoreCase(ip))
+            .filter(ip -> Objects.nonNull(ip) && !ip.isEmpty() && !unknown.equalsIgnoreCase(ip))
             .findFirst()
             .orElse(request.getRemoteAddr());
         return "0:0:0:0:0:0:0:1".equals(ipAddr) ? "127.0.0.1" : ipAddr;
@@ -66,7 +69,7 @@ public class IpUtils {
             searcher.close();
             return region;
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.error("获取地区信息失败", e);
         }
         return "";
     }
