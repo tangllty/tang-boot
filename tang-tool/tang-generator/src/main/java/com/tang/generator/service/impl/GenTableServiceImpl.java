@@ -15,10 +15,12 @@ import java.util.zip.ZipOutputStream;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.velocity.app.Velocity;
+import org.slf4j.Logger;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.tang.commons.enumeration.MenuType;
+import com.tang.commons.utils.LogUtils;
 import com.tang.commons.utils.StringUtils;
 import com.tang.generator.entity.GenTable;
 import com.tang.generator.mapper.GenTableColumnMapper;
@@ -38,6 +40,8 @@ import com.tang.system.mapper.SysMenuMapper;
  */
 @Service
 public class GenTableServiceImpl implements GenTableService {
+
+    private static final Logger LOGGER = LogUtils.getLogger();
 
     private final GenTableMapper tableMapper;
 
@@ -221,7 +225,7 @@ public class GenTableServiceImpl implements GenTableService {
                 zip.putNextEntry(new ZipEntry(VelocityUtils.getFileName(template, table)));
                 IOUtils.write(stringWriter.toString(), zip, StandardCharsets.UTF_8.name());
             } catch (IOException e) {
-                e.printStackTrace();
+                LOGGER.error("模板生成失败", e);
             } finally {
                 IOUtils.closeQuietly(stringWriter);
                 if (Objects.nonNull(zip)) {
@@ -229,7 +233,7 @@ public class GenTableServiceImpl implements GenTableService {
                         zip.flush();
                         zip.closeEntry();
                     } catch (IOException e) {
-                        e.printStackTrace();
+                        LOGGER.error("模板生成失败", e);
                     }
                 }
             }
