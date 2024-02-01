@@ -10,6 +10,7 @@ import com.tang.commons.constants.UploadsPrefix
 import com.tang.commons.exception.file.MaxFileNameLengthException
 import com.tang.commons.exception.file.MaxFileSizeException
 import com.tang.commons.autoconfigure.FileProperties
+import com.tang.commons.utils.id.IdUtils
 
 /**
  * 文件上传工具类
@@ -80,30 +81,25 @@ object UploadsUtils {
         var fileName = getFileName(file)
 
         Assert.isTrue(fileName.length > MAX_FILE_NAME_LENGTH, MaxFileNameLengthException("上传失败, 文件名最大长度为: $MAX_FILE_NAME_LENGTH"))
-        Assert.isTrue(file.size > MAX_FILE_SIZE, MaxFileSizeException("上传失败, 文件最大大小为: " + ByteUtils.getSize(
-            MAX_FILE_SIZE
-        )))
+        Assert.isTrue(file.size > MAX_FILE_SIZE, MaxFileSizeException("上传失败, 文件最大大小为: " + ByteUtils.getSize(MAX_FILE_SIZE)))
 
-        fileName = System.currentTimeMillis().toString() + "_" + fileName
+        fileName = "${IdUtils.snowflake()}_$fileName"
         val destDir = File(path)
         if (!destDir.exists()) {
             destDir.mkdirs()
         }
 
-        var filePath = destDir.toString() + File.separator + fileName
+        val filePath = "${destDir}${File.separator}${fileName}"
         val dest = File(filePath)
         try {
             file.transferTo(dest)
+            LOGGER.info("上传文件成功, 文件路径: {}, 文件大小: {}", filePath, ByteUtils.getSize(file.size))
         } catch (e: IllegalStateException) {
             LOGGER.error("上传文件失败, 文件路径: {}, 文件大小: {}", filePath, ByteUtils.getSize(file.size), e)
         } catch (e: IOException) {
             LOGGER.error("上传文件失败, 文件路径: {}, 文件大小: {}", filePath, ByteUtils.getSize(file.size), e)
         }
-        filePath = filePath.replace("\\", "/")
-        if (LOGGER.isInfoEnabled) {
-            LOGGER.info("上传文件成功, 文件路径: {}, 文件大小: {}", filePath, ByteUtils.getSize(file.size))
-        }
-        return filePath
+        return filePath.replace("\\", "/")
     }
 
     /**
