@@ -12,7 +12,7 @@ import ${packageName}.service.${ClassName}Service
  * @author $author
  */
 @Service
-open class ${ClassName}ServiceImpl(private val ${className}Mapper: ${ClassName}Mapper): ${ClassName}Service {
+class ${ClassName}ServiceImpl(private val ${className}Mapper: ${ClassName}Mapper) : ${ClassName}Service {
 
     /**
      * 查询${classComment}列表

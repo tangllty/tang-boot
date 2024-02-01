@@ -10,9 +10,8 @@ import com.tang.commons.base.entity.BaseEntity
 class AppChatMessage : BaseEntity() {
 
     companion object {
-        @JvmStatic
         @java.io.Serial
-        var serialVersionUID = 1L
+        private val serialVersionUID = 1L
     }
 
     /**

@@ -14,10 +14,11 @@ import com.tang.commons.base.entity.BaseEntity
  *
  * @author Tang
  */
-class SysLogApi: BaseEntity() {
+class SysLogApi : BaseEntity() {
 
     companion object {
-        @JvmStatic private val serialVersionUID = 1L
+        @java.io.Serial
+        private val serialVersionUID = 1L
     }
 
     /**

@@ -3,14 +3,15 @@ package com.tang.app.entity
 import com.tang.commons.base.entity.BaseEntity
 
 /**
+ * 用户好友申请实体类 app_friend_apply
+ *
  * @author Tang
  */
 class AppFriendApply : BaseEntity() {
 
     companion object {
-        @JvmStatic
         @java.io.Serial
-        var serialVersionUID = 1L
+        private val serialVersionUID = 1L
     }
 
     /**

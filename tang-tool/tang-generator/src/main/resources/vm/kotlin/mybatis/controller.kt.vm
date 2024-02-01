@@ -23,7 +23,7 @@ import ${packageName}.service.${ClassName}Service
  */
 @RestController
 @RequestMapping("/$moduleName/$businessName")
-open class ${ClassName}Controller(private val ${className}Service: ${ClassName}Service) {
+class ${ClassName}Controller(private val ${className}Service: ${ClassName}Service) {
 
     /**
      * 查询${classComment}列表
@@ -33,7 +33,7 @@ open class ${ClassName}Controller(private val ${className}Service: ${ClassName}S
      */
     @PreAuthorize("@auth.hasPermission('$moduleName.replace("/", ":"):$permissionName:list')")
     @GetMapping("/list")
-    open fun list($className: $ClassName): TableDataResult {
+    fun list($className: $ClassName): TableDataResult {
         PageUtils.startPage()
 #foreach ($column in $columnList)
 #set($javaField = $column.javaField)
@@ -54,7 +54,7 @@ open class ${ClassName}Controller(private val ${className}Service: ${ClassName}S
      */
     @PreAuthorize("@auth.hasPermission('$moduleName.replace("/", ":"):$permissionName:list')")
     @GetMapping("/{$primaryKey}")
-    open fun select${ClassName}By${PrimaryKey}(@PathVariable $primaryKey: Long): AjaxResult {
+    fun select${ClassName}By${PrimaryKey}(@PathVariable $primaryKey: Long): AjaxResult {
         val $className = ${className}Service.select${ClassName}By${PrimaryKey}($primaryKey)
 #foreach ($column in $columnList)
 #set($javaField = $column.javaField)
@@ -74,7 +74,7 @@ open class ${ClassName}Controller(private val ${className}Service: ${ClassName}S
      */
     @PreAuthorize("@auth.hasPermission('$moduleName.replace("/", ":"):$permissionName:add')")
     @PostMapping
-    open fun insert${ClassName}(@RequestBody $className: $ClassName): AjaxResult {
+    fun insert${ClassName}(@RequestBody $className: $ClassName): AjaxResult {
 #foreach ($column in $columnList)
 #set($javaField = $column.javaField)
 #set($JavaField = $column.javaField.substring(0, 1).toUpperCase() + ${column.javaField.substring(1)})
@@ -93,7 +93,7 @@ open class ${ClassName}Controller(private val ${className}Service: ${ClassName}S
      */
     @PreAuthorize("@auth.hasPermission('$moduleName.replace("/", ":"):$permissionName:edit')")
     @PutMapping
-    open fun update${ClassName}By${PrimaryKey}(@RequestBody $className: $ClassName): AjaxResult {
+    fun update${ClassName}By${PrimaryKey}(@RequestBody $className: $ClassName): AjaxResult {
 #foreach ($column in $columnList)
 #set($javaField = $column.javaField)
 #set($JavaField = $column.javaField.substring(0, 1).toUpperCase() + ${column.javaField.substring(1)})
@@ -112,7 +112,7 @@ open class ${ClassName}Controller(private val ${className}Service: ${ClassName}S
      */
     @PreAuthorize("@auth.hasPermission('$moduleName.replace("/", ":"):$permissionName:delete')")
     @DeleteMapping("/{$primaryKey}")
-    open fun delete${ClassName}By${PrimaryKey}(@PathVariable $primaryKey: Long): AjaxResult {
+    fun delete${ClassName}By${PrimaryKey}(@PathVariable $primaryKey: Long): AjaxResult {
         return AjaxResult.rows(${className}Service.delete${ClassName}By${PrimaryKey}($primaryKey))
     }
 
@@ -124,7 +124,7 @@ open class ${ClassName}Controller(private val ${className}Service: ${ClassName}S
      */
     @PreAuthorize("@auth.hasPermission('$moduleName.replace("/", ":"):$permissionName:delete')")
     @DeleteMapping
-    open fun delete${ClassName}By${PrimaryKey}s(@RequestBody ${primaryKey}s: Array<Long>): AjaxResult {
+    fun delete${ClassName}By${PrimaryKey}s(@RequestBody ${primaryKey}s: Array<Long>): AjaxResult {
         return AjaxResult.rows(${className}Service.delete${ClassName}By${PrimaryKey}s(${primaryKey}s))
     }
 

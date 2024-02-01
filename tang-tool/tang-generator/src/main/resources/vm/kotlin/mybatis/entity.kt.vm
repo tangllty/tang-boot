@@ -19,10 +19,11 @@ import com.tang.commons.base.entity.BaseEntity
  *
  * @author $author
  */
-class $ClassName: BaseEntity() {
+class $ClassName : BaseEntity() {
 
     companion object {
-        @JvmStatic private val serialVersionUID = 1L
+        @java.io.Serial
+        private val serialVersionUID = 1L
     }
 #foreach ($column in $columnList)
 #if (!$column.isSuperField)

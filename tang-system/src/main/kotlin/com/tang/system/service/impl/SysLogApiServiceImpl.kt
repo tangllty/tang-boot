@@ -20,7 +20,7 @@ import com.tang.system.service.SysLogApiService
  * @author Tang
  */
 @Service
-open class SysLogApiServiceImpl(private val sysLogApiMapper: SysLogApiMapper): SysLogApiService {
+class SysLogApiServiceImpl(private val sysLogApiMapper: SysLogApiMapper) : SysLogApiService {
 
     /**
      * 查询接口日志列表
