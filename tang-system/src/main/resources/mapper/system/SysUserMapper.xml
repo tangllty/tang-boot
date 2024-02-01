@@ -72,6 +72,7 @@
         where u.del_flag = '0'
             and user_id not in ( select friend_id from app_friend_apply where user_id = #{userId} )
             and ( u.username like concat('%', #{keyword}, '%') or u.nickname like concat('%', #{keyword}, '%') )
+            and user_id != #{userId}
     </select>
 
     <select id="selectUserByUserId" resultMap="SysUserMap">
