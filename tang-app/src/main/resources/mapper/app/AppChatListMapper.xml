@@ -116,8 +116,7 @@
     <update id="updateAppChatListByChatListId">
         update app_chat_list
         <set>
-            <if test="userId != null">user_id = #{userId},</if>
-            <if test="chatId != null">chat_id = #{chatId},</if>
+            <if test="chatId != null and chatId != 0">chat_id = #{chatId},</if>
             <if test="chatType != null and chatType != ''">chat_type = #{chatType},</if>
             <if test="stickFlag != null and stickFlag != ''">stick_flag = #{stickFlag},</if>
             <if test="displayFlag != null and displayFlag != ''">display_flag = #{displayFlag},</if>
@@ -129,6 +128,7 @@
             <if test="remark != null and remark != ''">remark = #{remark},</if>
         </set>
         where chat_list_id = #{chatListId}
+            and user_id = #{userId}
     </update>
 
     <delete id="deleteAppChatListByChatListId">

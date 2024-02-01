@@ -94,6 +94,7 @@ class AppChatListServiceImpl(
     override fun stickByChatListId(chatListId: Long): Int {
         val appChatList = AppChatList()
         appChatList.chatListId = chatListId
+        appChatList.userId = SecurityUtils.getUser().userId
         appChatList.stickFlag = AppChatListStick.STICK
         return appChatListMapper.updateAppChatListByChatListId(appChatList)
     }
@@ -107,6 +108,7 @@ class AppChatListServiceImpl(
     override fun unstickByChatListId(chatListId: Long): Int {
         val appChatList = AppChatList()
         appChatList.chatListId = chatListId
+        appChatList.userId = SecurityUtils.getUser().userId
         appChatList.stickFlag = AppChatListStick.UNSTICK
         return appChatListMapper.updateAppChatListByChatListId(appChatList)
     }
