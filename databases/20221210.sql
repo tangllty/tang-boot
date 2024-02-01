@@ -568,7 +568,8 @@ drop table if exists app_chat_list;
 create table app_chat_list (
     chat_list_id    bigint(20)    not null     comment '聊天列表ID',
     user_id         bigint(20)    not null     comment '用户ID',
-    friend_id       bigint(20)    not null     comment '好友ID',
+    chat_id         bigint(20)    not null     comment '聊天ID',
+    chat_type       char(1)       default '0'  comment '聊天类型{0=单聊, 1=群聊}',
     stick_flag      char(1)       default '0'  comment '置顶标记{0=否, 1=是}',
     display_flag    char(1)       default '1'  comment '显示标记{0=否, 1=是}',
     mute_flag       char(1)       default '0'  comment '免打扰标记{0=否, 1=是}',
@@ -577,11 +578,11 @@ create table app_chat_list (
     update_by       varchar(64)   default ''   comment '更新者',
     update_time     datetime                   comment '更新时间',
     remark          varchar(500)  default ''   comment '备注',
-    primary key (chat_list_id, user_id, friend_id)
+    primary key (chat_list_id, user_id, chat_id)
 ) engine = InnoDB auto_increment = 100 comment = '聊天列表表';
 
-insert into app_chat_list values (885332953918476288, 1, 2, '0', '1', '0', 'admin', sysdate(), '', null, '');
-insert into app_chat_list values (885332953918476288, 2, 1, '0', '1', '0', 'admin', sysdate(), '', null, '');
+insert into app_chat_list values (885332953918476288, 1, 2, '0', '0', '1', '0', 'admin', sysdate(), '', null, '');
+insert into app_chat_list values (885332953918476288, 2, 1, '0', '0', '1', '0', 'admin', sysdate(), '', null, '');
 
 
 -- -----------------------------
