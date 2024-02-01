@@ -1,7 +1,5 @@
 package com.tang.app.service.impl
 
-import java.util.function.Consumer
-
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
@@ -59,16 +57,17 @@ class AppFriendApplyServiceImpl(
         appFriendApply.requestorId = requestorId
         appFriendApply.uniqueId = uniqueId
         val rows = appFriendApplyMapper.insertAppFriendApply(appFriendApply)
-        if (rows > 0) {
-            val otherAppFriendApply = AppFriendApply()
-            otherAppFriendApply.requestorId = requestorId
-            otherAppFriendApply.uniqueId = uniqueId
-            otherAppFriendApply.userId = appFriendApply.friendId
-            otherAppFriendApply.friendId = appFriendApply.userId
-            otherAppFriendApply.reason = appFriendApply.reason
-            otherAppFriendApply.applyType = appFriendApply.applyType
-            appFriendApplyMapper.insertAppFriendApply(otherAppFriendApply)
+        if (rows <= 0) {
+            return rows
         }
+        val otherAppFriendApply = AppFriendApply()
+        otherAppFriendApply.requestorId = requestorId
+        otherAppFriendApply.uniqueId = uniqueId
+        otherAppFriendApply.userId = appFriendApply.friendId
+        otherAppFriendApply.friendId = appFriendApply.userId
+        otherAppFriendApply.reason = appFriendApply.reason
+        otherAppFriendApply.applyType = appFriendApply.applyType
+        appFriendApplyMapper.insertAppFriendApply(otherAppFriendApply)
         return rows
     }
 
@@ -91,17 +90,19 @@ class AppFriendApplyServiceImpl(
     @Transactional(rollbackFor = [Exception::class])
     override fun acceptAppFriendApply(uniqueId: Long): Int {
         val rows = appFriendApplyMapper.updateAppFriendApplyStatusByUniqueId(uniqueId, AppFriendApplyStatus.ACCEPTED)
-        if (rows > 0) {
-            val appFriendApply = AppFriendApply()
-            appFriendApply.uniqueId = uniqueId
-            appFriendApplyMapper.selectAppFriendApplyList(appFriendApply).forEach(Consumer { item: AppFriendApply ->
-                val appFriend = AppFriend()
-                appFriend.userId = item.userId
-                appFriend.friendId = item.friendId
-                appFriend.uniqueId = item.uniqueId
-                appFriend.remark = item.remark
-                appFriendMapper.insertAppFriend(appFriend)
-            })
+        if (rows <= 0) {
+            return rows
+        }
+        val appFriendApply = AppFriendApply()
+        appFriendApply.uniqueId = uniqueId
+        val list = appFriendApplyMapper.selectAppFriendApplyList(appFriendApply)
+        list.forEach {
+            val appFriend = AppFriend()
+            appFriend.userId = it.userId
+            appFriend.friendId = it.friendId
+            appFriend.uniqueId = it.uniqueId
+            appFriend.remark = it.remark
+            appFriendMapper.insertAppFriend(appFriend)
         }
         return rows
     }

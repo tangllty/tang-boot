@@ -1,7 +1,5 @@
 package com.tang.app.service.impl
 
-import java.util.function.Consumer
-
 import org.springframework.stereotype.Service
 
 import com.tang.app.entity.AppChatMessage
@@ -44,10 +42,12 @@ class AppChatMessageServiceImpl(
      */
     override fun selectAppChatMessageList(appChatMessage: AppChatMessage): List<AppChatMessage> {
         var list: List<AppChatMessage> = appChatMessageMapper.selectAppChatMessageList(appChatMessage)
-        list = list.sortedWith(compareBy { it.messageId })
-        list.forEach(Consumer { message: AppChatMessage ->
-            message.replyMessage = message.replyMessageId?.let { appChatMessageMapper.selectAppChatMessageByMessageId(it) }
-        })
+        list = list.sortedBy { it.messageId }
+        list.forEach {
+            it.replyMessage = it.replyMessageId?.let {
+                messageId -> appChatMessageMapper.selectAppChatMessageByMessageId(messageId)
+            }
+        }
         return list
     }
 
@@ -69,9 +69,10 @@ class AppChatMessageServiceImpl(
      */
     override fun insertAppChatMessage(appChatMessage: AppChatMessage): Int {
         val rows = appChatMessageMapper.insertAppChatMessage(appChatMessage)
-        if (rows > 0) {
-            appChatMessage.avatar = userService.selectUserByUserId(appChatMessage.senderId).avatar
+        if (rows <= 0) {
+            return rows
         }
+        appChatMessage.avatar = userService.selectUserByUserId(appChatMessage.senderId).avatar
         return rows
     }
 

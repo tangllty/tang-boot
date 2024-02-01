@@ -34,7 +34,7 @@ interface AppChatMessageMapper {
      * @param senderId 发送者主键
      * @return 最后一条聊天消息信息
      */
-    fun selectLastMessage(@Param("chatListId") chatListId: Long, @Param("senderId") senderId: Long): AppChatMessage
+    fun selectLastMessage(@Param("chatListId") chatListId: Long, @Param("senderId") senderId: Long): AppChatMessage?
 
     /**
      * 新增聊天消息信息

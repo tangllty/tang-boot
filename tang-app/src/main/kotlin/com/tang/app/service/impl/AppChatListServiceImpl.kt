@@ -1,8 +1,5 @@
 package com.tang.app.service.impl
 
-import java.util.Objects
-import java.util.function.Consumer
-
 import org.springframework.stereotype.Service
 
 import com.tang.app.constants.AppChatListStick
@@ -44,14 +41,14 @@ class AppChatListServiceImpl(
     override fun selectAppChatListListAll(): List<AppChatList> {
         val userId = SecurityUtils.getUser().userId
         val list: List<AppChatList> = appChatListMapper.selectAppChatListListAllByUserId(userId)
-        list.forEach(Consumer { item: AppChatList ->
-            val lastMessage = appChatMessageMapper.selectLastMessage(item.chatListId, item.chatId)
-            if (Objects.nonNull(lastMessage)) {
-                item.avatar = userMapper.selectUserByUserId(item.chatId).avatar
-                item.message = lastMessage.content
-                item.time = DateUtils.getChatTime(lastMessage.createTime)
+        list.forEach {
+            val lastMessage = appChatMessageMapper.selectLastMessage(it.chatListId, it.chatId)
+            lastMessage?.let { message ->
+                it.avatar = userMapper.selectUserByUserId(it.chatId).avatar
+                it.message = message.content
+                it.time = DateUtils.getChatTime(message.createTime)
             }
-        })
+        }
         return list
     }
 
