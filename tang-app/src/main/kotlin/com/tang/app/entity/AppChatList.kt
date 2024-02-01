@@ -30,7 +30,9 @@ class AppChatList : BaseEntity() {
     var chatId: Long = 0
 
     /**
-     * 聊天类型{0=单聊, 1=群聊}
+     * 聊天类型
+     *
+     * @see com.tang.app.constants.ChatType
      */
     var chatType: String? = null
 
@@ -49,7 +51,9 @@ class AppChatList : BaseEntity() {
     var time: String? = null
 
     /**
-     * 置顶标记{0=否, 1=是}
+     * 置顶标记
+     *
+     * @see com.tang.app.constants.AppChatListStick
      */
     var stickFlag: String? = null
 

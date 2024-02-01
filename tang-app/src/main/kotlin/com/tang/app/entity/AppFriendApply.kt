@@ -60,7 +60,9 @@ class AppFriendApply : BaseEntity() {
     var applyType: String? = null
 
     /**
-     * 申请状态{0=已申请, 1=已同意, 2=已拒绝}
+     * 申请状态
+     *
+     * @see com.tang.app.constants.AppFriendApplyStatus
      */
     var status: String? = null
 
