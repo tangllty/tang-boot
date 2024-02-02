@@ -6,7 +6,7 @@
     <parent>
         <groupId>com.tang</groupId>
         <artifactId>tang-tool</artifactId>
-        <version>1.6.3</version>
+        <version>1.6.4</version>
     </parent>
 
     <artifactId>tang-swagger</artifactId>

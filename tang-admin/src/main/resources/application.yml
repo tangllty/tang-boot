@@ -3,7 +3,7 @@ tang:
   # 项目名称
   name: 糖猫猫后台管理系统
   # 项目版本
-  version: 1.6.3
+  version: 1.6.4
   # 演示模式
   demo-mode: false
   # 单用户登录
