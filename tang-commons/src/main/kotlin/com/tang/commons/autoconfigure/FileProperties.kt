@@ -37,6 +37,11 @@ class FileProperties {
     var sizeUnit: SizeUnit = SizeUnit.MB
 
     /**
+     * 文件名最大长度
+     */
+    var maxFileNameLength: Int = 0
+
+    /**
      * 文件类型限制
      */
     var allowedTypes: Array<String> = arrayOf()

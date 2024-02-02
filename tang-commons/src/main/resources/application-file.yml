@@ -6,5 +6,7 @@ file:
   max-size: 10
   # 文件大小单位
   size-unit: MB
+  # 文件名最大长度
+  max-filename-length: 128
   # 文件类型限制
   allowed-types: jpg,jpeg,png,gif,doc,docx,xls,xlsx,pdf,zip,rar,7z,txt
