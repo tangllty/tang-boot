@@ -2,7 +2,6 @@ package com.tang.commons.utils
 
 import java.io.File
 import java.io.IOException
-import java.util.Objects
 
 import org.springframework.web.multipart.MultipartFile
 
@@ -24,26 +23,18 @@ object UploadsUtils {
     private val FILE_PROPERTIES = SpringUtils.getBean(FileProperties::class.java)
 
     /**
-     * 文件名最大长度
-     */
-    private const val MAX_FILE_NAME_LENGTH = 128
-
-    /**
-     * 文件最大大小
-     */
-    private const val MAX_FILE_SIZE = 5L * 1024L * 1024L
-
-    /**
-     * 获取文件上传路径
-     *
-     * @return 文件上传路径
+     * 文件上传路径
      */
     private val uploads: String get() = FILE_PROPERTIES.uploads
 
+    private val maxSize: Long get() = (FILE_PROPERTIES.maxSize * FILE_PROPERTIES.sizeUnit.value.toDouble()).toLong()
+
+    private val maxFilenameLength: Int get() = FILE_PROPERTIES.maxFileNameLength
+
+    private val allowedTypes: Array<String> get() = FILE_PROPERTIES.allowedTypes
+
     /**
-     * 获取头像上传路径
-     *
-     * @return 头像上传路径
+     * 头像上传路径
      */
     private val avatar: String get() = uploads + UploadsPrefix.AVATAR_PREFIX
 
@@ -80,8 +71,9 @@ object UploadsUtils {
     private fun upload(file: MultipartFile, path: String): String {
         var fileName = getFileName(file)
 
-        Assert.isTrue(fileName.length > MAX_FILE_NAME_LENGTH, MaxFileNameLengthException("上传失败, 文件名最大长度为: $MAX_FILE_NAME_LENGTH"))
-        Assert.isTrue(file.size > MAX_FILE_SIZE, MaxFileSizeException("上传失败, 文件最大大小为: " + ByteUtils.getSize(MAX_FILE_SIZE)))
+        Assert.isTrue(fileName.length > maxFilenameLength, MaxFileNameLengthException("上传失败, 文件名最大长度为: $maxFilenameLength, 当前文件名长度: ${fileName.length}"))
+        Assert.isTrue(file.size > maxSize, MaxFileSizeException("上传失败, 文件最大大小为: ${ByteUtils.getSize(maxSize)}, 当前文件大小: ${ByteUtils.getSize(file.size)}"))
+        Assert.isTrue(!allowedTypes.contains(file.originalFilename!!.substringAfterLast(".")), "上传失败, 文件类型不允许, 仅支持: ${allowedTypes.joinToString(", ")}")
 
         fileName = "${IdUtils.snowflake()}_$fileName"
         val destDir = File(path)
@@ -109,13 +101,10 @@ object UploadsUtils {
      * @return 文件名
      */
     private fun getFileName(file: MultipartFile): String {
-        var fileName = file.originalFilename
-        if (Objects.isNull(fileName)) {
-            fileName = "unknown-file-name"
-        }
+        var fileName = file.originalFilename ?: "unknown-file-name"
 
         // 删除目录分隔符和特殊字符
-        fileName = fileName!!.replace("[\\\\/:*?\"<>|]".toRegex(), "")
+        fileName = fileName.replace("[\\\\/:*?\"<>|]".toRegex(), "")
         return fileName
     }
 
