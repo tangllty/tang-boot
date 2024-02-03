@@ -46,7 +46,7 @@ public class DemoModeInterceptor implements HandlerInterceptor {
         final var startWithWhiteList = List.of(
             "/websocket/", "/system/dict/data/type/", "/system/user/", "/system/dept/", "/system/role/", "/system/menu/",
             "/dict/type/", "/system/dict/data/", "/system/dict/type/", "/monitor/online/", "/tool/generator/",  "/generator/preview/",
-            "/app/chat/friend/", "/uploads/avatar"
+            "/app/chat/friend/", "/uploads/avatar", "/uploads"
         );
         final var getWhiteList = List.of(
             "/getInfo", "/getRoutes", "/system/dept/deptTree", "/system/user/getRoleSelect", "/system/menu/menuTree",
