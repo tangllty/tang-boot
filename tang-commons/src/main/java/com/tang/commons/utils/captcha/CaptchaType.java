@@ -1,6 +1,8 @@
 package com.tang.commons.utils.captcha;
 
 /**
+ * 验证码类型
+ *
  * @author Tang
  */
 public enum CaptchaType {
@@ -11,17 +13,22 @@ public enum CaptchaType {
     NUMBER,
 
     /**
-     * 字母（大小写敏感）
+     * 字母
      */
     LETTER,
 
     /**
-     * 字母（大小写不敏感）
+     * 字母小写
      */
-    LETTER_IGNORE_CASE,
+    LETTER_LOWER,
 
     /**
-     * 混合（大小写不敏感）
+     * 字母大写
+     */
+    LETTER_UPPER,
+
+    /**
+     * 混合
      */
     MIXED
 

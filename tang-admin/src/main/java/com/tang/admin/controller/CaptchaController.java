@@ -30,7 +30,7 @@ public class CaptchaController {
 
     @GetMapping
     public AjaxResult getCaptcha() {
-        var captcha = CaptchaUtils.generate(CaptchaType.NUMBER);
+        var captcha = CaptchaUtils.generate(CaptchaType.NUMBER, 3, 2, 4);
         var base64 = Base64.getEncoder().encodeToString(captcha.getImage());
         redisUtils.set(CachePrefix.CAPTCHA + captcha.getId(), captcha.getText(), 60);
         return AjaxResult.success(new CaptchaModel(captcha.getId(), base64));
