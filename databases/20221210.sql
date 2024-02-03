@@ -31,6 +31,7 @@ insert into sys_dept values (2, 1, '0,1',   '研发部门', '1', '0', '0', 'admi
 insert into sys_dept values (3, 1, '0,1',   '财务部门', '2', '0', '0', 'admin', sysdate(), '', null, '财务部门');
 insert into sys_dept values (4, 2, '0,1,2', '研发一组', '1', '0', '0', 'admin', sysdate(), '', null, '研发一组');
 insert into sys_dept values (5, 2, '0,1,2', '研发二组', '2', '0', '0', 'admin', sysdate(), '', null, '研发二组');
+insert into sys_dept values (6, 1, '0,1', '高级工程师', '2', '0', '0', 'admin', sysdate(), '', null, '高级工程师');
 
 
 -- -----------------------------
@@ -61,7 +62,9 @@ create table sys_user (
 
 insert into sys_user values (1, 4, 'admin', '糖猫猫', 'admin@163.com', '16888888888', '0', '', '$2a$10$M5ET/kgWHSiZn.3w5M1h1ePzo2PY7ZowvvthQbQITG9GjhvQZR7c6', '0', '0', '127.0.0.1', null, 'admin', sysdate(), '', null, '超级管理员');
 insert into sys_user values (2, 4, 'tang',  '糖糖',   'tang@163.com',  '16888888888', '0', '', '$2a$10$M5ET/kgWHSiZn.3w5M1h1ePzo2PY7ZowvvthQbQITG9GjhvQZR7c6', '0', '0', '127.0.0.1', null, 'admin', sysdate(), '', null, '普通用户');
-insert into sys_user values (3, 4, 'miao',  '猫猫',   'miao@163.com',  '16888888888', '0', '', '$2a$10$M5ET/kgWHSiZn.3w5M1h1ePzo2PY7ZowvvthQbQITG9GjhvQZR7c6', '0', '0', '127.0.0.1', null, 'admin', sysdate(), '', null, '游客用户');
+insert into sys_user values (3, 4, 'miao',  '猫猫',   'miao@163.com',  '16888888888', '0', '', '$2a$10$M5ET/kgWHSiZn.3w5M1h1ePzo2PY7ZowvvthQbQITG9GjhvQZR7c6', '0', '0', '127.0.0.1', null, 'admin', sysdate(), '', null, '普通用户');
+insert into sys_user values (4, 6, 'james',  'James Gosling', 'james-gosling@gmail.com',  '16888888888', '0', '', '$2a$10$M5ET/kgWHSiZn.3w5M1h1ePzo2PY7ZowvvthQbQITG9GjhvQZR7c6', '0', '0', '127.0.0.1', null, 'admin', sysdate(), '', null, '普通用户');
+insert into sys_user values (5, 6, 'linus',  'Linus Torvalds', 'linus-torvalds@gmail.com',  '16888888888', '0', '', '$2a$10$M5ET/kgWHSiZn.3w5M1h1ePzo2PY7ZowvvthQbQITG9GjhvQZR7c6', '0', '0', '127.0.0.1', null, 'admin', sysdate(), '', null, '普通用户');
 
 
 -- -----------------------------
@@ -85,8 +88,8 @@ create table sys_role (
 ) engine = InnoDB auto_increment = 100 comment = '角色表';
 
 insert into sys_role values (1, '超级管理员', 'admin', '0', '1', '0', '0', 'admin', sysdate(), '', null, '超级管理员');
-insert into sys_role values (2, '普通用户',   'tang',  '0', '2', '0', '0', 'admin', sysdate(), '', null, '普通用户');
-insert into sys_role values (3, '游客用户',   'miao',  '0', '3', '0', '0', 'admin', sysdate(), '', null, '游客用户');
+insert into sys_role values (2, '普通用户',   'user',  '0', '2', '0', '0', 'admin', sysdate(), '', null, '普通用户');
+insert into sys_role values (3, '游客用户',   'visitor',  '0', '3', '0', '0', 'admin', sysdate(), '', null, '游客用户');
 
 
 -- -----------------------------
@@ -205,7 +208,14 @@ create table sys_user_role (
 
 insert into sys_user_role values (1, 1);
 insert into sys_user_role values (2, 2);
-insert into sys_user_role values (3, 3);
+insert into sys_user_role values (3, 2);
+insert into sys_user_role values (4, 2);
+insert into sys_user_role values (5, 2);
+insert into sys_user_role values (6, 2);
+insert into sys_user_role values (7, 2);
+insert into sys_user_role values (8, 2);
+insert into sys_user_role values (9, 2);
+insert into sys_user_role values (10, 2);
 
 
 -- -----------------------------
@@ -559,7 +569,8 @@ create table app_friend_apply (
 
 insert into app_friend_apply values (100, 1, 2, 1, 885332953918476288, 'Hi, 糖糖', '0', '1', 'admin', sysdate(), '', null, '');
 insert into app_friend_apply values (101, 2, 1, 1, 885332953918476288, 'Hi, 糖糖', '0', '1', 'admin', sysdate(), '', null, '');
-
+insert into app_friend_apply values (102, 1, 3, 1, 951182679020277760, 'Hi, 猫猫', '0', '1', 'admin', sysdate(), '', null, '');
+insert into app_friend_apply values (103, 3, 1, 1, 951182679020277760, 'Hi, 猫猫', '0', '1', 'admin', sysdate(), '', null, '');
 
 -- -----------------------------
 -- 聊天列表表
@@ -582,7 +593,9 @@ create table app_chat_list (
 ) engine = InnoDB auto_increment = 100 comment = '聊天列表表';
 
 insert into app_chat_list values (885332953918476288, 1, 2, '0', '0', '1', '0', 'admin', sysdate(), '', null, '');
-insert into app_chat_list values (885332953918476288, 2, 1, '0', '0', '1', '0', 'admin', sysdate(), '', null, '');
+insert into app_chat_list values (885332953918476288, 2, 1, '0', '0', '1', '0', 'tang', sysdate(), '', null, '');
+insert into app_chat_list values (951182679020277760, 1, 3, '0', '0', '1', '0', 'admin', sysdate(), '', null, '');
+insert into app_chat_list values (951182679020277760, 3, 1, '0', '0', '1', '0', 'miao', sysdate(), '', null, '');
 
 
 -- -----------------------------
@@ -605,5 +618,6 @@ create table app_chat_message (
 
 insert into app_chat_message values (100, 885332953918476288, 1, null, '你好吗？', 'admin', sysdate(), '', null, '');
 insert into app_chat_message values (101, 885332953918476288, 2, 100,  '也就那么回事', 'tang', sysdate(), '', null, '');
+insert into app_chat_message values (102, 951182679020277760, 3, null, '你好嘛瞄~', 'admin', sysdate(), '', null, '');
 
 commit;
