@@ -12,7 +12,7 @@
     <artifactId>tang-admin</artifactId>
 
     <description>
-        tang-admin 后台管理
+        tang-admin 启动模块
     </description>
 
     <dependencies>
