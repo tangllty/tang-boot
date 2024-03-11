@@ -1,4 +1,4 @@
-FROM mysql:8.2.0
+FROM mysql:8.3.0
 # author
 LABEL authors="Tang"
 

@@ -36,7 +36,7 @@ tang-boot 是基于 Spring Boot 3 的权限管理系统，使用 Java 和 Kotlin
 
 * OpenJDK 17.0.7
 * Apache Maven 3.8.7
-* MySQL 8.2.0
+* MySQL 8.3.0
 * Redis 7.2.3
 
 ## 项目启动
