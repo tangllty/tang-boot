@@ -65,10 +65,11 @@ public interface SysMenuService {
     /**
      * 构建路由菜单
      *
-     * @param menuList 菜单列表
+     * @param menuList         菜单列表
+     * @param originalMenuList 原始菜单列表
      * @return 路由列表
      */
-    List<RouteVo> buildRoutes(List<SysMenu> menuList);
+    List<RouteVo> buildRoutes(List<SysMenu> menuList, List<SysMenu> originalMenuList);
 
     /**
      * 新增菜单
