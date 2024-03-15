@@ -15,6 +15,7 @@ tang-boot 是基于 Spring Boot 3 的权限管理系统，使用 Java 和 Kotlin
 * 采用 Spring Boot 3 + Spring Security + MyBatis + Redis + Jwt
 * 支持 Java 和 Kotlin 等 
 * 支持 MyBatis 和 MyBatis-Plus 等
+* 基于 RBAC 的权限管理
 * 自定义多种登录认证方式
 * 动态权限菜单
 * 动态字典数据权限

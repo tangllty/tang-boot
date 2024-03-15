@@ -15,6 +15,7 @@ You can read the [documentation](https://tangllty.eu.org/) for more information
 * Using Spring Boot 3 + Spring Security + MyBatis + Redis + Jwt
 * Support Java and Kotlin, etc.
 * Support MyBatis and MyBatis-Plus, etc.
+* Permission management based on RBAC
 * Customized multiple login authentication methods
 * Dynamic permissions menu
 * Dynamic dictionary data permissions
