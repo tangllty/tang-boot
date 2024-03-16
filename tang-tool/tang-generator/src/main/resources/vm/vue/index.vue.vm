@@ -105,7 +105,7 @@
             :icon="Edit"
             :disabled="${primaryKey}s.length !== 1"
             v-hasPermission="'system:dict:edit'"
-            @click="handleEdit"
+            @click="handleEdit(null)"
           >修改</el-button>
           <el-button
             type="danger"
@@ -425,12 +425,12 @@ const handleAdd = () => {
  *
  * @param row ${classComment}信息
  */
-const handleEdit = async (row: $ClassName) => {
+const handleEdit = async (row: $ClassName | null) => {
   let $primaryKey = state.$primaryKey
-  if (row.$primaryKey) {
+  if (row) {
     $primaryKey = row.$primaryKey
   }
-  const res: any = await get${ClassName}($primaryKey)
+  const res = await get${ClassName}($primaryKey)
   state.${className}Form = res.data
 
   state.${className}Dialog = {
@@ -497,7 +497,7 @@ const close${ClassName}Dialog = () => {
  * @param selection 选中数据
  */
 const handleSelectionChange = (selection: ${ClassName}[]) => {
-  state.${primaryKey}s = selection.map((item: $ClassName) => item.$primaryKey)
+  state.${primaryKey}s = selection.map(($className: $ClassName) => ${className}.$primaryKey)
   if (selection.length === 1) {
     state.$primaryKey = ${primaryKey}s.value[0]
   }
