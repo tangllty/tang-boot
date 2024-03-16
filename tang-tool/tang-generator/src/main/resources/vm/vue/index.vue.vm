@@ -331,12 +331,11 @@
 </template>
 
 <script lang="ts" setup>
-import { onMounted, reactive, ref, toRefs } from 'vue'
-import { FormInstance, FormRules } from 'element-plus'
+import type { FormInstance, FormRules } from 'element-plus'
 import { Plus, Edit, Delete, Search, Refresh } from '@element-plus/icons-vue'
 import { getProxy } from '@/utils/getCurrentInstance'
 import { list$ClassName, get$ClassName, add$ClassName, edit$ClassName, delete$ClassName, delete${ClassName}s } from '@/api/$moduleName/$businessName'
-import { $ClassName, ${ClassName}Form, ${ClassName}Query } from '@/api/$moduleName/$businessName/types'
+import type { $ClassName, ${ClassName}Form, ${ClassName}Query } from '@/api/$moduleName/$businessName/types'
 
 #set($dollar = '$')
 const proxy = getProxy()

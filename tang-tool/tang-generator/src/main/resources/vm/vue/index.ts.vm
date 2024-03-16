@@ -1,5 +1,5 @@
 import request from '@/utils/request'
-import { ${ClassName}Query, ${ClassName}Form } from './types'
+import type { ${ClassName}Query, ${ClassName}Form } from './types'
 
 /**
  * 查询${classComment}列表
