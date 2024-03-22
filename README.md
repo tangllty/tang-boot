@@ -4,76 +4,76 @@
 [![Java CI with Maven](https://github.com/tangllty/tang-boot/actions/workflows/maven.yml/badge.svg)](https://github.com/tangllty/tang-boot/actions/workflows/maven.yml)
 [![Build and Deploy](https://github.com/tangllty/tang-boot/actions/workflows/deploy.yml/badge.svg)](https://github.com/tangllty/tang-boot/actions/workflows/deploy.yml)
 
-**简体中文** | [**English**](./README.en.md)
+**English** | [**简体中文**](./README.zh.md)
 
-## 项目简介
+## Project Description
 
-tang-boot 是基于 Spring Boot 3 的权限管理系统，使用 Java 和 Kotlin 编写
+tang-boot is a permission management system based on Spring Boot 3, written in Java and Kotlin
 
-您可以阅读[文档](https://tangllty.eu.org/)获取更多信息
+You can read the [documentation](https://tangllty.eu.org/) for more information
 
-* 采用 Spring Boot 3 + Spring Security + MyBatis + Redis + Jwt
-* 支持 Java 和 Kotlin 等 
-* 支持 MyBatis 和 MyBatis-Plus 等
-* 基于 RBAC 的权限管理
-* 自定义多种登录认证方式
-* 动态权限菜单
-* 动态字典数据权限
-* 接口调用日志记录，统计接口调用耗时
-* 代码生成器，一键生成前后端基本代码
-* 封装 WebSocket，支持心跳检测，重连机制，自定义消息类型推送与订阅
-* 即时通信，随时随地收发好友和群消息，文件互传
-* 友好的代码结构及注释，便于阅读及二次开发
+* Using Spring Boot 3 + Spring Security + MyBatis + Redis + Jwt
+* Support Java and Kotlin, etc.
+* Support MyBatis and MyBatis-Plus, etc.
+* Permission management based on RBAC
+* Customized multiple login authentication methods
+* Dynamic permissions menu
+* Dynamic dictionary data permissions
+* API call log recording, statistics of API call time consumption
+* Code generator, one click to generate the basic front-end and back-end code
+* Encapsulate WebSocket, support heartbeat detection, reconnection mechanism, custom message type push and subscription
+* Instant messaging, sending and receiving friends and group messages anytime, anywhere, and transferring files to each other
+* Friendly code structure and comments, easy to read and secondary development
 
-## 项目预览
+## Project Preview
 
-* 在线预览：[http://116.196.102.213/](http://116.196.102.213/)
-* 账号密码：admin / 123456
+* Online Preview: [http://116.196.102.213/](http://116.196.102.213/)
+* Account password: admin / 123456
 
-### 服务器赞助
+### Server Sponsorship
 
 * [@RyanHo97](https://github.com/RyanHo97/)
 
-## 环境要求
+## Environment Requirements
 
 * OpenJDK 17.0.7
 * Apache Maven 3.8.7
 * MySQL 8.3.0
 * Redis 7.2.3
 
-## 项目启动
+## Project Startup
 
-1. 执行 databases/20221210.sql 文件 ( **包含 drop database 语句, 请仔细查看后执行 sql 文件** )
-2. 修改 tang-admin/src/main/resources/application-dev.yml password 等信息
-3. 修改 tang-admin/src/main/resources/logback.xml 日志存放路径
+1. execute the databases/20221210.sql file ( **contains drop database statement, please check it carefully and execute the sql file** )
+2. modify tang-admin/src/main/resources/application-dev.yml password and other information
+3. modify tang-admin/src/main/resources/logback.xml log storage path
 4. ```bash
    sh bin/package.sh && sh bin/start.sh
    ```
 
-## 贡献
+## Contributing
 
-如果你有任何问题、建议或发现了 bug，请提交 [Issues](https://gitee.com/tangllty/tang-boot/issues/new) 或提供 [Pull Request](https://gitee.com/tangllty/tang-boot/pull/new) 来帮助改进该项目。
+If you have any questions, suggestions, or find bugs, please submit an [Issues](https://github.com/tangllty/tang-boot/issues/new) or provide a [Pull Request](https://github.com/tangllty/tang-boot/pull/new) to help improve the project.
 
-## 许可证
+## License
 
-tang-boot 使用 MIT 许可证。更多详情请查阅 [LICENSE](https://gitee.com/tangllty/tang-boot/blob/master/LICENSE) 文件。
+tang-boot uses the MIT license. For more details, please refer to [LICENSE](https://github.com/tangllty/tang-boot/blob/master/LICENSE) files.
 
-## 项目地址
+## Project Address
 
-| 项目 | Gitee                                          | GitHub                                          | GitCode                                                 |
-| ---- | ---------------------------------------------- | ----------------------------------------------- | ------------------------------------------------------- |
-| 后端 | [tang-boot](https://gitee.com/tangllty/tang-boot) | [tang-boot](https://github.com/tangllty/tang-boot) | [tang-boot](https://gitcode.net/weixin_45456454/tang-boot) |
-| 前端 | [tang-vue](https://gitee.com/tangllty/tang-vue)   | [tang-vue](https://github.com/tangllty/tang-vue)   | [tang-vue](https://gitcode.net/weixin_45456454/tang-vue)   |
-| 文档 | [tang-docs](https://gitee.com/tangllty/tang-docs) | [tang-docs](https://github.com/tangllty/tang-docs) | [tang-docs](https://gitcode.net/weixin_45456454/tang-docs) |
+| Project       | Gitee                                          | GitHub                                          | GitCode                                                 |
+| ------------- | ---------------------------------------------- | ----------------------------------------------- | ------------------------------------------------------- |
+| Back End      | [tang-boot](https://gitee.com/tangllty/tang-boot) | [tang-boot](https://github.com/tangllty/tang-boot) | [tang-boot](https://gitcode.net/weixin_45456454/tang-boot) |
+| Front End     | [tang-vue](https://gitee.com/tangllty/tang-vue)   | [tang-vue](https://github.com/tangllty/tang-vue)   | [tang-vue](https://gitcode.net/weixin_45456454/tang-vue)   |
+| Documentation | [tang-docs](https://gitee.com/tangllty/tang-docs) | [tang-docs](https://github.com/tangllty/tang-docs) | [tang-docs](https://gitcode.net/weixin_45456454/tang-docs) |
 
-## 交流群
+## Discussion Group
 
-- 微信
+- WeChat
 
-  - ![WeChat](https://gitee.com/tangllty/tang-docs/raw/master/docs/public/wechat.png)
+  - ![WeChat](https://github.com/tangllty/tang-docs/raw/master/docs/public/wechat.png)
 - Telegram
 
-  - ![Telegram](https://gitee.com/tangllty/tang-docs/raw/master/docs/public/telegram.png)
+  - ![Telegram](https://github.com/tangllty/tang-docs/raw/master/docs/public/telegram.png)
 - QQ
 
-  - ![QQ](https://gitee.com/tangllty/tang-docs/raw/master/docs/public/qq.png)
+  - ![QQ](https://github.com/tangllty/tang-docs/raw/master/docs/public/qq.png)
