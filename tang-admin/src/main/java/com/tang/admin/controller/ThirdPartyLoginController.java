@@ -1,15 +1,16 @@
 package com.tang.admin.controller;
 
 import java.io.IOException;
-import java.net.URISyntaxException;
 
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.tang.commons.autoconfigure.oauth.GitHubProperties;
 import com.tang.commons.enumeration.LoginType;
 import com.tang.commons.model.LoginModel;
+import com.tang.commons.utils.StringUtils;
 import com.tang.framework.web.service.LoginService;
-import com.tang.system.service.SysMenuService;
 
 import jakarta.servlet.http.HttpServletResponse;
 
@@ -24,19 +25,23 @@ public class ThirdPartyLoginController {
 
     private final LoginService loginService;
 
-    public ThirdPartyLoginController(LoginService loginService, SysMenuService menuService) {
+    private final GitHubProperties gitHubProperties;
+
+    public ThirdPartyLoginController(LoginService loginService, GitHubProperties gitHubProperties) {
         this.loginService = loginService;
+        this.gitHubProperties = gitHubProperties;
     }
 
     @RequestMapping("/github/redirect")
-    public void oauthRedirect(String code, HttpServletResponse response) throws URISyntaxException, IOException, InterruptedException {
+    public void oauthRedirect(String code, HttpServletRequest request, HttpServletResponse response) throws IOException {
         var loginModel = new LoginModel();
         loginModel.setCode(code);
         loginModel.setLoginType(LoginType.GITHUB.getValue());
         loginModel.setCaptchaEnable(false);
         var token = loginService.login(loginModel);
-
-        var redirectUrl = "http://localhost:5173/login?token=" + token;
+        var params = request.getParameterMap();
+        // TODO replace a with redirect path
+        var redirectUrl = StringUtils.format("{}?token={}&a={}", gitHubProperties.getRedirectUrl(), token, params.get("a")[0]);
         response.sendRedirect(redirectUrl);
     }
 

@@ -45,36 +45,27 @@ class GitHubAuthenticationProvider(
 
         var tokenUrl = "https://github.com/login/oauth/access_token?client_id={}&client_secret={}&code={}"
         tokenUrl = StringUtils.format(tokenUrl, githubProperties.clientId, githubProperties.clientSecret, code)
-
         val tokenRequest = HttpRequest.newBuilder()
             .uri(URI(tokenUrl))
             .header("accept", "application/json")
             .POST(HttpRequest.BodyPublishers.noBody())
             .build();
-
         val tokenResponse = httpClient.send(tokenRequest, BodyHandlers.ofString());
-
         val tokenResult = objectMapper.readValue(tokenResponse.body(), typeReference);
-
         val accessToken = tokenResult["access_token"].toString()
 
         val userUrl = "https://api.github.com/user"
-
         val userRequest = HttpRequest.newBuilder()
             .uri(URI(userUrl))
             .header("accept", "application/json")
             .header("Authorization", "token $accessToken")
             .GET()
             .build();
-
         val userResponse = httpClient.send(userRequest, BodyHandlers.ofString());
-
         val userResult = objectMapper.readValue(userResponse.body(), typeReference);
-
         val username = userResult["login"].toString()
 
         val user = userService.selectUserByUsername(username);
-
         val userModel = authenticationService.createUserModel(user, null, username, LoginType.GITHUB.value);
 
         authenticationToken = GitHubAuthenticationToken(userModel, Collections.emptyList());

@@ -26,4 +26,9 @@ class GitHubProperties {
      */
     var clientSecret: String? = null
 
+    /**
+     * 回调地址
+     */
+    var redirectUrl: String? = null
+
 }

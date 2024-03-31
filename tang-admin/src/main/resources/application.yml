@@ -84,3 +84,5 @@ oauth:
     client-id: xxxxxxxxxxxxxxxxxxxx
     # 客户端密钥
     client-secret: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+    # 回调地址
+    redirect-url: http://localhost:5173/redirect
