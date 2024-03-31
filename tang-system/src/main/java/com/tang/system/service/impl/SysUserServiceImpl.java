@@ -133,6 +133,17 @@ public class SysUserServiceImpl implements SysUserService {
     }
 
     /**
+     * 新增第三方登录用户
+     *
+     * @param user 用户对象
+     * @return 影响行数
+     */
+    @Override
+    public int insertOauthUser(SysUser user) {
+        return 0;
+    }
+
+    /**
      * 修改用户信息
      *
      * @param user 用户对象
