@@ -100,6 +100,7 @@ public class LoginService {
         authenticationToken = switch (LoginType.getLoginType(userModel.getLoginType())) {
             case USERNAME -> new UsernameAuthenticationToken(userModel, Collections.emptyList());
             case EMAIL -> new EmailAuthenticationToken(userModel, Collections.emptyList());
+            case GITHUB -> new GitHubAuthenticationToken(userModel, Collections.emptyList());
             default -> throw new IllegalLoginTypeException("Unexpected login type: " + userModel.getLoginType());
         };
         SecurityContextHolder.getContext().setAuthentication(authenticationToken);

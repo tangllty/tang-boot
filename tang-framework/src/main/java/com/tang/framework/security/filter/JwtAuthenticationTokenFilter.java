@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.Collections;
 import java.util.Objects;
 
+import com.tang.framework.security.authentication.github.GitHubAuthenticationToken;
 import org.springframework.lang.NonNull;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -47,6 +48,7 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
             authenticationToken = switch (LoginType.getLoginType(userModel.getLoginType())) {
                 case USERNAME -> new UsernameAuthenticationToken(userModel, Collections.emptyList());
                 case EMAIL -> new EmailAuthenticationToken(userModel, Collections.emptyList());
+                case GITHUB -> new GitHubAuthenticationToken(userModel, Collections.emptyList());
                 default -> throw new IllegalLoginTypeException("Unexpected login type: " + userModel.getLoginType());
             };
 
