@@ -39,9 +39,13 @@ public class ThirdPartyLoginController {
         loginModel.setLoginType(LoginType.GITHUB.getValue());
         loginModel.setCaptchaEnable(false);
         var token = loginService.login(loginModel);
+        var redirectUrl = StringUtils.format("{}?token={}", gitHubProperties.getRedirectUrl(), token);
         var params = request.getParameterMap();
-        // TODO replace a with redirect path
-        var redirectUrl = StringUtils.format("{}?token={}&a={}", gitHubProperties.getRedirectUrl(), token, params.get("a")[0]);
+        var redirectParams = params.get("redirect");
+        if (redirectParams != null) {
+            response.sendRedirect(redirectUrl + "&redirect=" + redirectParams[0]);
+            return;
+        }
         response.sendRedirect(redirectUrl);
     }
 
