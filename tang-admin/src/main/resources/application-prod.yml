@@ -23,3 +23,13 @@ spring:
       host: localhost
       port: 6379
       password: password
+
+# 第三方登录
+oauth:
+  github:
+    # 客户端ID
+    client-id: Iv1.2f8ee47264aa7c54
+    # 客户端密钥
+    client-secret: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+    # 回调地址
+    redirect-url: http://116.196.102.213/redirect
