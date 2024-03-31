@@ -92,6 +92,11 @@ public class SysUser extends BaseEntity {
     private String password;
 
     /**
+     * 用户类型
+     */
+    private String userType;
+
+    /**
      * 帐号状态
      */
     @Excel(name = "帐号状态", dictType = "sys_status")
@@ -200,6 +205,14 @@ public class SysUser extends BaseEntity {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getUserType() {
+        return userType;
+    }
+
+    public void setUserType(String userType) {
+        this.userType = userType;
     }
 
     public String getStatus() {

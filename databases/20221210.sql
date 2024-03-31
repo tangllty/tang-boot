@@ -48,6 +48,7 @@ create table sys_user (
     gender       char(1)       default '0'              comment '性别{0=保密, 1=男, 2=女}',
     avatar       varchar(128)  default ''               comment '头像地址',
     password     varchar(128)  default ''               comment '密码',
+    user_type    char(1)       default '0'              comment '用户类型{0=系统用户, 1=GitHub用户}',
     status       char(1)       default '0'              comment '帐号状态{0=正常, 1=停用}',
     del_flag     char(1)       default '0'              comment '删除标志{0=正常, 1=删除}',
     login_ip     varchar(128)  default ''               comment '最后登录IP',
@@ -60,11 +61,11 @@ create table sys_user (
     primary key (user_id)
 ) engine = InnoDB auto_increment = 100 comment = '用户表';
 
-insert into sys_user values (1, 4, 'admin', '糖猫猫', 'admin@163.com', '16888888888', '0', '', '$2a$10$M5ET/kgWHSiZn.3w5M1h1ePzo2PY7ZowvvthQbQITG9GjhvQZR7c6', '0', '0', '127.0.0.1', null, 'admin', sysdate(), '', null, '超级管理员');
-insert into sys_user values (2, 4, 'tang',  '糖糖',   'tang@163.com',  '16888888888', '0', '', '$2a$10$M5ET/kgWHSiZn.3w5M1h1ePzo2PY7ZowvvthQbQITG9GjhvQZR7c6', '0', '0', '127.0.0.1', null, 'admin', sysdate(), '', null, '普通用户');
-insert into sys_user values (3, 4, 'miao',  '猫猫',   'miao@163.com',  '16888888888', '0', '', '$2a$10$M5ET/kgWHSiZn.3w5M1h1ePzo2PY7ZowvvthQbQITG9GjhvQZR7c6', '0', '0', '127.0.0.1', null, 'admin', sysdate(), '', null, '普通用户');
-insert into sys_user values (4, 6, 'james',  'James Gosling', 'james-gosling@gmail.com',  '16888888888', '0', '', '$2a$10$M5ET/kgWHSiZn.3w5M1h1ePzo2PY7ZowvvthQbQITG9GjhvQZR7c6', '0', '0', '127.0.0.1', null, 'admin', sysdate(), '', null, '普通用户');
-insert into sys_user values (5, 6, 'linus',  'Linus Torvalds', 'linus-torvalds@gmail.com',  '16888888888', '0', '', '$2a$10$M5ET/kgWHSiZn.3w5M1h1ePzo2PY7ZowvvthQbQITG9GjhvQZR7c6', '0', '0', '127.0.0.1', null, 'admin', sysdate(), '', null, '普通用户');
+insert into sys_user values (1, 4, 'admin', '糖猫猫', 'admin@163.com', '16888888888', '0', '', '$2a$10$M5ET/kgWHSiZn.3w5M1h1ePzo2PY7ZowvvthQbQITG9GjhvQZR7c6', '0', '0', '0', '127.0.0.1', null, 'admin', sysdate(), '', null, '超级管理员');
+insert into sys_user values (2, 4, 'tang',  '糖糖',   'tang@163.com',  '16888888888', '0', '', '$2a$10$M5ET/kgWHSiZn.3w5M1h1ePzo2PY7ZowvvthQbQITG9GjhvQZR7c6', '0', '0', '0', '127.0.0.1', null, 'admin', sysdate(), '', null, '普通用户');
+insert into sys_user values (3, 4, 'miao',  '猫猫',   'miao@163.com',  '16888888888', '0', '', '$2a$10$M5ET/kgWHSiZn.3w5M1h1ePzo2PY7ZowvvthQbQITG9GjhvQZR7c6', '0', '0', '0', '127.0.0.1', null, 'admin', sysdate(), '', null, '普通用户');
+insert into sys_user values (4, 6, 'james',  'James Gosling', 'james-gosling@gmail.com',  '16888888888', '0', '', '$2a$10$M5ET/kgWHSiZn.3w5M1h1ePzo2PY7ZowvvthQbQITG9GjhvQZR7c6', '0', '0', '0', '127.0.0.1', null, 'admin', sysdate(), '', null, '普通用户');
+insert into sys_user values (5, 6, 'linus',  'Linus Torvalds', 'linus-torvalds@gmail.com',  '16888888888', '0', '', '$2a$10$M5ET/kgWHSiZn.3w5M1h1ePzo2PY7ZowvvthQbQITG9GjhvQZR7c6', '0', '0', '0', '127.0.0.1', null, 'admin', sysdate(), '', null, '普通用户');
 
 
 -- -----------------------------

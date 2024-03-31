@@ -12,6 +12,7 @@
         <result property="gender" column="gender" />
         <result property="avatar" column="avatar" />
         <result property="password" column="password" />
+        <result property="userType" column="user_type" />
         <result property="status" column="status" />
         <result property="delFlag" column="del_flag" />
         <result property="loginIp" column="login_ip" />
@@ -39,8 +40,8 @@
     </resultMap>
 
     <sql id="SysUserVo">
-        select u.user_id, u.dept_id, u.username, u.nickname, u.email, u.phone, u.gender, u.avatar, u.password, u.status, u.del_flag, u.login_ip, u.login_date,
-            u.create_by, u.create_time, u.update_by, u.update_time, u.remark,
+        select u.user_id, u.dept_id, u.username, u.nickname, u.email, u.phone, u.gender, u.avatar, u.password, u.user_type,
+            u.status, u.del_flag, u.login_ip, u.login_date, u.create_by, u.create_time, u.update_by, u.update_time, u.remark,
             d.dept_id as d_dept_id, d.parent_id, d.ancestors, d.dept_name, d.sort, d.status as d_status,
             d.create_by as d_create_by, d.create_time as d_create_time, d.update_by as d_update_by, d.update_time as d_update_time, d.remark as d_remark
         from sys_user u
@@ -61,6 +62,9 @@
         </if>
         <if test="gender != null and gender != ''">
             and u.gender = #{gender}
+        </if>
+        <if test="userType != null and userType != ''">
+            and u.user_type = #{userType}
         </if>
         <if test="status != null and status != ''">
             and u.status = #{status}
@@ -103,6 +107,7 @@
             <if test="gender != null and gender != ''">gender,</if>
             <if test="avatar != null and avatar != ''">avatar,</if>
             <if test="password != null and password != ''">password,</if>
+            <if test="userType != null and userType != ''">user_type,</if>
             <if test="createBy != null and createBy != ''">create_by,</if>
             <if test="remark != null and remark != ''">remark,</if>
             create_time
@@ -116,6 +121,7 @@
             <if test="gender != null and gender != ''">#{gender},</if>
             <if test="avatar != null and avatar != ''">#{avatar},</if>
             <if test="password != null and password != ''">#{password},</if>
+            <if test="userType != null and userType != ''">#{userType},</if>
             <if test="createBy != null and createBy != ''">#{createBy},</if>
             <if test="remark != null and remark != ''">#{remark},</if>
             sysdate()
@@ -133,6 +139,7 @@
             <if test="gender != null and gender != ''">gender = #{gender},</if>
             <if test="avatar != null and avatar != ''">avatar = #{avatar},</if>
             <if test="password != null and password != ''">password = #{password},</if>
+            <if test="userType != null and userType != ''">user_type = #{userType},</if>
             <if test="loginIp != null and loginIp != ''">login_ip = #{loginIp},</if>
             <if test="loginDate != null">login_date = #{loginDate},</if>
             <if test="updateBy != null and updateBy != ''">update_by = #{updateBy},</if>

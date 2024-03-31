@@ -61,7 +61,9 @@ public class AuthenticationService implements UserModelProvider {
     public UserModel createUserModel(SysUser user, String password, String account, String loginType) {
         try {
             Assert.isNull(user, new UserNotFoundException("用户不存在"));
-            Assert.isFalse(SecurityUtils.matchesPassword(password, user.getPassword()), new PasswordMismatchException("密码错误"));
+            if (Objects.equals(user.getUserType(), "0")) {
+                Assert.isFalse(SecurityUtils.matchesPassword(password, user.getPassword()), new PasswordMismatchException("密码错误"));
+            }
             Assert.isTrue(user.getStatus().equals(Status.DISABLED), new DisabledException("账号已停用"));
             Assert.isTrue(user.getDelFlag().equals(Status.DELETED),new DeletedException("账号已删除"));
         } catch (RuntimeException e) {
