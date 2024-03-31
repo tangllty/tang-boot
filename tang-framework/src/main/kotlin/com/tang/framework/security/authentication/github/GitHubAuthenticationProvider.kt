@@ -6,6 +6,7 @@ import com.tang.commons.autoconfigure.oauth.GitHubProperties
 import com.tang.commons.enumeration.LoginType
 import com.tang.commons.utils.StringUtils
 import com.tang.framework.web.service.authentication.AuthenticationService
+import com.tang.system.entity.SysUser
 import com.tang.system.service.SysUserService
 import org.springframework.security.authentication.AuthenticationProvider
 import org.springframework.security.core.Authentication
@@ -13,9 +14,9 @@ import org.springframework.stereotype.Component
 import java.net.URI
 import java.net.http.HttpClient
 import java.net.http.HttpRequest
-import java.net.http.HttpResponse
 import java.net.http.HttpResponse.BodyHandlers
-import java.util.*
+import java.util.Collections
+import java.util.Objects
 
 /**
  * 用户名密码身份验证
@@ -49,9 +50,9 @@ class GitHubAuthenticationProvider(
             .uri(URI(tokenUrl))
             .header("accept", "application/json")
             .POST(HttpRequest.BodyPublishers.noBody())
-            .build();
-        val tokenResponse = httpClient.send(tokenRequest, BodyHandlers.ofString());
-        val tokenResult = objectMapper.readValue(tokenResponse.body(), typeReference);
+            .build()
+        val tokenResponse = httpClient.send(tokenRequest, BodyHandlers.ofString())
+        val tokenResult = objectMapper.readValue(tokenResponse.body(), typeReference)
         val accessToken = tokenResult["access_token"].toString()
 
         val userUrl = "https://api.github.com/user"
@@ -60,15 +61,20 @@ class GitHubAuthenticationProvider(
             .header("accept", "application/json")
             .header("Authorization", "token $accessToken")
             .GET()
-            .build();
-        val userResponse = httpClient.send(userRequest, BodyHandlers.ofString());
-        val userResult = objectMapper.readValue(userResponse.body(), typeReference);
+            .build()
+        val userResponse = httpClient.send(userRequest, BodyHandlers.ofString())
+        val userResult = objectMapper.readValue(userResponse.body(), typeReference)
         val username = userResult["login"].toString()
 
-        val user = userService.selectUserByUsername(username);
-        val userModel = authenticationService.createUserModel(user, null, username, LoginType.GITHUB.value);
+        val user = userService.selectUserByUsername(username)
+        if (Objects.isNull(user)) {
+            val insertUser = SysUser()
+            insertUser.username = username
 
-        authenticationToken = GitHubAuthenticationToken(userModel, Collections.emptyList());
+        }
+        val userModel = authenticationService.createUserModel(user, null, username, LoginType.GITHUB.value)
+
+        authenticationToken = GitHubAuthenticationToken(userModel, Collections.emptyList())
 
         return authenticationToken
     }

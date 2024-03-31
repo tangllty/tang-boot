@@ -97,6 +97,18 @@ public class SysUserServiceImpl implements SysUserService {
     }
 
     /**
+     * 根据用户名和用户类型查询单条数据
+     *
+     * @param username 用户名
+     * @param userType 用户类型
+     * @return 用户对象
+     */
+    @Override
+    public SysUser selectUserByUserType(String username, String userType) {
+        return userMapper.selectUserByUserType(username, userType);
+    }
+
+    /**
      * 新增用户
      *
      * @param user 用户对象

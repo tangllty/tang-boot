@@ -55,6 +55,15 @@ public interface SysUserMapper {
     SysUser selectUserByEmail(String email);
 
     /**
+     * 根据用户名和用户类型查询单条数据
+     *
+     * @param username 用户名
+     * @param userType 用户类型
+     * @return 用户对象
+     */
+    SysUser selectUserByUserType(@Param("username") String username, @Param("userType") String userType);
+
+    /**
      * 新增用户
      *
      * @param user 用户对象

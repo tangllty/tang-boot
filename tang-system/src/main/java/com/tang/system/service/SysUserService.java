@@ -53,12 +53,29 @@ public interface SysUserService {
     SysUser selectUserByEmail(String email);
 
     /**
+     * 根据用户名和用户类型查询单条数据
+     *
+     * @param username 用户名
+     * @param userType 用户类型
+     * @return 用户对象
+     */
+    SysUser selectUserByUserType(String username, String userType);
+
+    /**
      * 新增用户
      *
      * @param user 用户对象
      * @return 影响行数
      */
     int insertUser(SysUser user);
+
+    /**
+     * 新增第三方登录用户
+     *
+     * @param user 用户对象
+     * @return 影响行数
+     */
+    int insertOauthUser(SysUser user);
 
     /**
      * 修改用户信息
