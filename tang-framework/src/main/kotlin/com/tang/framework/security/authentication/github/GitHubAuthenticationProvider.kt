@@ -1,10 +1,10 @@
 package com.tang.framework.security.authentication.github
 
-import com.fasterxml.jackson.core.type.TypeReference
-import com.fasterxml.jackson.databind.ObjectMapper
 import com.tang.commons.autoconfigure.oauth.GitHubProperties
+import com.tang.commons.constants.ContentType
 import com.tang.commons.enumeration.LoginType
 import com.tang.commons.utils.StringUtils
+import com.tang.commons.utils.http.HttpUtils
 import com.tang.framework.web.service.authentication.AuthenticationService
 import com.tang.system.entity.SysUser
 import com.tang.system.service.SysUserService
@@ -32,10 +32,6 @@ class GitHubAuthenticationProvider(
 
     private val httpClient: HttpClient = HttpClient.newBuilder().build()
 
-    private val objectMapper = ObjectMapper()
-
-    private val typeReference: TypeReference<Map<String, Any>> = object : TypeReference<Map<String, Any>>() {}
-
     override fun authenticate(authentication: Authentication): Authentication? {
         if (authentication !is GitHubAuthenticationToken) {
             return null
@@ -46,24 +42,19 @@ class GitHubAuthenticationProvider(
 
         var tokenUrl = "https://github.com/login/oauth/access_token?client_id={}&client_secret={}&code={}"
         tokenUrl = StringUtils.format(tokenUrl, githubProperties.clientId, githubProperties.clientSecret, code)
-        val tokenRequest = HttpRequest.newBuilder()
-            .uri(URI(tokenUrl))
-            .header("accept", "application/json")
-            .POST(HttpRequest.BodyPublishers.noBody())
-            .build()
-        val tokenResponse = httpClient.send(tokenRequest, BodyHandlers.ofString())
-        val tokenResult = objectMapper.readValue(tokenResponse.body(), typeReference)
+        val tokenResponse = HttpUtils.post(tokenUrl)
+        val tokenResult = HttpUtils.parse(tokenResponse)
         val accessToken = tokenResult["access_token"].toString()
 
         val userUrl = "https://api.github.com/user"
         val userRequest = HttpRequest.newBuilder()
             .uri(URI(userUrl))
-            .header("accept", "application/json")
-            .header("Authorization", "token $accessToken")
+            .header("accept", ContentType.APPLICATION_JSON)
+            .header("Authorization", "Bearer $accessToken")
             .GET()
             .build()
         val userResponse = httpClient.send(userRequest, BodyHandlers.ofString())
-        val userResult = objectMapper.readValue(userResponse.body(), typeReference)
+        val userResult = HttpUtils.parse(userResponse.body())
         val username = userResult["login"].toString()
 
         val user = userService.selectUserByUsername(username)
