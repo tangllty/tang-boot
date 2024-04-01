@@ -4,13 +4,19 @@ import com.fasterxml.jackson.core.type.TypeReference
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.tang.commons.constants.ContentType
 import com.tang.commons.utils.LogUtils
+import org.springframework.mock.web.MockMultipartFile
+import org.springframework.web.multipart.MultipartFile
 import java.io.File
 import java.net.URI
 import java.net.http.HttpClient
 import java.net.http.HttpRequest
 import java.net.http.HttpRequest.BodyPublisher
 import java.net.http.HttpRequest.BodyPublishers
+import java.net.http.HttpResponse.BodyHandler
 import java.net.http.HttpResponse.BodyHandlers
+import java.nio.file.Files
+import java.nio.file.Path
+import java.nio.file.Paths
 
 /**
  * Http 工具类
@@ -33,6 +39,23 @@ object HttpUtils {
     }
 
     @JvmStatic
+    fun <T> get(url: String, responseBodyHandler: BodyHandler<T>): T {
+        val request = HttpRequest.newBuilder()
+            .uri(URI.create(url))
+            .header("accept", ContentType.APPLICATION_OCTET_STREAM)
+            .GET()
+            .build()
+        LOGGER.info("request: ${request.uri()}")
+        val response = client.send(request, responseBodyHandler)
+        return response.body()
+    }
+
+    @JvmStatic
+    fun get(url: String): String {
+        return get(url, BodyHandlers.ofString())
+    }
+
+    @JvmStatic
     fun get(url: String, params: Map<String, String>): String {
         val urlWithParams = if (url.contains("?")) {
             if (url.endsWith("?")) url else "$url&"
@@ -44,15 +67,12 @@ object HttpUtils {
     }
 
     @JvmStatic
-    fun get(url: String): String {
-        val request = HttpRequest.newBuilder()
-            .uri(URI(url))
-            .header("accept", ContentType.APPLICATION_JSON)
-            .GET()
-            .build()
-        LOGGER.info("request: ${request.uri()}")
-        val response = client.send(request, BodyHandlers.ofString())
-        return response.body()
+    fun getFile(url: String): MultipartFile {
+        val fileByteArray = get(url, BodyHandlers.ofByteArray())
+        val fileName = Paths.get(url).fileName.toString()
+        val tempFile: Path = Files.createTempFile("temp", fileName)
+        Files.write(tempFile, fileByteArray);
+        return MockMultipartFile("file", fileName, "image/png", Files.readAllBytes(tempFile))
     }
 
     @JvmStatic
@@ -78,7 +98,7 @@ object HttpUtils {
     @JvmStatic
     fun post(url: String, bodyPublisher: BodyPublisher = BodyPublishers.noBody()): String {
         val request = HttpRequest.newBuilder()
-            .uri(URI(url))
+            .uri(URI.create(url))
             .header("accept", ContentType.APPLICATION_JSON)
             .POST(bodyPublisher)
             .build()
