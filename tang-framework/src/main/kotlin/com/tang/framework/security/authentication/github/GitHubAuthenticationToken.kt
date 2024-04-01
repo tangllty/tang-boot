@@ -35,4 +35,5 @@ class GitHubAuthenticationToken: AbstractAuthenticationToken {
     override fun getPrincipal(): Any {
         return principal
     }
+
 }
