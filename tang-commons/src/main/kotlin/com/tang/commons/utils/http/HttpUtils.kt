@@ -8,15 +8,16 @@ import org.springframework.mock.web.MockMultipartFile
 import org.springframework.web.multipart.MultipartFile
 import java.io.File
 import java.net.URI
+import java.net.URL
 import java.net.http.HttpClient
 import java.net.http.HttpRequest
 import java.net.http.HttpRequest.BodyPublisher
 import java.net.http.HttpRequest.BodyPublishers
+import java.net.http.HttpResponse
 import java.net.http.HttpResponse.BodyHandler
 import java.net.http.HttpResponse.BodyHandlers
 import java.nio.file.Files
 import java.nio.file.Path
-import java.nio.file.Paths
 
 /**
  * Http 工具类
@@ -39,20 +40,15 @@ object HttpUtils {
     }
 
     @JvmStatic
-    fun <T> get(url: String, responseBodyHandler: BodyHandler<T>): T {
+    fun get(url: String): String {
         val request = HttpRequest.newBuilder()
             .uri(URI.create(url))
-            .header("accept", ContentType.APPLICATION_OCTET_STREAM)
+            .header("accept", ContentType.APPLICATION_JSON)
             .GET()
             .build()
         LOGGER.info("request: ${request.uri()}")
-        val response = client.send(request, responseBodyHandler)
+        val response = client.send(request, BodyHandlers.ofString())
         return response.body()
-    }
-
-    @JvmStatic
-    fun get(url: String): String {
-        return get(url, BodyHandlers.ofString())
     }
 
     @JvmStatic
@@ -67,12 +63,25 @@ object HttpUtils {
     }
 
     @JvmStatic
+    fun <T> getFile(url: String, responseBodyHandler: BodyHandler<T>): HttpResponse<T> {
+        val request = HttpRequest.newBuilder()
+            .uri(URI.create(url))
+            .header("accept", ContentType.APPLICATION_OCTET_STREAM)
+            .GET()
+            .build()
+        LOGGER.info("request: ${request.uri()}")
+        return client.send(request, responseBodyHandler)
+    }
+
+    @JvmStatic
     fun getFile(url: String): MultipartFile {
-        val fileByteArray = get(url, BodyHandlers.ofByteArray())
-        val fileName = Paths.get(url).fileName.toString()
+        val response = getFile(url, BodyHandlers.ofByteArray())
+        val fileByteArray = response.body()
+        val fileName = getFileName(url)
+        val contentType = getContentType(response)
         val tempFile: Path = Files.createTempFile("temp", fileName)
-        Files.write(tempFile, fileByteArray);
-        return MockMultipartFile("file", fileName, "image/png", Files.readAllBytes(tempFile))
+        Files.write(tempFile, fileByteArray)
+        return MockMultipartFile("file", "${fileName}.${contentType.substringAfterLast("/")}", contentType, Files.readAllBytes(tempFile))
     }
 
     @JvmStatic
@@ -105,6 +114,14 @@ object HttpUtils {
         LOGGER.info("request: ${request.uri()}")
         val response = client.send(request, BodyHandlers.ofString())
         return response.body()
+    }
+
+    private fun getFileName(url: String): String {
+        return URL(url).path.substringAfterLast("/")
+    }
+
+    private fun getContentType(response: HttpResponse<*>): String {
+        return response.headers().firstValue("Content-Type").orElse(ContentType.APPLICATION_OCTET_STREAM)
     }
 
 }
