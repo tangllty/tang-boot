@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.tang.commons.constants.ContentType;
 import com.tang.commons.utils.AjaxResult;
+import com.tang.commons.utils.Assert;
 import com.tang.commons.utils.page.PageUtils;
 import com.tang.commons.utils.page.TableDataResult;
 import com.tang.generator.entity.GenTable;
@@ -163,6 +164,8 @@ public class GenTableController {
     @PreAuthorize("@auth.hasPermission('tool:generator:export')")
     @GetMapping("/downloads")
     public void downloadCodes(HttpServletResponse response, String[] tableNames) throws IOException {
+        Assert.isNull(tableNames, "表名称不能为空");
+
         var data = tableService.downloadCodes(tableNames);
         responseCode(response, data);
     }
