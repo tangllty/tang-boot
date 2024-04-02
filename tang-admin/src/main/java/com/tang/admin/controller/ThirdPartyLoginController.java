@@ -3,6 +3,7 @@ package com.tang.admin.controller;
 import java.io.IOException;
 
 import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -32,7 +33,7 @@ public class ThirdPartyLoginController {
         this.gitHubProperties = gitHubProperties;
     }
 
-    @RequestMapping("/github/redirect")
+    @GetMapping("/github/redirect")
     public void oauthRedirect(String code, HttpServletRequest request, HttpServletResponse response) throws IOException {
         var loginModel = new LoginModel();
         loginModel.setCode(code);
