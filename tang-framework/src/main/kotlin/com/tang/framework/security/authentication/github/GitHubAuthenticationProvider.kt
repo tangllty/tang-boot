@@ -59,7 +59,7 @@ class GitHubAuthenticationProvider(
         val userResult = HttpUtils.parse(userResponse.body())
         val username = userResult["login"].toString()
 
-        var user = userService.selectUserByUsername(username)
+        var user = userService.selectUserByUserType(username, UserType.GITHUB.value)
         if (Objects.isNull(user)) {
             val insertUser = SysUser()
             insertUser.username = username
