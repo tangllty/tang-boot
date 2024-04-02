@@ -27,7 +27,7 @@ jobs:
         sed -i 's#<property name="LOG_PATH" value=".*" />#<property name="LOG_PATH" value="${{ secrets.LOG_PATH }}" />#' tang-admin/src/main/resources/logback.xml
         sed -i '0,/password: .*/s/password: .*/password: ${{ secrets.DATABASE_PASSWORD }}/' tang-admin/src/main/resources/application-prod.yml
         sed -i '0,/password/! {s/password: .*/password: ${{ secrets.REDIS_PASSWORD }}/}' tang-admin/src/main/resources/application-prod.yml
-        sed -i '/github:/,/client-secret:/ s/\(client-secret: \).*/\1${{ secrets.GITHUB_SECRET }}/' tang-admin/src/main/resources/application-prod.yml
+        sed -i '/github:/,/client-secret:/ s/\(client-secret: \).*/\1${{ secrets.CLIENT_SECRET_GITHUB }}/' tang-admin/src/main/resources/application-prod.yml
 
     - name: Build with Maven
       run: sh bin/package.sh
