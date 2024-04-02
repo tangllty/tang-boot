@@ -44,6 +44,7 @@ class GitHubAuthenticationProvider(
 
         var tokenUrl = "https://github.com/login/oauth/access_token?client_id={}&client_secret={}&code={}"
         tokenUrl = StringUtils.format(tokenUrl, githubProperties.clientId, githubProperties.clientSecret, code)
+        HttpUtils.log(tokenUrl, "client_secret")
         val tokenResponse = HttpUtils.post(tokenUrl)
         val tokenResult = HttpUtils.parse(tokenResponse)
         val accessToken = tokenResult["access_token"].toString()
@@ -55,6 +56,7 @@ class GitHubAuthenticationProvider(
             .header("Authorization", "Bearer $accessToken")
             .GET()
             .build()
+        HttpUtils.log(userUrl)
         val userResponse = httpClient.send(userRequest, BodyHandlers.ofString())
         val userResult = HttpUtils.parse(userResponse.body())
         val username = userResult["login"].toString()

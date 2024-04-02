@@ -69,7 +69,6 @@ object HttpUtils {
             .header("accept", ContentType.APPLICATION_OCTET_STREAM)
             .GET()
             .build()
-        LOGGER.info("request: ${request.uri()}")
         return client.send(request, responseBodyHandler)
     }
 
@@ -111,7 +110,6 @@ object HttpUtils {
             .header("accept", ContentType.APPLICATION_JSON)
             .POST(bodyPublisher)
             .build()
-        LOGGER.info("request: ${request.uri()}")
         val response = client.send(request, BodyHandlers.ofString())
         return response.body()
     }
@@ -122,6 +120,47 @@ object HttpUtils {
 
     private fun getContentType(response: HttpResponse<*>): String {
         return response.headers().firstValue("Content-Type").orElse(ContentType.APPLICATION_OCTET_STREAM)
+    }
+
+    /**
+     * 加密指定参数
+     *
+     * @param url        url
+     * @param paramNames 参数名
+     */
+    @JvmStatic
+    fun encryptParams(url: String, paramNames: List<String>): String {
+        if (paramNames.isEmpty()) return url
+
+        val params: MutableMap<String, String> = url.substringAfter("?").split("&").associate {
+            val (key, value) = it.split("=")
+            key to value
+        }.toMutableMap()
+
+        // 加密参数替换为同长度的x
+        paramNames.forEach { params[it] = "x".repeat(params[it]!!.length) }
+        return url.substringBefore("?") + "?" + params.map { "${it.key}=${it.value}" }.joinToString("&")
+    }
+
+    /**
+     * 加密指定参数
+     *
+     * @param url        url
+     * @param paramNames 参数名
+     */
+    @JvmStatic
+    fun encryptParams(url: String, vararg paramNames: String): String {
+        return encryptParams(url, paramNames.toList())
+    }
+
+    @JvmStatic
+    fun log(url: String, vararg encryptParams: String) {
+        LOGGER.info("request: ${encryptParams(url, *encryptParams)}")
+    }
+
+    @JvmStatic
+    fun log(url: String, encryptParams: List<String>) {
+        log(url, *encryptParams.toTypedArray())
     }
 
 }
