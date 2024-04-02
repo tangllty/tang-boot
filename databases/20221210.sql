@@ -31,8 +31,9 @@ insert into sys_dept values (2, 1, '0,1',   '研发部门', '1', '0', '0', 'admi
 insert into sys_dept values (3, 1, '0,1',   '财务部门', '2', '0', '0', 'admin', sysdate(), '', null, '财务部门');
 insert into sys_dept values (4, 2, '0,1,2', '研发一组', '1', '0', '0', 'admin', sysdate(), '', null, '研发一组');
 insert into sys_dept values (5, 2, '0,1,2', '研发二组', '2', '0', '0', 'admin', sysdate(), '', null, '研发二组');
-insert into sys_dept values (6, 1, '0,1', '高级工程师', '2', '0', '0', 'admin', sysdate(), '', null, '高级工程师');
-
+insert into sys_dept values (6, 1, '0,1',  '高级工程师', '2', '0', '0', 'admin', sysdate(), '', null, '高级工程师');
+insert into sys_dept values (7, 1, '0',    '第三方用户', '3', '0', '0', 'admin', sysdate(), '', null, '第三方用户');
+insert into sys_dept values (8, 7, '0,7',  'GitHub',   '1', '0', '0', 'admin', sysdate(), '', null, 'GitHub');
 
 -- -----------------------------
 -- 用户表

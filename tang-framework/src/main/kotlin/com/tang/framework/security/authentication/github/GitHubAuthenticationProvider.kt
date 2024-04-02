@@ -3,6 +3,7 @@ package com.tang.framework.security.authentication.github
 import com.tang.commons.autoconfigure.oauth.GitHubProperties
 import com.tang.commons.constants.ContentType
 import com.tang.commons.enumeration.LoginType
+import com.tang.commons.enumeration.UserType
 import com.tang.commons.utils.StringUtils
 import com.tang.commons.utils.UploadsUtils
 import com.tang.commons.utils.http.HttpUtils
@@ -58,7 +59,7 @@ class GitHubAuthenticationProvider(
         val userResult = HttpUtils.parse(userResponse.body())
         val username = userResult["login"].toString()
 
-        val user = userService.selectUserByUsername(username)
+        var user = userService.selectUserByUsername(username)
         if (Objects.isNull(user)) {
             val insertUser = SysUser()
             insertUser.username = username
@@ -66,6 +67,10 @@ class GitHubAuthenticationProvider(
             val avatarUrl = userResult["avatar_url"].toString()
             insertUser.avatar = UploadsUtils.uploadAvatar(HttpUtils.getFile(avatarUrl))
             insertUser.email = userResult["email"].toString()
+            insertUser.userType = UserType.GITHUB.value
+            insertUser.deptId = 8
+            userService.insertOauthUser(insertUser)
+            user = userService.selectUserByUserId(insertUser.userId)
         }
         val userModel = authenticationService.createUserModel(user, null, username, LoginType.GITHUB.value)
 

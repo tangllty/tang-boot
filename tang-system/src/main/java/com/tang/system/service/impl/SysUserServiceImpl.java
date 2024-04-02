@@ -140,7 +140,9 @@ public class SysUserServiceImpl implements SysUserService {
      */
     @Override
     public int insertOauthUser(SysUser user) {
-        return 0;
+        var rows = userMapper.insertUser(user);
+        roleMapper.insertUserRole(user.getUserId(), List.of(2L));
+        return rows;
     }
 
     /**
