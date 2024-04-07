@@ -82,7 +82,7 @@ class GitHubAuthenticationProvider(
     }
 
     override fun supports(authentication: Class<*>): Boolean {
-        return GitHubAuthenticationToken::class.java.isAssignableFrom(authentication)
+        return authentication == GitHubAuthenticationToken::class.java
     }
 
 }
