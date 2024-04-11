@@ -7,3 +7,8 @@
 ### Optimization
 
  * Clean up warning
+
+### Dependencies
+
+ * Bump spring-boot-dependencies from 3.2.3 to 3.2.4
+ * Bump spring-boot-maven-plugin from 3.2.3 to 3.2.4
