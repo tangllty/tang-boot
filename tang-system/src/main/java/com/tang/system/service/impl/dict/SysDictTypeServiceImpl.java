@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import org.apache.commons.collections4.CollectionUtils;
 import org.slf4j.Logger;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -120,6 +121,9 @@ public class SysDictTypeServiceImpl implements SysDictTypeService {
      */
     public Map<String, Set<String>> getPermissionsByUserId(Long userId) {
         var dictPermissionList =  dictTypeMapper.selectDictPermissionListByUserId(userId);
+        if (CollectionUtils.isEmpty(dictPermissionList)) {
+            return Map.of();
+        }
         var dictTypeIds = dictPermissionList.stream()
             .filter(dictPermission -> !dictPermission.contains("-"))
             .map(Long::valueOf)
@@ -129,11 +133,7 @@ public class SysDictTypeServiceImpl implements SysDictTypeService {
             .map(dictPermission -> dictPermission.split("-")[1])
             .toList();
 
-        // TODO Caused by: org.apache.ibatis.binding.BindingException: Parameter '__frch_typeId_0' not found. Available parameters are [arg0, collection, list]
-        // var dictTypeList = dictTypeMapper.selectDictTypeListByIds(dictTypeIds);
-        var dictTypeList = dictTypeIds.stream()
-            .map(dictTypeId -> dictTypeMapper.selectDictTypeByTypeId(dictTypeId).getDictType())
-            .collect(Collectors.toList());
+        var dictTypeList = dictTypeMapper.selectDictTypeListByIds(dictTypeIds);
 
         return dictTypeList.stream()
             .map(dictType -> {
