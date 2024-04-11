@@ -48,11 +48,9 @@ public class SysDeptServiceImpl implements SysDeptService {
     public List<SysDept> selectDeptListTree(SysDept dept) {
         var deptList = deptMapper.selectDeptList(dept);
         return deptList.stream()
-            .filter(d -> d.getParentId() == 0)
-            .map(d -> {
-                d.setChildren(getChildrenList(deptList, d));
-                return d;
-            }).toList();
+            .filter(it -> it.getParentId() == 0)
+            .peek(it -> it.setChildren(getChildrenList(deptList, it)))
+            .toList();
     }
 
     /**
@@ -65,10 +63,8 @@ public class SysDeptServiceImpl implements SysDeptService {
     private List<SysDept> getChildrenList(List<SysDept> deptList, SysDept parentDept) {
         return deptList.stream()
             .filter(dept -> Objects.equals(dept.getParentId(), parentDept.getDeptId()))
-            .map(dept -> {
-                dept.setChildren(getChildrenList(deptList, dept));
-                return dept;
-            }).toList();
+            .peek(dept -> dept.setChildren(getChildrenList(deptList, dept)))
+            .toList();
     }
 
     /**
@@ -81,7 +77,7 @@ public class SysDeptServiceImpl implements SysDeptService {
     public List<TreeSelect> selectDeptTree(SysDept dept) {
         var deptList = deptMapper.selectDeptList(dept);
         var treeSelectList = new ArrayList<TreeSelect>();
-        deptList.forEach(o -> treeSelectList.add(new TreeSelect(o.getParentId(), o.getDeptId(), o.getDeptName())));
+        deptList.forEach(it -> treeSelectList.add(new TreeSelect(it.getParentId(), it.getDeptId(), it.getDeptName())));
         return TreeUtils.buildTree(treeSelectList);
     }
 

@@ -62,11 +62,9 @@ public class SysMenuServiceImpl implements SysMenuService {
     public List<SysMenu> selectMenuListTree(SysMenu menu) {
         var menuList = menuMapper.selectMenuList(menu);
         return  menuList.stream()
-            .filter(o -> o.getParentId() == ROOT_MENU_ID)
-            .map(o -> {
-                o.setChildren(getChildrenList(menuList, o));
-                return o;
-            }).toList();
+            .filter(it -> it.getParentId() == ROOT_MENU_ID)
+            .peek(it -> it.setChildren(getChildrenList(menuList, it)))
+            .toList();
     }
 
     /**
@@ -79,10 +77,8 @@ public class SysMenuServiceImpl implements SysMenuService {
     private List<SysMenu> getChildrenList(List<SysMenu> menuList, SysMenu parentMenu) {
         return menuList.stream()
             .filter(menu -> Objects.equals(menu.getParentId(), parentMenu.getMenuId()))
-            .map(menu -> {
-                menu.setChildren(getChildrenList(menuList, menu));
-                return menu;
-            }).toList();
+            .peek(menu -> menu.setChildren(getChildrenList(menuList, menu)))
+            .toList();
     }
 
     /**
@@ -95,7 +91,7 @@ public class SysMenuServiceImpl implements SysMenuService {
     public List<TreeSelect> selectMenuTree(SysMenu menu) {
         var menuList = menuMapper.selectMenuList(menu);
         var treeSelectList = new ArrayList<TreeSelect>();
-        menuList.forEach(m -> treeSelectList.add(new TreeSelect(m.getParentId(), m.getMenuId(), m.getMenuName())));
+        menuList.forEach(it -> treeSelectList.add(new TreeSelect(it.getParentId(), it.getMenuId(), it.getMenuName())));
         return TreeUtils.buildTree(treeSelectList);
     }
 
@@ -142,11 +138,8 @@ public class SysMenuServiceImpl implements SysMenuService {
         }
         menuList.removeIf(menu -> MenuType.BUTTON.getValue().equals(menu.getMenuType()));
         var list = menuList.stream()
-            .filter(m -> m.getParentId() == ROOT_MENU_ID)
-            .map(m -> {
-                m.setChildren(getChildrenList(menuList, m));
-                return m;
-            })
+            .filter(it -> it.getParentId() == ROOT_MENU_ID)
+            .peek(it -> it.setChildren(getChildrenList(menuList, it)))
             .toList();
         return buildRoutes(list, menuList);
     }
