@@ -3,6 +3,7 @@
 ### Bug Fixes
 
  * Fix Parameter '__frch_typeId_0' not found error
+ * Fix `UPDATE` statement get user name from `SecurityContextHolder` error
 
 ### Optimization
 

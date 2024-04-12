@@ -44,7 +44,7 @@ public class AutoFillInterceptor implements Interceptor {
             case INSERT -> {
                 var clazz = invocationObject.getClass();
                 if (hasMethod(clazz, SET_CREATE_BY)) {
-                    clazz.getMethod(SET_CREATE_BY, String.class).invoke(invocationObject, SecurityUtils.isAuthenticated() ? SecurityUtils.getUser().getUsername() : null);
+                    clazz.getMethod(SET_CREATE_BY, String.class).invoke(invocationObject, getUsername());
                 }
                 if (hasMethod(clazz, SET_CREATE_TIME)) {
                     clazz.getMethod(SET_CREATE_TIME, LocalDateTime.class).invoke(invocationObject, LocalDateTime.now());
@@ -53,17 +53,22 @@ public class AutoFillInterceptor implements Interceptor {
             case UPDATE -> {
                 var clazz = invocationObject.getClass();
                 if (hasMethod(clazz, SET_UPDATE_BY)) {
-                    clazz.getMethod(SET_UPDATE_BY, String.class).invoke(invocationObject, SecurityUtils.getUser().getUsername());
+                    clazz.getMethod(SET_UPDATE_BY, String.class).invoke(invocationObject, getUsername());
                 }
                 if (hasMethod(clazz, SET_UPDATE_TIME)) {
                     clazz.getMethod(SET_UPDATE_TIME, LocalDateTime.class).invoke(invocationObject, LocalDateTime.now());
                 }
             }
             default -> {
+                return invocation.proceed();
             }
         }
 
         return invocation.proceed();
+    }
+
+    private String getUsername() {
+        return SecurityUtils.isAuthenticated() ? SecurityUtils.getUser().getUsername() : null;
     }
 
     private boolean hasMethod(Class<?> clazz, String method) {
