@@ -19,10 +19,10 @@ class GeneratorProperties {
         const val GENERATOR_PREFIX = "generator"
     }
 
-    var author: String? = null
+    var author: String = "Tang"
 
-    var packageName: String? = null
+    var packageName: String = "com.tang.system"
 
-    var removePre: String? = null
+    var removePre: String = "t_,tb_"
 
 }

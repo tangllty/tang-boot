@@ -28,7 +28,6 @@ public class TableUtils {
      */
     public static void initTable(@NonNull GenTable table) {
         Assert.isNull(table, "表信息不能为空");
-        Assert.isNull(GENERATOR_PROPERTIES.getPackageName(), "包路径不能为空");
         table.setClassName(getClassName(table.getTableName()));
         table.setPackageName(GENERATOR_PROPERTIES.getPackageName());
         table.setModuleName(getModuleName(GENERATOR_PROPERTIES.getPackageName()));
@@ -67,9 +66,6 @@ public class TableUtils {
      */
     private static String getClassName(String tableName) {
         var className = tableName;
-        if (Objects.isNull(GENERATOR_PROPERTIES.getRemovePre())) {
-            return CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.UPPER_CAMEL, className);
-        }
         var prefixes = GENERATOR_PROPERTIES.getRemovePre().split(",");
         for (String prefix : prefixes) {
             if (className.startsWith(prefix)) {
