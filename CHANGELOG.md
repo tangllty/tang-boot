@@ -17,3 +17,4 @@
 ### Features
 
  * Add message format for `Assert` class
+ * Add sync database table column

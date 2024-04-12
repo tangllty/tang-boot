@@ -9,10 +9,12 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Stream;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
+import com.tang.generator.entity.GenTableColumn;
 import org.apache.commons.io.IOUtils;
 import org.apache.velocity.app.Velocity;
 import org.slf4j.Logger;
@@ -20,6 +22,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.tang.commons.enumeration.MenuType;
+import com.tang.commons.utils.Assert;
 import com.tang.commons.utils.LogUtils;
 import com.tang.commons.utils.StringUtils;
 import com.tang.generator.entity.GenTable;
@@ -298,6 +301,89 @@ public class GenTableServiceImpl implements GenTableService {
         });
         rows += menuMapper.insertMenus(buttonMenuList);
         return rows;
+    }
+
+    /**
+     * 同步表数据
+     *
+     * @param tableNames 表名称集合
+     */
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public int syncs(String[] tableNames) {
+        var rows = 0;
+        for (String tableName: tableNames) {
+            rows += sync(tableName);
+        }
+        return rows;
+    }
+
+    /**
+     * 同步表数据
+     *
+     * @param tableName 表名称
+     */
+    private int sync(String tableName) {
+        var table = tableMapper.selectTableByTableName(tableName);
+        Assert.isNull(table, "同步失败, 未找到[{}]表信息", tableName);
+        var tableColumnList = tableColumnMapper.selectTableColumnListByTableId(table.getTableId());
+        var databaseTableColumnList = tableColumnMapper.selectDatabaseTableColumnListByTableName(tableName);
+
+        var rows = new AtomicInteger();
+
+        // 新增表字段
+        databaseTableColumnList.stream()
+            .filter(databaseTableColumn -> tableColumnList.stream()
+                .noneMatch(tableColumn -> tableColumn.getColumnName().equals(databaseTableColumn.getColumnName())))
+            .toList().forEach(it -> {
+                it.setTableId(table.getTableId());
+                TableColumnUtils.initTableColumn(it);
+                rows.addAndGet(tableColumnMapper.insertTableColumn(it));
+            });
+
+        // 删除表字段
+        tableColumnList.stream()
+            .filter(tableColumn -> databaseTableColumnList.stream()
+                .noneMatch(databaseTableColumn -> tableColumn.getColumnName().equals(databaseTableColumn.getColumnName())))
+            .toList().forEach(it -> {
+                rows.addAndGet(tableColumnMapper.deleteTableColumnByColumnId(it.getColumnId()));
+            });
+
+        // 更新表字段
+        tableColumnList.stream()
+            .map(tableColumn -> databaseTableColumnList.stream()
+                .filter(it -> hasUpdated(tableColumn, it))
+                .findFirst().orElse(null))
+            .filter(Objects::nonNull)
+            .forEach(it -> rows.addAndGet(tableColumnMapper.updateTableColumnByColumnId(it)));
+
+        return rows.get();
+    }
+
+    /**
+     * 判断字段是否有更新
+     *
+     * @param tableColumn 代码字段生成对象
+     * @param databaseTableColumn 数据库字段生成对象
+     */
+    private boolean hasUpdated(GenTableColumn tableColumn, GenTableColumn databaseTableColumn) {
+        databaseTableColumn.setColumnId(tableColumn.getColumnId());
+        TableColumnUtils.initTableColumn(databaseTableColumn);
+        return tableColumn.getColumnName().equals(databaseTableColumn.getColumnName())
+            && (!tableColumn.getColumnComment().equals(databaseTableColumn.getColumnComment())
+                || !tableColumn.getColumnType().equals(databaseTableColumn.getColumnType())
+                || !tableColumn.getJavaType().equals(databaseTableColumn.getJavaType())
+                || !tableColumn.getTsType().equals(databaseTableColumn.getTsType())
+                || !tableColumn.getJavaField().equals(databaseTableColumn.getJavaField())
+                || !tableColumn.getIsPk().equals(databaseTableColumn.getIsPk())
+                || !tableColumn.getIsIncrement().equals(databaseTableColumn.getIsIncrement())
+                || !tableColumn.getIsList().equals(databaseTableColumn.getIsList())
+                || !tableColumn.getIsInsert().equals(databaseTableColumn.getIsInsert())
+                || !tableColumn.getIsEdit().equals(databaseTableColumn.getIsEdit())
+                || !tableColumn.getIsRequired().equals(databaseTableColumn.getIsRequired())
+                || !tableColumn.getHtmlType().equals(databaseTableColumn.getHtmlType())
+                || !tableColumn.getSort().equals(databaseTableColumn.getSort())
+                || !tableColumn.getIsSuperField() == databaseTableColumn.getIsSuperField());
     }
 
     /**

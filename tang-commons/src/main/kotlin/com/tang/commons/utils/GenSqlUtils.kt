@@ -115,6 +115,7 @@ object GenSqlUtils {
                     Menu("代码生成导入", "tool:generator:import", "代码生成导入按钮"),
                     Menu("代码生成导出", "tool:generator:export", "代码生成导出按钮"),
                     Menu("代码生成执行", "tool:generator:execute", "代码生成执行按钮"),
+                    Menu("代码生成同步", "tool:generator:sync", "代码生成同步按钮"),
                 )),
                 Menu("系统接口", "swagger", "tool/swagger/index", "tool:swagger:menu", "系统接口", "系统接口菜单", arrayListOf(
                     Menu("系统接口查询", "tool:swagger:list", "系统接口查询按钮"),

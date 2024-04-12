@@ -100,4 +100,11 @@ public interface GenTableService {
      */
     int executes(String[] tableNames);
 
+    /**
+     * 同步表数据
+     *
+     * @param tableNames 表名称集合
+     */
+    int syncs(String[] tableNames);
+
 }
