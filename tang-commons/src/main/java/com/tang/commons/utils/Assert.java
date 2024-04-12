@@ -38,6 +38,19 @@ public class Assert {
      * 表达式为 True 时抛出异常
      *
      * @param expression 表达式
+     * @param message    异常信息
+     * @param args       异常信息参数
+     *
+     * @see StringUtils#format(String, Object...)
+     */
+    public static void isTrue(boolean expression, String message, Object... args) {
+        isTrue(expression, new AssertException(StringUtils.format(message, args)));
+    }
+
+    /**
+     * 表达式为 True 时抛出异常
+     *
+     * @param expression 表达式
      * @param cause      异常
      */
     public static void isTrue(boolean expression, RuntimeException cause) {
@@ -73,6 +86,19 @@ public class Assert {
      */
     public static void isFalse(boolean expression, String message) {
         isFalse(expression, new AssertException(message));
+    }
+
+    /**
+     * 表达式为 False 时抛出异常
+     *
+     * @param expression 表达式
+     * @param message    异常信息
+     * @param args       异常信息参数
+     *
+     * @see StringUtils#format(String, Object...)
+     */
+    public static void isFalse(boolean expression, String message, Object... args) {
+        isFalse(expression, new AssertException(StringUtils.format(message, args)));
     }
 
     /**
@@ -120,6 +146,19 @@ public class Assert {
      * 对象为 Null 时抛出异常
      *
      * @param object 对象
+     * @param message 异常信息
+     * @param args    异常信息参数
+     *
+     * @see StringUtils#format(String, Object...)
+     */
+    public static void isNull(Object object, String message, Object... args) {
+        isNull(object, new AssertException(StringUtils.format(message, args)));
+    }
+
+    /**
+     * 对象为 Null 时抛出异常
+     *
+     * @param object 对象
      * @param cause  异常
      */
     public static void isNull(Object object, RuntimeException cause) {
@@ -155,6 +194,19 @@ public class Assert {
      */
     public static void nonNull(Object object, String message) {
         nonNull(object, new AssertException(message));
+    }
+
+    /**
+     * 对象不为 Null 时抛出异常
+     *
+     * @param object 对象
+     * @param message 异常信息
+     * @param args    异常信息参数
+     *
+     * @see StringUtils#format(String, Object...)
+     */
+    public static void nonNull(Object object, String message, Object... args) {
+        nonNull(object, new AssertException(StringUtils.format(message, args)));
     }
 
     /**
