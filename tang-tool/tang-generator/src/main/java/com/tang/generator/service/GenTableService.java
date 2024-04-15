@@ -74,7 +74,7 @@ public interface GenTableService {
      * @param tableNames 表名称集合
      * @return 影响行数
      */
-    void importTable(String[] tableNames);
+    int importTable(String[] tableNames);
 
     /**
      * 代码预览

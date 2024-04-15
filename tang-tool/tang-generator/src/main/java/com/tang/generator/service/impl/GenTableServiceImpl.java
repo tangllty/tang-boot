@@ -152,12 +152,13 @@ public class GenTableServiceImpl implements GenTableService {
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void importTable(String[] tableNames) {
+    public int importTable(String[] tableNames) {
+        var rows = new AtomicInteger();
         var tableList = Stream.of(tableNames).map(tableMapper::selectDatabaseTableByTableName).toList();
         tableList.forEach(table -> {
             TableUtils.initTable(table);
-            var rows = tableMapper.insertTable(table);
-            if (rows > 0) {
+            rows.addAndGet(tableMapper.insertTable(table));
+            if (rows.get() > 0) {
                 var tableColumnList = tableColumnMapper.selectDatabaseTableColumnListByTableName(table.getTableName());
                 tableColumnList.forEach(tableColumn -> {
                     tableColumn.setTableId(table.getTableId());
@@ -166,6 +167,7 @@ public class GenTableServiceImpl implements GenTableService {
                 });
             }
         });
+        return rows.get();
     }
 
     /**

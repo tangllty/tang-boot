@@ -129,8 +129,8 @@ public class GenTableController {
     @PreAuthorize("@auth.hasPermission('tool:generator:import')")
     @PostMapping("/import")
     public AjaxResult importTable(@RequestBody String[] tableNames) {
-        tableService.importTable(tableNames);
-        return AjaxResult.success();
+        var rows = tableService.importTable(tableNames);
+        return AjaxResult.rows(rows);
     }
 
     /**
