@@ -210,6 +210,19 @@ public class GenTableController {
     }
 
     /**
+     * 批量同步表数据
+     *
+     * @param tableNames 表名称集合
+     * @return 结果
+     */
+    @PreAuthorize("@auth.hasPermission('tool:generator:sync')")
+    @PutMapping("/syncs")
+    public AjaxResult syncs(String[] tableNames) {
+        var rows = tableService.syncs(tableNames);
+        return AjaxResult.rows(rows);
+    }
+
+    /**
      * 生成zip文件
      */
     private void responseCode(HttpServletResponse response, byte[] data) throws IOException {
