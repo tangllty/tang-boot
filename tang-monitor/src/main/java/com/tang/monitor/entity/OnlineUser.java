@@ -3,8 +3,6 @@ package com.tang.monitor.entity;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-
 /**
  * 在线用户实体类
  *
@@ -108,13 +106,11 @@ public class OnlineUser implements Serializable {
     /**
      * 登陆时间
      */
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime loginTime;
 
     /**
      * 过期时间
      */
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime expireTime;
 
 

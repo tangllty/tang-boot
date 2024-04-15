@@ -5,13 +5,6 @@ import java.time.LocalDateTime
 
 import org.apache.commons.lang3.StringUtils
 
-import com.fasterxml.jackson.annotation.JsonFormat
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize
-import com.fasterxml.jackson.databind.annotation.JsonSerialize
-import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer
-import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer
-import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer
-import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer
 import com.tang.commons.base.entity.BaseEntity
 
 /**
@@ -32,18 +25,12 @@ class $ClassName : BaseEntity() {
     /**
      * $column.columnComment
      */
-    @JsonDeserialize(using = LocalDateDeserializer::class)
-    @JsonSerialize(using = LocalDateSerializer::class)
-    @JsonFormat(pattern = "yyyy-MM-dd")
     var $column.javaField: $column.javaType? = null
 #elseif ($column.htmlType == 'datetime')
 
     /**
      * $column.columnComment
      */
-    @JsonDeserialize(using = LocalDateTimeDeserializer::class)
-    @JsonSerialize(using = LocalDateTimeSerializer::class)
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     var $column.javaField: $column.javaType? = null
 #else
 

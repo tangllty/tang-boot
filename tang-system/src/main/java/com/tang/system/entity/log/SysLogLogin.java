@@ -3,8 +3,6 @@ package com.tang.system.entity.log;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-
 /**
  * 登陆日志实体类 sys_log_login
  *
@@ -58,7 +56,6 @@ public class SysLogLogin implements Serializable {
     /**
      * 登录时间
      */
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime loginTime;
 
     /**
