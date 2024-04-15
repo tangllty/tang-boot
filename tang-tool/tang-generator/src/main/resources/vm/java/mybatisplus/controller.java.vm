@@ -61,7 +61,7 @@ public class ${ClassName}Controller {
     @PreAuthorize("@auth.hasPermission('$moduleName.replace("/", ":"):$permissionName:list')")
     @GetMapping("/{$primaryKey}")
     public AjaxResult select${ClassName}By${PrimaryKey}(@PathVariable Long $primaryKey) {
-        var $className = ${className}Service.select${ClassName}By${PrimaryKey}($primaryKey);
+        var $className = ${className}Service.getById($primaryKey);
 #foreach ($column in $columnList)
 #set($javaField = $column.javaField)
 #set($JavaField = $column.javaField.substring(0, 1).toUpperCase() + ${column.javaField.substring(1)})
@@ -88,7 +88,7 @@ public class ${ClassName}Controller {
         ${className}.${javaField}ListTo${JavaField}();
 #end
 #end
-        return AjaxResult.rows(${className}Service.insert${ClassName}($className));
+        return AjaxResult.rows(${className}Service.save($className));
     }
 
     /**
@@ -107,7 +107,7 @@ public class ${ClassName}Controller {
         ${className}.${javaField}ListTo${JavaField}();
 #end
 #end
-        return AjaxResult.rows(${className}Service.update${ClassName}By${PrimaryKey}($className));
+        return AjaxResult.rows(${className}Service.updateById($className));
     }
 
     /**
@@ -119,7 +119,7 @@ public class ${ClassName}Controller {
     @PreAuthorize("@auth.hasPermission('$moduleName.replace("/", ":"):$permissionName:delete')")
     @DeleteMapping("/{$primaryKey}")
     public AjaxResult delete(@PathVariable Long $primaryKey) {
-        return AjaxResult.rows(${className}Service.delete${ClassName}By${PrimaryKey}($primaryKey));
+        return AjaxResult.rows(${className}Service.removeById($primaryKey));
     }
 
     /**
@@ -131,7 +131,7 @@ public class ${ClassName}Controller {
     @PreAuthorize("@auth.hasPermission('$moduleName.replace("/", ":"):$permissionName:delete')")
     @DeleteMapping
     public AjaxResult deletes(@RequestBody Long[] ${primaryKey}s) {
-        return AjaxResult.rows(${className}Service.delete${ClassName}By${PrimaryKey}s(${primaryKey}s));
+        return AjaxResult.rows(${className}Service.removeByIds(${primaryKey}s));
     }
 
 }
