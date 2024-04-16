@@ -65,15 +65,18 @@ public class TokenService {
     public UserModel get(@NonNull HttpServletRequest request) {
         // 获取请求携带的令牌
         var token = getToken(request);
-        if (StringUtils.isNotEmpty(token)) {
-            var claims = parseToken(token);
-            // 解析对应的权限以及登陆用户信息
-            var uuid = (String) claims.get(LOGIN_USER_KEY);
-            var userKey = getTokenKey(uuid);
-            var userModel = redisUtils.get(userKey);
-            return (UserModel) userModel;
+        if (StringUtils.isEmpty(token)) {
+            return null;
         }
-        return null;
+        var claims = parseToken(token);
+        // 解析对应的权限以及登陆用户信息
+        var uuid = (String) claims.get(LOGIN_USER_KEY);
+        var userKey = getTokenKey(uuid);
+        var userModel = redisUtils.get(userKey);
+        if (userModel == null) {
+            return null;
+        }
+        return (UserModel) userModel;
     }
 
     /**
