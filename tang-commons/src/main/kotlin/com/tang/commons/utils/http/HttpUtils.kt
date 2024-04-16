@@ -1,8 +1,8 @@
 package com.tang.commons.utils.http
 
 import com.fasterxml.jackson.core.type.TypeReference
-import com.fasterxml.jackson.databind.ObjectMapper
 import com.tang.commons.constants.ContentType
+import com.tang.commons.utils.json.JSONUtils
 import com.tang.commons.utils.LogUtils
 import org.springframework.mock.web.MockMultipartFile
 import org.springframework.web.multipart.MultipartFile
@@ -30,13 +30,11 @@ object HttpUtils {
 
     private val client = HttpClient.newHttpClient()
 
-    private val objectMapper = ObjectMapper()
-
     private val typeReference: TypeReference<Map<String, Any>> = object : TypeReference<Map<String, Any>>() {}
 
     @JvmStatic
     fun parse(response: String): Map<String, Any> {
-        return objectMapper.readValue(response, typeReference)
+        return JSONUtils.parse(response, typeReference)
     }
 
     @JvmStatic
@@ -90,7 +88,7 @@ object HttpUtils {
 
     @JvmStatic
     fun post(url: String, body: Map<String, String>): String {
-        return post(url, objectMapper.writeValueAsString(body))
+        return post(url, JSONUtils.toString(body))
     }
 
     @JvmStatic

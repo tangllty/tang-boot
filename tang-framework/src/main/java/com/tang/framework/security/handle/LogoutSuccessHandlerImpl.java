@@ -7,9 +7,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.stereotype.Component;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tang.commons.utils.AjaxResult;
 import com.tang.commons.utils.ServletUtils;
+import com.tang.commons.utils.json.JSONUtils;
 import com.tang.framework.web.service.TokenService;
 
 import jakarta.servlet.ServletException;
@@ -40,10 +40,7 @@ public class LogoutSuccessHandlerImpl implements LogoutSuccessHandler {
             tokenService.delete(userModel.getToken());
         }
         var ajaxResult = AjaxResult.success("登出成功");
-        var objectMapper = new ObjectMapper();
-        var objectWriter = objectMapper.writer().withDefaultPrettyPrinter();
-        var json = objectWriter.writeValueAsString(ajaxResult);
-        ServletUtils.renderString(response, json);
+        ServletUtils.renderString(response, JSONUtils.toStringPretty(ajaxResult));
     }
 
 }
