@@ -29,13 +29,13 @@ public class SysUser extends BaseEntity {
     /**
      * 用户ID
      */
-    @Excel(name = "用户ID", cellType = CellType.NUMBER, type = Type.EXPORT)
+    @Excel(name = "用户编号", cellType = CellType.NUMBER, type = Type.EXPORT, width = 8)
     private Long userId;
 
     /**
      * 部门ID
      */
-    @Excel(name = "部门ID", cellType = CellType.NUMBER)
+    @Excel(name = "部门编号", cellType = CellType.NUMBER, width = 8)
     @NotNull(message = "部门不能为空")
     @Min(value = 1, message = "部门编号不能小于1")
     @Max(value = Long.MAX_VALUE, message = "部门编号不能超过" + Long.MAX_VALUE)
@@ -44,7 +44,7 @@ public class SysUser extends BaseEntity {
     /**
      * 用户账号
      */
-    @Excel("用户账号")
+    @Excel(value = "用户账号", width = 12)
     @Length(min = 4, max = 32, message = "用户名长度应在 4 到 32 之间")
     private String username;
 
@@ -58,7 +58,7 @@ public class SysUser extends BaseEntity {
     /**
      * 邮箱
      */
-    @Excel("邮箱")
+    @Excel(value = "邮箱", width = 16)
     @Email(message = "邮箱格式不正确")
     @Length(min = 4, max = 64, message = "邮箱长度应在 4 到 64 之间")
     private String email;
@@ -66,7 +66,7 @@ public class SysUser extends BaseEntity {
     /**
      * 手机号码
      */
-    @Excel("手机号码")
+    @Excel(value = "手机号码", width = 12)
     private String phone;
 
     /**
@@ -106,13 +106,13 @@ public class SysUser extends BaseEntity {
     /**
      * 最后登录IP
      */
-    @Excel("最后登录IP")
+    @Excel(value = "最后登录IP", width = 14)
     private String loginIp;
 
     /**
      * 最后登录时间
      */
-    @Excel(name = "最后登录时间", cellType = CellType.DATE)
+    @Excel(name = "最后登录时间", cellType = CellType.DATE, width = 18)
     private LocalDateTime loginDate;
 
     /**
