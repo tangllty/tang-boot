@@ -13,7 +13,9 @@ import org.apache.commons.lang3.StringUtils
 import org.apache.poi.ss.usermodel.BorderStyle
 import org.apache.poi.ss.usermodel.CellType
 import org.apache.poi.ss.usermodel.FillPatternType
+import org.apache.poi.ss.usermodel.HorizontalAlignment
 import org.apache.poi.ss.usermodel.IndexedColors
+import org.apache.poi.ss.usermodel.VerticalAlignment
 import org.apache.poi.ss.util.CellRangeAddressList
 import org.apache.poi.xssf.usermodel.XSSFCell
 import org.apache.poi.xssf.usermodel.XSSFDataValidationHelper
@@ -335,6 +337,12 @@ object ExcelUtils {
 
             // 设置标题样式
             val cellStyle = sheet.workbook.createCellStyle()
+
+            // 设置水平对齐方式
+            cellStyle.alignment = HorizontalAlignment.LEFT
+
+            // 设置垂直对齐方式
+            cellStyle.verticalAlignment = VerticalAlignment.CENTER
 
             // 设置字体
             val font = sheet.workbook.createFont()
