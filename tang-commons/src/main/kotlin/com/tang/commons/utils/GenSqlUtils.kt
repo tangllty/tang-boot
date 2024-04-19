@@ -98,6 +98,7 @@ object GenSqlUtils {
                 )),
             )),
             Menu("表单设计", "form-designer", "form/designer/index", "form:designer:menu", "表单设计", "表单设计菜单", arrayListOf()),
+            Menu("Monaco Editor", "monaco-editor", "editor/monaco/index", "monaco:editor:menu", "Monaco Editor", "Monaco Editor菜单", arrayListOf()),
             Menu("系统监控", "monitor", "系统监控", "系统监控目录", arrayListOf(
                 Menu("在线用户", "online", "monitor/online/index", "monitor:online:menu", "在线用户", "在线用户菜单", arrayListOf(
                     Menu("在线用户查询", "monitor:online:list", "在线用户查询按钮"),
