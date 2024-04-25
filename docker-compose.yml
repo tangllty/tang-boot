@@ -23,7 +23,7 @@ services:
 
   redis:
     container_name: redis
-    image: redis:7.2.3
+    image: redis:7.2.4
     ports:
       - "6379:6379"
     restart: always
