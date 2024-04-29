@@ -55,6 +55,13 @@
                 <version>3.0.3</version>
             </dependency>
 
+            <!-- https://mvnrepository.com/artifact/com.mybatis-flex/mybatis-flex-spring-boot3-starter -->
+            <dependency>
+                <groupId>com.mybatis-flex</groupId>
+                <artifactId>mybatis-flex-spring-boot3-starter</artifactId>
+                <version>1.8.8</version>
+            </dependency>
+
             <!-- https://mvnrepository.com/artifact/com.baomidou/mybatis-plus-spring-boot3-starter -->
             <dependency>
                 <groupId>com.baomidou</groupId>
@@ -233,6 +240,12 @@
             <dependency>
                 <groupId>com.tang</groupId>
                 <artifactId>tang-commons</artifactId>
+                <version>${tang.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.tang</groupId>
+                <artifactId>tang-mybatis-flex</artifactId>
                 <version>${tang.version}</version>
             </dependency>
 

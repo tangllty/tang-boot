@@ -5,27 +5,21 @@
 
     <parent>
         <groupId>com.tang</groupId>
-        <artifactId>tang-parent</artifactId>
+        <artifactId>tang-extension</artifactId>
         <version>1.6.5</version>
     </parent>
 
-    <artifactId>tang-extension</artifactId>
+    <artifactId>tang-mybatis-flex</artifactId>
 
     <description>
-        tang-extension 系统扩展
+        tang-mybatis-flex MyBatis Flex 支持
     </description>
-
-    <packaging>pom</packaging>
-    <modules>
-        <module>tang-mybatis-flex</module>
-        <module>tang-mybatis-plus</module>
-    </modules>
 
     <dependencies>
 
         <dependency>
-            <groupId>com.tang</groupId>
-            <artifactId>tang-commons</artifactId>
+            <groupId>com.mybatis-flex</groupId>
+            <artifactId>mybatis-flex-spring-boot3-starter</artifactId>
         </dependency>
 
     </dependencies>

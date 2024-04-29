@@ -17,6 +17,7 @@
  * Bump redis from 7.2.3 to 7.2.4
  * Add mybatis 3.5.16
  * Add commons-compress 1.26.1
+ * Add mybatis-flex-spring-boot3-starter 1.8.8
 
 ### Features
 
