@@ -15,6 +15,7 @@
  * Bump spring-boot-maven-plugin from 3.2.3 to 3.2.4
  * Bump jackson from 2.16.1 to 2.17.0
  * Bump redis from 7.2.3 to 7.2.4
+ * Add mybatis 3.5.16
  * Add commons-compress 1.26.1
 
 ### Features
