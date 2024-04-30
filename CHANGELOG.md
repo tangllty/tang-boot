@@ -18,6 +18,7 @@
  * Add mybatis 3.5.16
  * Add commons-compress 1.26.1
  * Add mybatis-flex-spring-boot3-starter 1.8.8
+ * Add lombok
 
 ### Features
 
