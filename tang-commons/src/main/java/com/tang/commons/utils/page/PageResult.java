@@ -8,7 +8,7 @@ import java.util.List;
  *
  * @author Tang
  */
-public class TableDataResult implements Serializable {
+public class PageResult implements Serializable {
 
     @java.io.Serial
     private static final long serialVersionUID = 8981940053131272343L;
@@ -36,7 +36,7 @@ public class TableDataResult implements Serializable {
     /**
      * 表格数据对象
      */
-    public TableDataResult() {
+    public PageResult() {
     }
 
     /**
@@ -45,7 +45,7 @@ public class TableDataResult implements Serializable {
      * @param list  列表数据
      * @param total 总记录数
      */
-    public TableDataResult(List<?> list, int total) {
+    public PageResult(List<?> list, int total) {
         this.rows = list;
         this.total = total;
     }

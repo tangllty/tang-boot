@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.tang.commons.utils.AjaxResult;
 import com.tang.commons.utils.page.PageUtils;
-import com.tang.commons.utils.page.TableDataResult;
+import com.tang.commons.utils.page.PageResult;
 import com.tang.system.entity.dict.SysDictData;
 import com.tang.system.service.dict.SysDictDataService;
 
@@ -42,7 +42,7 @@ public class SysDictDataController {
      */
     @PreAuthorize("@auth.hasPermission('system:dict:list')")
     @GetMapping("/list")
-    public TableDataResult list(SysDictData dictData) {
+    public PageResult list(SysDictData dictData) {
         PageUtils.startPage();
         var list = dictDataService.selectDictDataList(dictData);
         return PageUtils.getDataTable(list);

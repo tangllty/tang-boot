@@ -15,7 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.tang.commons.utils.AjaxResult;
 import com.tang.commons.utils.page.PageUtils;
-import com.tang.commons.utils.page.TableDataResult;
+import com.tang.commons.utils.page.PageResult;
 import com.tang.commons.utils.poi.ExcelUtils;
 import com.tang.system.entity.SysUser;
 import com.tang.system.service.SysRoleService;
@@ -50,7 +50,7 @@ public class SysUserController {
      */
     @PreAuthorize("@auth.hasPermission('system:user:list')")
     @GetMapping("/list")
-    public TableDataResult list(SysUser user){
+    public PageResult list(SysUser user){
         PageUtils.startPage();
         var list = userService.selectUserList(user);
         return PageUtils.getDataTable(list);

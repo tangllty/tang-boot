@@ -14,7 +14,7 @@ import com.tang.app.entity.AppChatList
 import com.tang.app.service.AppChatListService
 import com.tang.commons.utils.AjaxResult
 import com.tang.commons.utils.page.PageUtils
-import com.tang.commons.utils.page.TableDataResult
+import com.tang.commons.utils.page.PageResult
 
 /**
  * 聊天列表逻辑控制层
@@ -33,7 +33,7 @@ class AppChatListController(private val appChatListService: AppChatListService) 
      */
     @PreAuthorize("@auth.hasPermission('app:chat:chat-list:list')")
     @GetMapping("/list")
-    fun list(appChatList: AppChatList): TableDataResult {
+    fun list(appChatList: AppChatList): PageResult {
         PageUtils.startPage()
         val list: List<AppChatList> = appChatListService.selectAppChatListList(appChatList)
         return PageUtils.getDataTable(list)

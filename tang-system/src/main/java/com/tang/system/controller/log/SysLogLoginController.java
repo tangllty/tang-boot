@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.tang.commons.utils.AjaxResult;
 import com.tang.commons.utils.page.PageUtils;
-import com.tang.commons.utils.page.TableDataResult;
+import com.tang.commons.utils.page.PageResult;
 import com.tang.system.entity.log.SysLogLogin;
 import com.tang.system.service.log.SysLogLoginService;
 
@@ -39,7 +39,7 @@ public class SysLogLoginController {
      */
     @PreAuthorize("@auth.hasPermission('system:log:login:list')")
     @GetMapping("/list")
-    public TableDataResult list(SysLogLogin sysLogLogin){
+    public PageResult list(SysLogLogin sysLogLogin){
         PageUtils.startPage();
         var list = sysLogLoginService.selectSysLogLoginList(sysLogLogin);
         return PageUtils.getDataTable(list);

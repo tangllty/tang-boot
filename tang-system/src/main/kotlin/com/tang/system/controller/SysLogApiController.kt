@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController
 
 import com.tang.commons.utils.AjaxResult
 import com.tang.commons.utils.page.PageUtils
-import com.tang.commons.utils.page.TableDataResult
+import com.tang.commons.utils.page.PageResult
 import com.tang.system.domain.vo.SysLogApiAnalysis
 import com.tang.system.entity.SysLogApi
 import com.tang.system.service.SysLogApiService
@@ -34,7 +34,7 @@ class SysLogApiController(private val sysLogApiService: SysLogApiService) {
      */
     @PreAuthorize("@auth.hasPermission('system:log:api:list')")
     @GetMapping("/list")
-    fun list(sysLogApi: SysLogApi): TableDataResult {
+    fun list(sysLogApi: SysLogApi): PageResult {
         PageUtils.startPage()
         val list = sysLogApiService.selectSysLogApiList(sysLogApi)
         return PageUtils.getDataTable(list)
@@ -48,7 +48,7 @@ class SysLogApiController(private val sysLogApiService: SysLogApiService) {
      */
     @PreAuthorize("@auth.hasPermission('system:log:api:list')")
     @GetMapping("/list-analysis")
-    fun listAnalysis(sysLogApiAnalysis: SysLogApiAnalysis): TableDataResult {
+    fun listAnalysis(sysLogApiAnalysis: SysLogApiAnalysis): PageResult {
         PageUtils.startPage()
         val list = sysLogApiService.selectSysLogApiListAnalysis(sysLogApiAnalysis)
         return PageUtils.getDataTable(list)

@@ -12,7 +12,7 @@ import com.tang.commons.utils.LogUtils
 import com.tang.commons.utils.SecurityUtils
 import com.tang.commons.utils.ServletUtils
 import com.tang.commons.utils.SpringUtils
-import com.tang.commons.utils.page.TableDataResult
+import com.tang.commons.utils.page.PageResult
 import com.tang.system.service.SysLogApiService
 
 /**
@@ -38,7 +38,7 @@ class ControllerAspect {
             response = proceedingJoinPoint.proceed()
             when (response) {
                 is AjaxResult -> response["msg"].toString()
-                is TableDataResult -> response.msg.toString()
+                is PageResult -> response.msg.toString()
                 else -> "成功"
             }
         } catch (e: Exception) {

@@ -16,7 +16,7 @@ import com.tang.commons.model.SysUserModel;
 import com.tang.commons.utils.AjaxResult;
 import com.tang.commons.utils.SecurityUtils;
 import com.tang.commons.utils.page.PageUtils;
-import com.tang.commons.utils.page.TableDataResult;
+import com.tang.commons.utils.page.PageResult;
 import com.tang.commons.utils.UploadsUtils;
 import com.tang.framework.web.service.TokenService;
 import com.tang.system.entity.SysUser;
@@ -84,7 +84,7 @@ public class ProfileController {
      */
     @PreAuthorize("@auth.hasPermission('system:log:login:list')")
     @GetMapping("/login-log")
-    public TableDataResult userLoginList(SysLogLogin logLogin) {
+    public PageResult userLoginList(SysLogLogin logLogin) {
         PageUtils.startPage();
         var list = logLoginService.selectSysLogLoginListByUser(logLogin);
         return PageUtils.getDataTable(list);

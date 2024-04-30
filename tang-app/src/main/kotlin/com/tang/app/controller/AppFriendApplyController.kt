@@ -15,7 +15,7 @@ import com.tang.app.entity.AppFriendApply
 import com.tang.app.service.AppFriendApplyService
 import com.tang.commons.utils.AjaxResult
 import com.tang.commons.utils.page.PageUtils
-import com.tang.commons.utils.page.TableDataResult
+import com.tang.commons.utils.page.PageResult
 import com.tang.system.service.SysUserService
 
 /**
@@ -38,7 +38,7 @@ class AppFriendApplyController(
      */
     @PreAuthorize("@auth.hasPermission('app:chat:friend-apply:list')")
     @GetMapping("/list")
-    fun list(appFriendApply: AppFriendApply): TableDataResult {
+    fun list(appFriendApply: AppFriendApply): PageResult {
         PageUtils.startPage()
         val list: List<AppFriendApply> = appFriendApplyService.selectAppFriendApplyList(appFriendApply)
         return PageUtils.getDataTable(list)
@@ -52,7 +52,7 @@ class AppFriendApplyController(
      */
     @PreAuthorize("@auth.hasPermission('app:chat:friend-apply:list')")
     @GetMapping("/list-fuzzy")
-    fun listFuzzy(keyword: String): TableDataResult {
+    fun listFuzzy(keyword: String): PageResult {
         if (StringUtils.isBlank(keyword)) {
             return PageUtils.getDataTable(emptyList<Any>())
         }

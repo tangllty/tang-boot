@@ -22,7 +22,7 @@ public class PageUtils extends PageHelper {
      * 设置请求分页数据
      */
     public static void startPage() {
-        var pageDomain = TableSupport.buildPageRequest();
+        var pageDomain = PageSupport.buildPageRequest();
         var pageNum = pageDomain.getPageNum();
         var pageSize = pageDomain.getPageSize();
         var orderBy = SqlUtils.escapeOrderBySql(pageDomain.getOrderBy());
@@ -40,8 +40,8 @@ public class PageUtils extends PageHelper {
     /**
      * 响应请求分页数据
      */
-    public static TableDataResult getDataTable(List<?> list) {
-        var tableDataResult = new TableDataResult();
+    public static PageResult getDataTable(List<?> list) {
+        var tableDataResult = new PageResult();
         tableDataResult.setCode(HttpStatus.SUCCESS);
         tableDataResult.setMsg("查询成功");
         tableDataResult.setRows(list);

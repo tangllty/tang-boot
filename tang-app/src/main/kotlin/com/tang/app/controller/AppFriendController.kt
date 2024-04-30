@@ -14,7 +14,7 @@ import com.tang.app.entity.AppFriend
 import com.tang.app.service.AppFriendService
 import com.tang.commons.utils.AjaxResult
 import com.tang.commons.utils.page.PageUtils
-import com.tang.commons.utils.page.TableDataResult
+import com.tang.commons.utils.page.PageResult
 
 /**
  * 用户好友逻辑控制层
@@ -33,7 +33,7 @@ class AppFriendController(private val appFriendService: AppFriendService) {
      */
     @PreAuthorize("@auth.hasPermission('app:chat:friend:list')")
     @GetMapping("/list")
-    fun list(appFriend: AppFriend): TableDataResult {
+    fun list(appFriend: AppFriend): PageResult {
         PageUtils.startPage()
         val list: List<AppFriend> = appFriendService.selectAppFriendList(appFriend)
         return PageUtils.getDataTable(list)

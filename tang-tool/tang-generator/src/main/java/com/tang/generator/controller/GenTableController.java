@@ -18,7 +18,7 @@ import com.tang.commons.constants.ContentType;
 import com.tang.commons.utils.AjaxResult;
 import com.tang.commons.utils.Assert;
 import com.tang.commons.utils.page.PageUtils;
-import com.tang.commons.utils.page.TableDataResult;
+import com.tang.commons.utils.page.PageResult;
 import com.tang.generator.entity.GenTable;
 import com.tang.generator.service.GenTableColumnService;
 import com.tang.generator.service.GenTableService;
@@ -51,7 +51,7 @@ public class GenTableController {
      */
     @PreAuthorize("@auth.hasPermission('tool:generator:list')")
     @GetMapping("/list")
-    public TableDataResult list(GenTable table) {
+    public PageResult list(GenTable table) {
         PageUtils.startPage();
         var list = tableService.selectTableList(table);
         return PageUtils.getDataTable(list);
@@ -65,7 +65,7 @@ public class GenTableController {
      */
     @PreAuthorize("@auth.hasPermission('tool:generator:list')")
     @GetMapping("/table/list")
-    public TableDataResult listDatabaseTable(GenTable table) {
+    public PageResult listDatabaseTable(GenTable table) {
         PageUtils.startPage();
         var list = tableService.selectDatabaseTableList(table);
         return PageUtils.getDataTable(list);

@@ -11,9 +11,9 @@ import com.tang.commons.utils.ServletUtils;
  *
  * @author Tang
  */
-public class TableSupport {
+public class PageSupport {
 
-    private TableSupport() {
+    private PageSupport() {
     }
 
     /**

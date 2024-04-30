@@ -14,7 +14,7 @@ import com.tang.app.entity.AppChatMessage
 import com.tang.app.service.AppChatMessageService
 import com.tang.commons.utils.AjaxResult
 import com.tang.commons.utils.page.PageUtils
-import com.tang.commons.utils.page.TableDataResult
+import com.tang.commons.utils.page.PageResult
 
 /**
  * 聊天消息逻辑控制层
@@ -33,7 +33,7 @@ class AppChatMessageController(private val appChatMessageService: AppChatMessage
      */
     @PreAuthorize("@auth.hasPermission('app:chat:message:list')")
     @GetMapping("/list")
-    fun list(appChatMessage: AppChatMessage): TableDataResult {
+    fun list(appChatMessage: AppChatMessage): PageResult {
         if (appChatMessage.chatListId == null) {
             return PageUtils.getDataTable(emptyList<Any>())
         }

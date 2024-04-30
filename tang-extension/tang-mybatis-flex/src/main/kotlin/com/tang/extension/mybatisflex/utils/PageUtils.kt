@@ -3,8 +3,8 @@ package com.tang.extension.mybatisflex.utils
 import com.mybatisflex.core.BaseMapper
 import com.mybatisflex.core.query.QueryWrapper
 import com.tang.commons.constants.HttpStatus
-import com.tang.commons.utils.page.TableDataResult
-import com.tang.commons.utils.page.TableSupport
+import com.tang.commons.utils.page.PageResult
+import com.tang.commons.utils.page.PageSupport
 
 /**
  * MyBatis Flex 分页工具类
@@ -22,15 +22,15 @@ object PageUtils {
      * @return 分页结果
      */
     @JvmStatic
-    fun <T> page(baseMapper: BaseMapper<T>, queryWrapper: QueryWrapper): TableDataResult {
-        val pageDomain = TableSupport.buildPageRequest()
+    fun <T> page(baseMapper: BaseMapper<T>, queryWrapper: QueryWrapper): PageResult {
+        val pageDomain = PageSupport.buildPageRequest()
         val paginate = baseMapper.paginate(pageDomain.pageNum, pageDomain.pageSize, queryWrapper)
-        val tableDataResult = TableDataResult()
-        tableDataResult.code = HttpStatus.SUCCESS
-        tableDataResult.msg = "查询成功"
-        tableDataResult.rows = paginate.records
-        tableDataResult.total = paginate.totalRow
-        return tableDataResult
+        val pageResult = PageResult()
+        pageResult.code = HttpStatus.SUCCESS
+        pageResult.msg = "查询成功"
+        pageResult.rows = paginate.records
+        pageResult.total = paginate.totalRow
+        return pageResult
     }
 
 }

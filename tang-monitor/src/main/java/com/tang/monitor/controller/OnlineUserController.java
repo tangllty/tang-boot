@@ -13,7 +13,7 @@ import com.github.pagehelper.PageInfo;
 import com.tang.commons.constants.HttpStatus;
 import com.tang.commons.utils.AjaxResult;
 import com.tang.commons.utils.ServletUtils;
-import com.tang.commons.utils.page.TableDataResult;
+import com.tang.commons.utils.page.PageResult;
 import com.tang.monitor.entity.OnlineUser;
 import com.tang.monitor.service.OnlineUserService;
 
@@ -40,7 +40,7 @@ public class OnlineUserController {
      */
     @PreAuthorize("@auth.hasPermission('monitor:online:list')")
     @GetMapping("/list")
-    public TableDataResult list(OnlineUser onlineUser) {
+    public PageResult list(OnlineUser onlineUser) {
         var pageNum = ServletUtils.getParameter("pageNum");
         var pageSize = ServletUtils.getParameter("pageSize");
         var pageNumLong = Long.parseLong(pageNum);
@@ -48,7 +48,7 @@ public class OnlineUserController {
         var skip = (pageNumLong - 1) * pageSizeLong;
         var list = onlineUserService.selectOnlineUserList(onlineUser);
         list.sort(Comparator.comparing(OnlineUser::getLoginTime).reversed());
-        var tableDataResult = new TableDataResult();
+        var tableDataResult = new PageResult();
         tableDataResult.setCode(HttpStatus.SUCCESS);
         tableDataResult.setMsg("查询成功");
         tableDataResult.setTotal(new PageInfo<>(list).getTotal());

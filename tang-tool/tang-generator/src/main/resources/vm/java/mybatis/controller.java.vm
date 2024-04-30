@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.tang.commons.utils.AjaxResult;
 import com.tang.commons.utils.page.PageUtils;
-import com.tang.commons.utils.page.TableDataResult;
+import com.tang.commons.utils.page.PageResult;
 import ${packageName}.entity.$ClassName;
 import ${packageName}.service.${ClassName}Service;
 
@@ -39,7 +39,7 @@ public class ${ClassName}Controller {
      */
     @PreAuthorize("@auth.hasPermission('$moduleName.replace("/", ":"):$permissionName:list')")
     @GetMapping("/list")
-    public TableDataResult list($ClassName $className){
+    public PageResult list($ClassName $className){
         PageUtils.startPage();
 #foreach ($column in $columnList)
 #set($javaField = $column.javaField)
