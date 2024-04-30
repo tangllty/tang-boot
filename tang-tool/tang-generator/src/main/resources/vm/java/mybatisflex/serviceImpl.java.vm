@@ -1,0 +1,95 @@
+package ${packageName}.service.impl;
+
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
+import com.mybatisflex.core.query.QueryWrapper;
+import com.mybatisflex.spring.service.impl.ServiceImpl;
+import com.tang.commons.utils.page.PageResult;
+import com.tang.extension.mybatisflex.utils.PageUtils;
+import ${packageName}.entity.$ClassName;
+import ${packageName}.mapper.${ClassName}Mapper;
+import ${packageName}.service.${ClassName}Service;
+
+import lombok.RequiredArgsConstructor;
+
+/**
+ * ${classComment}业务逻辑层接口实现
+ *
+ * @author $author
+ */
+@RequiredArgsConstructor
+@Service
+public class ${ClassName}ServiceImpl extends ServiceImpl<${ClassName}Mapper, $ClassName> implements ${ClassName}Service {
+
+    private final ${ClassName}Mapper ${className}Mapper;
+
+    /**
+     * 查询${classComment}列表
+     *
+     * @param $className ${classComment}对象
+     * @return ${classComment}列表
+     */
+    @Override
+    public List<$ClassName> select${ClassName}List($ClassName $className) {
+        QueryWrapper queryWrapper = new QueryWrapper();
+        return PageUtils.page(${className}Mapper, queryWrapper);
+    }
+
+    /**
+     * 通过${classComment}主键查询${classComment}信息
+     *
+     * @param $primaryKey ${classComment}主键
+     * @return ${classComment}信息
+     */
+    @Override
+    public $ClassName select${ClassName}By${PrimaryKey}(Long $primaryKey) {
+        return ${className}Mapper.selectOneById($primaryKey);
+    }
+
+    /**
+     * 新增${classComment}信息
+     *
+     * @param $className ${classComment}信息
+     * @return 影响行数
+     */
+    @Override
+    public int insert${ClassName}($ClassName $className) {
+        return ${className}Mapper.insertSelective($className);
+    }
+
+    /**
+     * 通过${classComment}主键修改${classComment}信息
+     *
+     * @param $className ${classComment}信息
+     * @return 影响行数
+     */
+    @Override
+    public int update${ClassName}By${PrimaryKey}($ClassName $className) {
+        return ${className}Mapper.update($className);
+    }
+
+    /**
+     * 通过${classComment}主键删除${classComment}信息
+     *
+     * @param $primaryKey ${classComment}主键
+     * @return 影响行数
+     */
+    @Override
+    public int delete${ClassName}By${PrimaryKey}(Long $primaryKey) {
+        return ${className}Mapper.deleteById($primaryKey);
+    }
+
+    /**
+     * 通过${classComment}主键数组批量删除${classComment}信息
+     *
+     * @param ${primaryKey}s ${classComment}主键数组
+     * @return 影响行数
+     */
+    @Override
+    public int delete${ClassName}By${PrimaryKey}s(Long[] ${primaryKey}s) {
+        return ${className}Mapper.deleteBatchByIds(List.of(${primaryKey}s));
+    }
+
+}

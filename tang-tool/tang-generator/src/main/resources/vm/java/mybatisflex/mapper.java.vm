@@ -1,0 +1,15 @@
+package ${packageName}.mapper;
+
+import org.apache.ibatis.annotations.Mapper;
+
+import com.mybatisflex.core.BaseMapper;
+import ${packageName}.entity.$ClassName;
+
+/**
+ * ${classComment}数据访问层
+ *
+ * @author $author
+ */
+@Mapper
+public interface ${ClassName}Mapper extends BaseMapper<$ClassName> {
+}

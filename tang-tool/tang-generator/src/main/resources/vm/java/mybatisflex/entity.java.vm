@@ -1,0 +1,108 @@
+package ${packageName}.entity;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Collections;
+import java.util.List;
+
+import org.apache.commons.lang3.StringUtils;
+
+import com.mybatisflex.annotation.Id;
+import com.mybatisflex.annotation.KeyType;
+import com.mybatisflex.annotation.Table;
+import com.tang.commons.base.entity.BaseEntity;
+
+import lombok.Getter;
+import lombok.Setter;
+
+/**
+ * ${classComment}实体类 $tableName
+ *
+ * @author $author
+ */
+@Getter
+@Setter
+@Table("$tableName")
+public class $ClassName implements java.io.Serializable {
+
+    @java.io.Serial
+    private static final long serialVersionUID = 1L;
+#foreach ($column in $columnList)
+#if ($column.htmlType == 'date')
+
+    /**
+     * $column.columnComment
+     */
+    private $column.javaType $column.javaField;
+#elseif ($column.htmlType == 'datetime')
+
+    /**
+     * $column.columnComment
+     */
+    private $column.javaType $column.javaField;
+#else
+
+    /**
+     * $column.columnComment
+     */
+#if ($column.isPk == '1')
+#if($column.isIncrement == '1')
+    @Id(keyType = KeyType.Auto)
+#else
+    @Id(keyType = KeyType.None)
+#end
+#end
+    private $column.javaType $column.javaField;
+#if ($column.htmlType == 'checkbox')
+
+    /**
+     * ${column.columnComment}集合
+     */
+    private List<$column.javaType> ${column.javaField}List;
+#end
+#end
+#end
+
+#foreach ($column in $columnList)
+#set($javaType = $column.javaType)
+#set($javaField = $column.javaField)
+#set($JavaField = $column.javaField.substring(0, 1).toUpperCase() + ${column.javaField.substring(1)})
+#if (!$column.isSuperField)
+
+    public $javaType get${JavaField}() {
+        return $javaField;
+    }
+
+    public void set${JavaField}($javaType $javaField) {
+        this.$javaField = $javaField;
+    }
+#if ($column.htmlType == 'checkbox')
+
+    public List<$javaType> get${JavaField}List() {
+        return ${javaField}List;
+    }
+
+    public void set${JavaField}List(List<$javaType> ${javaField}List) {
+        this.${javaField}List = ${javaField}List;
+    }
+
+    public void ${javaField}ListTo${JavaField}() {
+        if (${javaField}List == null || ${javaField}List.isEmpty()) {
+            $javaField = null;
+            return;
+        }
+        $javaField = String.join(",", ${javaField}List);
+    }
+
+    public void ${javaField}To${JavaField}List() {
+        if (StringUtils.isBlank($javaField)) {
+            ${javaField}List = Collections.emptyList();
+            return;
+        }
+        ${javaField}List = List.of(${javaField}.split(","));
+    }
+#end
+#end
+#end
+
+}

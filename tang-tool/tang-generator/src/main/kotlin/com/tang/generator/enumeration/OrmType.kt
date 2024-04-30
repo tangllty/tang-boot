@@ -9,6 +9,8 @@ enum class OrmType(val value: String) {
 
     MYBATIS("MyBatis"),
 
+    MYBATIS_FLEX("MyBatis-Flex"),
+
     MYBATIS_PLUS("MyBatis-Plus");
 
     companion object {

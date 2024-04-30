@@ -25,3 +25,4 @@
  * Add message format for `Assert` class
  * Add sync database table column
  * Support java 8 time type
+ * Support mybatis flex

@@ -17,6 +17,16 @@ object VmTemplate {
 
     const val VM_JAVA_MYBATIS_CONTROLLER = "vm/java/mybatis/controller.java.vm"
 
+    const val VM_JAVA_MYBATISFLEX_ENTITY = "vm/java/mybatisflex/entity.java.vm"
+
+    const val VM_JAVA_MYBATISFLEX_MAPPER = "vm/java/mybatisflex/mapper.java.vm"
+
+    const val VM_JAVA_MYBATISFLEX_SERVICE = "vm/java/mybatisflex/service.java.vm"
+
+    const val VM_JAVA_MYBATISFLEX_SERVICE_IMPL = "vm/java/mybatisflex/serviceImpl.java.vm"
+
+    const val VM_JAVA_MYBATISFLEX_CONTROLLER = "vm/java/mybatisflex/controller.java.vm"
+
     const val VM_JAVA_MYBATIS_PLUS_ENTITY = "vm/java/mybatisplus/entity.java.vm"
 
     const val VM_JAVA_MYBATIS_PLUS_MAPPER = "vm/java/mybatisplus/mapper.java.vm"
