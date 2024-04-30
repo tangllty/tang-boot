@@ -17,12 +17,12 @@ public class DictUtils {
     private DictUtils() {
     }
 
-    private static final RedisUtils  REDIS_UTILS = SpringUtils.getBean(RedisUtils.class);
+    private static final RedisUtils REDIS_UTILS = SpringUtils.getBean(RedisUtils.class);
 
     /**
      * 获取字典数据集合
      *
-     * @param dictType  字典类型
+     * @param dictType 字典类型
      * @return 字典数据集合
      */
     public static List<SysDictDataModel> getDictDataList(String dictType) {
