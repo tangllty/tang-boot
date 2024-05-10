@@ -5,7 +5,6 @@ import java.util.List;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.github.pagehelper.page.PageMethod;
-import com.tang.commons.constants.HttpStatus;
 import com.tang.commons.utils.SqlUtils;
 
 /**
@@ -42,8 +41,6 @@ public class PageUtils extends PageHelper {
      */
     public static PageResult getDataTable(List<?> list) {
         var tableDataResult = new PageResult();
-        tableDataResult.setCode(HttpStatus.SUCCESS);
-        tableDataResult.setMsg("查询成功");
         tableDataResult.setRows(list);
         tableDataResult.setTotal(new PageInfo<>(list).getTotal());
         return tableDataResult;

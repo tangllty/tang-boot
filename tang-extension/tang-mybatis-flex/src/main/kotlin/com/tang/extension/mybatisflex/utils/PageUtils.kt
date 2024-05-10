@@ -2,7 +2,6 @@ package com.tang.extension.mybatisflex.utils
 
 import com.mybatisflex.core.BaseMapper
 import com.mybatisflex.core.query.QueryWrapper
-import com.tang.commons.constants.HttpStatus
 import com.tang.commons.utils.page.PageResult
 import com.tang.commons.utils.page.PageSupport
 
@@ -25,12 +24,7 @@ object PageUtils {
     fun <T> page(baseMapper: BaseMapper<T>, queryWrapper: QueryWrapper): PageResult {
         val pageDomain = PageSupport.buildPageRequest()
         val paginate = baseMapper.paginate(pageDomain.pageNum, pageDomain.pageSize, queryWrapper)
-        val pageResult = PageResult()
-        pageResult.code = HttpStatus.SUCCESS
-        pageResult.msg = "查询成功"
-        pageResult.rows = paginate.records
-        pageResult.total = paginate.totalRow
-        return pageResult
+        return PageResult(paginate.records, paginate.totalRow)
     }
 
 }

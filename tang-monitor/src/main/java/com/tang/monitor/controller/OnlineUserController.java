@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.github.pagehelper.PageInfo;
-import com.tang.commons.constants.HttpStatus;
 import com.tang.commons.utils.AjaxResult;
 import com.tang.commons.utils.ServletUtils;
 import com.tang.commons.utils.page.PageResult;
@@ -49,8 +48,6 @@ public class OnlineUserController {
         var list = onlineUserService.selectOnlineUserList(onlineUser);
         list.sort(Comparator.comparing(OnlineUser::getLoginTime).reversed());
         var tableDataResult = new PageResult();
-        tableDataResult.setCode(HttpStatus.SUCCESS);
-        tableDataResult.setMsg("查询成功");
         tableDataResult.setTotal(new PageInfo<>(list).getTotal());
         list = list.stream().skip(skip).limit(pageSizeLong).toList();
         tableDataResult.setRows(list);

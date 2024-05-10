@@ -1,7 +1,10 @@
 package com.tang.commons.utils.page;
 
 import java.io.Serializable;
+import java.util.Collections;
 import java.util.List;
+
+import com.tang.commons.constants.HttpStatus;
 
 /**
  * 表格分页数据对象
@@ -37,6 +40,7 @@ public class PageResult implements Serializable {
      * 表格数据对象
      */
     public PageResult() {
+        this(Collections.emptyList(), 0);
     }
 
     /**
@@ -46,8 +50,20 @@ public class PageResult implements Serializable {
      * @param total 总记录数
      */
     public PageResult(List<?> list, int total) {
+        this(list, (long) total);
+    }
+
+    /**
+     * 分页
+     *
+     * @param list  列表数据
+     * @param total 总记录数
+     */
+    public PageResult(List<?> list, long total) {
         this.rows = list;
         this.total = total;
+        this.code = HttpStatus.SUCCESS;
+        this.msg = "查询成功";
     }
 
     public long getTotal() {
