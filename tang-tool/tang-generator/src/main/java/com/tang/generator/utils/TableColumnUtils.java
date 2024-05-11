@@ -72,7 +72,11 @@ public class TableColumnUtils {
      * @return 字段列表
      */
     public static List<GenTableColumn> getTableColumnList(List<GenTableColumn> tableColumnList) {
-        tableColumnList.forEach(tableColumn -> tableColumn.setIsSuperField(getIsSuperField(tableColumn.getJavaField())));
+        tableColumnList.forEach(tableColumn -> {
+            tableColumn.setIsSuperField(getIsSuperField(tableColumn.getJavaField()));
+            tableColumn.setColumnNameUpperCamel(CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.UPPER_CAMEL, tableColumn.getColumnName()));
+            tableColumn.setColumnNameUpperUnderscore(CaseFormat.LOWER_CAMEL.to(CaseFormat.UPPER_UNDERSCORE, tableColumn.getJavaField()));
+        });
         return tableColumnList;
     }
 

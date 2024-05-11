@@ -107,6 +107,16 @@ public class GenTableColumn extends BaseEntity {
      */
     private boolean isSuperField;
 
+    /**
+     * 字段名称大写驼峰
+     */
+    private String columnNameUpperCamel;
+
+    /**
+     * 字段名称大写下划线
+     */
+    private String columnNameUpperUnderscore;
+
 
     public Long getColumnId() {
         return columnId;
@@ -258,6 +268,22 @@ public class GenTableColumn extends BaseEntity {
 
     public void setIsSuperField(boolean isSuperField) {
         this.isSuperField = isSuperField;
+    }
+
+    public String getColumnNameUpperCamel() {
+        return columnNameUpperCamel;
+    }
+
+    public void setColumnNameUpperCamel(String columnNameUpperCamel) {
+        this.columnNameUpperCamel = columnNameUpperCamel;
+    }
+
+    public String getColumnNameUpperUnderscore() {
+        return columnNameUpperUnderscore;
+    }
+
+    public void setColumnNameUpperUnderscore(String columnNameUpperUnderscore) {
+        this.columnNameUpperUnderscore = columnNameUpperUnderscore;
     }
 
 }

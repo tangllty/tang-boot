@@ -92,6 +92,7 @@ public class VelocityUtils {
         velocityContext.put("tableName", table.getTableName());
         velocityContext.put("ClassName", table.getClassName());
         velocityContext.put("className", CaseFormat.UPPER_CAMEL.to(CaseFormat.LOWER_CAMEL, table.getClassName()));
+        velocityContext.put("CLASS_NAME", CaseFormat.UPPER_CAMEL.to(CaseFormat.UPPER_UNDERSCORE, table.getClassName()));
         velocityContext.put("primaryKey", getPrimaryKey(table));
         velocityContext.put("PrimaryKey", CaseFormat.LOWER_CAMEL.to(CaseFormat.UPPER_CAMEL, getPrimaryKey(table)));
         velocityContext.put("tablePrimaryKey", CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_UNDERSCORE, getPrimaryKey(table)));
