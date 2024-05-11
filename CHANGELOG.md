@@ -26,3 +26,4 @@
  * Add sync database table column
  * Support java 8 time type
  * Support mybatis flex
+ * Support mybatis flex order query

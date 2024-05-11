@@ -13,6 +13,10 @@ import com.google.common.base.CaseFormat;
  */
 public class PageDomain {
 
+    private static final String ASC = "asc";
+
+    private static final String DESC = "desc";
+
     private static final String ASCENDING = "ascending";
 
     private static final String DESCENDING = "descending";
@@ -35,7 +39,7 @@ public class PageDomain {
     /**
      * 排序的方向desc或者asc
      */
-    private String isAsc = "asc";
+    private String isAsc = ASC;
 
     /**
      * 分页参数合理化
@@ -77,11 +81,15 @@ public class PageDomain {
         return isAsc;
     }
 
+    public Boolean getIsAscBoolean() {
+        return ASC.equals(isAsc);
+    }
+
     public void setIsAsc(String isAsc) {
         if (StringUtils.isNoneBlank(isAsc)) {
             this.isAsc = switch (isAsc) {
-                case ASCENDING -> "asc";
-                case DESCENDING -> "desc";
+                case ASCENDING -> ASC;
+                case DESCENDING -> DESC;
                 default -> isAsc;
             };
         }
