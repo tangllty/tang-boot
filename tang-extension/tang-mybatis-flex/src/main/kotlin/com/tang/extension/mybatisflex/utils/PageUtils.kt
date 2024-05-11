@@ -24,7 +24,7 @@ object PageUtils {
     fun <T> page(baseMapper: BaseMapper<T>, queryWrapper: QueryWrapper): PageResult {
         val pageDomain = PageSupport.buildPageRequest()
         if (pageDomain.orderBy.isNotBlank()) {
-            queryWrapper.orderBy(pageDomain.orderBy, pageDomain.isAscBoolean)
+            queryWrapper.orderBy(pageDomain.orderByColumn, pageDomain.isAscBoolean)
         }
         val paginate = baseMapper.paginate(pageDomain.pageNum, pageDomain.pageSize, queryWrapper)
         return PageResult(paginate.records, paginate.totalRow)

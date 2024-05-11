@@ -47,10 +47,11 @@ public class PageDomain {
     private Boolean reasonable = true;
 
     public String getOrderBy() {
-        if (StringUtils.isBlank(orderByColumn)) {
+        var column = getOrderByColumn();
+        if (StringUtils.isBlank(column)) {
             return "";
         }
-        return CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_HYPHEN, orderByColumn) + " " + isAsc;
+        return column + " " + isAsc;
     }
 
     public Integer getPageNum() {
@@ -70,7 +71,10 @@ public class PageDomain {
     }
 
     public String getOrderByColumn() {
-        return orderByColumn;
+        if (StringUtils.isBlank(orderByColumn)) {
+            return "";
+        }
+        return CaseFormat.LOWER_CAMEL.to(CaseFormat.LOWER_UNDERSCORE, orderByColumn);
     }
 
     public void setOrderByColumn(String orderByColumn) {
