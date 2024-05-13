@@ -18,6 +18,7 @@
  * Bump jackson from 2.16.1 to 2.17.0
  * Bump redis from 7.2.3 to 7.2.4
  * Bump mybatis-flex-spring-boot3-starter from 1.8.8 to 1.8.9
+ * Bump mybatis-plus-spring-boot3-starter from 3.5.5 to 3.5.6
  * Add mybatis 3.5.16
  * Add commons-compress 1.26.1
  * Add mybatis-flex-spring-boot3-starter 1.8.8
