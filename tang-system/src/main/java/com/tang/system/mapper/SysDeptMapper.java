@@ -2,6 +2,8 @@ package com.tang.system.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Mapper;
+
 import com.tang.system.entity.SysDept;
 
 /**
@@ -9,6 +11,7 @@ import com.tang.system.entity.SysDept;
  *
  * @author Tang
  */
+@Mapper
 public interface SysDeptMapper {
 
     /**

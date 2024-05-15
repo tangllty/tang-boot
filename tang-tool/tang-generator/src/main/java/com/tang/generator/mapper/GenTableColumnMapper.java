@@ -2,6 +2,8 @@ package com.tang.generator.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Mapper;
+
 import com.tang.generator.entity.GenTableColumn;
 
 /**
@@ -9,6 +11,7 @@ import com.tang.generator.entity.GenTableColumn;
  *
  * @author Tang
  */
+@Mapper
 public interface GenTableColumnMapper {
 
     /**

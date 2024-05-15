@@ -2,6 +2,8 @@ package com.tang.system.mapper.dict;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Mapper;
+
 import com.tang.system.entity.dict.SysDictData;
 
 /**
@@ -9,6 +11,7 @@ import com.tang.system.entity.dict.SysDictData;
  *
  * @author Tang
  */
+@Mapper
 public interface SysDictDataMapper {
 
     /**

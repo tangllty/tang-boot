@@ -1,5 +1,6 @@
 package com.tang.app.mapper
 
+import org.apache.ibatis.annotations.Mapper
 import org.apache.ibatis.annotations.Param
 
 import com.tang.app.entity.AppChatMessage
@@ -9,6 +10,7 @@ import com.tang.app.entity.AppChatMessage
  *
  * @author Tang
  */
+@Mapper
 interface AppChatMessageMapper {
 
     /**

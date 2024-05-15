@@ -1,13 +1,16 @@
 package com.tang.app.mapper
 
-import com.tang.app.entity.AppFriendApply
+import org.apache.ibatis.annotations.Mapper
 import org.apache.ibatis.annotations.Param
+
+import com.tang.app.entity.AppFriendApply
 
 /**
  * 用户好友申请数据访问层
  *
  * @author Tang
  */
+@Mapper
 interface AppFriendApplyMapper {
 
     /**

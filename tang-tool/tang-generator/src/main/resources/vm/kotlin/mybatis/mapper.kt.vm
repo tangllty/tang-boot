@@ -1,5 +1,7 @@
 package ${packageName}.mapper
 
+import org.apache.ibatis.annotations.Mapper
+
 import ${packageName}.entity.$ClassName
 
 /**
@@ -7,6 +9,7 @@ import ${packageName}.entity.$ClassName
  *
  * @author $author
  */
+@Mapper
 interface ${ClassName}Mapper {
 
     /**

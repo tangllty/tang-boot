@@ -1,5 +1,7 @@
 package com.tang.system.mapper
 
+import org.apache.ibatis.annotations.Mapper
+
 import com.tang.system.domain.vo.SysLogApiAnalysis
 import com.tang.system.entity.SysLogApi
 
@@ -8,6 +10,7 @@ import com.tang.system.entity.SysLogApi
  *
  * @author Tang
  */
+@Mapper
 interface SysLogApiMapper {
 
     /**

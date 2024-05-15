@@ -3,6 +3,7 @@ package com.tang.system.mapper.log;
 import java.time.LocalDate;
 import java.util.List;
 
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import com.tang.system.entity.log.SysLogLogin;
@@ -12,6 +13,7 @@ import com.tang.system.entity.log.SysLogLogin;
  *
  * @author Tang
  */
+@Mapper
 public interface SysLogLoginMapper {
 
     /**

@@ -2,6 +2,8 @@ package ${packageName}.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Mapper
+
 import ${packageName}.entity.$ClassName;
 
 /**
@@ -9,6 +11,7 @@ import ${packageName}.entity.$ClassName;
  *
  * @author $author
  */
+@Mapper
 public interface ${ClassName}Mapper {
 
     /**
