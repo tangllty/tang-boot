@@ -35,7 +35,7 @@ public class ${ClassName}ServiceImpl extends ServiceImpl<${ClassName}Mapper, $Cl
      * @return ${classComment}列表
      */
     @Override
-    public List<$ClassName> select${ClassName}List($ClassName $className) {
+    public PageResult select${ClassName}List($ClassName $className) {
         QueryWrapper queryWrapper = QueryWrapper.create();
         queryWrapper.select().from($CLASS_NAME);
 #foreach ($column in $columnList)
