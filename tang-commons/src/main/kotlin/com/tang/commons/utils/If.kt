@@ -1,4 +1,4 @@
-package com.tang.extension.mybatisflex.utils
+package com.tang.commons.utils
 
 import java.util.Objects
 

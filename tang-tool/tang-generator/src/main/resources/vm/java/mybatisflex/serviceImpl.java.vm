@@ -6,8 +6,8 @@ import org.springframework.stereotype.Service;
 
 import com.mybatisflex.core.query.QueryWrapper;
 import com.mybatisflex.spring.service.impl.ServiceImpl;
+import com.tang.commons.utils.If;
 import com.tang.commons.utils.page.PageResult;
-import com.tang.extension.mybatisflex.utils.If;
 import com.tang.extension.mybatisflex.utils.PageUtils;
 import ${packageName}.entity.$ClassName;
 import ${packageName}.mapper.${ClassName}Mapper;
