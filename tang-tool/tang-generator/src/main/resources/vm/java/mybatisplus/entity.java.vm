@@ -7,9 +7,10 @@ import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.tang.commons.base.entity.BaseEntity;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -47,9 +48,9 @@ public class $ClassName extends BaseEntity {
      */
 #if ($column.isPk == '1')
 #if($column.isIncrement == '1')
-    @Id(keyType = KeyType.Auto)
+    @TableId(type = IdType.AUTO)
 #else
-    @Id(keyType = KeyType.None)
+    @TableId(type = IdType.NONE)
 #end
 #end
     private $column.javaType $column.javaField;
@@ -70,14 +71,6 @@ public class $ClassName extends BaseEntity {
 #set($javaField = $column.javaField)
 #set($JavaField = $column.javaField.substring(0, 1).toUpperCase() + ${column.javaField.substring(1)})
 #if (!$column.isSuperField)
-
-    public $javaType get${JavaField}() {
-        return $javaField;
-    }
-
-    public void set${JavaField}($javaType $javaField) {
-        this.$javaField = $javaField;
-    }
 #if ($column.htmlType == 'checkbox')
 
     public List<$javaType> get${JavaField}List() {

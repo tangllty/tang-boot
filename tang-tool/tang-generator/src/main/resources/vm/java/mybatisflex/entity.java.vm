@@ -10,7 +10,6 @@ import org.apache.commons.lang3.StringUtils;
 import com.mybatisflex.annotation.Id;
 import com.mybatisflex.annotation.KeyType;
 import com.mybatisflex.annotation.Table;
-import com.tang.commons.base.entity.BaseEntity;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -68,14 +67,6 @@ public class $ClassName implements java.io.Serializable {
 #set($javaField = $column.javaField)
 #set($JavaField = $column.javaField.substring(0, 1).toUpperCase() + ${column.javaField.substring(1)})
 #if (!$column.isSuperField)
-
-    public $javaType get${JavaField}() {
-        return $javaField;
-    }
-
-    public void set${JavaField}($javaType $javaField) {
-        this.$javaField = $javaField;
-    }
 #if ($column.htmlType == 'checkbox')
 
     public List<$javaType> get${JavaField}List() {
