@@ -4,24 +4,27 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.tang.commons.utils.If;
+import com.tang.extension.mybatisplus.utils.PageUtils;
+import com.tang.commons.utils.page.PageResult;
 import ${packageName}.entity.$ClassName;
 import ${packageName}.mapper.${ClassName}Mapper;
 import ${packageName}.service.${ClassName}Service;
+
+import lombok.RequiredArgsConstructor;
 
 /**
  * ${classComment}业务逻辑层接口实现
  *
  * @author $author
  */
+@RequiredArgsConstructor
 @Service
 public class ${ClassName}ServiceImpl extends ServiceImpl<${ClassName}Mapper, $ClassName> implements ${ClassName}Service {
 
     private final ${ClassName}Mapper ${className}Mapper;
-
-    public ${ClassName}ServiceImpl(${ClassName}Mapper ${className}Mapper) {
-        this.${className}Mapper = ${className}Mapper;
-    }
 
     /**
      * 查询${classComment}列表
@@ -30,8 +33,19 @@ public class ${ClassName}ServiceImpl extends ServiceImpl<${ClassName}Mapper, $Cl
      * @return ${classComment}列表
      */
     @Override
-    public List<$ClassName> select${ClassName}List($ClassName $className) {
-        return ${className}Mapper.select${ClassName}List($className);
+    public PageResult select${ClassName}List($ClassName $className) {
+        var queryWrapper = new QueryWrapper<$ClassName>();
+        #foreach ($column in $columnList)
+            #if($column.queryType == "equal")
+                queryWrapper.lambda().eq(If.nonEmpty(${className}.get${column.columnNameUpperCamel}()), ${ClassName}::get${column.columnNameUpperCamel}, ${className}.get${column.columnNameUpperCamel}());
+            #end
+            #if($column.queryType == "fuzzy")
+                queryWrapper.lambda().like(If.nonEmpty(${className}.get${column.columnNameUpperCamel}()), ${ClassName}::get${column.columnNameUpperCamel}, ${className}.get${column.columnNameUpperCamel}());
+            #end
+            #if($column.queryType == "findInSet")
+            #end
+        #end
+        return PageUtils.page(${className}Mapper, queryWrapper);
     }
 
     /**
@@ -42,7 +56,7 @@ public class ${ClassName}ServiceImpl extends ServiceImpl<${ClassName}Mapper, $Cl
      */
     @Override
     public $ClassName select${ClassName}By${PrimaryKey}(Long $primaryKey) {
-        return ${className}Mapper.select${ClassName}By${PrimaryKey}($primaryKey);
+        return ${className}Mapper.selectById($primaryKey);
     }
 
     /**
@@ -53,7 +67,7 @@ public class ${ClassName}ServiceImpl extends ServiceImpl<${ClassName}Mapper, $Cl
      */
     @Override
     public int insert${ClassName}($ClassName $className) {
-        return ${className}Mapper.insert${ClassName}($className);
+        return ${className}Mapper.insert($className);
     }
 
     /**
@@ -64,7 +78,7 @@ public class ${ClassName}ServiceImpl extends ServiceImpl<${ClassName}Mapper, $Cl
      */
     @Override
     public int update${ClassName}By${PrimaryKey}($ClassName $className) {
-        return ${className}Mapper.update${ClassName}By${PrimaryKey}($className);
+        return ${className}Mapper.updateById($className);
     }
 
     /**
@@ -75,7 +89,7 @@ public class ${ClassName}ServiceImpl extends ServiceImpl<${ClassName}Mapper, $Cl
      */
     @Override
     public int delete${ClassName}By${PrimaryKey}(Long $primaryKey) {
-        return ${className}Mapper.delete${ClassName}By${PrimaryKey}($primaryKey);
+        return ${className}Mapper.deleteById($primaryKey);
     }
 
     /**
@@ -86,7 +100,7 @@ public class ${ClassName}ServiceImpl extends ServiceImpl<${ClassName}Mapper, $Cl
      */
     @Override
     public int delete${ClassName}By${PrimaryKey}s(Long[] ${primaryKey}s) {
-        return ${className}Mapper.delete${ClassName}By${PrimaryKey}s(${primaryKey}s);
+        return ${className}Mapper.deleteBatchIds(List.of(${primaryKey}s));
     }
 
 }

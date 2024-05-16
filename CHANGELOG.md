@@ -31,4 +31,5 @@
  * Support java 8 time type
  * Support mybatis flex
  * Support mybatis flex order query
- * Support mybatis flex generate query condition
+ * Support generate mybatis flex query condition
+ * Support generate mybatis plus query condition

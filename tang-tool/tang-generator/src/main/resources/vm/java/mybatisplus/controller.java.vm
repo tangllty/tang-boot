@@ -11,25 +11,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tang.commons.utils.AjaxResult;
-import com.tang.commons.utils.page.PageUtils;
 import com.tang.commons.utils.page.PageResult;
 import ${packageName}.entity.$ClassName;
 import ${packageName}.service.${ClassName}Service;
+
+import lombok.RequiredArgsConstructor;
 
 /**
  * ${classComment}逻辑控制层
  *
  * @author $author
  */
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/$moduleName/$businessName")
 public class ${ClassName}Controller {
 
     private final ${ClassName}Service ${className}Service;
-
-    public ${ClassName}Controller(${ClassName}Service ${className}Service) {
-        this.${className}Service = ${className}Service;
-    }
 
     /**
      * 查询${classComment}列表
@@ -40,7 +38,6 @@ public class ${ClassName}Controller {
     @PreAuthorize("@auth.hasPermission('$moduleName.replace("/", ":"):$permissionName:list')")
     @GetMapping("/list")
     public PageResult list($ClassName $className){
-        PageUtils.startPage();
 #foreach ($column in $columnList)
 #set($javaField = $column.javaField)
 #set($JavaField = $column.javaField.substring(0, 1).toUpperCase() + ${column.javaField.substring(1)})
@@ -48,8 +45,7 @@ public class ${ClassName}Controller {
         ${className}.${javaField}ListTo${JavaField}();
 #end
 #end
-        var list = ${className}Service.select${ClassName}List($className);
-        return PageUtils.getDataTable(list);
+        return ${className}Service.select${ClassName}List($className);
     }
 
     /**
@@ -61,7 +57,7 @@ public class ${ClassName}Controller {
     @PreAuthorize("@auth.hasPermission('$moduleName.replace("/", ":"):$permissionName:list')")
     @GetMapping("/{$primaryKey}")
     public AjaxResult select${ClassName}By${PrimaryKey}(@PathVariable Long $primaryKey) {
-        var $className = ${className}Service.getById($primaryKey);
+        var $className = ${className}Service.select${ClassName}By${PrimaryKey}($primaryKey);
 #foreach ($column in $columnList)
 #set($javaField = $column.javaField)
 #set($JavaField = $column.javaField.substring(0, 1).toUpperCase() + ${column.javaField.substring(1)})
@@ -88,7 +84,7 @@ public class ${ClassName}Controller {
         ${className}.${javaField}ListTo${JavaField}();
 #end
 #end
-        return AjaxResult.rows(${className}Service.save($className));
+        return AjaxResult.rows(${className}Service.insert${ClassName}($className));
     }
 
     /**
@@ -107,7 +103,7 @@ public class ${ClassName}Controller {
         ${className}.${javaField}ListTo${JavaField}();
 #end
 #end
-        return AjaxResult.rows(${className}Service.updateById($className));
+        return AjaxResult.rows(${className}Service.update${ClassName}By${PrimaryKey}($className));
     }
 
     /**
@@ -119,7 +115,7 @@ public class ${ClassName}Controller {
     @PreAuthorize("@auth.hasPermission('$moduleName.replace("/", ":"):$permissionName:delete')")
     @DeleteMapping("/{$primaryKey}")
     public AjaxResult delete(@PathVariable Long $primaryKey) {
-        return AjaxResult.rows(${className}Service.removeById($primaryKey));
+        return AjaxResult.rows(${className}Service.delete${ClassName}By${PrimaryKey}($primaryKey));
     }
 
     /**
@@ -131,7 +127,7 @@ public class ${ClassName}Controller {
     @PreAuthorize("@auth.hasPermission('$moduleName.replace("/", ":"):$permissionName:delete')")
     @DeleteMapping
     public AjaxResult deletes(@RequestBody Long[] ${primaryKey}s) {
-        return AjaxResult.rows(${className}Service.removeByIds(${primaryKey}s));
+        return AjaxResult.rows(${className}Service.delete${ClassName}By${PrimaryKey}s(${primaryKey}s));
     }
 
 }

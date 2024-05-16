@@ -11,11 +11,16 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.tang.commons.base.entity.BaseEntity;
 
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  * ${classComment}实体类 $tableName
  *
  * @author $author
  */
+@Getter
+@Setter
 @TableName("$tableName")
 public class $ClassName extends BaseEntity {
 

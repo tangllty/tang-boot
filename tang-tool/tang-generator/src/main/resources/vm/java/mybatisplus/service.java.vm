@@ -1,8 +1,7 @@
 package ${packageName}.service;
 
-import java.util.List;
-
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.tang.commons.utils.page.PageResult;
 import ${packageName}.entity.$ClassName;
 
 /**
@@ -18,7 +17,7 @@ public interface ${ClassName}Service extends IService<$ClassName> {
      * @param $className ${classComment}对象
      * @return ${classComment}列表
      */
-    List<$ClassName> select${ClassName}List($ClassName $className);
+    PageResult select${ClassName}List($ClassName $className);
 
     /**
      * 通过${classComment}主键查询${classComment}信息
@@ -26,7 +25,7 @@ public interface ${ClassName}Service extends IService<$ClassName> {
      * @param $primaryKey ${classComment}主键
      * @return ${classComment}信息
      */
-        $ClassName select${ClassName}By${PrimaryKey}(Long $primaryKey);
+    $ClassName select${ClassName}By${PrimaryKey}(Long $primaryKey);
 
     /**
      * 新增${classComment}信息
