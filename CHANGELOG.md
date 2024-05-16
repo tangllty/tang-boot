@@ -21,6 +21,7 @@
  * Bump mybatis-plus-spring-boot3-starter from 3.5.5 to 3.5.6
  * Bump druid-spring-boot-3-starter from 1.2.21 to 1.2.22
  * Bump kotlin from 1.9.21 to 1.9.24
+ * Bump commons-io from 2.15.1 to 2.16.1
  * Add mybatis 3.5.16
  * Add commons-compress 1.26.1
  * Add mybatis-flex-spring-boot3-starter 1.8.8
