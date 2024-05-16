@@ -24,6 +24,7 @@
  * Bump commons-io from 2.15.1 to 2.16.1
  * Bump guava from 33.0.0-jre to 33.2.0-jre
  * Bump springdoc-openapi-starter-webmvc-ui from 2.3.0 to 2.5.0
+ * Bump fastjson2-extension-spring6 from 2.0.47 to 2.0.50
  * Add mybatis 3.5.16
  * Add commons-compress 1.26.1
  * Add mybatis-flex-spring-boot3-starter 1.8.8
