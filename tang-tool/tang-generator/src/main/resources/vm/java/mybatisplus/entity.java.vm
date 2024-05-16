@@ -45,6 +45,13 @@ public class $ClassName extends BaseEntity {
     /**
      * $column.columnComment
      */
+#if ($column.isPk == '1')
+#if($column.isIncrement == '1')
+    @Id(keyType = KeyType.Auto)
+#else
+    @Id(keyType = KeyType.None)
+#end
+#end
     private $column.javaType $column.javaField;
 #if ($column.htmlType == 'checkbox')
 
