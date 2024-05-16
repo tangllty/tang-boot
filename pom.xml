@@ -27,7 +27,7 @@
     <properties>
         <tang.version>1.6.5</tang.version>
         <java.version>17</java.version>
-        <kotlin.version>1.9.21</kotlin.version>
+        <kotlin.version>1.9.24</kotlin.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <spring-boot-dependencies.version>3.2.5</spring-boot-dependencies.version>
