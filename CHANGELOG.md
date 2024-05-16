@@ -26,6 +26,7 @@
  * Bump springdoc-openapi-starter-webmvc-ui from 2.3.0 to 2.5.0
  * Bump fastjson2-extension-spring6 from 2.0.47 to 2.0.50
  * Bump hutool from 5.8.26 to 5.8.27
+ * Bump oshi-core from 6.4.13 to 6.6.0
  * Add mybatis 3.5.16
  * Add commons-compress 1.26.1
  * Add mybatis-flex-spring-boot3-starter 1.8.8
