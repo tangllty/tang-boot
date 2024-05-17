@@ -36,6 +36,7 @@
 
  * Add message format for `Assert` class
  * Add sync database table column
+ * Add druid monitor
  * Support java 8 time type
  * Support mybatis flex
  * Support mybatis flex order query

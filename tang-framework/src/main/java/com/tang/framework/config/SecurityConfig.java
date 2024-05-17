@@ -58,6 +58,7 @@ public class SecurityConfig {
                 .requestMatchers("/websocket/**").permitAll()
                 .requestMatchers("/uploads/**").permitAll()
                 .requestMatchers("/captcha/**").permitAll()
+                .requestMatchers("/druid/**").permitAll()
                 .anyRequest().authenticated()
             )
             .headers(headers -> headers.frameOptions(options -> options.disable()))

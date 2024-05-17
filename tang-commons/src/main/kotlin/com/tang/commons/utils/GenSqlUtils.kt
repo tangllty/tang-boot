@@ -107,6 +107,7 @@ object GenSqlUtils {
                 Menu("服务监控", "server", "monitor/server/index", "monitor:server:menu", "服务监控", "服务监控菜单", arrayListOf(
                     Menu("服务监控查询", "monitor:server:list", "服务监控查询按钮"),
                 )),
+                Menu("Druid 监控", "druid", "monitor/druid/index", "monitor:druid:menu", "Druid 监控", "Druid 监控菜单", arrayListOf()),
             )),
             Menu("系统工具", "tool", "系统工具", "系统工具目录", arrayListOf(
                 Menu("代码生成", "generator", "tool/generator/index", "tool:generator:menu", "代码生成", "代码生成菜单", arrayListOf(
