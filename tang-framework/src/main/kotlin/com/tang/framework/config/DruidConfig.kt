@@ -14,12 +14,12 @@ import org.springframework.context.annotation.Configuration
 class DruidConfig {
 
     /**
-     * 去掉 Druid 监控页面底部的广告
+     * 去除 Druid 监控页面底部的广告
      */
     @Bean
     fun removeDruidAD(properties: DruidStatProperties): FilterRegistrationBean<Filter> {
         val statViewServlet = properties.statViewServlet
-        val urlPattern = statViewServlet.urlPattern
+        val urlPattern = statViewServlet.urlPattern.ifBlank { "/druid/*" }
         val commonJsPattern = urlPattern.replace("\\*".toRegex(), "js/common.js")
         val filePath = "support/http/resources/js/common.js"
         val text = Utils.readFromResource(filePath)
