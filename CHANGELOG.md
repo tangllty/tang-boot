@@ -31,12 +31,14 @@
  * Add commons-compress 1.26.1
  * Add mybatis-flex-spring-boot3-starter 1.8.8
  * Add lombok
+ * Add Spring Boot Admin 3.2.3
 
 ### Features
 
  * Add message format for `Assert` class
  * Add sync database table column
  * Add druid monitor
+ * Add spring boot admin monitor
  * Support java 8 time type
  * Support mybatis flex
  * Support mybatis flex order query

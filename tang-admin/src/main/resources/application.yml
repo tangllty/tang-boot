@@ -54,6 +54,18 @@ spring:
       max-file-size: 10MB
       # 文件上传总大小限制
       max-request-size: 100MB
+  # Spring Boot Admin 配置
+  boot:
+    admin:
+      # Spring Boot Admin 上下文路径
+      context-path: /admin
+      # 客户端配置
+      client:
+        # 服务端地址
+        url: http://localhost:${server.port}/${spring.boot.admin.context-path}/
+        instance:
+          service-host-type: IP
+          service-path: /admin/instances
 
 # MyBatis 配置
 mybatis:
@@ -63,6 +75,18 @@ mybatis:
   mapper-locations: classpath*:mapper/**/*Mapper.xml
   # 配置文件路径
   # config-location: classpath:mybatis/mybatis-config.xml
+
+# 管理端点配置
+management:
+  endpoints:
+    web:
+      exposure:
+        # 开启所有端点
+        include: "*"
+  endpoint:
+    health:
+      # 显示监控检查的详细信息
+      show-details: ALWAYS
 
 # 日志配置
 logging:

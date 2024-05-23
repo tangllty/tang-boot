@@ -45,6 +45,16 @@
         </dependency>
 
         <dependency>
+            <groupId>de.codecentric</groupId>
+            <artifactId>spring-boot-admin-server</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>de.codecentric</groupId>
+            <artifactId>spring-boot-admin-client</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>com.tang</groupId>
             <artifactId>tang-system</artifactId>
         </dependency>
