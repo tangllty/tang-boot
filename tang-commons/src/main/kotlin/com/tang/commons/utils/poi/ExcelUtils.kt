@@ -385,17 +385,9 @@ object ExcelUtils {
 
         return fields
             .filter { it.isAnnotationPresent(Excel::class.java) }
-            .map { field -> field to getAnnotation(field, Excel::class.java) }
+            .map { field -> field to AnnotationUtils.getAnnotation(field, Excel::class.java)!! }
             .sortedBy { it.second.sort }
             .associateByTo(LinkedHashMap(), { it.first }, { it.second })
-    }
-
-    /**
-     * 此方法不会抛出异常，目的是消除AnnotationUtils.getAnnotation返回值可能为空的警告
-     * .filter { it.isAnnotationPresent(Excel::class.java) } 已经过滤无Excel注解的字段
-     */
-    private fun getAnnotation(annotatedElement: Field, annotationType: Class<Excel>): Excel {
-        return AnnotationUtils.getAnnotation(annotatedElement, annotationType) ?: throw IllegalStateException("Annotation not found")
     }
 
     /**
