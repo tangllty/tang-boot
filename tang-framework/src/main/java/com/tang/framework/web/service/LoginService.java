@@ -24,6 +24,7 @@ import com.tang.commons.utils.StringUtils;
 import com.tang.framework.security.authentication.email.EmailAuthenticationToken;
 import com.tang.framework.security.authentication.github.GitHubAuthenticationToken;
 import com.tang.framework.security.authentication.username.UsernameAuthenticationToken;
+import com.tang.framework.utils.AuthenticationUtils;
 import com.tang.system.service.log.SysLogLoginService;
 
 /**
@@ -97,12 +98,7 @@ public class LoginService {
         }
 
         // 认证成功后，重新设置认证信息
-        authenticationToken = switch (LoginType.getLoginType(userModel.getLoginType())) {
-            case USERNAME -> new UsernameAuthenticationToken(userModel, Collections.emptyList());
-            case EMAIL -> new EmailAuthenticationToken(userModel, Collections.emptyList());
-            case GITHUB -> new GitHubAuthenticationToken(userModel, Collections.emptyList());
-            default -> throw new IllegalLoginTypeException("Unexpected login type: " + userModel.getLoginType());
-        };
+        authenticationToken = AuthenticationUtils.newInstance(loginModel.getLoginType(), userModel, Collections.emptyList());
         SecurityContextHolder.getContext().setAuthentication(authenticationToken);
 
         var token = tokenService.createToken(userModel);
