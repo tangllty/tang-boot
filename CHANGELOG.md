@@ -13,8 +13,8 @@
 
 ### Dependencies
 
- * Bump spring-boot-dependencies from 3.2.3 to 3.2.5
- * Bump spring-boot-maven-plugin from 3.2.3 to 3.2.5
+ * Bump spring-boot-dependencies from 3.2.3 to 3.3.0
+ * Bump spring-boot-maven-plugin from 3.2.3 to 3.3.0
  * Bump jackson from 2.16.1 to 2.17.1
  * Bump redis from 7.2.3 to 7.2.4
  * Bump mybatis-flex-spring-boot3-starter from 1.8.8 to 1.8.9
