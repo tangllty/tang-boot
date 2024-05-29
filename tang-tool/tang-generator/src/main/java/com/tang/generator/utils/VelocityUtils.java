@@ -45,6 +45,7 @@ import static com.tang.generator.constants.VmTemplate.VM_VUE_INDEX;
 import static com.tang.generator.constants.VmTemplate.VM_VUE_INDEX_TS;
 import static com.tang.generator.constants.VmTemplate.VM_VUE_TYPES;
 import static com.tang.generator.constants.VmTemplate.VM_XML_MYBATIS_MAPPER;
+import static com.tang.generator.constants.VmTemplate.VM_XML_MYBATIS_FLEX_MAPPER;
 import static com.tang.generator.constants.VmTemplate.VM_XML_MYBATIS_PLUS_MAPPER;
 
 /**
@@ -236,7 +237,7 @@ public class VelocityUtils {
         return switch (languageType) {
             case JAVA -> switch (ormType) {
                 case MYBATIS -> List.of(VM_JAVA_MYBATIS_ENTITY, VM_JAVA_MYBATIS_MAPPER, VM_JAVA_MYBATIS_SERVICE, VM_JAVA_MYBATIS_SERVICE_IMPL, VM_JAVA_MYBATIS_CONTROLLER, VM_XML_MYBATIS_MAPPER);
-                case MYBATIS_FLEX -> List.of(VM_JAVA_MYBATISFLEX_ENTITY, VM_JAVA_MYBATISFLEX_MAPPER, VM_JAVA_MYBATISFLEX_SERVICE, VM_JAVA_MYBATISFLEX_SERVICE_IMPL, VM_JAVA_MYBATISFLEX_CONTROLLER);
+                case MYBATIS_FLEX -> List.of(VM_JAVA_MYBATISFLEX_ENTITY, VM_JAVA_MYBATISFLEX_MAPPER, VM_JAVA_MYBATISFLEX_SERVICE, VM_JAVA_MYBATISFLEX_SERVICE_IMPL, VM_JAVA_MYBATISFLEX_CONTROLLER, VM_XML_MYBATIS_FLEX_MAPPER);
                 case MYBATIS_PLUS -> List.of(VM_JAVA_MYBATIS_PLUS_ENTITY, VM_JAVA_MYBATIS_PLUS_MAPPER, VM_JAVA_MYBATIS_PLUS_SERVICE, VM_JAVA_MYBATIS_PLUS_SERVICE_IMPL, VM_JAVA_MYBATIS_PLUS_CONTROLLER, VM_XML_MYBATIS_PLUS_MAPPER);
                 default -> Collections.emptyList();
             };
@@ -285,7 +286,7 @@ public class VelocityUtils {
             case VM_KOTLIN_MYBATIS_SERVICE -> format("{}/service/{}Service.kt", kotlinPath, className);
             case VM_KOTLIN_MYBATIS_SERVICE_IMPL -> format("{}/service/impl/{}ServiceImpl.kt", kotlinPath, className);
             case VM_KOTLIN_MYBATIS_CONTROLLER -> format("{}/controller/{}Controller.kt", kotlinPath, className);
-            case VM_XML_MYBATIS_MAPPER, VM_XML_MYBATIS_PLUS_MAPPER -> format("{}/{}Mapper.xml", mybatisPath, className);
+            case VM_XML_MYBATIS_MAPPER, VM_XML_MYBATIS_FLEX_MAPPER, VM_XML_MYBATIS_PLUS_MAPPER -> format("{}/{}Mapper.xml", mybatisPath, className);
             case VM_VUE_INDEX -> format("{}/{}/index.vue", vuePath, businessName);
             case VM_VUE_INDEX_TS -> format("{}/{}/index.ts", apiPath, businessName);
             case VM_VUE_TYPES -> format("{}/{}/types.ts", apiPath, businessName);

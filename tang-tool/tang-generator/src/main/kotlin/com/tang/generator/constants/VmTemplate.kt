@@ -49,6 +49,8 @@ object VmTemplate {
 
     const val VM_XML_MYBATIS_MAPPER = "vm/xml/mybatis/mapper.xml.vm"
 
+    const val VM_XML_MYBATIS_FLEX_MAPPER = "vm/xml/mybatisflex/mapper.xml.vm"
+
     const val VM_XML_MYBATIS_PLUS_MAPPER = "vm/xml/mybatisplus/mapper.xml.vm"
 
     const val VM_VUE_INDEX = "vm/vue/index.vue.vm"
