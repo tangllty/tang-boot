@@ -20,7 +20,7 @@
  * Bump mybatis-flex-spring-boot3-starter from 1.8.8 to 1.8.9
  * Bump mybatis-plus-spring-boot3-starter from 3.5.5 to 3.5.6
  * Bump druid-spring-boot-3-starter from 1.2.21 to 1.2.22
- * Bump kotlin from 1.9.21 to 1.9.24
+ * Bump kotlin from 1.9.21 to 2.0.0
  * Bump commons-io from 2.15.1 to 2.16.1
  * Bump guava from 33.0.0-jre to 33.2.0-jre
  * Bump springdoc-openapi-starter-webmvc-ui from 2.3.0 to 2.5.0
