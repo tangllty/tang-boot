@@ -3,7 +3,13 @@ package ${packageName}.mapper;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.mybatisflex.core.BaseMapper;
+import com.mybatisflex.core.query.QueryWrapper;
+import com.tang.commons.utils.If;
+import com.tang.commons.utils.page.PageResult;
+import com.tang.extension.mybatisflex.utils.PageUtils;
 import ${packageName}.entity.$ClassName;
+
+import static ${packageName}.entity.table.${ClassName}TableDef.$CLASS_NAME;
 
 /**
  * ${classComment}数据访问层
@@ -12,4 +18,28 @@ import ${packageName}.entity.$ClassName;
  */
 @Mapper
 public interface ${ClassName}Mapper extends BaseMapper<$ClassName> {
+
+    /**
+     * 查询${classComment}列表
+     *
+     * @param $className ${classComment}对象
+     * @return ${classComment}列表
+     */
+    default PageResult select${ClassName}List($ClassName $className) {
+        QueryWrapper queryWrapper = QueryWrapper.create();
+        queryWrapper.select().from($CLASS_NAME);
+#foreach ($column in $columnList)
+#if($column.queryType == "equal")
+        queryWrapper.and(${CLASS_NAME}.${column.columnNameUpperUnderscore}.eq(${className}.get${column.columnNameUpperCamel}(), If::nonEmpty));
+#end
+#if($column.queryType == "fuzzy")
+        queryWrapper.and(${CLASS_NAME}.${column.columnNameUpperUnderscore}.like(${className}.get${column.columnNameUpperCamel}(), If::nonEmpty));
+#end
+#if($column.queryType == "findInSet")
+        queryWrapper.and(${CLASS_NAME}.${column.columnNameUpperUnderscore}.in(${className}.get${column.columnNameUpperCamel}()));
+#end
+#end
+        return PageUtils.page(this, queryWrapper);
+    }
+
 }
