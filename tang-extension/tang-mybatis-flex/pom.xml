@@ -22,6 +22,11 @@
             <artifactId>mybatis-flex-spring-boot3-starter</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>com.mybatis-flex</groupId>
+            <artifactId>mybatis-flex-kotlin-extensions</artifactId>
+        </dependency>
+
     </dependencies>
 
 </project>

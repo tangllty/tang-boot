@@ -32,6 +32,7 @@
  * Add mybatis-flex-spring-boot3-starter 1.8.8
  * Add lombok
  * Add Spring Boot Admin 3.2.3
+ * Add mybatis-flex-kotlin-extensions 1.0.9
 
 ### Features
 
