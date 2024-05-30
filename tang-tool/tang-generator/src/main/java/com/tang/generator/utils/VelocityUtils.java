@@ -20,33 +20,7 @@ import com.tang.generator.enumeration.LanguageType;
 import com.tang.generator.enumeration.OrmType;
 
 import static com.tang.commons.utils.StringUtils.format;
-import static com.tang.generator.constants.VmTemplate.VM_JAVA_MYBATIS_ENTITY;
-import static com.tang.generator.constants.VmTemplate.VM_JAVA_MYBATIS_MAPPER;
-import static com.tang.generator.constants.VmTemplate.VM_JAVA_MYBATIS_SERVICE;
-import static com.tang.generator.constants.VmTemplate.VM_JAVA_MYBATIS_SERVICE_IMPL;
-import static com.tang.generator.constants.VmTemplate.VM_JAVA_MYBATIS_CONTROLLER;
-import static com.tang.generator.constants.VmTemplate.VM_JAVA_MYBATISFLEX_ENTITY;
-import static com.tang.generator.constants.VmTemplate.VM_JAVA_MYBATISFLEX_MAPPER;
-import static com.tang.generator.constants.VmTemplate.VM_JAVA_MYBATISFLEX_SERVICE;
-import static com.tang.generator.constants.VmTemplate.VM_JAVA_MYBATISFLEX_SERVICE_IMPL;
-import static com.tang.generator.constants.VmTemplate.VM_JAVA_MYBATISFLEX_CONTROLLER;
-import static com.tang.generator.constants.VmTemplate.VM_JAVA_MYBATIS_PLUS_ENTITY;
-import static com.tang.generator.constants.VmTemplate.VM_JAVA_MYBATIS_PLUS_MAPPER;
-import static com.tang.generator.constants.VmTemplate.VM_JAVA_MYBATIS_PLUS_SERVICE;
-import static com.tang.generator.constants.VmTemplate.VM_JAVA_MYBATIS_PLUS_SERVICE_IMPL;
-import static com.tang.generator.constants.VmTemplate.VM_JAVA_MYBATIS_PLUS_CONTROLLER;
-import static com.tang.generator.constants.VmTemplate.VM_KOTLIN_MYBATIS_ENTITY;
-import static com.tang.generator.constants.VmTemplate.VM_KOTLIN_MYBATIS_MAPPER;
-import static com.tang.generator.constants.VmTemplate.VM_KOTLIN_MYBATIS_SERVICE;
-import static com.tang.generator.constants.VmTemplate.VM_KOTLIN_MYBATIS_SERVICE_IMPL;
-import static com.tang.generator.constants.VmTemplate.VM_KOTLIN_MYBATIS_CONTROLLER;
-import static com.tang.generator.constants.VmTemplate.VM_SQL_MENU;
-import static com.tang.generator.constants.VmTemplate.VM_VUE_INDEX;
-import static com.tang.generator.constants.VmTemplate.VM_VUE_INDEX_TS;
-import static com.tang.generator.constants.VmTemplate.VM_VUE_TYPES;
-import static com.tang.generator.constants.VmTemplate.VM_XML_MYBATIS_MAPPER;
-import static com.tang.generator.constants.VmTemplate.VM_XML_MYBATIS_FLEX_MAPPER;
-import static com.tang.generator.constants.VmTemplate.VM_XML_MYBATIS_PLUS_MAPPER;
+import static com.tang.generator.constants.VmTemplate.*;
 
 /**
  * Velocity 工具类
@@ -243,7 +217,7 @@ public class VelocityUtils {
             };
             case KOTLIN -> switch (ormType) {
                 case MYBATIS -> List.of(VM_KOTLIN_MYBATIS_ENTITY, VM_KOTLIN_MYBATIS_MAPPER, VM_KOTLIN_MYBATIS_SERVICE, VM_KOTLIN_MYBATIS_SERVICE_IMPL, VM_KOTLIN_MYBATIS_CONTROLLER, VM_XML_MYBATIS_MAPPER);
-                case MYBATIS_PLUS -> List.of(VM_KOTLIN_MYBATIS_ENTITY, VM_KOTLIN_MYBATIS_MAPPER, VM_KOTLIN_MYBATIS_SERVICE, VM_KOTLIN_MYBATIS_SERVICE_IMPL, VM_KOTLIN_MYBATIS_CONTROLLER, VM_XML_MYBATIS_PLUS_MAPPER);
+                case MYBATIS_FLEX -> List.of(VM_KOTLIN_MYBATISFLEX_ENTITY, VM_KOTLIN_MYBATISFLEX_MAPPER, VM_KOTLIN_MYBATISFLEX_SERVICE, VM_KOTLIN_MYBATISFLEX_SERVICE_IMPL, VM_KOTLIN_MYBATISFLEX_CONTROLLER, VM_XML_MYBATIS_FLEX_MAPPER);
                 default -> Collections.emptyList();
             };
         };
@@ -281,11 +255,11 @@ public class VelocityUtils {
             case VM_JAVA_MYBATIS_SERVICE, VM_JAVA_MYBATISFLEX_SERVICE, VM_JAVA_MYBATIS_PLUS_SERVICE -> format("{}/service/{}Service.java", javaPath, className);
             case VM_JAVA_MYBATIS_SERVICE_IMPL, VM_JAVA_MYBATISFLEX_SERVICE_IMPL, VM_JAVA_MYBATIS_PLUS_SERVICE_IMPL -> format("{}/service/impl/{}ServiceImpl.java", javaPath, className);
             case VM_JAVA_MYBATIS_CONTROLLER, VM_JAVA_MYBATISFLEX_CONTROLLER, VM_JAVA_MYBATIS_PLUS_CONTROLLER -> format("{}/controller/{}Controller.java", javaPath, className);
-            case VM_KOTLIN_MYBATIS_ENTITY -> format("{}/entity/{}.kt", kotlinPath, className);
-            case VM_KOTLIN_MYBATIS_MAPPER -> format("{}/mapper/{}Mapper.kt", kotlinPath, className);
-            case VM_KOTLIN_MYBATIS_SERVICE -> format("{}/service/{}Service.kt", kotlinPath, className);
-            case VM_KOTLIN_MYBATIS_SERVICE_IMPL -> format("{}/service/impl/{}ServiceImpl.kt", kotlinPath, className);
-            case VM_KOTLIN_MYBATIS_CONTROLLER -> format("{}/controller/{}Controller.kt", kotlinPath, className);
+            case VM_KOTLIN_MYBATIS_ENTITY, VM_KOTLIN_MYBATISFLEX_ENTITY -> format("{}/entity/{}.kt", kotlinPath, className);
+            case VM_KOTLIN_MYBATIS_MAPPER, VM_KOTLIN_MYBATISFLEX_MAPPER -> format("{}/mapper/{}Mapper.kt", kotlinPath, className);
+            case VM_KOTLIN_MYBATIS_SERVICE, VM_KOTLIN_MYBATISFLEX_SERVICE -> format("{}/service/{}Service.kt", kotlinPath, className);
+            case VM_KOTLIN_MYBATIS_SERVICE_IMPL, VM_KOTLIN_MYBATISFLEX_SERVICE_IMPL -> format("{}/service/impl/{}ServiceImpl.kt", kotlinPath, className);
+            case VM_KOTLIN_MYBATIS_CONTROLLER, VM_KOTLIN_MYBATISFLEX_CONTROLLER -> format("{}/controller/{}Controller.kt", kotlinPath, className);
             case VM_XML_MYBATIS_MAPPER, VM_XML_MYBATIS_FLEX_MAPPER, VM_XML_MYBATIS_PLUS_MAPPER -> format("{}/{}Mapper.xml", mybatisPath, className);
             case VM_VUE_INDEX -> format("{}/{}/index.vue", vuePath, businessName);
             case VM_VUE_INDEX_TS -> format("{}/{}/index.ts", apiPath, businessName);

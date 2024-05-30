@@ -1,0 +1,79 @@
+package ${packageName}.service.impl
+
+import org.springframework.stereotype.Service
+
+import com.mybatisflex.spring.service.impl.ServiceImpl
+import com.tang.commons.utils.page.PageResult
+import ${packageName}.entity.$ClassName
+import ${packageName}.mapper.${ClassName}Mapper
+import ${packageName}.service.${ClassName}Service
+
+/**
+ * ${classComment}业务逻辑层接口实现
+ *
+ * @author $author
+ */
+@Service
+class ${ClassName}ServiceImpl(private val ${className}Mapper: ${ClassName}Mapper) : ServiceImpl<${ClassName}Mapper, $ClassName>(), ${ClassName}Service {
+
+    /**
+     * 查询${classComment}列表
+     *
+     * @param $className ${classComment}对象
+     * @return ${classComment}列表
+     */
+    override fun select${ClassName}List($className: $ClassName): PageResult {
+        return ${className}Mapper.select${ClassName}List($className)
+    }
+
+    /**
+     * 通过${classComment}主键查询${classComment}信息
+     *
+     * @param $primaryKey ${classComment}主键
+     * @return ${classComment}信息
+     */
+    override fun select${ClassName}By${PrimaryKey}($primaryKey: Long): $ClassName {
+        return ${className}Mapper.selectOneById($primaryKey)
+    }
+
+    /**
+     * 新增${classComment}信息
+     *
+     * @param $className ${classComment}信息
+     * @return 影响行数
+     */
+    override fun insert${ClassName}($className: $ClassName): Int {
+        return ${className}Mapper.insertSelective($className)
+    }
+
+    /**
+     * 通过${classComment}主键修改${classComment}信息
+     *
+     * @param $className ${classComment}信息
+     * @return 影响行数
+     */
+    override fun update${ClassName}By${PrimaryKey}($className: $ClassName): Int {
+        return ${className}Mapper.update($className)
+    }
+
+    /**
+     * 通过${classComment}主键删除${classComment}信息
+     *
+     * @param $primaryKey ${classComment}主键
+     * @return 影响行数
+     */
+    override fun delete${ClassName}By${PrimaryKey}($primaryKey: Long): Int {
+        return ${className}Mapper.deleteById($primaryKey)
+    }
+
+    /**
+     * 通过${classComment}主键数组批量删除${classComment}信息
+     *
+     * @param ${primaryKey}s ${classComment}主键数组
+     * @return 影响行数
+     */
+    override fun delete${ClassName}By${PrimaryKey}s(${primaryKey}s: Array<Long>): Int {
+        return ${className}Mapper.deleteBatchByIds(${primaryKey}s.toList())
+    }
+
+}

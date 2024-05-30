@@ -1,0 +1,62 @@
+package ${packageName}.service
+
+import com.mybatisflex.core.service.IService
+import com.tang.commons.utils.page.PageResult
+import ${packageName}.entity.$ClassName
+
+/**
+ * ${classComment}业务逻辑层接口
+ *
+ * @author $author
+ */
+interface ${ClassName}Service: IService<$ClassName> {
+
+    /**
+     * 查询${classComment}列表
+     *
+     * @param $className ${classComment}对象
+     * @return ${classComment}列表
+     */
+    fun select${ClassName}List($className: $ClassName): PageResult
+
+    /**
+     * 通过${classComment}主键查询${classComment}信息
+     *
+     * @param $primaryKey ${classComment}主键
+     * @return ${classComment}信息
+     */
+    fun select${ClassName}By${PrimaryKey}($primaryKey: Long): $ClassName
+
+    /**
+     * 新增${classComment}信息
+     *
+     * @param $className ${classComment}信息
+     * @return 影响行数
+     */
+    fun insert${ClassName}($className: $ClassName): Int
+
+    /**
+     * 通过${classComment}主键修改${classComment}信息
+     *
+     * @param $className ${classComment}信息
+     * @return 影响行数
+     */
+    fun update${ClassName}By${PrimaryKey}($className: $ClassName): Int
+
+    /**
+     * 通过${classComment}主键删除${classComment}信息
+     *
+     * @param $primaryKey ${classComment}主键
+     * @return 影响行数
+     */
+    fun delete${ClassName}By${PrimaryKey}($primaryKey: Long): Int
+
+    /**
+     * 通过${classComment}主键数组批量删除${classComment}信息
+     *
+     * @param ${primaryKey}s ${classComment}主键数组
+     * @return 影响行数
+     */
+    fun delete${ClassName}By${PrimaryKey}s(${primaryKey}s: Array<Long>): Int
+
+}

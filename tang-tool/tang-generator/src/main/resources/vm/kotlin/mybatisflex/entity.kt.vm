@@ -1,0 +1,77 @@
+package ${packageName}.entity
+
+import java.time.LocalDate
+import java.time.LocalDateTime
+
+import org.apache.commons.lang3.StringUtils
+
+import com.tang.commons.base.entity.BaseEntity
+
+/**
+ * ${classComment}实体类 $tableName
+ *
+ * @author $author
+ */
+class $ClassName : BaseEntity() {
+
+    companion object {
+        @java.io.Serial
+        private val serialVersionUID = 1L
+    }
+#foreach ($column in $columnList)
+#if (!$column.isSuperField)
+#if ($column.htmlType == 'date')
+
+    /**
+     * $column.columnComment
+     */
+    var $column.javaField: $column.javaType? = null
+#elseif ($column.htmlType == 'datetime')
+
+    /**
+     * $column.columnComment
+     */
+    var $column.javaField: $column.javaType? = null
+#else
+
+    /**
+     * $column.columnComment
+     */
+    var $column.javaField: $column.javaType? = null
+#if ($column.htmlType == 'checkbox')
+
+    /**
+     * ${column.columnComment}集合
+     */
+    var ${column.javaField}List: List<$column.javaType>? = null
+#end
+#end
+#end
+#end
+#foreach ($column in $columnList)
+#set($javaType = $column.javaType)
+#set($javaField = $column.javaField)
+#set($JavaField = $column.javaField.substring(0, 1).toUpperCase() + ${column.javaField.substring(1)})
+#if (!$column.isSuperField)
+#if ($column.htmlType == 'checkbox')
+
+    fun ${javaField}ListTo${JavaField}() {
+        if (${javaField}List == null || ${javaField}List.isEmpty()) {
+            $javaField = null
+            return
+        }
+        $javaField = ${javaField}List!!.joinToString(",")
+    }
+
+    fun ${javaField}To${JavaField}List() {
+        if (StringUtils.isBlank($javaField)) {
+            ${javaField}List = emptyList()
+            return
+        }
+        ${javaField}List = ${javaField}!!.split(",").toList()
+    }
+#end
+#end
+#end
+
+}

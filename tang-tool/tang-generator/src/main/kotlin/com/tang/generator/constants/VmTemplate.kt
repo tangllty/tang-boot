@@ -47,6 +47,16 @@ object VmTemplate {
 
     const val VM_KOTLIN_MYBATIS_CONTROLLER = "vm/kotlin/mybatis/controller.kt.vm"
 
+    const val VM_KOTLIN_MYBATISFLEX_ENTITY = "vm/kotlin/mybatisflex/entity.kt.vm"
+
+    const val VM_KOTLIN_MYBATISFLEX_MAPPER = "vm/kotlin/mybatisflex/mapper.kt.vm"
+
+    const val VM_KOTLIN_MYBATISFLEX_SERVICE = "vm/kotlin/mybatisflex/service.kt.vm"
+
+    const val VM_KOTLIN_MYBATISFLEX_SERVICE_IMPL = "vm/kotlin/mybatisflex/serviceImpl.kt.vm"
+
+    const val VM_KOTLIN_MYBATISFLEX_CONTROLLER = "vm/kotlin/mybatisflex/controller.kt.vm"
+
     const val VM_XML_MYBATIS_MAPPER = "vm/xml/mybatis/mapper.xml.vm"
 
     const val VM_XML_MYBATIS_FLEX_MAPPER = "vm/xml/mybatisflex/mapper.xml.vm"
