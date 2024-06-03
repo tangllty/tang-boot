@@ -59,7 +59,7 @@ public class SecurityConfig {
                 .requestMatchers("/uploads/**").permitAll()
                 .requestMatchers("/captcha/**").permitAll()
                 .requestMatchers("/druid/**").permitAll()
-                .requestMatchers("/actuator/**", "/admin/applications").permitAll()
+                .requestMatchers("/actuator/**", "/admin", "/admin/applications", "/admin/instances/**", "/admin/variables.css", "/admin/sba-settings.js").permitAll()
                 .anyRequest().authenticated()
             )
             .headers(headers -> headers.frameOptions(options -> options.disable()))

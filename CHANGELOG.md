@@ -6,6 +6,7 @@
  * Fix `UPDATE` statement get user name from `SecurityContextHolder` error
  * Case order by format from lower hyphen to upper underscore
  * Fix mybatis flex order query error
+ * Fix `Spring Boot Admin` 401 error
 
 ### Optimization
 
