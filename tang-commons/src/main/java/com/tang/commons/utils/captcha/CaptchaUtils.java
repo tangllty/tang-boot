@@ -11,6 +11,7 @@ import javax.imageio.ImageIO;
 
 import org.slf4j.Logger;
 
+import com.tang.commons.utils.Assert;
 import com.tang.commons.utils.LogUtils;
 import com.tang.commons.utils.id.IdUtils;
 
@@ -66,6 +67,8 @@ public class CaptchaUtils {
      * @return 验证码
      */
     public static Captcha generate(CaptchaType type, int lineCount, int pointCount, int length) {
+        Assert.isNull(type, "验证码类型不能为空");
+
         final char[] characters = switch (type) {
             case NUMBER -> "0123456789".toCharArray();
             case LETTER -> "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray();
