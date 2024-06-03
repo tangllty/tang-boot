@@ -66,6 +66,8 @@ spring:
         instance:
           service-host-type: IP
           service-path: /admin/instances
+  thymeleaf:
+    check-template-location: false
 
 # MyBatis 配置
 mybatis:
