@@ -29,7 +29,6 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.Objects
 import java.util.concurrent.atomic.AtomicInteger
-import java.util.function.Consumer
 import kotlin.math.min
 import kotlin.reflect.full.memberExtensionProperties
 import kotlin.reflect.full.memberProperties
@@ -229,7 +228,7 @@ object ExcelUtils {
     fun <T> export(response: HttpServletResponse, clazz: Class<T>, list: List<T>) {
         val maxRowNum = 65535
         val sheetNum = (list.size + maxRowNum) / maxRowNum
-        val map = java.util.LinkedHashMap<String, List<T>>(sheetNum)
+        val map = LinkedHashMap<String, List<T>>(sheetNum)
         for (i in 0 until sheetNum) {
             val formIndex = i * maxRowNum
             val toIndex = min(formIndex + maxRowNum, list.size)
@@ -266,7 +265,7 @@ object ExcelUtils {
      * @param sheet  工作表
      */
     private fun <T> setData(fields: LinkedHashMap<Field, Excel>, list: List<T>, sheet: XSSFSheet) {
-        list.forEach(Consumer { clazz: T ->
+        list.forEach { clazz ->
             val row = sheet.createRow(sheet.lastRowNum + 1)
             fields.forEach { (field: Field, excel: Excel) ->
                 val lastCellNum = if (row.lastCellNum.toInt() == -1) 0 else row.lastCellNum.toInt()
@@ -275,7 +274,7 @@ object ExcelUtils {
                 row.height = (excel.height * 20).toShort()
                 setCellValue(cell, clazz, field, excel)
             }
-        })
+        }
     }
 
     /**
