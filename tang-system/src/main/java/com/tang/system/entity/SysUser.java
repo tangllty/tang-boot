@@ -6,9 +6,9 @@ import java.util.List;
 import org.hibernate.validator.constraints.Length;
 
 import com.tang.commons.annotation.poi.Excel;
-import com.tang.commons.annotation.poi.Excel.CellType;
-import com.tang.commons.annotation.poi.Excel.Type;
 import com.tang.commons.base.entity.BaseEntity;
+import com.tang.commons.enumeration.poi.CellType;
+import com.tang.commons.enumeration.poi.Type;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Max;

@@ -4,6 +4,8 @@ import com.google.common.base.CaseFormat
 import com.tang.commons.annotation.poi.Excel
 import com.tang.commons.constants.ContentType
 import com.tang.commons.constants.FileType
+import com.tang.commons.enumeration.poi.Type
+import com.tang.commons.enumeration.poi.CellType as ExcelCellType
 import com.tang.commons.exception.file.FileTypeMismatchException
 import com.tang.commons.utils.Assert
 import com.tang.commons.utils.DictUtils
@@ -70,7 +72,7 @@ object ExcelUtils {
             val cellNumIndex = AtomicInteger()
             fields.forEach { (field: Field, excel: Excel) ->
                 val cell = row.getCell(cellNumIndex.getAndIncrement())
-                if (excel.type == Excel.Type.EXPORT) {
+                if (excel.type == Type.EXPORT) {
                     return@forEach
                 }
                 ReflectionUtils.makeAccessible(field)
@@ -289,7 +291,7 @@ object ExcelUtils {
         ReflectionUtils.makeAccessible(field)
         val stringValue = Objects.toString(field.get(clazz), "")
         when (excel.cellType) {
-            Excel.CellType.STRING -> {
+            ExcelCellType.STRING -> {
                 val dictType = excel.dictType
                 if (StringUtils.isBlank(dictType)) {
                     cell.setCellValue(stringValue)
@@ -304,13 +306,13 @@ object ExcelUtils {
                 cell.setCellValue(DictUtils.getDictLabel(dictType, stringValue))
                 cell.sheet.addValidationData(validation)
             }
-            Excel.CellType.NUMBER -> {
+            ExcelCellType.NUMBER -> {
                 if (StringUtils.isBlank(stringValue)) {
                     return
                 }
                 cell.setCellValue(stringValue.toDouble())
             }
-            Excel.CellType.DATE -> {
+            ExcelCellType.DATE -> {
                 if (StringUtils.isBlank(stringValue)) {
                     return
                 }
