@@ -42,6 +42,7 @@
  * Add sync database table column
  * Add druid monitor
  * Add spring boot admin monitor
+ * Add time wheel delay queue
  * Support java 8 time type
  * Support mybatis flex
  * Support mybatis flex order query
