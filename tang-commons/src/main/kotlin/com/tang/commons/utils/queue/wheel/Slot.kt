@@ -1,8 +1,9 @@
 package com.tang.commons.utils.queue.wheel
 
+import java.util.concurrent.ConcurrentHashMap
+import java.util.concurrent.ConcurrentMap
+
 import com.tang.commons.utils.queue.task.AbstractTask
-import java.util.Queue
-import java.util.concurrent.ConcurrentLinkedQueue
 
 /**
  * 槽位
@@ -11,14 +12,14 @@ import java.util.concurrent.ConcurrentLinkedQueue
  */
 class Slot {
 
-    val tasks: Queue<AbstractTask> = ConcurrentLinkedQueue()
+    val tasks: ConcurrentMap<String, AbstractTask> = ConcurrentHashMap()
 
     fun addTask(task: AbstractTask) {
-        tasks.add(task)
+        tasks[task.id] = task
     }
 
     fun removeTask(taskId: String) {
-        tasks.removeIf { it.id == taskId }
+        tasks.remove(taskId)
     }
 
 }
