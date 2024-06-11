@@ -33,7 +33,7 @@ class QueueBootstrap {
         LOGGER.info("Timer wheel queue scanner starting...")
         val wheelQueue = WheelQueue()
         val timerTask = QueueScanTimer(wheelQueue)
-        newScheduledThreadPool.scheduleWithFixedDelay(timerTask, 0, 1, TimeUnit.SECONDS)
+        newScheduledThreadPool.scheduleWithFixedDelay(timerTask, 0, 100, TimeUnit.MILLISECONDS)
         LOGGER.info("Timer wheel queue scanner start up.")
         return wheelQueue
     }
