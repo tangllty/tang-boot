@@ -1,7 +1,6 @@
 package com.tang.commons.utils.queue.wheel
 
 import com.tang.commons.utils.LogUtils
-import com.tang.commons.utils.queue.config.QueueConfig
 import com.tang.commons.utils.queue.task.AbstractTask
 import com.tang.commons.utils.queue.task.TaskAttribute
 import org.slf4j.Logger
@@ -14,7 +13,7 @@ import java.util.Date
  *
  * @author Tang
  */
-class WheelQueue {
+class WheelQueue(private val ticksPerWheel: Int) {
 
     companion object {
         private val LOGGER: Logger = LogUtils.getLogger()
@@ -23,17 +22,19 @@ class WheelQueue {
     /**
      * 建立一个有3600个槽位的环形队列。每秒轮询一个槽位，3600个就是3600秒=1小时
      */
-    private val slotQueue: Array<Slot?> = arrayOfNulls(QueueConfig.QUEUE_SIZE)
+    private val slotQueue: Array<Slot> = Array(findNextPositivePowerOfTwo(ticksPerWheel)) { Slot() }
 
     /**
      * 任务 ID 对应的槽位等任务属性
      */
-    private val taskSlotMapping: Map<String, TaskAttribute> = HashMap(1 shl 10) // aka 1024
+    private val taskSlotMapping: MutableMap<String, TaskAttribute> = HashMap(1 shl 10) // aka 1024
 
-    init {
-        for (i in 0 until QueueConfig.QUEUE_SIZE) {
-            slotQueue[i] = Slot()
-        }
+    private fun findNextPositivePowerOfTwo(value: Int): Int {
+        assert(value > Int.MIN_VALUE && value < 0x40000000)
+        return 1 shl (32 - Integer.numberOfLeadingZeros(value - 1))
+    }
+
+    fun add(taskId: String, delay: Long, task: Runnable) {
     }
 
     /**
@@ -44,9 +45,9 @@ class WheelQueue {
      */
     fun add(task: AbstractTask, secondsLater: Int) {
         //设置任务熟悉
-        val slotIndex = setAttribute(secondsLater, task, taskSlotMapping)
+        val slotIndex = setAttribute(secondsLater, task)
         //加到对应槽位的集合中
-        slotQueue[slotIndex]!!.addTask(task)
+        slotQueue[slotIndex].addTask(task)
         LOGGER.debug("join task.task => {}, slotIndex => {}", task, slotIndex)
     }
 
@@ -58,16 +59,14 @@ class WheelQueue {
         val taskAttribute = TaskAttribute()
         val now = LocalDateTime.now()
         val currentSecond = now.minute * 60 + now.second
-        val slotIndex = (currentSecond + secondsLater) % QueueConfig.QUEUE_SIZE
-
-        task.cycleNum = secondsLater / QueueConfig.QUEUE_SIZE
-
+        val slotIndex = (currentSecond + secondsLater) % ticksPerWheel
+        task.cycleNum = secondsLater / ticksPerWheel
         val future = now.plusSeconds(secondsLater.toLong())
+        val taskAttribute = TaskAttribute()
         taskAttribute.executeTime = Date.from(future.atZone(ZoneId.systemDefault()).toInstant())
         taskAttribute.slotIndex = slotIndex
         taskAttribute.joinTime = Date.from(now.atZone(ZoneId.systemDefault()).toInstant())
-        (taskSlotMapping as MutableMap)[task.id] = taskAttribute
-
+        taskSlotMapping[task.id] = taskAttribute
         return slotIndex
     }
 
@@ -75,7 +74,7 @@ class WheelQueue {
      * 获取指定索引槽位中的数据
      */
     fun peek(index: Int): Slot {
-        return slotQueue[index]!!
+        return slotQueue[index]
     }
 
     /**
@@ -84,9 +83,9 @@ class WheelQueue {
      * @param taskId 任务 ID
      */
     fun remove(taskId: String) {
-        val taskAttribute = taskSlotMapping[taskId]
-        if (taskAttribute != null) {
-            slotQueue[taskAttribute.slotIndex]!!.removeTask(taskId)
+        taskSlotMapping[taskId]?.let {
+            taskSlotMapping.remove(taskId)
+            slotQueue[it.slotIndex].removeTask(taskId)
         }
     }
 

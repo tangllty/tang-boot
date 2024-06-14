@@ -31,7 +31,7 @@ class QueueBootstrap {
      */
     fun start(): WheelQueue {
         LOGGER.info("Timer wheel queue scanner starting...")
-        val wheelQueue = WheelQueue()
+        val wheelQueue = WheelQueue(1 shl 10) // aka 1024
         val timerTask = QueueScanTimer(wheelQueue)
         newScheduledThreadPool.scheduleWithFixedDelay(timerTask, 0, 100, TimeUnit.MILLISECONDS)
         LOGGER.info("Timer wheel queue scanner start up.")

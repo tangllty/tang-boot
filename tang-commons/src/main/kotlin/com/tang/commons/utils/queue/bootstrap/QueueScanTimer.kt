@@ -46,7 +46,7 @@ class QueueScanTimer(
 
     override fun run() {
         val now = LocalDateTime.now()
-        val currentSecond = now.minute * 60 + now.second
+        val currentSecond = (now.minute * 60 + now.second) % (1 shl 10)
         val slot = queue.peek(currentSecond)
         LOGGER.debug("current slot: {}", currentSecond)
         slotPool.execute(SlotTask(slot.tasks, currentSecond, taskPool, queue))
