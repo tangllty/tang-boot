@@ -13,7 +13,24 @@ import java.util.concurrent.TimeUnit
  *
  * @author Tang
  */
-class QueueBootstrap {
+class QueueBootstrap(
+
+    /**
+     * 槽位数量
+     */
+    private val ticksPerWheel: Int = (1 shl 9), // aka 512
+
+    /**
+     * 槽位时间间隔
+     */
+    private val tickDuration: Long = 100,
+
+    /**
+     * 时间单位
+     */
+    private val unit: TimeUnit = TimeUnit.MILLISECONDS
+
+) {
 
     companion object {
         private val LOGGER: Logger = LogUtils.getLogger()
@@ -31,9 +48,9 @@ class QueueBootstrap {
      */
     fun start(): WheelQueue {
         LOGGER.info("Timer wheel queue scanner starting...")
-        val wheelQueue = WheelQueue(1 shl 10) // aka 1024
-        val timerTask = QueueScanTimer(wheelQueue)
-        newScheduledThreadPool.scheduleWithFixedDelay(timerTask, 0, 100, TimeUnit.MILLISECONDS)
+        val wheelQueue = WheelQueue(ticksPerWheel, tickDuration, unit)
+        val timerTask = QueueScanTimer(wheelQueue, ticksPerWheel, tickDuration, unit)
+        newScheduledThreadPool.scheduleWithFixedDelay(timerTask, 0, tickDuration, unit)
         LOGGER.info("Timer wheel queue scanner start up.")
         return wheelQueue
     }

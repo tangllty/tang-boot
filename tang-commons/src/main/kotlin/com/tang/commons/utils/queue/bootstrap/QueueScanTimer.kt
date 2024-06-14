@@ -5,7 +5,6 @@ import com.tang.commons.utils.queue.factory.QueueDefaultThreadFactory
 import com.tang.commons.utils.queue.wheel.SlotTask
 import com.tang.commons.utils.queue.wheel.WheelQueue
 import org.slf4j.Logger
-import java.time.LocalDateTime
 import java.util.TimerTask
 import java.util.concurrent.LinkedBlockingQueue
 import java.util.concurrent.ThreadFactory
@@ -22,16 +21,33 @@ class QueueScanTimer(
     /**
      * 环形队列
      */
-    private val queue: WheelQueue
+    private val queue: WheelQueue,
+
+    /**
+     * 槽位数量
+     */
+    private val ticksPerWheel: Int,
+
+    /**
+     * 槽位时间间隔
+     */
+    private val tickDuration: Long,
+
+    /**
+     * 时间单位
+     */
+    private val unit: TimeUnit
 
 ) : TimerTask() {
 
     companion object {
+
         private val LOGGER: Logger = LogUtils.getLogger()
 
         private val slotThreadFactory: ThreadFactory = QueueDefaultThreadFactory("slotThreadGroup")
 
         private val taskThreadFactory: ThreadFactory = QueueDefaultThreadFactory("taskThreadGroup")
+
     }
 
     /**
@@ -45,11 +61,11 @@ class QueueScanTimer(
     private val taskPool = ThreadPoolExecutor(1000, 1000, 0L, TimeUnit.MILLISECONDS, LinkedBlockingQueue(), taskThreadFactory)
 
     override fun run() {
-        val now = LocalDateTime.now()
-        val currentSecond = (now.minute * 60 + now.second) % (1 shl 10)
-        val slot = queue.peek(currentSecond)
-        LOGGER.debug("current slot: {}", currentSecond)
-        slotPool.execute(SlotTask(slot.tasks, currentSecond, taskPool, queue))
+        val now = System.nanoTime()
+        val index = now / unit.toNanos(tickDuration) % ticksPerWheel
+        val slot = queue.peek(index.toInt())
+        LOGGER.debug("current slot: {}", index)
+        slotPool.execute(SlotTask(slot.tasks, taskPool, queue))
     }
 
 }

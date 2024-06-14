@@ -8,7 +8,14 @@ import java.util.concurrent.atomic.AtomicInteger
  *
  * @author Tang
  */
-class QueueDefaultThreadFactory(groupName: String) : ThreadFactory {
+class QueueDefaultThreadFactory(
+
+    /**
+     * 线程组名称
+     */
+    groupName: String
+
+) : ThreadFactory {
 
     companion object {
         private val POOL_NUMBER = AtomicInteger(1)

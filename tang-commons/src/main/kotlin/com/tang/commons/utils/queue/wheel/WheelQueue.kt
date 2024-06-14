@@ -1,73 +1,151 @@
 package com.tang.commons.utils.queue.wheel
 
 import com.tang.commons.utils.LogUtils
+import com.tang.commons.utils.queue.config.QueueConfig
 import com.tang.commons.utils.queue.task.AbstractTask
 import com.tang.commons.utils.queue.task.TaskAttribute
 import org.slf4j.Logger
+import java.time.Instant
 import java.time.LocalDateTime
 import java.time.ZoneId
-import java.util.Date
+import java.util.concurrent.TimeUnit
 
 /**
  * 时间轮队列。像轮子一样转动的队列， 环形队列、循环队列。
  *
  * @author Tang
  */
-class WheelQueue(private val ticksPerWheel: Int) {
+class WheelQueue(
+
+    /**
+     * 槽位数量
+     */
+    private val ticksPerWheel: Int,
+
+    /**
+     * 槽位时间间隔
+     */
+    private val tickDuration: Long,
+
+    /**
+     * 时间单位
+     */
+    private val tickUnit: TimeUnit
+
+) {
 
     companion object {
         private val LOGGER: Logger = LogUtils.getLogger()
     }
 
     /**
-     * 建立一个有3600个槽位的环形队列。每秒轮询一个槽位，3600个就是3600秒=1小时
+     * 环形队列中的槽位
      */
     private val slotQueue: Array<Slot> = Array(findNextPositivePowerOfTwo(ticksPerWheel)) { Slot() }
 
     /**
      * 任务 ID 对应的槽位等任务属性
      */
-    private val taskSlotMapping: MutableMap<String, TaskAttribute> = HashMap(1 shl 10) // aka 1024
+    private val taskSlotMapping: MutableMap<String, TaskAttribute> = HashMap(slotQueue.size shl 1)
 
+    /**
+     * 计算下一个 2 的幂次方
+     */
     private fun findNextPositivePowerOfTwo(value: Int): Int {
         assert(value > Int.MIN_VALUE && value < 0x40000000)
         return 1 shl (32 - Integer.numberOfLeadingZeros(value - 1))
     }
 
-    fun add(taskId: String, delay: Long, task: Runnable) {
+    /**
+     * 添加一个任务到环形队列
+     *
+     * @param taskId 任务 ID
+     * @param delay  延迟时间
+     * @param task   任务
+     */
+    fun add(taskId: String, delay: Int, task: Runnable) {
+        add(taskId, delay, QueueConfig.DEFAULT_DELAY_UNIT, task)
     }
 
     /**
      * 添加一个任务到环形队列
      *
-     * @param task         任务
-     * @param secondsLater 以当前时间点为基准，多少秒以后执行
+     * @param taskId 任务 ID
+     * @param delay  延迟时间
+     * @param task   任务
      */
-    fun add(task: AbstractTask, secondsLater: Int) {
+    fun add(taskId: String, delay: Long, task: Runnable) {
+        add(taskId, delay, QueueConfig.DEFAULT_DELAY_UNIT, task)
+    }
+
+    /**
+     * 添加一个任务到环形队列
+     *
+     * @param taskId 任务 ID
+     * @param delay  延迟时间
+     * @param unit   时间单位
+     * @param task   任务
+     */
+    fun add(taskId: String, delay: Int, unit: TimeUnit, task: Runnable) {
+        add(object : AbstractTask(taskId) {
+            override fun run() {
+                task.run()
+            }
+        }, delay, unit)
+    }
+
+    /**
+     * 添加一个任务到环形队列
+     *
+     * @param taskId 任务 ID
+     * @param delay  延迟时间
+     * @param unit   时间单位
+     * @param task   任务
+     */
+    fun add(taskId: String, delay: Long, unit: TimeUnit, task: Runnable) {
+        add(object : AbstractTask(taskId) {
+            override fun run() {
+                task.run()
+            }
+        }, delay, unit)
+    }
+
+    /**
+     * 添加一个任务到环形队列
+     *
+     * @param task  任务
+     * @param delay 延迟时间
+     * @param unit  时间单位
+     */
+    fun add(task: AbstractTask, delay: Int, unit: TimeUnit = QueueConfig.DEFAULT_DELAY_UNIT) {
+        add(task, delay.toLong(), unit)
+    }
+
+    /**
+     * 添加一个任务到环形队列
+     *
+     * @param task  任务
+     * @param delay 延迟时间
+     * @param unit  时间单位
+     */
+    fun add(task: AbstractTask, delay: Long, unit: TimeUnit = QueueConfig.DEFAULT_DELAY_UNIT) {
         //设置任务熟悉
-        val slotIndex = setAttribute(secondsLater, task)
+        val slotIndex = setAttribute(task, delay, unit)
         //加到对应槽位的集合中
         slotQueue[slotIndex].addTask(task)
         LOGGER.debug("join task.task => {}, slotIndex => {}", task, slotIndex)
     }
 
-    private fun setAttribute(
-        secondsLater: Int,
-        task: AbstractTask,
-        taskSlotMapping: Map<String, TaskAttribute>
-    ): Int {
+    private fun setAttribute(task: AbstractTask, delay: Long, unit: TimeUnit): Int {
+        val duration = unit.toNanos(delay)
+        val now = System.nanoTime()
+        val slotIndex = (now + duration) / tickUnit.toNanos(tickDuration) % ticksPerWheel
         val taskAttribute = TaskAttribute()
-        val now = LocalDateTime.now()
-        val currentSecond = now.minute * 60 + now.second
-        val slotIndex = (currentSecond + secondsLater) % ticksPerWheel
-        task.cycleNum = secondsLater / ticksPerWheel
-        val future = now.plusSeconds(secondsLater.toLong())
-        val taskAttribute = TaskAttribute()
-        taskAttribute.executeTime = Date.from(future.atZone(ZoneId.systemDefault()).toInstant())
-        taskAttribute.slotIndex = slotIndex
-        taskAttribute.joinTime = Date.from(now.atZone(ZoneId.systemDefault()).toInstant())
+        taskAttribute.joinTime = LocalDateTime.ofInstant(Instant.ofEpochSecond(now / 1_000_000_000), ZoneId.systemDefault())
+        taskAttribute.slotIndex = slotIndex.toInt()
+        taskAttribute.executeTime = LocalDateTime.ofInstant(Instant.ofEpochSecond((now + duration) / 1_000_000_000), ZoneId.systemDefault())
         taskSlotMapping[task.id] = taskAttribute
-        return slotIndex
+        return slotIndex.toInt()
     }
 
     /**

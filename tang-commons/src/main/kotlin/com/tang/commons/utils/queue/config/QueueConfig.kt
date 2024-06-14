@@ -1,5 +1,7 @@
 package com.tang.commons.utils.queue.config
 
+import java.util.concurrent.TimeUnit
+
 /**
  * 队列配置
  *
@@ -8,8 +10,8 @@ package com.tang.commons.utils.queue.config
 object QueueConfig {
 
     /**
-     * 槽位数量
+     * 默认延时单位
      */
-    const val QUEUE_SIZE: Int = 3600
+    val DEFAULT_DELAY_UNIT: TimeUnit = TimeUnit.MILLISECONDS
 
 }
