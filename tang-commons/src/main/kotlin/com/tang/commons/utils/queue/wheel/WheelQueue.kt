@@ -141,9 +141,9 @@ class WheelQueue(
         val now = System.nanoTime()
         val slotIndex = (now + duration) / tickUnit.toNanos(tickDuration) % ticksPerWheel
         val taskAttribute = TaskAttribute()
-        taskAttribute.joinTime = LocalDateTime.ofInstant(Instant.ofEpochSecond(now / 1_000_000_000), ZoneId.systemDefault())
+        taskAttribute.joinTime = now
         taskAttribute.slotIndex = slotIndex.toInt()
-        taskAttribute.executeTime = LocalDateTime.ofInstant(Instant.ofEpochSecond((now + duration) / 1_000_000_000), ZoneId.systemDefault())
+        taskAttribute.executeTime = now + duration
         taskSlotMapping[task.id] = taskAttribute
         return slotIndex.toInt()
     }
