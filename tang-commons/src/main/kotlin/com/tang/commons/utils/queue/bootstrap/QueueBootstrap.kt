@@ -47,11 +47,11 @@ class QueueBootstrap(
      * 创建一个环形队列；并开启定时扫描队列
      */
     fun start(): WheelQueue {
-        LOGGER.info("Timer wheel queue scanner starting...")
+        LOGGER.info("Starting wheel delay queue scanner.")
         val wheelQueue = WheelQueue(ticksPerWheel, tickDuration, unit)
         val timerTask = QueueScanTimer(wheelQueue, ticksPerWheel, tickDuration, unit)
         newScheduledThreadPool.scheduleWithFixedDelay(timerTask, 0, tickDuration, unit)
-        LOGGER.info("Timer wheel queue scanner start up.")
+        LOGGER.info("Successfully started wheel delay queue scanner.")
         return wheelQueue
     }
 
