@@ -43,6 +43,7 @@
  * Add druid monitor
  * Add spring boot admin monitor
  * Add time wheel delay queue
+ * Add wheel-delay-queue-spring-boot-starter
  * Support java 8 time type
  * Support mybatis flex
  * Support mybatis flex order query
