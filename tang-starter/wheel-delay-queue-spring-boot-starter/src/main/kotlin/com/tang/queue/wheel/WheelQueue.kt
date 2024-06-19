@@ -1,13 +1,9 @@
-package com.tang.commons.utils.queue.wheel
+package com.tang.queue.wheel
 
 import com.tang.commons.utils.LogUtils
-import com.tang.commons.utils.queue.config.QueueConfig
-import com.tang.commons.utils.queue.task.AbstractTask
-import com.tang.commons.utils.queue.task.TaskAttribute
+import com.tang.queue.task.AbstractTask
+import com.tang.queue.task.TaskAttribute
 import org.slf4j.Logger
-import java.time.Instant
-import java.time.LocalDateTime
-import java.time.ZoneId
 import java.util.concurrent.TimeUnit
 
 /**
@@ -30,7 +26,12 @@ class WheelQueue(
     /**
      * 时间单位
      */
-    private val tickUnit: TimeUnit
+    private val tickUnit: TimeUnit,
+
+    /**
+     * 延时单位
+     */
+    private val delayUnit: TimeUnit
 
 ) {
 
@@ -64,7 +65,7 @@ class WheelQueue(
      * @param task   任务
      */
     fun add(taskId: String, delay: Int, task: Runnable) {
-        add(taskId, delay, QueueConfig.DEFAULT_DELAY_UNIT, task)
+        add(taskId, delay, delayUnit, task)
     }
 
     /**
@@ -75,7 +76,7 @@ class WheelQueue(
      * @param task   任务
      */
     fun add(taskId: String, delay: Long, task: Runnable) {
-        add(taskId, delay, QueueConfig.DEFAULT_DELAY_UNIT, task)
+        add(taskId, delay, delayUnit, task)
     }
 
     /**
@@ -117,7 +118,7 @@ class WheelQueue(
      * @param delay 延迟时间
      * @param unit  时间单位
      */
-    fun add(task: AbstractTask, delay: Int, unit: TimeUnit = QueueConfig.DEFAULT_DELAY_UNIT) {
+    fun add(task: AbstractTask, delay: Int, unit: TimeUnit = delayUnit) {
         add(task, delay.toLong(), unit)
     }
 
@@ -128,7 +129,7 @@ class WheelQueue(
      * @param delay 延迟时间
      * @param unit  时间单位
      */
-    fun add(task: AbstractTask, delay: Long, unit: TimeUnit = QueueConfig.DEFAULT_DELAY_UNIT) {
+    fun add(task: AbstractTask, delay: Long, unit: TimeUnit = delayUnit) {
         //设置任务熟悉
         val slotIndex = setAttribute(task, delay, unit)
         //加到对应槽位的集合中

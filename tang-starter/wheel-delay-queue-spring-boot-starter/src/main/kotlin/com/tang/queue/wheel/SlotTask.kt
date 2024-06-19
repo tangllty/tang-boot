@@ -1,6 +1,6 @@
-package com.tang.commons.utils.queue.wheel
+package com.tang.queue.wheel
 
-import com.tang.commons.utils.queue.task.AbstractTask
+import com.tang.queue.task.AbstractTask
 import java.util.concurrent.ConcurrentMap
 import java.util.concurrent.ThreadPoolExecutor
 

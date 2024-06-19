@@ -1,4 +1,4 @@
-package com.tang.commons.utils.queue.factory
+package com.tang.queue.factory
 
 import java.util.concurrent.ThreadFactory
 import java.util.concurrent.atomic.AtomicInteger

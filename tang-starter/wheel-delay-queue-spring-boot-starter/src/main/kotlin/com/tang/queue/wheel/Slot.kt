@@ -1,9 +1,9 @@
-package com.tang.commons.utils.queue.wheel
+package com.tang.queue.wheel
 
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.ConcurrentMap
 
-import com.tang.commons.utils.queue.task.AbstractTask
+import com.tang.queue.task.AbstractTask
 
 /**
  * 槽位

@@ -1,6 +1,4 @@
-package com.tang.commons.utils.queue.task
-
-import java.time.LocalDateTime
+package com.tang.queue.task
 
 /**
  * 任务属性
@@ -15,12 +13,12 @@ class TaskAttribute {
     var slotIndex = 0
 
     /**
-     * 任务加入槽位的时间
+     * 任务加入槽位的时间(nano)
      */
     var joinTime: Long = 0
 
     /**
-     * 任务应该什么时候执行
+     * 任务应该什么时候执行(nano)
      */
     var executeTime: Long = 0
 

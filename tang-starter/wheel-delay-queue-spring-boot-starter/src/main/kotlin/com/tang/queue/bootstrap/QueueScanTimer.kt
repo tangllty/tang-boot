@@ -1,10 +1,8 @@
-package com.tang.commons.utils.queue.bootstrap
+package com.tang.queue.bootstrap
 
-import com.tang.commons.utils.LogUtils
-import com.tang.commons.utils.queue.factory.QueueDefaultThreadFactory
-import com.tang.commons.utils.queue.wheel.SlotTask
-import com.tang.commons.utils.queue.wheel.WheelQueue
-import org.slf4j.Logger
+import com.tang.queue.factory.QueueDefaultThreadFactory
+import com.tang.queue.wheel.SlotTask
+import com.tang.queue.wheel.WheelQueue
 import java.util.TimerTask
 import java.util.concurrent.LinkedBlockingQueue
 import java.util.concurrent.ThreadFactory
@@ -42,8 +40,6 @@ class QueueScanTimer(
 
     companion object {
 
-        private val LOGGER: Logger = LogUtils.getLogger()
-
         private val slotThreadFactory: ThreadFactory = QueueDefaultThreadFactory("slotThreadGroup")
 
         private val taskThreadFactory: ThreadFactory = QueueDefaultThreadFactory("taskThreadGroup")
@@ -64,7 +60,6 @@ class QueueScanTimer(
         val now = System.nanoTime()
         val index = now / unit.toNanos(tickDuration) % ticksPerWheel
         val slot = queue.peek(index.toInt())
-        LOGGER.debug("current slot: {}", index)
         slotPool.execute(SlotTask(slot.tasks, taskPool, queue))
     }
 

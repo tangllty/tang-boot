@@ -1,8 +1,8 @@
-package com.tang.commons.utils.queue.bootstrap
+package com.tang.queue.bootstrap
 
 import com.tang.commons.utils.LogUtils
-import com.tang.commons.utils.queue.factory.QueueDefaultThreadFactory
-import com.tang.commons.utils.queue.wheel.WheelQueue
+import com.tang.queue.factory.QueueDefaultThreadFactory
+import com.tang.queue.wheel.WheelQueue
 import org.slf4j.Logger
 import java.util.concurrent.Executors
 import java.util.concurrent.ScheduledExecutorService
@@ -28,7 +28,12 @@ class QueueBootstrap(
     /**
      * 时间单位
      */
-    private val unit: TimeUnit = TimeUnit.MILLISECONDS
+    private val tickUnit: TimeUnit = TimeUnit.MILLISECONDS,
+
+    /**
+     * 延时单位
+     */
+    private val delayUnit: TimeUnit = TimeUnit.MILLISECONDS
 
 ) {
 
@@ -48,9 +53,9 @@ class QueueBootstrap(
      */
     fun start(): WheelQueue {
         LOGGER.info("Starting wheel delay queue scanner.")
-        val wheelQueue = WheelQueue(ticksPerWheel, tickDuration, unit)
-        val timerTask = QueueScanTimer(wheelQueue, ticksPerWheel, tickDuration, unit)
-        newScheduledThreadPool.scheduleWithFixedDelay(timerTask, 0, tickDuration, unit)
+        val wheelQueue = WheelQueue(ticksPerWheel, tickDuration, tickUnit, delayUnit)
+        val timerTask = QueueScanTimer(wheelQueue, ticksPerWheel, tickDuration, tickUnit)
+        newScheduledThreadPool.scheduleWithFixedDelay(timerTask, 0, tickDuration, tickUnit)
         LOGGER.info("Successfully started wheel delay queue scanner.")
         return wheelQueue
     }

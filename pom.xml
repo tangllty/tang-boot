@@ -20,6 +20,7 @@
         <module>tang-file</module>
         <module>tang-framework</module>
         <module>tang-monitor</module>
+        <module>tang-starter</module>
         <module>tang-system</module>
         <module>tang-tool</module>
     </modules>
@@ -299,6 +300,12 @@
             <dependency>
                 <groupId>com.tang</groupId>
                 <artifactId>tang-swagger</artifactId>
+                <version>${tang.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.tang</groupId>
+                <artifactId>wheel-delay-queue-spring-boot-starter</artifactId>
                 <version>${tang.version}</version>
             </dependency>
 

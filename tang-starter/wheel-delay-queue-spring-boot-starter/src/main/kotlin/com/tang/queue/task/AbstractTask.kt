@@ -1,4 +1,4 @@
-package com.tang.commons.utils.queue.task
+package com.tang.queue.task
 
 /**
  * 任务抽象类
