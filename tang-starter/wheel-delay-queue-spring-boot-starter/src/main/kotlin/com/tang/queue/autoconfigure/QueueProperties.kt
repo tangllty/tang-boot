@@ -28,7 +28,7 @@ class QueueProperties {
     /**
      * 槽位时间间隔
      */
-    var tickDuration: Long = 20
+    var tickDuration: Long = 100
 
     /**
      * 时间单位
