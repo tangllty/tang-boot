@@ -40,6 +40,11 @@ class WheelQueue(
     }
 
     /**
+     * 当前时间
+     */
+    private var nowTime: Long = System.nanoTime()
+
+    /**
      * 环形队列中的槽位
      */
     private val slotQueue: Array<Slot> = Array(findNextPositivePowerOfTwo(ticksPerWheel)) { Slot() }
@@ -130,23 +135,41 @@ class WheelQueue(
      * @param unit  时间单位
      */
     fun add(task: AbstractTask, delay: Long, unit: TimeUnit = delayUnit) {
-        //设置任务熟悉
-        val slotIndex = setAttribute(task, delay, unit)
-        //加到对应槽位的集合中
+        nowTime = System.nanoTime()
+        val duration = unit.toNanos(delay)
+        val slotIndex = getSlotIndex(duration)
+        // 设置任务属性
+        setAttribute(task, slotIndex, duration)
+        // 加到对应槽位的集合中
         slotQueue[slotIndex].addTask(task)
-        LOGGER.debug("join task.task => {}, slotIndex => {}", task, slotIndex)
+        LOGGER.debug("join task => {}, slotIndex => {}", task, slotIndex)
     }
 
-    private fun setAttribute(task: AbstractTask, delay: Long, unit: TimeUnit): Int {
-        val duration = unit.toNanos(delay)
-        val now = System.nanoTime()
-        val slotIndex = (now + duration) / tickUnit.toNanos(tickDuration) % ticksPerWheel
-        val taskAttribute = TaskAttribute()
-        taskAttribute.joinTime = now
-        taskAttribute.slotIndex = slotIndex.toInt()
-        taskAttribute.executeTime = now + duration
-        taskSlotMapping[task.id] = taskAttribute
+    /**
+     * 获取槽位索引
+     *
+     * @param duration 延迟时间
+     * @return 槽位索引
+     */
+    private fun getSlotIndex(duration: Long): Int {
+        val slotIndex = (nowTime + duration) / tickUnit.toNanos(tickDuration) % ticksPerWheel
         return slotIndex.toInt()
+    }
+
+    /**
+     * 设置任务属性
+     *
+     * @param task      任务
+     * @param slotIndex 槽位索引
+     * @param duration  延迟时间
+     */
+    private fun setAttribute(task: AbstractTask, slotIndex: Int, duration: Long) {
+        task.cycleNum = (duration / tickUnit.toNanos(tickDuration) / ticksPerWheel).toInt()
+        val taskAttribute = TaskAttribute()
+        taskAttribute.joinTime = nowTime
+        taskAttribute.slotIndex = slotIndex
+        taskAttribute.executeTime = nowTime + duration
+        taskSlotMapping[task.id] = taskAttribute
     }
 
     /**

@@ -29,14 +29,11 @@ class SlotTask(
 ) : Runnable {
 
     override fun run() {
-        val it = tasks.entries.iterator()
-        while (it.hasNext()) {
-            val entry = it.next()
-            val task = entry.value
+        tasks.forEach { (taskId, task) ->
             if (task.cycleNum <= 0) {
                 taskPool.execute(task)
-                it.remove()
-                queue.remove(entry.key)
+                tasks.remove(taskId)
+                queue.remove(taskId)
             } else {
                 task.decrementCycle()
             }
