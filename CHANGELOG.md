@@ -7,6 +7,7 @@
  * Case order by format from lower hyphen to upper underscore
  * Fix mybatis flex order query error
  * Fix `Spring Boot Admin` 401 error
+ * Fix authentication failure
 
 ### Optimization
 

@@ -1,6 +1,7 @@
 package com.tang.framework.utils
 
 import org.springframework.security.authentication.AbstractAuthenticationToken
+import org.springframework.security.core.GrantedAuthority
 
 import com.tang.commons.enumeration.LoginType
 import com.tang.framework.security.authentication.email.EmailAuthenticationToken
@@ -13,11 +14,11 @@ import com.tang.framework.security.authentication.username.UsernameAuthenticatio
 object AuthenticationUtils {
 
     @JvmStatic
-    fun newInstance(loginType: String, vararg params: Any): AbstractAuthenticationToken {
+    fun newInstance(loginType: String, principal: Any, authorities: Collection<GrantedAuthority>): AbstractAuthenticationToken {
         return when (LoginType.getLoginType(loginType)) {
-            LoginType.USERNAME -> UsernameAuthenticationToken(params[0], params[1])
-            LoginType.EMAIL -> EmailAuthenticationToken(params[0], params[1])
-            LoginType.GITHUB -> GitHubAuthenticationToken(params[0])
+            LoginType.USERNAME -> UsernameAuthenticationToken(principal, authorities)
+            LoginType.EMAIL -> EmailAuthenticationToken(principal, authorities)
+            LoginType.GITHUB -> GitHubAuthenticationToken(principal)
             else -> throw IllegalArgumentException("Unexpected login type: $loginType")
         }
     }
