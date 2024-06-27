@@ -135,8 +135,8 @@ insert into sys_menu values (11, 1, '0,1', '字典管理', 'dict', 'system/dict/
 insert into sys_menu values (12, 1, '0,1', '日志管理', 'log',  '', '', '日志管理', 'D', '0', 6, '0', '0', 'admin', sysdate(), '', null, '日志管理菜单');
 insert into sys_menu values (42, 4, '0,4', '在线用户', 'online', 'monitor/online/index', 'monitor:online:menu', '在线用户', 'M', '0', 1, '0', '0', 'admin', sysdate(), '', null, '在线用户菜单');
 insert into sys_menu values (43, 4, '0,4', '服务监控', 'server', 'monitor/server/index', 'monitor:server:menu', '服务监控', 'M', '0', 2, '0', '0', 'admin', sysdate(), '', null, '服务监控菜单');
-insert into sys_menu values (44, 4, '0,4', 'Druid 监控', 'druid', 'monitor/druid/index', 'monitor:druid:menu', 'Druid 监控', 'M', '0', 3, '0', '0', 'admin', sysdate(), '', null, 'Druid 监控菜单');
-insert into sys_menu values (45, 4, '0,4', 'SBA 监控', 'sba', 'monitor/sba/index', 'monitor:sba:menu', 'SBA 监控', 'M', '0', 4, '0', '0', 'admin', sysdate(), '', null, 'SBA 监控菜单');
+insert into sys_menu values (44, 4, '0,4', 'Druid 监控', 'druid', 'monitor/druid/index', 'monitor:druid:menu', 'druid', 'M', '0', 3, '0', '0', 'admin', sysdate(), '', null, 'Druid 监控菜单');
+insert into sys_menu values (45, 4, '0,4', 'SBA 监控', 'sba', 'monitor/sba/index', 'monitor:sba:menu', 'sba', 'M', '0', 4, '0', '0', 'admin', sysdate(), '', null, 'SBA 监控菜单');
 insert into sys_menu values (49, 5, '0,5', '代码生成', 'generator', 'tool/generator/index', 'tool:generator:menu', '代码生成', 'M', '0', 1, '0', '0', 'admin', sysdate(), '', null, '代码生成菜单');
 insert into sys_menu values (50, 5, '0,5', '系统接口', 'swagger', 'tool/swagger/index', 'tool:swagger:menu', '系统接口', 'M', '0', 2, '0', '0', 'admin', sysdate(), '', null, '系统接口菜单');
 insert into sys_menu values (59, 6, '0,6', '猫猫聊天', 'chat',  '', '', '猫猫聊天', 'D', '0', 1, '0', '0', 'admin', sysdate(), '', null, '猫猫聊天目录');
