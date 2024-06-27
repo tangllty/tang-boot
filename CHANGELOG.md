@@ -50,3 +50,4 @@
  * Support mybatis flex order query
  * Support generate mybatis flex query condition
  * Support generate mybatis plus query condition
+ * Support chinese pinyin search
