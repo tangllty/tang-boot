@@ -28,6 +28,7 @@
         where r.del_flag = '0'
         <if test="roleName != null and roleName != ''">
             and r.role_name like concat('%', #{roleName}, '%')
+            or to_pinyin(r.role_name) like concat('%', #{roleName}, '%')
         </if>
         <if test="status != null and status != ''">
             and r.status = #{status}

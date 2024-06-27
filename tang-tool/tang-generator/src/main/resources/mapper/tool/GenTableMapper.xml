@@ -35,6 +35,7 @@
             </if>
             <if test="tableComment != null and tableComment != ''">
                 and gt.table_comment like concat('%', #{tableComment}, '%')
+                or to_pinyin(gt.table_comment) like concat('%', #{tableComment}, '%')
             </if>
         </where>
         order by gt.create_time desc

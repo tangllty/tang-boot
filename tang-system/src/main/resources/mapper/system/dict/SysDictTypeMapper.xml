@@ -27,6 +27,7 @@
             </if>
             <if test="typeName != null and typeName != ''">
                 and dt.type_name like concat('%', #{typeName}, '%')
+                and to_pinyin(dt.type_name) like concat('%', #{typeName}, '%')
             </if>
             <if test="status != null and status != ''">
                 and dt.status = #{status}

@@ -27,6 +27,7 @@
         where d.del_flag = '0'
         <if test="deptName != null and deptName != ''">
             and d.dept_name like concat('%', #{deptName}, '%')
+            or to_pinyin(d.dept_name) like concat('%', #{deptName}, '%')
         </if>
         <if test="status != null and status != ''">
             and d.status = #{status}

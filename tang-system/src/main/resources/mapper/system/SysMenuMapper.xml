@@ -34,6 +34,7 @@
         where m.del_flag = '0'
         <if test="menuName != null and menuName != ''">
             and m.menu_name like concat('%', #{menuName}, '%')
+            or to_pinyin(m.menu_name) like concat('%', #{menuName}, '%')
         </if>
         <if test="status != null and status != ''">
             and m.status = #{status}
