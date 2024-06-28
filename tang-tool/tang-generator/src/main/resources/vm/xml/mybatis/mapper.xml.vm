@@ -25,6 +25,7 @@
 #if($column.queryType == "fuzzy")
             <if test="$column.javaField != null#if($column.javaType == 'String') and $column.javaField != ''#end">
                 and ${tableAlias}.$column.columnName like concat('%', #{$column.javaField}, '%')
+                or to_pinyin(${tableAlias}.$column.columnName) like concat('%', #{$column.javaField}, '%')
             </if>
 #end
 #if($column.queryType == "findInSet")
