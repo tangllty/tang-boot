@@ -6,6 +6,7 @@ import com.mybatisflex.core.BaseMapper;
 import com.mybatisflex.core.query.QueryWrapper;
 import com.tang.commons.utils.If;
 import com.tang.commons.utils.page.PageResult;
+import com.tang.extension.mybatisflex.query.QueryFunctions;
 import com.tang.extension.mybatisflex.utils.PageUtils;
 import ${packageName}.entity.$ClassName;
 
@@ -33,7 +34,8 @@ public interface ${ClassName}Mapper extends BaseMapper<$ClassName> {
         queryWrapper.and(${CLASS_NAME}.${column.columnNameUpperUnderscore}.eq(${className}.get${column.columnNameUpperCamel}(), If::nonEmpty));
 #end
 #if($column.queryType == "fuzzy")
-        queryWrapper.and(${CLASS_NAME}.${column.columnNameUpperUnderscore}.like(${className}.get${column.columnNameUpperCamel}(), If::nonEmpty));
+        queryWrapper.and(${CLASS_NAME}.${column.columnNameUpperUnderscore}.like(${className}.get${column.columnNameUpperCamel}(), If::nonEmpty)
+            .or(QueryFunctions.toPinyin(${CLASS_NAME}.${column.columnNameUpperUnderscore}).like(${className}.get${column.columnNameUpperCamel}(), If::nonEmpty)));
 #end
 #if($column.queryType == "findInSet")
         queryWrapper.and(${CLASS_NAME}.${column.columnNameUpperUnderscore}.in(${className}.get${column.columnNameUpperCamel}()));
