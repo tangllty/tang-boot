@@ -1,6 +1,8 @@
 package com.tang.queue.wheel
 
+import com.tang.commons.utils.LogUtils
 import com.tang.queue.task.AbstractTask
+import org.slf4j.Logger
 import java.util.concurrent.ConcurrentMap
 import java.util.concurrent.ThreadPoolExecutor
 
@@ -28,9 +30,14 @@ class SlotTask(
 
 ) : Runnable {
 
+    companion object {
+        private val LOGGER: Logger = LogUtils.getLogger()
+    }
+
     override fun run() {
         tasks.forEach { (taskId, task) ->
             if (task.cycleNum <= 0) {
+                LOGGER.info("Task [$taskId] is ready to execute.")
                 taskPool.execute(task)
                 tasks.remove(taskId)
                 queue.remove(taskId)
