@@ -123,7 +123,7 @@ create table sys_menu (
 -- 由 com.tang.commons.utils.GenSqlUtils 生成
 insert into sys_menu values (1, 0, '0', '系统管理', 'system',  '', '', '系统管理', 'D', '0', 1, '0', '0', 'admin', sysdate(), '', null, '系统管理目录');
 insert into sys_menu values (2, 0, '0', '表单设计', 'form-designer', 'form/designer/index', 'form:designer:menu', '表单设计', 'M', '0', 2, '0', '0', 'admin', sysdate(), '', null, '表单设计菜单');
-insert into sys_menu values (3, 0, '0', 'Monaco Editor', 'monaco-editor', 'editor/monaco/index', 'monaco:editor:menu', 'Monaco Editor', 'M', '0', 3, '0', '0', 'admin', sysdate(), '', null, 'Monaco Editor菜单');
+insert into sys_menu values (3, 0, '0', 'Monaco Editor', 'monaco-editor', 'editor/monaco/index', 'monaco:editor:menu', 'monaco-editor', 'M', '0', 3, '0', '0', 'admin', sysdate(), '', null, 'Monaco Editor菜单');
 insert into sys_menu values (4, 0, '0', '系统监控', 'monitor',  '', '', '系统监控', 'D', '0', 4, '0', '0', 'admin', sysdate(), '', null, '系统监控目录');
 insert into sys_menu values (5, 0, '0', '系统工具', 'tool',  '', '', '系统工具', 'D', '0', 5, '0', '0', 'admin', sysdate(), '', null, '系统工具目录');
 insert into sys_menu values (6, 0, '0', '猫猫APP', 'app',  '', '', '猫猫APP', 'D', '0', 6, '0', '0', 'admin', sysdate(), '', null, '猫猫APP目录');
