@@ -1,3 +1,9 @@
+## 1.6.7
+
+### Dependencies
+
+ * Bump spring-boot-dependencies from 3.3.0 to 3.3.1
+
 ## 1.6.6
 
 ### Bug Fixes

@@ -31,7 +31,7 @@
         <kotlin.version>2.0.0</kotlin.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <spring-boot-dependencies.version>3.3.0</spring-boot-dependencies.version>
+        <spring-boot-dependencies.version>3.3.1</spring-boot-dependencies.version>
         <spring-boot-admin.version>3.3.1</spring-boot-admin.version>
         <jjwt.version>0.12.5</jjwt.version>
         <hutool.version>5.8.27</hutool.version>
