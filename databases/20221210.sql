@@ -345,13 +345,16 @@ create table sys_dict_type (
     remark       varchar(500)  default ''               comment '备注',
     primary key (type_id),
     unique (dict_type)
-) engine = InnoDB auto_increment = 100 comment = '字典类型表';
+) engine = InnoDB auto_increment = 1 comment = '字典类型表';
 
-insert into sys_dict_type values (1, '信息状态', 'sys_status',      '0', 'admin', sysdate(), '', null, '信息状态类型');
-insert into sys_dict_type values (2, '删除标志', 'sys_del_flag',    '0', 'admin', sysdate(), '', null, '删除标志类型');
-insert into sys_dict_type values (3, '用户性别', 'sys_user_gender', '0', 'admin', sysdate(), '', null, '用户性别类型');
-insert into sys_dict_type values (4, '好友申请类型', 'app_friend_apply_type', '0', 'admin', sysdate(), '', null, '好友申请类型类型');
-insert into sys_dict_type values (5, '好友申请状态', 'app_friend_apply_status', '0', 'admin', sysdate(), '', null, '好友申请状态类型');
+insert into sys_dict_type (type_name, dict_type, create_by, create_time, remark) values
+    ('信息状态', 'sys_status', 'admin', sysdate(), '信息状态类型'),
+    ('删除标志', 'sys_del_flag', 'admin', sysdate(), '删除标志类型'),
+    ('用户性别', 'sys_user_gender', 'admin', sysdate(), '用户性别类型'),
+    ('语言类型', 'gen_table_language_type', 'admin', sysdate(), '语言类型类型'),
+    ('ORM 类型', 'gen_table_orm_type', 'admin', sysdate(), 'ORM 类型类型'),
+    ('好友申请类型', 'app_friend_apply_type', 'admin', sysdate(), '好友申请类型类型'),
+    ('好友申请状态', 'app_friend_apply_status', 'admin', sysdate(), '好友申请状态类型');
 
 
 -- -----------------------------
@@ -373,20 +376,26 @@ create table sys_dict_data (
     update_time  datetime                               comment '更新时间',
     remark       varchar(500)  default ''               comment '备注',
     primary key (data_id)
-) engine = InnoDB auto_increment = 100 comment = '字典数据表';
+) engine = InnoDB auto_increment = 1 comment = '字典数据表';
 
-insert into sys_dict_data values (1, 'sys_status', '正常', '0', '', '', 1, '0', 'admin', sysdate(), '', null, '正常状态');
-insert into sys_dict_data values (2, 'sys_status', '停用', '1', '', '', 2, '0', 'admin', sysdate(), '', null, '停用状态');
-insert into sys_dict_data values (3, 'sys_del_flag', '正常', '0', '', '', 1, '0', 'admin', sysdate(), '', null, '正常状态');
-insert into sys_dict_data values (4, 'sys_del_flag', '删除', '1', '', '', 2, '0', 'admin', sysdate(), '', null, '删除状态');
-insert into sys_dict_data values (5, 'sys_user_gender', '保密', '0', '', '', 1, '0', 'admin', sysdate(), '', null, '性别保密');
-insert into sys_dict_data values (6, 'sys_user_gender', '男',   '1', '', '', 2, '0', 'admin', sysdate(), '', null, '性别男');
-insert into sys_dict_data values (7, 'sys_user_gender', '女',   '2', '', '', 3, '0', 'admin', sysdate(), '', null, '性别女');
-insert into sys_dict_data values (8, 'app_friend_apply_type', '申请添加好友', '0', '', '', 1, '0', 'admin', sysdate(), '', null, '申请添加好友');
-insert into sys_dict_data values (9, 'app_friend_apply_type', '申请添加群组', '1', '', '', 2, '0', 'admin', sysdate(), '', null, '申请添加群组');
-insert into sys_dict_data values (10, 'app_friend_apply_status', '已申请',   '0', '', 'type',    1, '0', 'admin', sysdate(), '', null, '已申请');
-insert into sys_dict_data values (11, 'app_friend_apply_status', '已同意',   '1', '', 'success', 2, '0', 'admin', sysdate(), '', null, '已同意');
-insert into sys_dict_data values (12, 'app_friend_apply_status', '已拒绝',   '2', '', 'danger',  3, '0', 'admin', sysdate(), '', null, '已拒绝');
+insert into sys_dict_data (dict_type, data_label, data_value, css_class, type_class, sort, create_by, create_time, remark) values
+    ('sys_status', '正常', '0', '', '', 1, 'admin', sysdate(), '正常状态'),
+    ('sys_status', '停用', '1', '', '', 2, 'admin', sysdate(), '停用状态'),
+    ('sys_del_flag', '正常', '0', '', '', 1, 'admin', sysdate(), '正常状态'),
+    ('sys_del_flag', '删除', '1', '', '', 2, 'admin', sysdate(), '删除状态'),
+    ('sys_user_gender', '保密', '0', '', '', 1, 'admin', sysdate(), '性别保密'),
+    ('sys_user_gender', '男',   '1', '', '', 2, 'admin', sysdate(), '性别男'),
+    ('sys_user_gender', '女',   '2', '', '', 3, 'admin', sysdate(), '性别女'),
+    ('gen_table_language_type', 'Java', 'Java', '', '', 1, 'admin', sysdate(), 'Java语言'),
+    ('gen_table_language_type', 'Kotlin', 'Kotlin', '', '', 2, 'admin', sysdate(), 'Kotlin语言'),
+    ('gen_table_orm_type', 'MyBatis', 'MyBatis', '', '', 1, 'admin', sysdate(), 'MyBatis ORM'),
+    ('gen_table_orm_type', 'MyBatis-Flex', 'MyBatis-Flex', '', '', 2, 'admin', sysdate(), 'MyBatis-Flex ORM'),
+    ('gen_table_orm_type', 'MyBatis-Plus', 'MyBatis-Plus', '', '', 3, 'admin', sysdate(), 'MyBatis-Plus ORM'),
+    ('app_friend_apply_type', '申请添加好友', '0', '', '', 1, 'admin', sysdate(), '申请添加好友'),
+    ('app_friend_apply_type', '申请添加群组', '1', '', '', 2, 'admin', sysdate(), '申请添加群组'),
+    ('app_friend_apply_status', '已申请',   '0', '', 'type',    1, 'admin', sysdate(), '已申请'),
+    ('app_friend_apply_status', '已同意',   '1', '', 'success', 2, 'admin', sysdate(), '已同意'),
+    ('app_friend_apply_status', '已拒绝',   '2', '', 'danger',  3, 'admin', sysdate(), '已拒绝');
 
 
 -- -----------------------------
