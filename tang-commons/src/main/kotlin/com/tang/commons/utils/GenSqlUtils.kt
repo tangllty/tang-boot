@@ -153,7 +153,7 @@ object GenSqlUtils {
                 )),
             )),
             Menu("调查问卷", "survey", "调查问卷", "调查问卷目录", arrayListOf(
-                Menu("调查问卷设计", "form", "survey/form/index", "survey:form:menu", "调查问卷", "调查问卷菜单", arrayListOf(
+                Menu("问卷管理", "form", "survey/form/index", "survey:form:menu", "问卷管理", "问卷管理菜单", arrayListOf(
                     Menu("调查问卷查询", "survey:form:list", "调查问卷查询按钮"),
                     Menu("调查问卷新增", "survey:form:add", "调查问卷新增按钮"),
                     Menu("调查问卷修改", "survey:form:edit", "调查问卷修改按钮"),

@@ -141,7 +141,7 @@ insert into sys_menu values (46, 4, '0,4', 'SBA 监控', 'sba', 'monitor/sba/ind
 insert into sys_menu values (50, 5, '0,5', '代码生成', 'generator', 'tool/generator/index', 'tool:generator:menu', '代码生成', 'M', '0', 1, '0', '0', 'admin', sysdate(), '', null, '代码生成菜单');
 insert into sys_menu values (51, 5, '0,5', '系统接口', 'swagger', 'tool/swagger/index', 'tool:swagger:menu', '系统接口', 'M', '0', 2, '0', '0', 'admin', sysdate(), '', null, '系统接口菜单');
 insert into sys_menu values (60, 6, '0,6', '猫猫聊天', 'chat',  '', '', '猫猫聊天', 'D', '0', 1, '0', '0', 'admin', sysdate(), '', null, '猫猫聊天目录');
-insert into sys_menu values (82, 7, '0,7', '调查问卷设计', 'form', 'survey/form/index', 'survey:form:menu', '调查问卷', 'M', '0', 1, '0', '0', 'admin', sysdate(), '', null, '调查问卷菜单');
+insert into sys_menu values (82, 7, '0,7', '问卷管理', 'form', 'survey/form/index', 'survey:form:menu', '问卷管理', 'M', '0', 1, '0', '0', 'admin', sysdate(), '', null, '问卷管理菜单');
 insert into sys_menu values (83, 7, '0,7', '用户答案', 'answer', 'survey/answer/index', 'survey:answer:menu', '用户答案', 'M', '0', 2, '0', '0', 'admin', sysdate(), '', null, '用户答案菜单');
 insert into sys_menu values (14, 8, '0,1,8', '用户查询', '', '', 'system:user:list', '', 'B', '0', 1, '0', '0', 'admin', sysdate(), '', null, '用户查询按钮');
 insert into sys_menu values (15, 8, '0,1,8', '用户新增', '', '', 'system:user:add', '', 'B', '0', 2, '0', '0', 'admin', sysdate(), '', null, '用户新增按钮');
