@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tang.survey.mapper.SurveyUserAnswerMapper">
+
+    <resultMap id="SurveyUserAnswerMap" type="com.tang.survey.entity.SurveyUserAnswer">
+        <result property="answerId" column="answer_id" />
+        <result property="formId" column="form_id" />
+        <result property="answerData" column="answer_data" />
+        <result property="answerTime" column="answer_time" />
+        <result property="ip" column="ip" />
+        <result property="location" column="location" />
+        <result property="mobile" column="mobile" />
+        <result property="browser" column="browser" />
+        <result property="version" column="version" />
+        <result property="platform" column="platform" />
+        <result property="os" column="os" />
+        <result property="osVersion" column="os_version" />
+        <result property="engine" column="engine" />
+        <result property="engineVersion" column="engine_version" />
+        <result property="createBy" column="create_by" />
+        <result property="createTime" column="create_time" />
+        <result property="updateBy" column="update_by" />
+        <result property="updateTime" column="update_time" />
+        <result property="remark" column="remark" />
+    </resultMap>
+
+    <sql id="SurveyUserAnswerVo">
+        select qsua.answer_id, qsua.form_id, qsua.answer_data, qsua.answer_time, qsua.ip, qsua.location, qsua.mobile, qsua.browser, qsua.version, qsua.platform, qsua.os, qsua.os_version, qsua.engine, qsua.engine_version, qsua.create_by, qsua.create_time, qsua.update_by, qsua.update_time, qsua.remark
+        from qs_survey_user_answer qsua
+    </sql>
+
+    <select id="selectSurveyUserAnswerList" resultMap="SurveyUserAnswerMap">
+        <include refid="SurveyUserAnswerVo" />
+        <where>
+            <if test="answerId != null">
+                and qsua.answer_id = #{answerId}
+            </if>
+            <if test="formId != null">
+                and qsua.form_id = #{formId}
+            </if>
+            <if test="answerData != null and answerData != ''">
+                and qsua.answer_data = #{answerData}
+            </if>
+            <if test="answerTime != null">
+                and qsua.answer_time = #{answerTime}
+            </if>
+            <if test="ip != null and ip != ''">
+                and qsua.ip = #{ip}
+            </if>
+            <if test="location != null and location != ''">
+                and qsua.location = #{location}
+            </if>
+            <if test="mobile != null and mobile != ''">
+                and qsua.mobile = #{mobile}
+            </if>
+            <if test="browser != null and browser != ''">
+                and qsua.browser = #{browser}
+            </if>
+            <if test="version != null and version != ''">
+                and qsua.version = #{version}
+            </if>
+            <if test="platform != null and platform != ''">
+                and qsua.platform = #{platform}
+            </if>
+            <if test="os != null and os != ''">
+                and qsua.os = #{os}
+            </if>
+            <if test="osVersion != null and osVersion != ''">
+                and qsua.os_version = #{osVersion}
+            </if>
+            <if test="engine != null and engine != ''">
+                and qsua.engine = #{engine}
+            </if>
+            <if test="engineVersion != null and engineVersion != ''">
+                and qsua.engine_version = #{engineVersion}
+            </if>
+            <if test="createBy != null and createBy != ''">
+                and qsua.create_by = #{createBy}
+            </if>
+            <if test="createTime != null">
+                and qsua.create_time = #{createTime}
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                and qsua.update_by = #{updateBy}
+            </if>
+            <if test="updateTime != null">
+                and qsua.update_time = #{updateTime}
+            </if>
+            <if test="remark != null and remark != ''">
+                and qsua.remark = #{remark}
+            </if>
+        </where>
+    </select>
+
+    <select id="selectSurveyUserAnswerByAnswerId" resultMap="SurveyUserAnswerMap">
+        <include refid="SurveyUserAnswerVo" />
+        where qsua.answer_id = #{answerId}
+    </select>
+
+    <insert id="insertSurveyUserAnswer" useGeneratedKeys="true" keyProperty="answerId">
+        insert into qs_survey_user_answer (
+        <trim suffixOverrides=",">
+            <if test="answerId != null">answer_id,</if>
+            <if test="formId != null">form_id,</if>
+            <if test="answerData != null and answerData != ''">answer_data,</if>
+            <if test="answerTime != null">answer_time,</if>
+            <if test="ip != null and ip != ''">ip,</if>
+            <if test="location != null and location != ''">location,</if>
+            <if test="mobile != null and mobile != ''">mobile,</if>
+            <if test="browser != null and browser != ''">browser,</if>
+            <if test="version != null and version != ''">version,</if>
+            <if test="platform != null and platform != ''">platform,</if>
+            <if test="os != null and os != ''">os,</if>
+            <if test="osVersion != null and osVersion != ''">os_version,</if>
+            <if test="engine != null and engine != ''">engine,</if>
+            <if test="engineVersion != null and engineVersion != ''">engine_version,</if>
+            <if test="createBy != null and createBy != ''">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null and updateBy != ''">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="remark != null and remark != ''">remark,</if>
+        </trim>
+        ) values (
+        <trim suffixOverrides=",">
+            <if test="answerId != null">#{answerId},</if>
+            <if test="formId != null">#{formId},</if>
+            <if test="answerData != null and answerData != ''">#{answerData},</if>
+            <if test="answerTime != null">#{answerTime},</if>
+            <if test="ip != null and ip != ''">#{ip},</if>
+            <if test="location != null and location != ''">#{location},</if>
+            <if test="mobile != null and mobile != ''">#{mobile},</if>
+            <if test="browser != null and browser != ''">#{browser},</if>
+            <if test="version != null and version != ''">#{version},</if>
+            <if test="platform != null and platform != ''">#{platform},</if>
+            <if test="os != null and os != ''">#{os},</if>
+            <if test="osVersion != null and osVersion != ''">#{osVersion},</if>
+            <if test="engine != null and engine != ''">#{engine},</if>
+            <if test="engineVersion != null and engineVersion != ''">#{engineVersion},</if>
+            <if test="createBy != null and createBy != ''">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null and updateBy != ''">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="remark != null and remark != ''">#{remark},</if>
+        </trim>
+        )
+    </insert>
+
+    <update id="updateSurveyUserAnswerByAnswerId">
+        update qs_survey_user_answer
+        <set>
+            <if test="formId != null">form_id = #{formId},</if>
+            <if test="answerData != null and answerData != ''">answer_data = #{answerData},</if>
+            <if test="answerTime != null">answer_time = #{answerTime},</if>
+            <if test="ip != null and ip != ''">ip = #{ip},</if>
+            <if test="location != null and location != ''">location = #{location},</if>
+            <if test="mobile != null and mobile != ''">mobile = #{mobile},</if>
+            <if test="browser != null and browser != ''">browser = #{browser},</if>
+            <if test="version != null and version != ''">version = #{version},</if>
+            <if test="platform != null and platform != ''">platform = #{platform},</if>
+            <if test="os != null and os != ''">os = #{os},</if>
+            <if test="osVersion != null and osVersion != ''">os_version = #{osVersion},</if>
+            <if test="engine != null and engine != ''">engine = #{engine},</if>
+            <if test="engineVersion != null and engineVersion != ''">engine_version = #{engineVersion},</if>
+            <if test="createBy != null and createBy != ''">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null and updateBy != ''">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="remark != null and remark != ''">remark = #{remark},</if>
+        </set>
+        where answer_id = #{answerId}
+    </update>
+
+    <delete id="deleteSurveyUserAnswerByAnswerId">
+        delete from qs_survey_user_answer where answer_id = #{answerId}
+    </delete>
+
+    <delete id="deleteSurveyUserAnswerByAnswerIds">
+        delete from qs_survey_user_answer where answer_id in
+        <foreach item="answerId" collection="array" open="(" separator="," close=")">
+            #{answerId}
+        </foreach>
+    </delete>
+
+</mapper>

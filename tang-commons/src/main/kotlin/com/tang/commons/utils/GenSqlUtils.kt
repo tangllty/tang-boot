@@ -152,6 +152,18 @@ object GenSqlUtils {
                     )),
                 )),
             )),
+            Menu("调查问卷", "survey", "调查问卷", "调查问卷目录", arrayListOf(
+                Menu("调查问卷设计", "form", "survey/form/index", "survey:form:menu", "调查问卷", "调查问卷菜单", arrayListOf(
+                    Menu("调查问卷查询", "survey:form:list", "调查问卷查询按钮"),
+                    Menu("调查问卷新增", "survey:form:add", "调查问卷新增按钮"),
+                    Menu("调查问卷修改", "survey:form:edit", "调查问卷修改按钮"),
+                    Menu("调查问卷删除", "survey:form:delete", "调查问卷删除按钮"),
+                )),
+                Menu("用户答案", "answer", "survey/answer/index", "survey:answer:menu", "用户答案", "用户答案菜单", arrayListOf(
+                    Menu("用户答案查询", "survey:answer:list", "用户答案查询按钮"),
+                    Menu("用户答案删除", "survey:answer:delete", "用户答案删除按钮"),
+                )),
+            )),
         )
 
         val parentMenu = Menu()

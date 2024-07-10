@@ -66,6 +66,11 @@
             <artifactId>tang-swagger</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>com.tang</groupId>
+            <artifactId>tang-survey</artifactId>
+        </dependency>
+
     </dependencies>
 
     <build>
