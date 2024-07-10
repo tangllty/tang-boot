@@ -42,6 +42,14 @@ interface SurveyFormService {
     fun updateSurveyFormByFormId(surveyForm: SurveyForm): Int
 
     /**
+     * 发布调查问卷
+     *
+     * @param formId 调查问卷主键
+     * @return 影响行数
+     */
+    fun publishSurveyForm(formId: Long): Int
+
+    /**
      * 通过调查问卷主键删除调查问卷信息
      *
      * @param formId 调查问卷主键

@@ -77,6 +77,18 @@ class SurveyFormController(private val surveyFormService: SurveyFormService) {
     }
 
     /**
+     * 发布调查问卷
+     *
+     * @param formId 调查问卷主键
+     * @return 影响行数
+     */
+    @PreAuthorize("@auth.hasPermission('survey:form:edit')")
+    @PutMapping("/publish/{formId}")
+    fun publishSurvey(@PathVariable formId: Long): AjaxResult {
+        return AjaxResult.rows(surveyFormService.publishSurveyForm(formId))
+    }
+
+    /**
      * 通过调查问卷主键删除调查问卷信息
      *
      * @param formId 调查问卷主键

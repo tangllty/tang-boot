@@ -1,10 +1,13 @@
 package com.tang.survey.service.impl
 
+import com.tang.commons.utils.id.IdUtils
+import com.tang.survey.constants.SurveyFormPublishStatus
 import org.springframework.stereotype.Service
 
 import com.tang.survey.entity.SurveyForm
 import com.tang.survey.mapper.SurveyFormMapper
 import com.tang.survey.service.SurveyFormService
+import java.time.LocalDateTime
 
 /**
  * 调查问卷业务逻辑层接口实现
@@ -51,6 +54,27 @@ class SurveyFormServiceImpl(private val surveyFormMapper: SurveyFormMapper) : Su
      * @return 影响行数
      */
     override fun updateSurveyFormByFormId(surveyForm: SurveyForm): Int {
+        return surveyFormMapper.updateSurveyFormByFormId(surveyForm)
+    }
+
+    /**
+     * 发布调查问卷
+     *
+     * @param formId 调查问卷主键
+     * @return 影响行数
+     */
+    override fun publishSurveyForm(formId: Long): Int {
+        surveyFormMapper.selectSurveyFormByFormId(formId).let {
+            if (it.publishStatus == SurveyFormPublishStatus.PUBLISHED) {
+                throw RuntimeException("调查问卷已发布")
+            }
+        }
+
+        val surveyForm = SurveyForm()
+        surveyForm.formId = formId
+        surveyForm.publishStatus = SurveyFormPublishStatus.PUBLISHED
+        surveyForm.formCode = IdUtils.snowflake()
+        surveyForm.publishTime = LocalDateTime.now()
         return surveyFormMapper.updateSurveyFormByFormId(surveyForm)
     }
 
