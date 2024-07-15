@@ -3,6 +3,7 @@
 ### Dependencies
 
  * Bump spring-boot-dependencies from 3.3.0 to 3.3.1
+ * Bump mybatis-flex-spring-boot3-starter from 1.8.9 to 1.9.3
 
 ### Features
 
