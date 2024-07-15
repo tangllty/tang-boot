@@ -4,6 +4,15 @@
 
  * Bump spring-boot-dependencies from 3.3.0 to 3.3.1
  * Bump mybatis-flex-spring-boot3-starter from 1.8.9 to 1.9.3
+ * Bump mybatis-flex-kotlin-extensions from 1.0.9 to 1.1.0
+ * Bump mybatis-plus-spring-boot3-starter from 3.5.6 to 3.5.7
+ * Bump druid-spring-boot-3-starter from 1.2.22 to 1.2.23
+ * Bump commons-compress from 1.26.1 to 1.26.2
+ * Bump guava from 33.2.0-jre to 33.2.1-jre
+ * Bump springdoc-openapi-starter-webmvc-ui from 2.5.0 to 2.6.0
+ * Bump jackson from 2.17.1 to 2.17.2
+ * Bump fastjson2-extension-spring6 from 2.0.50 to 2.0.51
+ * Bump jjwt from 0.12.5 to 0.12.6
 
 ### Features
 

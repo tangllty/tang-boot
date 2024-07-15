@@ -34,9 +34,9 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <spring-boot-dependencies.version>3.3.1</spring-boot-dependencies.version>
         <spring-boot-admin.version>3.3.1</spring-boot-admin.version>
-        <jjwt.version>0.12.5</jjwt.version>
+        <jjwt.version>0.12.6</jjwt.version>
         <hutool.version>5.8.27</hutool.version>
-        <jackson.version>2.17.1</jackson.version>
+        <jackson.version>2.17.2</jackson.version>
     </properties>
 
     <dependencyManagement>
@@ -78,21 +78,21 @@
             <dependency>
                 <groupId>com.mybatis-flex</groupId>
                 <artifactId>mybatis-flex-kotlin-extensions</artifactId>
-                <version>1.0.9</version>
+                <version>1.1.0</version>
             </dependency>
 
             <!-- https://mvnrepository.com/artifact/com.baomidou/mybatis-plus-spring-boot3-starter -->
             <dependency>
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-spring-boot3-starter</artifactId>
-                <version>3.5.6</version>
+                <version>3.5.7</version>
             </dependency>
 
             <!-- https://mvnrepository.com/artifact/com.alibaba/druid-spring-boot-3-starter -->
             <dependency>
                 <groupId>com.alibaba</groupId>
                 <artifactId>druid-spring-boot-3-starter</artifactId>
-                <version>1.2.22</version>
+                <version>1.2.23</version>
             </dependency>
 
             <!-- https://mvnrepository.com/artifact/com.github.pagehelper/pagehelper-spring-boot-starter -->
@@ -134,21 +134,21 @@
             <dependency>
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-compress</artifactId>
-                <version>1.26.1</version>
+                <version>1.26.2</version>
             </dependency>
 
             <!-- https://mvnrepository.com/artifact/com.google.guava/guava -->
             <dependency>
                 <groupId>com.google.guava</groupId>
                 <artifactId>guava</artifactId>
-                <version>33.2.0-jre</version>
+                <version>33.2.1-jre</version>
             </dependency>
 
             <!-- https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-starter-webmvc-ui -->
             <dependency>
                 <groupId>org.springdoc</groupId>
                 <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
-                <version>2.5.0</version>
+                <version>2.6.0</version>
             </dependency>
 
             <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core -->
@@ -176,7 +176,7 @@
             <dependency>
                 <groupId>com.alibaba.fastjson2</groupId>
                 <artifactId>fastjson2-extension-spring6</artifactId>
-                <version>2.0.50</version>
+                <version>2.0.51</version>
             </dependency>
 
             <!-- https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt-api -->
