@@ -17,6 +17,7 @@
 ### Features
 
  * Add questionnaire system
+ * Add compute string width method
 
 ## 1.6.6
 
