@@ -22,6 +22,7 @@
 
  * Add questionnaire system
  * Add compute string width method
+ * Add `Excel` export width auto size
 
 ## 1.6.6
 

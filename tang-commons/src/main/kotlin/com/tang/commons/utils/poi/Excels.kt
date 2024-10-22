@@ -6,6 +6,7 @@ import com.tang.commons.constants.ContentType
 import com.tang.commons.constants.FileType
 import com.tang.commons.enumeration.poi.Type
 import com.tang.commons.exception.file.FileTypeMismatchException
+import com.tang.commons.kotlin.extensions.width
 import com.tang.commons.utils.Assert
 import com.tang.commons.utils.DictUtils
 import com.tang.commons.utils.LogUtils
@@ -396,7 +397,8 @@ object Excels {
             cell.cellStyle = cellStyle
 
             // 设置列宽
-            sheet.setColumnWidth(lastCellNum, excel.width * 256)
+            val width = if (excel.width == -1) excel.name.width() + 1 else excel.width
+            sheet.setColumnWidth(lastCellNum, width * 256)
 
             // 设置行高
             titleRow.height = (excel.titleHeight * 20).toShort()
