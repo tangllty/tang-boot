@@ -5,7 +5,6 @@ import com.tang.commons.annotation.poi.Excel
 import com.tang.commons.constants.ContentType
 import com.tang.commons.constants.FileType
 import com.tang.commons.enumeration.poi.Type
-import com.tang.commons.enumeration.poi.CellType as ExcelCellType
 import com.tang.commons.exception.file.FileTypeMismatchException
 import com.tang.commons.utils.Assert
 import com.tang.commons.utils.DictUtils
@@ -21,27 +20,29 @@ import org.apache.poi.ss.usermodel.VerticalAlignment
 import org.apache.poi.ss.util.CellRangeAddressList
 import org.apache.poi.xssf.usermodel.XSSFCell
 import org.apache.poi.xssf.usermodel.XSSFDataValidationHelper
+import org.apache.poi.xssf.usermodel.XSSFRow
 import org.apache.poi.xssf.usermodel.XSSFSheet
 import org.apache.poi.xssf.usermodel.XSSFWorkbook
 import org.springframework.core.annotation.AnnotationUtils
 import org.springframework.util.ReflectionUtils
 import org.springframework.web.multipart.MultipartFile
+import java.io.InputStream
 import java.lang.reflect.Field
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.Objects
-import java.util.concurrent.atomic.AtomicInteger
 import kotlin.math.min
 import kotlin.reflect.full.memberExtensionProperties
 import kotlin.reflect.full.memberProperties
 import kotlin.reflect.jvm.isAccessible
+import com.tang.commons.enumeration.poi.CellType as ExcelCellType
 
 /**
  * Excel 工具类
  *
  * @author Tang
  */
-object ExcelUtils {
+object Excels {
 
     private val LOGGER = LogUtils.getLogger()
 
@@ -59,22 +60,33 @@ object ExcelUtils {
             LOGGER.error("导入失败, 只支持 Excel 2007 及以上版本")
             FileTypeMismatchException("导入失败, 只支持 Excel 2007 及以上版本")
         }
+        return importExcel(clazz, file.inputStream)
+    }
 
-        val list = java.util.ArrayList<T>()
+    /**
+     * 导入 Excel
+     *
+     * @param clazz 类
+     * @param file  文件流
+     * @return 数据
+     */
+    @JvmStatic
+    fun <T> importExcel(clazz: Class<T>, file: InputStream): List<T> {
+        val list = mutableListOf<T>()
         val fields = getFields(clazz)
-
-        val workbook = XSSFWorkbook(file.inputStream)
+        val workbook = XSSFWorkbook(file)
         val sheet = workbook.getSheetAt(0)
         val rowNum = sheet.lastRowNum
+        val titleIndexMap = getTitleIndex(sheet.getRow(0))
         for (i in 1..rowNum) {
             val row = sheet.getRow(i)
             val obj = clazz.getDeclaredConstructor().newInstance()
-            val cellNumIndex = AtomicInteger()
             fields.forEach { (field: Field, excel: Excel) ->
-                val cell = row.getCell(cellNumIndex.getAndIncrement())
-                if (excel.type == Type.EXPORT) {
+                val index = titleIndexMap[excel.name]
+                if (excel.type == Type.EXPORT || index == null) {
                     return@forEach
                 }
+                val cell = row.getCell(index)
                 ReflectionUtils.makeAccessible(field)
                 val setMethod = clazz.getMethod("set" + CaseFormat.LOWER_CAMEL.to(CaseFormat.UPPER_CAMEL, field.name), field.type)
                 val cellValue = getCellValue(field, cell, excel)
@@ -83,6 +95,21 @@ object ExcelUtils {
             list.add(obj)
         }
         return list.filter { !isNull(it) }
+    }
+
+    /**
+     * 获取标题索引
+     *
+     * @param row 行
+     * @return 标题索引
+     */
+    private fun getTitleIndex(row: XSSFRow): Map<String, Int> {
+        val titleIndexMap = mutableMapOf<String, Int>()
+        for (i in 0 until row.lastCellNum) {
+            val cell = row.getCell(i)
+            titleIndexMap[cell.stringCellValue] = i
+        }
+        return titleIndexMap
     }
 
     /**
@@ -299,8 +326,9 @@ object ExcelUtils {
                 }
 
                 val dictDataList = DictUtils.getDictDataList(dictType)
+                val labelList = dictDataList.map { it.dataLabel }.toTypedArray()
                 val validationHelper = XSSFDataValidationHelper(cell.sheet)
-                val validationConstraint = validationHelper.createExplicitListConstraint(dictDataList.map { it.dataLabel }.toList().toTypedArray<String>())
+                val validationConstraint = validationHelper.createExplicitListConstraint(labelList)
                 val cellRangeAddressList = CellRangeAddressList(cell.rowIndex, cell.rowIndex, cell.columnIndex, cell.columnIndex)
                 val validation = validationHelper.createValidation(validationConstraint, cellRangeAddressList)
                 cell.setCellValue(DictUtils.getDictLabel(dictType, stringValue))
@@ -340,7 +368,7 @@ object ExcelUtils {
             val cellStyle = sheet.workbook.createCellStyle()
 
             // 设置水平对齐方式
-            cellStyle.alignment = HorizontalAlignment.LEFT
+            cellStyle.alignment = HorizontalAlignment.CENTER
 
             // 设置垂直对齐方式
             cellStyle.verticalAlignment = VerticalAlignment.CENTER

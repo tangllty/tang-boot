@@ -1,5 +1,9 @@
 ## 1.6.7
 
+### Bug Fixes
+
+ * Fix `Excel` import result can only be obtained in order
+
 ### Dependencies
 
  * Bump spring-boot-dependencies from 3.3.0 to 3.3.1

@@ -16,7 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.tang.commons.utils.AjaxResult;
 import com.tang.commons.utils.page.PageUtils;
 import com.tang.commons.utils.page.PageResult;
-import com.tang.commons.utils.poi.ExcelUtils;
+import com.tang.commons.utils.poi.Excels;
 import com.tang.system.entity.SysUser;
 import com.tang.system.service.SysRoleService;
 import com.tang.system.service.SysUserService;
@@ -150,7 +150,7 @@ public class SysUserController {
     @PreAuthorize("@auth.hasPermission('system:user:import')")
     @PostMapping("/import")
     public AjaxResult importUser(MultipartFile file, Long deptId, Long[] roleIds) {
-        var list = ExcelUtils.importExcel(SysUser.class, file);
+        var list = Excels.importExcel(SysUser.class, file);
         list.forEach(user -> {
             user.setDeptId(deptId);
             user.setRoleIds(Arrays.asList(roleIds));
@@ -170,7 +170,7 @@ public class SysUserController {
     @GetMapping("/export")
     public void export(HttpServletResponse response, SysUser user) {
         var list = userService.selectUserList(user);
-        ExcelUtils.export(response, SysUser.class, list);
+        Excels.export(response, SysUser.class, list);
     }
 
     /**
@@ -181,7 +181,7 @@ public class SysUserController {
     @PreAuthorize("@auth.hasPermission('system:user:export')")
     @GetMapping("/export-template")
     public void exportTemplate(HttpServletResponse response) {
-        ExcelUtils.exportTemplate(response, SysUser.class);
+        Excels.exportTemplate(response, SysUser.class);
     }
 
 }

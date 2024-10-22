@@ -51,9 +51,11 @@ annotation class Excel(
     val dictType: String = "",
 
     /**
-     * 列宽
+     * 列宽，-1为自适应
+     *
+     * @see com.tang.commons.utils.poi.Excels.setTitle
      */
-    val width: Int = 10,
+    val width: Int = -1,
 
     /**
      * 行高
