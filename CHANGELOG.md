@@ -23,6 +23,7 @@
  * Add questionnaire system
  * Add compute string width method
  * Add `Excel` export width auto size
+ * Add `ExcelConfig` annotation for set main title and some style
 
 ## 1.6.6
 

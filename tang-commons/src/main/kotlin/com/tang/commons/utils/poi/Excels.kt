@@ -2,6 +2,7 @@ package com.tang.commons.utils.poi
 
 import com.google.common.base.CaseFormat
 import com.tang.commons.annotation.poi.Excel
+import com.tang.commons.annotation.poi.ExcelConfig
 import com.tang.commons.constants.ContentType
 import com.tang.commons.constants.FileType
 import com.tang.commons.enumeration.poi.Type
@@ -18,8 +19,10 @@ import org.apache.poi.ss.usermodel.FillPatternType
 import org.apache.poi.ss.usermodel.HorizontalAlignment
 import org.apache.poi.ss.usermodel.IndexedColors
 import org.apache.poi.ss.usermodel.VerticalAlignment
+import org.apache.poi.ss.util.CellRangeAddress
 import org.apache.poi.ss.util.CellRangeAddressList
 import org.apache.poi.xssf.usermodel.XSSFCell
+import org.apache.poi.xssf.usermodel.XSSFCellStyle
 import org.apache.poi.xssf.usermodel.XSSFDataValidationHelper
 import org.apache.poi.xssf.usermodel.XSSFRow
 import org.apache.poi.xssf.usermodel.XSSFSheet
@@ -32,6 +35,8 @@ import java.lang.reflect.Field
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.Objects
+import java.util.concurrent.ConcurrentHashMap
+import java.util.concurrent.ConcurrentMap
 import kotlin.math.min
 import kotlin.reflect.full.memberExtensionProperties
 import kotlin.reflect.full.memberProperties
@@ -46,6 +51,8 @@ import com.tang.commons.enumeration.poi.CellType as ExcelCellType
 object Excels {
 
     private val LOGGER = LogUtils.getLogger()
+
+    private val fieldsCache: ConcurrentMap<Class<*>, LinkedHashMap<Field, Excel>> = ConcurrentHashMap()
 
     /**
      * 导入 Excel
@@ -78,7 +85,8 @@ object Excels {
         val workbook = XSSFWorkbook(file)
         val sheet = workbook.getSheetAt(0)
         val rowNum = sheet.lastRowNum
-        val titleIndexMap = getTitleIndex(sheet.getRow(0))
+        val titleRow = sheet.getRow(if (hasMainTitle(clazz)) 1 else 0)
+        val titleIndexMap = getTitleIndex(titleRow)
         for (i in 1..rowNum) {
             val row = sheet.getRow(i)
             val obj = clazz.getDeclaredConstructor().newInstance()
@@ -206,7 +214,7 @@ object Excels {
      */
     @JvmStatic
     fun <T> exportTemplate(response: HttpServletResponse, clazz: Class<T>, list: MutableList<T>, rowNum: Int) {
-        for (i in 0 until rowNum) {
+        repeat(rowNum) {
             list.add(clazz.getDeclaredConstructor().newInstance())
         }
         export(response, clazz, list)
@@ -238,7 +246,7 @@ object Excels {
     fun <T> exportTemplate(response: HttpServletResponse, clazz: Class<T>, map: Map<String, List<T>>, rowNum: Int) {
         map.map { (sheetName: String, _) ->
             val list = mutableListOf<T>()
-            for (i in 0 until rowNum) {
+            repeat(rowNum) {
                 list.add(clazz.getDeclaredConstructor().newInstance())
             }
             sheetName to list
@@ -281,7 +289,8 @@ object Excels {
         val fields = getFields(clazz)
         map.forEach { (sheetName: String, list: List<T>) ->
             val sheet = workbook.createSheet(sheetName)
-            setTitle(fields, sheet)
+            setMainTitle(clazz, sheet)
+            setTitle(clazz, fields, sheet)
             setData(fields, list, sheet)
         }
         response(response, workbook)
@@ -296,12 +305,12 @@ object Excels {
      */
     private fun <T> setData(fields: LinkedHashMap<Field, Excel>, list: List<T>, sheet: XSSFSheet) {
         list.forEach { clazz ->
-            val row = sheet.createRow(sheet.lastRowNum + 1)
+            val row = sheet.nextRow()
+            getExcelConfig(clazz!!::class.java)?.let {
+                row.height = (it.dataHeight.times(20)).toShort()
+            }
             fields.forEach { (field: Field, excel: Excel) ->
-                val lastCellNum = if (row.lastCellNum.toInt() == -1) 0 else row.lastCellNum.toInt()
-                val cell = row.createCell(lastCellNum)
-                // 设置行高
-                row.height = (excel.height * 20).toShort()
+                val cell = row.createNextCell()
                 setCellValue(cell, clazz, field, excel)
             }
         }
@@ -353,56 +362,79 @@ object Excels {
     }
 
     /**
+     * 设置主标题
+     *
+     * @param clazz 类
+     * @param sheet 工作表
+     */
+    private fun setMainTitle(clazz: Class<*>, sheet: XSSFSheet) {
+        val excelConfig = getExcelConfig(clazz)
+        if (excelConfig == null || excelConfig.mainTitle.isEmpty()) {
+            return
+        }
+        val mainTitleRow = sheet.nextRow()
+        val mergedCellNum = getFields(clazz).size
+        mainTitleRow.height = (excelConfig.mainTitleHeight.times(20)).toShort()
+        val cell = mainTitleRow.createCell(0)
+        cell.setCellValue(excelConfig.mainTitle)
+        cell.cellStyle = getTitleStyle(sheet)
+        sheet.addMergedRegion(CellRangeAddress(0, 0, 0, mergedCellNum.minus(1)))
+    }
+
+    /**
      * 设置标题
      *
      * @param fields 字段
      * @param sheet  工作表
      */
-    private fun setTitle(fields: LinkedHashMap<Field, Excel>, sheet: XSSFSheet) {
-        val titleRow = sheet.createRow(0)
+    private fun setTitle(clazz: Class<*>, fields: LinkedHashMap<Field, Excel>, sheet: XSSFSheet) {
+        val titleRow = sheet.nextRow()
+        val excelStyle = getExcelConfig(clazz)
+        excelStyle?.let { titleRow.height = (it.titleHeight.times(20)).toShort() }
         fields.forEach { (_, excel) ->
-            val lastCellNum = if (titleRow.lastCellNum.toInt() == -1) 0 else titleRow.lastCellNum.toInt()
-            val cell = titleRow.createCell(lastCellNum)
+            val cell = titleRow.createNextCell()
             cell.setCellValue(excel.name)
-
-            // 设置标题样式
-            val cellStyle = sheet.workbook.createCellStyle()
-
-            // 设置水平对齐方式
-            cellStyle.alignment = HorizontalAlignment.CENTER
-
-            // 设置垂直对齐方式
-            cellStyle.verticalAlignment = VerticalAlignment.CENTER
-
-            // 设置字体
-            val font = sheet.workbook.createFont()
-            font.bold = true
-            cellStyle.setFont(font)
-
-            // 设置背景色
-            cellStyle.fillForegroundColor = IndexedColors.GREY_25_PERCENT.index
-            cellStyle.fillPattern = FillPatternType.SOLID_FOREGROUND
-
-            // 设置边框
-            cellStyle.borderLeft = BorderStyle.THIN
-            cellStyle.leftBorderColor = IndexedColors.BLACK.index
-            cellStyle.borderTop = BorderStyle.THIN
-            cellStyle.topBorderColor = IndexedColors.BLACK.index
-            cellStyle.borderRight = BorderStyle.THIN
-            cellStyle.rightBorderColor = IndexedColors.BLACK.index
-            cellStyle.borderBottom = BorderStyle.THIN
-            cellStyle.bottomBorderColor = IndexedColors.BLACK.index
-
-            // 设置样式
-            cell.cellStyle = cellStyle
-
-            // 设置列宽
-            val width = if (excel.width == -1) excel.name.width() + 1 else excel.width
-            sheet.setColumnWidth(lastCellNum, width * 256)
-
-            // 设置行高
-            titleRow.height = (excel.titleHeight * 20).toShort()
+            cell.cellStyle = getTitleStyle(sheet)
+            val width = if (excel.width == -1) excel.name.width().plus(1) else excel.width
+            sheet.setColumnWidth(titleRow.lastCellNum.minus(1), width.times(256))
         }
+    }
+
+    /**
+     * 获取标题样式
+     *
+     * @param sheet 工作表
+     * @return 样式
+     */
+    private fun getTitleStyle(sheet: XSSFSheet): XSSFCellStyle {
+        // 设置标题样式
+        val cellStyle = sheet.workbook.createCellStyle()
+
+        // 设置水平对齐方式
+        cellStyle.alignment = HorizontalAlignment.CENTER
+
+        // 设置垂直对齐方式
+        cellStyle.verticalAlignment = VerticalAlignment.CENTER
+
+        // 设置字体
+        val font = sheet.workbook.createFont()
+        font.bold = true
+        cellStyle.setFont(font)
+
+        // 设置背景色
+        cellStyle.fillForegroundColor = IndexedColors.GREY_25_PERCENT.index
+        cellStyle.fillPattern = FillPatternType.SOLID_FOREGROUND
+
+        // 设置边框
+        cellStyle.borderLeft = BorderStyle.THIN
+        cellStyle.leftBorderColor = IndexedColors.BLACK.index
+        cellStyle.borderTop = BorderStyle.THIN
+        cellStyle.topBorderColor = IndexedColors.BLACK.index
+        cellStyle.borderRight = BorderStyle.THIN
+        cellStyle.rightBorderColor = IndexedColors.BLACK.index
+        cellStyle.borderBottom = BorderStyle.THIN
+        cellStyle.bottomBorderColor = IndexedColors.BLACK.index
+        return cellStyle
     }
 
     /**
@@ -412,13 +444,49 @@ object Excels {
      * @return LinkedHashMap
      */
     private fun getFields(clazz: Class<*>): LinkedHashMap<Field, Excel> {
-        val fields = listOf(*clazz.declaredFields, *clazz.superclass.declaredFields)
+        return fieldsCache.computeIfAbsent(clazz) {
+            val fields = listOf(*clazz.declaredFields, *clazz.superclass.declaredFields)
+            fields
+                .filter { it.isAnnotationPresent(Excel::class.java) }
+                .map { field -> field to AnnotationUtils.getAnnotation(field, Excel::class.java)!! }
+                .sortedBy { it.second.sort }
+                .associateByTo(LinkedHashMap(), { it.first }, { it.second })
+        }
+    }
 
-        return fields
-            .filter { it.isAnnotationPresent(Excel::class.java) }
-            .map { field -> field to AnnotationUtils.getAnnotation(field, Excel::class.java)!! }
-            .sortedBy { it.second.sort }
-            .associateByTo(LinkedHashMap(), { it.first }, { it.second })
+    /**
+     * 获取 Excel 配置
+     *
+     * @param clazz 类
+     * @return ExcelConfig 配置
+     */
+    private fun getExcelConfig(clazz: Class<*>): ExcelConfig? {
+        return AnnotationUtils.getAnnotation(clazz, ExcelConfig::class.java)
+    }
+
+    /**
+     * 是否有主标题
+     *
+     * @param clazz 类
+     * @return 是否有主标题
+     */
+    private fun hasMainTitle(clazz: Class<*>): Boolean {
+        return getExcelConfig(clazz)?.mainTitle?.isNotEmpty() == true
+    }
+
+    /**
+     * 获取下一行
+     */
+    private fun XSSFSheet.nextRow(): XSSFRow {
+        return this.createRow(lastRowNum.plus(1))
+    }
+
+    /**
+     * 创建下一个单元格
+     */
+    private fun XSSFRow.createNextCell(): XSSFCell {
+        val lastCellNum = if (lastCellNum.toInt() == -1) 0 else lastCellNum.toInt()
+        return this.createCell(lastCellNum)
     }
 
     /**

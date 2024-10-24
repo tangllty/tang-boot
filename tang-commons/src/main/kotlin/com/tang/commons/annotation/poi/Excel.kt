@@ -57,14 +57,4 @@ annotation class Excel(
      */
     val width: Int = -1,
 
-    /**
-     * 行高
-     */
-    val height: Int = 16,
-
-    /**
-     * 标题行高
-     */
-    val titleHeight: Int = 16
-
 )
