@@ -460,7 +460,7 @@ create table sys_log_api (
     end_time       datetime                                comment '结束时间',
     cost_time      bigint(20)     default 0                comment '耗时',
     status_code    varchar(32)    default ''               comment '状态码',
-    message        varchar(128)   default ''               comment '消息',
+    message        varchar(2000)   default ''               comment '消息',
     create_by      varchar(64)    default ''               comment '创建者',
     create_time    datetime                                comment '创建时间',
     update_by      varchar(64)    default ''               comment '更新者',
