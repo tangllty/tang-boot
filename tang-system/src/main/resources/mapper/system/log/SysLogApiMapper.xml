@@ -48,7 +48,7 @@
         select sla.class_name, sla.method_name, sla.request_uri, sla.request_type,
             count(1) as `count`,
             sum(sla.cost_time) as total_time,
-            avg(sla.cost_time) as average_time,
+            avg(case when sla.cost_time != 0 then sla.cost_time end) as average_time,
             min(sla.cost_time) as min_time,
             max(sla.cost_time) as max_time
         from sys_log_api sla

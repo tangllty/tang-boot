@@ -3,6 +3,7 @@
 ### Bug Fixes
 
  * Fix `Excel` import result can only be obtained in order
+ * Api log analysis avg function exclude zero value
 
 ### Dependencies
 
