@@ -7,17 +7,28 @@
 
 ### Dependencies
 
- * Bump spring-boot-dependencies from 3.3.0 to 3.3.1
- * Bump mybatis-flex-spring-boot3-starter from 1.8.9 to 1.9.3
- * Bump mybatis-flex-kotlin-extensions from 1.0.9 to 1.1.0
- * Bump mybatis-plus-spring-boot3-starter from 3.5.6 to 3.5.7
- * Bump druid-spring-boot-3-starter from 1.2.22 to 1.2.23
- * Bump commons-compress from 1.26.1 to 1.26.2
- * Bump guava from 33.2.0-jre to 33.2.1-jre
- * Bump springdoc-openapi-starter-webmvc-ui from 2.5.0 to 2.6.0
- * Bump jackson from 2.17.1 to 2.17.2
- * Bump fastjson2-extension-spring6 from 2.0.50 to 2.0.51
+ * Bump spring-boot-dependencies from 3.3.0 to 4.4.0
+ * Bump spring-boot-admin-dependencies from 3.3.0 to 4.4.0
+ * Bump mybatis-spring-boot-starter from 3.0.3 to 3.0.4
+ * Bump mybatis-flex-spring-boot3-starter from 1.8.9 to 1.10.2
+ * Bump mybatis-flex-kotlin-extensions from 1.0.9 to 1.1.2
+ * Bump mybatis-plus-spring-boot3-starter from 3.5.6 to 3.5.9
+ * Bump druid-spring-boot-3-starter from 1.2.22 to 1.2.24
+ * Bump commons-compress from 1.26.1 to 1.27.1
+ * Bump commons-io from 2.16.1 to 2.18.0
+ * Bump guava from 33.2.0-jre to 33.3.1-jre
+ * Bump springdoc-openapi-starter-webmvc-ui from 2.5.0 to 2.7.0
+ * Bump jackson from 2.17.1 to 2.18.2
+ * Bump fastjson2-extension-spring6 from 2.0.50 to 2.0.53
  * Bump jjwt from 0.12.5 to 0.12.6
+ * Bump kotlin from 2.0.0 to 2.1.0
+ * Bump mybatis from 3.5.16 to 3.5.17
+ * Bump hutool from 5.8.27 to 5.8.34
+ * Bump oshi-core from 6.6.0 to 6.6.5
+ * Bump velocity-engine-core from 2.3 to 2.4.1
+ * Bump poi-ooxml from 5.2.5 to 5.3.0
+ * Bump native-maven-plugin from 0.10.0 to 0.10.3
+ * Bump maven-compiler-plugin from 3.11.0 to 3.13.0
 
 ### Features
 
