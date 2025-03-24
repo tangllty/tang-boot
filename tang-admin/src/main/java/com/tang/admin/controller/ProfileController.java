@@ -2,6 +2,7 @@ package com.tang.admin.controller;
 
 import java.util.Objects;
 
+import com.tang.commons.utils.RsaUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -73,6 +74,9 @@ public class ProfileController {
     @PreAuthorize("@auth.hasPermission('system:user:edit')")
     @PutMapping("/edit-password")
     public AjaxResult editPassword(@Valid @RequestBody PasswordVo passwordVo) {
+        passwordVo.setOldPassword(RsaUtils.decrypt(passwordVo.getOldPassword()));
+        passwordVo.setNewPassword(RsaUtils.decrypt(passwordVo.getNewPassword()));
+        passwordVo.setConfirmPassword(RsaUtils.decrypt(passwordVo.getConfirmPassword()));
         return AjaxResult.rows(userService.updatePasswordByUserId(passwordVo));
     }
 

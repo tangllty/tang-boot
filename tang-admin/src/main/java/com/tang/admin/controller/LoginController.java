@@ -1,8 +1,8 @@
 package com.tang.admin.controller;
 
-import java.util.Base64;
 import java.util.Map;
 
+import com.tang.commons.utils.RsaUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.tang.commons.model.LoginModel;
 import com.tang.commons.utils.AjaxResult;
-import com.tang.commons.utils.ByteUtils;
 import com.tang.commons.utils.SecurityUtils;
 import com.tang.framework.web.service.LoginService;
 import com.tang.system.service.SysMenuService;
@@ -42,7 +41,7 @@ public class LoginController {
      */
     @PostMapping("/login")
     public AjaxResult login(@Valid @RequestBody LoginModel loginModel) {
-        loginModel.setPassword(ByteUtils.byteToHex(Base64.getDecoder().decode(loginModel.getPassword())));
+        loginModel.setPassword(RsaUtils.decrypt(loginModel.getPassword()));
         var token = loginService.login(loginModel);
         return AjaxResult.success(Map.of("token", token));
     }

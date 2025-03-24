@@ -1,7 +1,5 @@
 package com.tang.commons.domain.vo;
 
-import org.hibernate.validator.constraints.Length;
-
 import jakarta.validation.constraints.NotBlank;
 
 /**
@@ -20,19 +18,19 @@ public class PasswordVo {
     /**
     * 旧密码
     */
-    @Length(min = 4, max = 32, message = "旧密码长度应在 4 到 32 之间")
+    @NotBlank(message = "密码不能为空")
     private String oldPassword;
 
     /**
     * 新密码
     */
-    @Length(min = 4, max = 32, message = "新密码长度应在 4 到 32 之间")
+    @NotBlank(message = "密码不能为空")
     private String newPassword;
 
     /**
      * 确认密码
      */
-    @Length(min = 4, max = 32, message = "确认密码长度应在 4 到 32 之间")
+    @NotBlank(message = "密码不能为空")
     private String confirmPassword;
 
 
