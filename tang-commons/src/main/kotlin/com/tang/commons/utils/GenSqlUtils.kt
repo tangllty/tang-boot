@@ -299,7 +299,7 @@ object GenSqlUtils {
         var icon: String? = null
 
         /**
-         * 菜单类型（M目录 C菜单 F按钮）
+         * 菜单类型（M目录 C菜单 B按钮 P页面）
          */
         var menuType: String? = null
 

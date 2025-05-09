@@ -20,7 +20,12 @@ enum class MenuType(val value: String) {
     /**
      * 按钮
      */
-    BUTTON("B");
+    BUTTON("B"),
+
+    /**
+     * 页面
+     */
+    PAGE("P");
 
     companion object {
 
@@ -28,7 +33,7 @@ enum class MenuType(val value: String) {
          * 根据 value 返回枚举类型
          *
          * @param value 菜单类型
-         * @return {@link MenuType} 菜单类型名称
+         * @return [MenuType] 菜单类型名称
          */
         @JvmStatic
         fun getMenuType(value: String): MenuType? {

@@ -36,6 +36,7 @@
  * Add compute string width method
  * Add `Excel` export width auto size
  * Add `ExcelConfig` annotation for set main title and some style
+ * Support page menu
 
 ## 1.6.6
 

@@ -67,7 +67,7 @@ public class SysMenu extends BaseEntity {
     private String icon;
 
     /**
-     * 菜单类型（M目录 C菜单 F按钮）
+     * 菜单类型（M目录 C菜单 B按钮 P页面）
      */
     @NotBlank(message = "菜单类型不能为空")
     private String menuType;

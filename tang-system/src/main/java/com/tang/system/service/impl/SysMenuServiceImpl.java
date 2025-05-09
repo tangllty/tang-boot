@@ -171,6 +171,12 @@ public class SysMenuServiceImpl implements SysMenuService {
                 route.setType(MenuType.MENU);
                 route.setComponent(menu.getComponent());
             }
+            if (menuType.equals(MenuType.PAGE.getValue())) {
+                route.setPath(menu.getPath());
+                route.setType(MenuType.PAGE);
+                route.setComponent(menu.getComponent());
+                meta.setHidden(true);
+            }
             if (menu.getParentId() == ROOT_MENU_ID) {
                 route.setPath("/" + menu.getPath());
                 route.setRoot(Boolean.TRUE);

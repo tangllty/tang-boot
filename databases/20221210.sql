@@ -107,7 +107,7 @@ create table sys_menu (
     component    varchar(255)  default ''               comment '组件路径',
     permission   varchar(128)  default ''               comment '权限标识',
     icon         varchar(128)  default ''               comment '菜单图标',
-    menu_type    char(1)       default ''               comment '菜单类型{D=目录, M=菜单, B=按钮}',
+    menu_type    char(1)       default ''               comment '菜单类型{D=目录, M=菜单, B=按钮, P=页面}',
     visible      char(1)       default '0'              comment '菜单状态{0=显示, 1=隐藏}',
     sort         int(4)        default 0                comment '显示顺序',
     status       char(1)       default '0'              comment '菜单状态{0=正常, 1=停用}',

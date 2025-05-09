@@ -17,6 +17,11 @@ public class MetaVo {
      */
     private String icon;
 
+    /**
+     * 隐藏路由
+     */
+    private Boolean hidden;
+
 
     public String getTitle() {
         return title;
@@ -32,6 +37,14 @@ public class MetaVo {
 
     public void setIcon(String icon) {
         this.icon = icon;
+    }
+
+    public Boolean getHidden() {
+        return hidden;
+    }
+
+    public void setHidden(Boolean hidden) {
+        this.hidden = hidden;
     }
 
 }
