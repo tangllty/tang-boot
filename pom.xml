@@ -5,7 +5,7 @@
 
     <groupId>com.tang</groupId>
     <artifactId>tang-parent</artifactId>
-    <version>1.6.6</version>
+    <version>1.6.7</version>
 
     <name>tang-boot</name>
     <url>https://gitee.com/tangllty/tang-boot</url>
@@ -27,13 +27,13 @@
     </modules>
 
     <properties>
-        <tang.version>1.6.6</tang.version>
+        <tang.version>1.6.7</tang.version>
         <java.version>17</java.version>
         <kotlin.version>2.1.0</kotlin.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <spring-boot-dependencies.version>3.4.0</spring-boot-dependencies.version>
-        <spring-boot-admin.version>3.4.0</spring-boot-admin.version>
+        <spring-boot-dependencies.version>3.4.5</spring-boot-dependencies.version>
+        <spring-boot-admin.version>3.4.5</spring-boot-admin.version>
         <jjwt.version>0.12.6</jjwt.version>
         <hutool.version>5.8.34</hutool.version>
         <jackson.version>2.18.2</jackson.version>

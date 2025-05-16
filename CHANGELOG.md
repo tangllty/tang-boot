@@ -7,8 +7,8 @@
 
 ### Dependencies
 
- * Bump spring-boot-dependencies from 3.3.0 to 4.4.0
- * Bump spring-boot-admin-dependencies from 3.3.0 to 4.4.0
+ * Bump spring-boot-dependencies from 3.3.0 to 3.4.5
+ * Bump spring-boot-admin-dependencies from 3.3.0 to 3.4.5
  * Bump mybatis-spring-boot-starter from 3.0.3 to 3.0.4
  * Bump mybatis-flex-spring-boot3-starter from 1.8.9 to 1.10.2
  * Bump mybatis-flex-kotlin-extensions from 1.0.9 to 1.1.2

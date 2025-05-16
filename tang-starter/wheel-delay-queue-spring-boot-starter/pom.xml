@@ -6,7 +6,7 @@
     <parent>
         <groupId>com.tang</groupId>
         <artifactId>tang-starter</artifactId>
-        <version>1.6.6</version>
+        <version>1.6.7</version>
     </parent>
 
     <artifactId>wheel-delay-queue-spring-boot-starter</artifactId>
