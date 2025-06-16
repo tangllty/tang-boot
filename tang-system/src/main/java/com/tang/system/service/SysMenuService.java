@@ -36,7 +36,7 @@ public interface SysMenuService {
      * @param menu 菜单对象
      * @return 菜单树下拉选项
      */
-    List<TreeSelect> selectMenuTree(SysMenu menu);
+    List<TreeSelect<Long>> selectMenuTree(SysMenu menu);
 
     /**
      * 通过主键查询单条数据

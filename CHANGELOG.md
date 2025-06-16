@@ -37,6 +37,7 @@
  * Add `Excel` export width auto size
  * Add `ExcelConfig` annotation for set main title and some style
  * Support page menu
+ * Refactor tree structure handling to support generic types and enhance tree building methods
 
 ## 1.6.6
 

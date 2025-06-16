@@ -105,9 +105,9 @@ public class SysRoleServiceImpl implements SysRoleService {
      * @return 角色下拉框数据
      */
     @Override
-    public List<TreeSelect> selectRolesSelect() {
+    public List<TreeSelect<Long>> selectRolesSelect() {
         var roleList = roleMapper.selectRoleList(null);
-        return roleList.stream().map(role -> new TreeSelect(role.getRoleId(), role.getRoleName())).toList();
+        return roleList.stream().map(role -> new TreeSelect<>(role.getRoleId(), role.getRoleName())).toList();
     }
 
     /**

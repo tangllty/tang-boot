@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
  *
  * @author Tang
  */
-public class TreeSelect implements Serializable {
+public class TreeSelect<T> implements Serializable {
 
     @java.io.Serial
     private static final long serialVersionUID = -5072364851437166728L;
@@ -20,12 +20,12 @@ public class TreeSelect implements Serializable {
      * 父节点ID
      */
     @JsonIgnore
-    private Long parentId;
+    private T parentId;
 
     /**
      * 节点ID
      */
-    private Long value;
+    private T value;
 
     /**
      * 节点名称
@@ -36,35 +36,40 @@ public class TreeSelect implements Serializable {
      * 子节点
      */
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
-    private List<TreeSelect> children;
+    private List<TreeSelect<T>> children;
 
     public TreeSelect() {
     }
 
-    public TreeSelect(Long value, String label) {
+    public TreeSelect(T value, T parentId) {
+        this.value = value;
+        this.parentId = parentId;
+    }
+
+    public TreeSelect(T value, String label) {
         this.value = value;
         this.label = label;
     }
 
-    public TreeSelect(Long parentId, Long value, String label) {
+    public TreeSelect(T parentId, T value, String label) {
         this.parentId = parentId;
         this.value = value;
         this.label = label;
     }
 
-    public Long getParentId() {
+    public T getParentId() {
         return parentId;
     }
 
-    public void setParentId(Long parentId) {
+    public void setParentId(T parentId) {
         this.parentId = parentId;
     }
 
-    public Long getValue() {
+    public T getValue() {
         return value;
     }
 
-    public void setValue(Long value) {
+    public void setValue(T value) {
         this.value = value;
     }
 
@@ -76,11 +81,11 @@ public class TreeSelect implements Serializable {
         this.label = label;
     }
 
-    public List<TreeSelect> getChildren() {
+    public List<TreeSelect<T>> getChildren() {
         return children;
     }
 
-    public void setChildren(List<TreeSelect> children) {
+    public void setChildren(List<TreeSelect<T>> children) {
         this.children = children;
     }
 

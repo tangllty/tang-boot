@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import com.tang.commons.constants.TreeDefault;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -74,11 +75,11 @@ public class SysDeptServiceImpl implements SysDeptService {
      * @return 部门树下拉选项
      */
     @Override
-    public List<TreeSelect> selectDeptTree(SysDept dept) {
+    public List<TreeSelect<Long>> selectDeptTree(SysDept dept) {
         var deptList = deptMapper.selectDeptList(dept);
-        var treeSelectList = new ArrayList<TreeSelect>();
-        deptList.forEach(it -> treeSelectList.add(new TreeSelect(it.getParentId(), it.getDeptId(), it.getDeptName())));
-        return TreeUtils.buildTree(treeSelectList);
+        var treeSelectList = new ArrayList<TreeSelect<Long>>();
+        deptList.forEach(it -> treeSelectList.add(new TreeSelect<>(it.getParentId(), it.getDeptId(), it.getDeptName())));
+        return TreeUtils.buildTreeWithMap(treeSelectList, TreeDefault.DEFAULT_PARENT_ID_LONG);
     }
 
     /**

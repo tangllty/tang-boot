@@ -7,6 +7,7 @@ import java.util.Set;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
 
+import com.tang.commons.constants.TreeDefault;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
@@ -88,11 +89,11 @@ public class SysMenuServiceImpl implements SysMenuService {
      * @return 菜单树下拉选项
      */
     @Override
-    public List<TreeSelect> selectMenuTree(SysMenu menu) {
+    public List<TreeSelect<Long>> selectMenuTree(SysMenu menu) {
         var menuList = menuMapper.selectMenuList(menu);
-        var treeSelectList = new ArrayList<TreeSelect>();
-        menuList.forEach(it -> treeSelectList.add(new TreeSelect(it.getParentId(), it.getMenuId(), it.getMenuName())));
-        return TreeUtils.buildTree(treeSelectList);
+        var treeSelectList = new ArrayList<TreeSelect<Long>>();
+        menuList.forEach(it -> treeSelectList.add(new TreeSelect<>(it.getParentId(), it.getMenuId(), it.getMenuName())));
+        return TreeUtils.buildTreeWithMap(treeSelectList, TreeDefault.DEFAULT_PARENT_ID_LONG);
     }
 
     /**

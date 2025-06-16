@@ -58,7 +58,7 @@ public interface SysRoleService {
      *
      * @return 角色下拉框数据
      */
-    List<TreeSelect> selectRolesSelect();
+    List<TreeSelect<Long>> selectRolesSelect();
 
     /**
      * 新增角色

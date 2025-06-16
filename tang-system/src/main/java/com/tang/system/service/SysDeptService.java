@@ -34,7 +34,7 @@ public interface SysDeptService {
      * @param dept 部门对象
      * @return 部门树下拉选项
      */
-    List<TreeSelect> selectDeptTree(SysDept dept);
+    List<TreeSelect<Long>> selectDeptTree(SysDept dept);
 
     /**
      * 通过主键查询单条数据
