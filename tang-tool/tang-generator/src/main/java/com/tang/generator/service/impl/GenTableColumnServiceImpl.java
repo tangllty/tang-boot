@@ -1,5 +1,6 @@
 package com.tang.generator.service.impl;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -30,7 +31,7 @@ public class GenTableColumnServiceImpl implements GenTableColumnService {
      */
     @Override
     public List<GenTableColumn> selectTableColumnList(GenTableColumn tableColumn) {
-        return tableColumnMapper.selectTableColumnList(tableColumn);
+        return tableColumnMapper.select(tableColumn);
     }
 
     /**
@@ -52,7 +53,7 @@ public class GenTableColumnServiceImpl implements GenTableColumnService {
      */
     @Override
     public GenTableColumn selectTableColumnByColumnId(Long columnId) {
-        return tableColumnMapper.selectTableColumnByColumnId(columnId);
+        return tableColumnMapper.selectById(columnId);
     }
 
     /**
@@ -63,7 +64,8 @@ public class GenTableColumnServiceImpl implements GenTableColumnService {
      */
     @Override
     public int insertTableColumn(GenTableColumn tableColumn) {
-        return tableColumnMapper.insertTableColumn(tableColumn);
+        tableColumn.setCreateTime(LocalDateTime.now());
+        return tableColumnMapper.insertSelective(tableColumn);
     }
 
     /**
@@ -74,7 +76,7 @@ public class GenTableColumnServiceImpl implements GenTableColumnService {
      */
     @Override
     public int updateTableColumnByColumnId(GenTableColumn tableColumn) {
-        return tableColumnMapper.updateTableColumnByColumnId(tableColumn);
+        return tableColumnMapper.updateSelective(tableColumn);
     }
 
     /**
@@ -85,7 +87,7 @@ public class GenTableColumnServiceImpl implements GenTableColumnService {
      */
     @Override
     public int deleteTableColumnByColumnId(Long columnId) {
-        return tableColumnMapper.deleteTableColumnByColumnId(columnId);
+        return tableColumnMapper.deleteById(columnId);
     }
 
 }

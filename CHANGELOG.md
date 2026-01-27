@@ -39,6 +39,7 @@
  * Support page menu
  * Refactor tree structure handling to support generic types and enhance tree building methods
  * Add `JetBrains` annotations to `Assert` methods for improved contract validation
+ * Replace `MyBatis` with `Kite` framework
 
 ## 1.6.6
 

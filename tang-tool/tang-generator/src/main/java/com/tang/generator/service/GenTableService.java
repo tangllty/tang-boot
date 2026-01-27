@@ -37,6 +37,14 @@ public interface GenTableService {
     GenTable selectTableByTableId(Long tableId);
 
     /**
+     * 查询表名是否存在
+     *
+     * @param tableName 表名称
+     * @return 是否存在
+     */
+    Boolean checkTableNameUnique(String tableName);
+
+    /**
      * 新增代码生成
      *
      * @param table 代码生成对象

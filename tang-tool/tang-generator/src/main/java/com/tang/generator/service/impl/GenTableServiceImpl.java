@@ -4,6 +4,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.nio.charset.StandardCharsets;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -15,6 +16,8 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
 import com.tang.generator.entity.GenTableColumn;
+import com.tang.generator.mapper.GenTableColumnMapper;
+import com.tang.generator.mapper.GenTableMapper;
 import org.apache.commons.io.IOUtils;
 import org.apache.velocity.app.Velocity;
 import org.slf4j.Logger;
@@ -26,8 +29,6 @@ import com.tang.commons.utils.Assert;
 import com.tang.commons.utils.LogUtils;
 import com.tang.commons.utils.StringUtils;
 import com.tang.generator.entity.GenTable;
-import com.tang.generator.mapper.GenTableColumnMapper;
-import com.tang.generator.mapper.GenTableMapper;
 import com.tang.generator.service.GenTableService;
 import com.tang.generator.utils.TableColumnUtils;
 import com.tang.generator.utils.TableUtils;
@@ -88,7 +89,19 @@ public class GenTableServiceImpl implements GenTableService {
      */
     @Override
     public GenTable selectTableByTableId(Long tableId) {
-        return tableMapper.selectTableByTableId(tableId);
+        return tableMapper.selectById(tableId);
+    }
+
+    /**
+     * 查询表名是否存在
+     *
+     * @param tableName 表名称
+     * @return 是否存在
+     */
+    @Override
+    public Boolean checkTableNameUnique(String tableName) {
+        var count = tableMapper.selectTableNameCount(tableName);
+        return count > 0;
     }
 
     /**
@@ -99,7 +112,7 @@ public class GenTableServiceImpl implements GenTableService {
      */
     @Override
     public int insertTable(GenTable table) {
-        return tableMapper.insertTable(table);
+        return tableMapper.insertSelective(table);
     }
 
     /**
@@ -111,10 +124,11 @@ public class GenTableServiceImpl implements GenTableService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public int updateTableByTableId(GenTable table) {
-        var rows = tableMapper.updateTableByTableId(table);
+        table.setUpdateTime(LocalDateTime.now());
+        var rows = tableMapper.updateSelective(table);
         if (rows > 0) {
             var tableColumnList = table.getTableColumnList();
-            tableColumnList.forEach(tableColumnMapper::updateTableColumnByColumnId);
+            tableColumnMapper.batchUpdateSelective(tableColumnList);
         }
         return rows;
     }
@@ -129,7 +143,7 @@ public class GenTableServiceImpl implements GenTableService {
     @Transactional(rollbackFor = Exception.class)
     public int deleteTableByTableId(Long tableId) {
         tableColumnMapper.deleteTableColumnByTableId(tableId);
-        return tableMapper.deleteTableByTableId(tableId);
+        return tableMapper.deleteById(tableId);
     }
 
     /**
@@ -142,7 +156,7 @@ public class GenTableServiceImpl implements GenTableService {
     @Transactional(rollbackFor = Exception.class)
     public int deleteTableByTableIds(Long[] tableIds) {
         tableColumnMapper.deleteTableColumnByTableIds(tableIds);
-        return tableMapper.deleteTableByTableIds(tableIds);
+        return tableMapper.deleteByIds(tableIds);
     }
 
     /**
@@ -157,13 +171,13 @@ public class GenTableServiceImpl implements GenTableService {
         var tableList = Stream.of(tableNames).map(tableMapper::selectDatabaseTableByTableName).toList();
         tableList.forEach(table -> {
             TableUtils.initTable(table);
-            rows.addAndGet(tableMapper.insertTable(table));
+            rows.addAndGet(tableMapper.insertSelective(table));
             if (rows.get() > 0) {
                 var tableColumnList = tableColumnMapper.selectDatabaseTableColumnListByTableName(table.getTableName());
                 tableColumnList.forEach(tableColumn -> {
                     tableColumn.setTableId(table.getTableId());
                     TableColumnUtils.initTableColumn(tableColumn);
-                    tableColumnMapper.insertTableColumn(tableColumn);
+                    tableColumnMapper.insertSelective(tableColumn);
                 });
             }
         });
@@ -179,8 +193,10 @@ public class GenTableServiceImpl implements GenTableService {
     @Override
     public Map<String, String> previewCode(Long tableId) {
         var data = new LinkedHashMap<String, String>();
-        var table = tableMapper.selectTableByTableId(tableId);
-        table.setTableColumnList(tableColumnMapper.selectTableColumnListByTableId(tableId));
+        var table = tableMapper.selectById(tableId);
+        Assert.isNull(table, "预览失败, 未找到[{}]表信息", tableId);
+        List<GenTableColumn> tableColumnList = tableColumnMapper.selectTableColumnListByTableId(tableId);
+        table.setTableColumnList(tableColumnList);
         VelocityInitializer.initVelocity();
         var context = VelocityUtils.prepareContext(table);
         var templateList = VelocityUtils.getTemplateList(table.getLanguageType(), table.getOrmType());
@@ -340,16 +356,14 @@ public class GenTableServiceImpl implements GenTableService {
             .toList().forEach(it -> {
                 it.setTableId(table.getTableId());
                 TableColumnUtils.initTableColumn(it);
-                rows.addAndGet(tableColumnMapper.insertTableColumn(it));
+                rows.addAndGet(tableColumnMapper.insertSelective(it));
             });
 
         // 删除表字段
         tableColumnList.stream()
             .filter(tableColumn -> databaseTableColumnList.stream()
                 .noneMatch(databaseTableColumn -> tableColumn.getColumnName().equals(databaseTableColumn.getColumnName())))
-            .toList().forEach(it -> {
-                rows.addAndGet(tableColumnMapper.deleteTableColumnByColumnId(it.getColumnId()));
-            });
+            .toList().forEach(it -> rows.addAndGet(tableColumnMapper.deleteById(it.getColumnId())));
 
         // 更新表字段
         tableColumnList.stream()
@@ -357,7 +371,7 @@ public class GenTableServiceImpl implements GenTableService {
                 .filter(it -> hasUpdated(tableColumn, it))
                 .findFirst().orElse(null))
             .filter(Objects::nonNull)
-            .forEach(it -> rows.addAndGet(tableColumnMapper.updateTableColumnByColumnId(it)));
+            .forEach(it -> rows.addAndGet(tableColumnMapper.updateSelective(it)));
 
         return rows.get();
     }

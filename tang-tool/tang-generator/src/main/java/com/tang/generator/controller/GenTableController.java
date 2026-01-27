@@ -49,7 +49,7 @@ public class GenTableController {
      * @param table 代码生成对象
      * @return 代码生成列表
      */
-    @PreAuthorize("@auth.hasPermission('tool:generator:list')")
+//    @PreAuthorize("@auth.hasPermission('tool:generator:list')")
     @GetMapping("/list")
     public PageResult list(GenTable table) {
         PageUtils.startPage();
@@ -63,7 +63,7 @@ public class GenTableController {
      * @param table 代码生成对象
      * @return 表列表
      */
-    @PreAuthorize("@auth.hasPermission('tool:generator:list')")
+//    @PreAuthorize("@auth.hasPermission('tool:generator:list')")
     @GetMapping("/table/list")
     public PageResult listDatabaseTable(GenTable table) {
         PageUtils.startPage();
@@ -83,6 +83,19 @@ public class GenTableController {
         var table = tableService.selectTableByTableId(tableId);
         var list = tableColumnService.selectTableColumnListByTableId(tableId);
         return AjaxResult.success(Map.of("table", table, "tableColumn", list));
+    }
+
+    /**
+     * 查询表名是否存在
+     *
+     * @param tableName 表名称
+     * @return 是否存在
+     */
+    @PreAuthorize("@auth.hasPermission('tool:generator:list')")
+    @GetMapping("/table/exists/{tableName}")
+    public AjaxResult checkTableNameExists(@PathVariable String tableName) {
+        var tableNameExists = tableService.checkTableNameUnique(tableName);
+        return AjaxResult.success(tableNameExists);
     }
 
     /**

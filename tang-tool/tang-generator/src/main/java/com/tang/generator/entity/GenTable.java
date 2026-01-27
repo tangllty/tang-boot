@@ -3,6 +3,7 @@ package com.tang.generator.entity;
 import java.util.List;
 
 import com.tang.commons.base.entity.BaseEntity;
+import com.tang.kite.annotation.Column;
 
 /**
  * 代码生成表 gen_table 实体类
@@ -77,6 +78,7 @@ public class GenTable extends BaseEntity {
     /**
      * 表字段列表
      */
+    @Column(ignore = true)
     private List<GenTableColumn> tableColumnList;
 
 

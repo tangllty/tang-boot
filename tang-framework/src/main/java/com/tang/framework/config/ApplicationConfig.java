@@ -1,6 +1,7 @@
 package com.tang.framework.config;
 
 import de.codecentric.boot.admin.server.config.EnableAdminServer;
+import org.apache.ibatis.annotations.Mapper;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableAsync;
@@ -15,6 +16,6 @@ import org.springframework.stereotype.Indexed;
 @EnableAsync
 @Indexed
 @Configuration
-@MapperScan("com.tang.**.mapper")
+@MapperScan(value = "com.tang.**.mapper", annotationClass = Mapper.class)
 public class ApplicationConfig {
 }
