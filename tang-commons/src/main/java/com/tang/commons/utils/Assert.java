@@ -4,6 +4,7 @@ import java.util.Objects;
 import java.util.function.Supplier;
 
 import com.tang.commons.exception.AssertException;
+import org.jetbrains.annotations.Contract;
 
 /**
  * 断言工具类，符合条件时抛出异常
@@ -20,6 +21,7 @@ public class Assert {
      *
      * @param expression 表达式
      */
+    @Contract(value = "true -> fail", pure = true)
     public static void isTrue(boolean expression) {
         isTrue(expression, "表达式为 True");
     }
@@ -30,6 +32,7 @@ public class Assert {
      * @param expression 表达式
      * @param message    异常信息
      */
+    @Contract(value = "true, _ -> fail", pure = true)
     public static void isTrue(boolean expression, String message) {
         isTrue(expression, new AssertException(message));
     }
@@ -43,6 +46,7 @@ public class Assert {
      *
      * @see StringUtils#format(String, Object...)
      */
+    @Contract(value = "true, _, _ -> fail", pure = true)
     public static void isTrue(boolean expression, String message, Object... args) {
         isTrue(expression, new AssertException(StringUtils.format(message, args)));
     }
@@ -53,6 +57,7 @@ public class Assert {
      * @param expression 表达式
      * @param cause      异常
      */
+    @Contract(value = "true, _ -> fail", pure = true)
     public static void isTrue(boolean expression, RuntimeException cause) {
         isTrue(expression, () -> cause);
     }
@@ -63,6 +68,7 @@ public class Assert {
      * @param expression 表达式
      * @param cause      异常
      */
+    @Contract(value = "true, _ -> fail", pure = true)
     public static void isTrue(boolean expression, Supplier<? extends RuntimeException> cause) {
         if (expression) {
             throw cause.get();
@@ -74,6 +80,7 @@ public class Assert {
      *
      * @param expression 表达式
      */
+    @Contract(value = "false -> fail", pure = true)
     public static void isFalse(boolean expression) {
         isFalse(expression, "表达式为 False");
     }
@@ -84,6 +91,7 @@ public class Assert {
      * @param expression 表达式
      * @param message    异常信息
      */
+    @Contract(value = "false, _ -> fail", pure = true)
     public static void isFalse(boolean expression, String message) {
         isFalse(expression, new AssertException(message));
     }
@@ -97,6 +105,7 @@ public class Assert {
      *
      * @see StringUtils#format(String, Object...)
      */
+    @Contract(value = "false, _, _ -> fail", pure = true)
     public static void isFalse(boolean expression, String message, Object... args) {
         isFalse(expression, new AssertException(StringUtils.format(message, args)));
     }
@@ -107,6 +116,7 @@ public class Assert {
      * @param expression 表达式
      * @param cause      异常
      */
+    @Contract(value = "false, _ -> fail", pure = true)
     public static void isFalse(boolean expression, RuntimeException cause) {
         isFalse(expression, () -> cause);
     }
@@ -117,6 +127,7 @@ public class Assert {
      * @param expression 表达式
      * @param cause      异常
      */
+    @Contract(value = "false, _ -> fail", pure = true)
     public static void isFalse(boolean expression, Supplier<? extends RuntimeException> cause) {
         if (!expression) {
             throw cause.get();
@@ -128,6 +139,7 @@ public class Assert {
      *
      * @param object 对象
      */
+    @Contract(value = "null -> fail", pure = true)
     public static void isNull(Object object) {
         isNull(object, "对象为 Null");
     }
@@ -138,6 +150,7 @@ public class Assert {
      * @param object  对象
      * @param message 异常信息
      */
+    @Contract(value = "null, _ -> fail", pure = true)
     public static void isNull(Object object, String message) {
         isNull(object, new AssertException(message));
     }
@@ -151,6 +164,7 @@ public class Assert {
      *
      * @see StringUtils#format(String, Object...)
      */
+    @Contract(value = "null, _, _ -> fail", pure = true)
     public static void isNull(Object object, String message, Object... args) {
         isNull(object, new AssertException(StringUtils.format(message, args)));
     }
@@ -161,6 +175,7 @@ public class Assert {
      * @param object 对象
      * @param cause  异常
      */
+    @Contract(value = "null, _ -> fail", pure = true)
     public static void isNull(Object object, RuntimeException cause) {
         isNull(object, () -> cause);
     }
@@ -171,6 +186,7 @@ public class Assert {
      * @param object 对象
      * @param cause  异常
      */
+    @Contract(value = "null, _ -> fail", pure = true)
     public static void isNull(Object object, Supplier<? extends RuntimeException> cause) {
         if (Objects.isNull(object)) {
             throw cause.get();
@@ -182,6 +198,7 @@ public class Assert {
      *
      * @param object 对象
      */
+    @Contract(value = "!null -> fail", pure = true)
     public static void nonNull(Object object) {
         nonNull(object, "对象不为 Null");
     }
@@ -192,6 +209,7 @@ public class Assert {
      * @param object  对象
      * @param message 异常信息
      */
+    @Contract(value = "!null, _ -> fail", pure = true)
     public static void nonNull(Object object, String message) {
         nonNull(object, new AssertException(message));
     }
@@ -205,6 +223,7 @@ public class Assert {
      *
      * @see StringUtils#format(String, Object...)
      */
+    @Contract(value = "!null, _, _ -> fail", pure = true)
     public static void nonNull(Object object, String message, Object... args) {
         nonNull(object, new AssertException(StringUtils.format(message, args)));
     }
@@ -215,6 +234,7 @@ public class Assert {
      * @param object 对象
      * @param cause  异常
      */
+    @Contract(value = "!null, _ -> fail", pure = true)
     public static void nonNull(Object object, RuntimeException cause) {
         nonNull(object, () -> cause);
     }
@@ -225,6 +245,7 @@ public class Assert {
      * @param object 对象
      * @param cause  异常
      */
+    @Contract(value = "!null, _ -> fail", pure = true)
     public static void nonNull(Object object, Supplier<? extends RuntimeException> cause) {
         if (Objects.nonNull(object)) {
             throw cause.get();

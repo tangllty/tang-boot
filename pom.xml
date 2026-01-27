@@ -116,6 +116,14 @@
                 <version>${kotlin.version}</version>
             </dependency>
 
+            <!-- https://mvnrepository.com/artifact/org.jetbrains/annotations -->
+            <dependency>
+                <groupId>org.jetbrains</groupId>
+                <artifactId>annotations</artifactId>
+                <version>26.0.2</version>
+                <scope>compile</scope>
+            </dependency>
+
             <!-- https://mvnrepository.com/artifact/org.mybatis/mybatis -->
             <dependency>
                 <groupId>org.mybatis</groupId>

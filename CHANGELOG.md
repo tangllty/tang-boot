@@ -38,6 +38,7 @@
  * Add `ExcelConfig` annotation for set main title and some style
  * Support page menu
  * Refactor tree structure handling to support generic types and enhance tree building methods
+ * Add `JetBrains` annotations to `Assert` methods for improved contract validation
 
 ## 1.6.6
 
